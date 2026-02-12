@@ -1,4 +1,10 @@
 /**
+ * Release: v1.0.0
+ * Fecha: Febrero 2026
+ * Estado: Producción estable
+ */
+
+/**
  * Indicators Service for CalculadorasChile
  * Fetches real-time data from mindicador.cl
  * P1: Added localStorage cache and validation

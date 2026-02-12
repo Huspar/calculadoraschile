@@ -1,4 +1,10 @@
 /**
+ * Release: v1.0.0
+ * Fecha: Febrero 2026
+ * Estado: Producción estable
+ */
+
+/**
  * Forensic Salary Calculator Engine (2026 Edition)
  * Refactored to use centralized constants.
  */
@@ -62,152 +68,164 @@ class ForensicSalaryCalculator {
     }
 
     calculate() {
-        // Robust Constants Logic: Window -> Global -> Default
-        let C = DEFAULT_CONSTANTS;
+        try {
+            // Robust Constants Logic: Window -> Global -> Default
+            let C = DEFAULT_CONSTANTS;
 
-        // Potential source of constants
-        const candidateC = (typeof window !== 'undefined' && window.CONSTANTS) ? window.CONSTANTS :
-            ((typeof global !== 'undefined' && global.CONSTANTS) ? global.CONSTANTS :
-                ((typeof CONSTANTS !== 'undefined') ? CONSTANTS : null));
+            // Potential source of constants
+            const candidateC = (typeof window !== 'undefined' && window.CONSTANTS) ? window.CONSTANTS :
+                ((typeof global !== 'undefined' && global.CONSTANTS) ? global.CONSTANTS :
+                    ((typeof CONSTANTS !== 'undefined') ? CONSTANTS : null));
 
-        if (candidateC) {
-            // Paranoid Check: Only use candidate if it has valid numbers for critical indicators
-            // This prevents issues where API might set UF to undefined/null or NaN
-            const isValid = (val) => typeof val === 'number' && !isNaN(val) && val > 0;
+            if (candidateC) {
+                // Paranoid Check: Only use candidate if it has valid numbers for critical indicators
+                // This prevents issues where API might set UF to undefined/null or NaN
+                const isValid = (val) => typeof val === 'number' && !isNaN(val) && val > 0;
 
-            if (isValid(candidateC.UF) && isValid(candidateC.UTM) && isValid(candidateC.IMM)) {
-                C = candidateC;
-            } else {
-                console.warn('Detected corrupted/invalid Global Constants. Reverting to Defaults.', candidateC);
-            }
-        }
-
-        // Final safety check for Brackets (API usually doesn't update these, but good to be safe)
-        if (!C.TAX_BRACKETS || !Array.isArray(C.TAX_BRACKETS)) {
-            console.warn('Missing TAX_BRACKETS in Constants. Using Defaults.');
-            C.TAX_BRACKETS = DEFAULT_CONSTANTS.TAX_BRACKETS;
-        }
-
-        // PASO 1: Calcular Sueldo Imponible Base
-        const baseSalary = this.baseSalary;
-        const overtimeAmount = Math.round(this.baseSalary * C.FACTOR_HORA_EXTRA_42H * this.overtimeHours);
-        const bonusAmount = this.bonusAmount;
-
-        // Gratification
-        let gratification = 0;
-        if (this.gratificationType === 'manual') {
-            gratification = this.gratificationAmount;
-        } else if (this.gratificationType === 'legal_tope') {
-            const monthlyCap = Math.round((C.TOPE_GRATIFICACION * C.IMM) / 12);
-            const baseForGrat = baseSalary + overtimeAmount + bonusAmount;
-            const theoretical25 = Math.round(baseForGrat * 0.25);
-            gratification = Math.min(theoretical25, monthlyCap);
-        }
-
-        const totalTaxable = baseSalary + gratification + overtimeAmount + bonusAmount;
-
-        // PASO 2: Restar descuentos IMPONIBLES (CCAF, APV)
-        // Reducen la base tributable.
-        const taxableForTax = totalTaxable - this.ccafAmount - this.apvAmount;
-
-        // Caps Logic (Standard: Caps apply to RAW Taxable, unrelated to CCAF/APV usually, but we follow strict logic)
-        const capValueHealthAFP = Math.round(C.TOPE_IMPONIBLE_AFP * C.UF);
-        const capValueAFC = Math.round(C.TOPE_IMPONIBLE_CESANTIA * C.UF);
-
-        // CCAF/APV Feature Flag: decide base for social security contributions
-        // Option A (default, flag OFF): AFP/Salud on totalTaxable (topeado) — standard
-        // Option B (flag ON): AFP/Salud on taxableForTax (reduced by CCAF/APV) — strict/alternative
-        const ssBase = this.reduceSocialSecurityBase ? taxableForTax : totalTaxable;
-        const taxableForSocialSecurity = Math.min(ssBase, capValueHealthAFP);
-        const taxableForAFC = Math.min(totalTaxable, capValueAFC); // AFC siempre sobre totalTaxable
-
-        // PASO 3: Descuento AFP
-        const afpRate = C.AFP_RATES[this.afpName] || C.AFP_RATES['Modelo'];
-        const afpAmount = Math.round(taxableForSocialSecurity * afpRate);
-
-        // PASO 4: Descuento Salud
-        let healthAmount = 0;
-        const legal7 = Math.round(taxableForSocialSecurity * C.SALUD_LEGAL);
-        if (this.healthSystem === 'fonasa') {
-            healthAmount = legal7;
-        } else {
-            const planCost = Math.round(this.isapreUF * C.UF);
-            healthAmount = Math.max(legal7, planCost);
-        }
-
-        // AFC
-        let afcAmount = 0;
-        if (this.contractType === 'indefinido') {
-            // AFC worker part is calculated on taxableForAFC (usually max 122.6 or 135.1 UF)
-            // If taxableForTax is reduced by CCAF, should AFC be reduced? Usually no. AFC is on contractual taxable.
-            // I will use totalTaxable for AFC cap check, to be safer/standard.
-            afcAmount = Math.round(Math.min(totalTaxable, capValueAFC) * C.AFC_INDEFINIDO_WORKER);
-        }
-
-        // PASO 5: Impuesto Único
-        // Base = Imponible Ajustado - (AFP + Salud + AFC)
-        // Imponible Ajustado ya tiene descontado CCAF y APV.
-        const taxBase = Math.max(0, taxableForTax - afpAmount - healthAmount - afcAmount);
-
-        let taxAmount = 0;
-        // Configuration-based Tax Calculation
-        if (C.TAX_BRACKETS) {
-            for (const bracket of C.TAX_BRACKETS) {
-                if (taxBase <= bracket.limit) {
-                    taxAmount = (taxBase * bracket.factor) - bracket.rebate;
-                    break;
+                if (isValid(candidateC.UF) && isValid(candidateC.UTM) && isValid(candidateC.IMM)) {
+                    C = candidateC;
+                } else {
+                    console.warn('Detected corrupted/invalid Global Constants. Reverting to Defaults.', candidateC);
                 }
             }
-        }
-        taxAmount = Math.max(0, Math.round(taxAmount));
 
-        // PASO 6: Sueldo Líquido
-        // Net = Total Taxable - CCAF - APV - AFP - Health - AFC - Tax + NonTaxable - NonTaxableDiscounts
-        let netSalary = totalTaxable
-            - this.ccafAmount
-            - this.apvAmount
-            - afpAmount
-            - healthAmount
-            - afcAmount
-            - taxAmount;
-
-        const totalNonTaxableIncome = this.colacion + this.movilizacion + this.viaticos;
-        netSalary += totalNonTaxableIncome;
-
-        // PASO 7: Restar descuentos NO IMPONIBLES
-        netSalary -= this.prestamos;
-        netSalary -= this.pension;
-        netSalary -= this.sindicato;
-        netSalary -= this.otrosDescuentos;
-
-        return {
-            economics: { UF: C.UF, UTM: C.UTM, IMM: C.IMM },
-            details: {
-                baseSalary,
-                overtimeAmount,
-                gratification,
-                bonusAmount,
-                totalTaxable,
-
-                ccafAmount: this.ccafAmount,
-                apvAmount: this.apvAmount,
-
-                afpAmount,
-                healthAmount,
-                afcAmount,
-                taxBase,
-                taxAmount,
-
-                totalNonTaxableIncome,
-
-                prestamos: this.prestamos,
-                pension: this.pension,
-                sindicato: this.sindicato,
-                otrosDescuentos: this.otrosDescuentos,
-
-                netSalary: Math.round(netSalary)
+            // Final safety check for Brackets (API usually doesn't update these, but good to be safe)
+            if (!C.TAX_BRACKETS || !Array.isArray(C.TAX_BRACKETS)) {
+                console.warn('Missing TAX_BRACKETS in Constants. Using Defaults.');
+                C.TAX_BRACKETS = DEFAULT_CONSTANTS.TAX_BRACKETS;
             }
-        };
+
+            // PASO 1: Calcular Sueldo Imponible Base
+            const baseSalary = this.baseSalary;
+            const overtimeAmount = Math.round(this.baseSalary * C.FACTOR_HORA_EXTRA_42H * this.overtimeHours);
+            const bonusAmount = this.bonusAmount;
+
+            // Gratification
+            let gratification = 0;
+            if (this.gratificationType === 'manual') {
+                gratification = this.gratificationAmount;
+            } else if (this.gratificationType === 'legal_tope') {
+                const monthlyCap = Math.round((C.TOPE_GRATIFICACION * C.IMM) / 12);
+                const baseForGrat = baseSalary + overtimeAmount + bonusAmount;
+                const theoretical25 = Math.round(baseForGrat * 0.25);
+                gratification = Math.min(theoretical25, monthlyCap);
+            }
+
+            const totalTaxable = baseSalary + gratification + overtimeAmount + bonusAmount;
+
+            // PASO 2: Restar descuentos IMPONIBLES (CCAF, APV)
+            // Reducen la base tributable.
+            const taxableForTax = totalTaxable - this.ccafAmount - this.apvAmount;
+
+            // Caps Logic (Standard: Caps apply to RAW Taxable, unrelated to CCAF/APV usually, but we follow strict logic)
+            const capValueHealthAFP = Math.round(C.TOPE_IMPONIBLE_AFP * C.UF);
+            const capValueAFC = Math.round(C.TOPE_IMPONIBLE_CESANTIA * C.UF);
+
+            // CCAF/APV Feature Flag: decide base for social security contributions
+            // Option A (default, flag OFF): AFP/Salud on totalTaxable (topeado) — standard
+            // Option B (flag ON): AFP/Salud on taxableForTax (reduced by CCAF/APV) — strict/alternative
+            const ssBase = this.reduceSocialSecurityBase ? taxableForTax : totalTaxable;
+            const taxableForSocialSecurity = Math.min(ssBase, capValueHealthAFP);
+            const taxableForAFC = Math.min(totalTaxable, capValueAFC); // AFC siempre sobre totalTaxable
+
+            // PASO 3: Descuento AFP
+            const afpRate = C.AFP_RATES[this.afpName] || C.AFP_RATES['Modelo'];
+            const afpAmount = Math.round(taxableForSocialSecurity * afpRate);
+
+            // PASO 4: Descuento Salud
+            let healthAmount = 0;
+            const legal7 = Math.round(taxableForSocialSecurity * C.SALUD_LEGAL);
+            if (this.healthSystem === 'fonasa') {
+                healthAmount = legal7;
+            } else {
+                const planCost = Math.round(this.isapreUF * C.UF);
+                healthAmount = Math.max(legal7, planCost);
+            }
+
+            // AFC
+            let afcAmount = 0;
+            if (this.contractType === 'indefinido') {
+                // AFC worker part is calculated on taxableForAFC (usually max 122.6 or 135.1 UF)
+                // If taxableForTax is reduced by CCAF, should AFC be reduced? Usually no. AFC is on contractual taxable.
+                // I will use totalTaxable for AFC cap check, to be safer/standard.
+                afcAmount = Math.round(Math.min(totalTaxable, capValueAFC) * C.AFC_INDEFINIDO_WORKER);
+            }
+
+            // PASO 5: Impuesto Único
+            // Base = Imponible Ajustado - (AFP + Salud + AFC)
+            // Imponible Ajustado ya tiene descontado CCAF y APV.
+            const taxBase = Math.max(0, taxableForTax - afpAmount - healthAmount - afcAmount);
+
+            let taxAmount = 0;
+            // Configuration-based Tax Calculation
+            if (C.TAX_BRACKETS) {
+                for (const bracket of C.TAX_BRACKETS) {
+                    if (taxBase <= bracket.limit) {
+                        taxAmount = (taxBase * bracket.factor) - bracket.rebate;
+                        break;
+                    }
+                }
+            }
+            taxAmount = Math.max(0, Math.round(taxAmount));
+
+            // PASO 6: Sueldo Líquido
+            // Net = Total Taxable - CCAF - APV - AFP - Health - AFC - Tax + NonTaxable - NonTaxableDiscounts
+            let netSalary = totalTaxable
+                - this.ccafAmount
+                - this.apvAmount
+                - afpAmount
+                - healthAmount
+                - afcAmount
+                - taxAmount;
+
+            const totalNonTaxableIncome = this.colacion + this.movilizacion + this.viaticos;
+            netSalary += totalNonTaxableIncome;
+
+            // PASO 7: Restar descuentos NO IMPONIBLES
+            netSalary -= this.prestamos;
+            netSalary -= this.pension;
+            netSalary -= this.sindicato;
+            netSalary -= this.otrosDescuentos;
+
+            return {
+                economics: { UF: C.UF, UTM: C.UTM, IMM: C.IMM },
+                details: {
+                    baseSalary,
+                    overtimeAmount,
+                    gratification,
+                    bonusAmount,
+                    totalTaxable,
+
+                    ccafAmount: this.ccafAmount,
+                    apvAmount: this.apvAmount,
+
+                    afpAmount,
+                    healthAmount,
+                    afcAmount,
+                    taxBase,
+                    taxAmount,
+
+                    totalNonTaxableIncome,
+
+                    prestamos: this.prestamos,
+                    pension: this.pension,
+                    sindicato: this.sindicato,
+                    otrosDescuentos: this.otrosDescuentos,
+
+                    netSalary: Math.round(netSalary)
+                }
+            };
+        } catch (e) {
+            console.error('Error en cálculo de sueldo:', e);
+            if (typeof window !== 'undefined') {
+                window.__lastCalculatorError = {
+                    message: e.message,
+                    stack: e.stack,
+                    timestamp: new Date().toISOString()
+                };
+            }
+            throw e;
+        }
     }
 }
 

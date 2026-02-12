@@ -1,4 +1,10 @@
 /**
+ * Release: v1.0.0
+ * Fecha: Febrero 2026
+ * Estado: Producción estable
+ */
+
+/**
  * UI Controller for Sueldo Líquido Calculator (Phase 2 Enhanced)
  * Connects inputs to ForensicSalaryCalculator
  */

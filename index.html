@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-version" content="1.0.0">
     <meta name="description"
         content="Herramientas gratuitas para trabajadores en Chile 2026. Calcula tu sueldo líquido y tu finiquito con explicación clara de cada descuento.">
-    <title>Calculadoras Chile - Entiende tu sueldo y tu finiquito en Chile</title>
+    <title>CalculadorasChile.cl - Entiende tu sueldo y tu finiquito en Chile</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,6 +133,26 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
         }
+
+        /* Dashboard Preview Panel */
+        .dash-panel {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.65) 0%, rgba(30, 41, 59, 0.45) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .dash-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .dash-glow {
+            background: radial-gradient(circle at 50% 80%,
+                    rgba(59, 130, 246, 0.12),
+                    transparent 65%);
+        }
     </style>
 </head>
 
@@ -255,14 +276,93 @@
                 <!-- Main Card Stack -->
                 <div class="relative w-full h-full flex items-center justify-center">
 
-                    <!-- Back Card (Blurry) -->
+                    <!-- Dashboard Preview Panel (Background) -->
                     <div
-                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[60%] w-[380px] h-[450px] bg-slate-800/50 rounded-3xl border border-white/5 rotate-[-6deg] scale-90 blur-[2px]">
-                    </div>
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[60%] w-[400px] h-[470px] dash-panel rounded-3xl border border-white/[0.04] rotate-[-8deg] scale-[0.95] shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden opacity-55 pointer-events-none">
+                        <!-- Blueprint Grid Overlay -->
+                        <div class="absolute inset-0 dash-grid"></div>
+                        <!-- Internal Glow -->
+                        <div class="absolute inset-0 dash-glow"></div>
 
-                    <!-- Middle Card -->
-                    <div
-                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[55%] w-[380px] h-[450px] bg-slate-800/80 rounded-3xl border border-white/10 rotate-[-3deg] scale-95 shadow-2xl">
+                        <!-- Faux Title Bar -->
+                        <div class="relative p-4 border-b border-white/5 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5">
+                                <div class="w-2 h-2 rounded-full bg-red-500/40"></div>
+                                <div class="w-2 h-2 rounded-full bg-yellow-500/40"></div>
+                                <div class="w-2 h-2 rounded-full bg-green-500/40"></div>
+                            </div>
+                            <span class="text-[9px] text-slate-500 font-medium tracking-wider uppercase">Panel de
+                                Herramientas</span>
+                            <div class="w-12"></div>
+                        </div>
+
+                        <!-- Mini-Cards Grid -->
+                        <div class="relative p-4 grid grid-cols-2 gap-3">
+                            <!-- Sueldo Líquido -->
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 space-y-1.5">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                                    <span class="text-[10px] text-white/60 font-semibold">Sueldo Líquido</span>
+                                </div>
+                                <p class="text-[9px] text-slate-600">Descuentos y haberes</p>
+                                <div class="h-1 w-full bg-slate-700/50 rounded-full overflow-hidden mt-1">
+                                    <div class="h-full bg-blue-500/40 w-[72%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <!-- Finiquito -->
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 space-y-1.5">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                                    <span class="text-[10px] text-white/60 font-semibold">Finiquito</span>
+                                </div>
+                                <p class="text-[9px] text-slate-600">Indemnizaciones</p>
+                                <div class="h-1 w-full bg-slate-700/50 rounded-full overflow-hidden mt-1">
+                                    <div class="h-full bg-purple-500/40 w-[55%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <!-- Horas Extra -->
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 space-y-1.5">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/60"></span>
+                                    <span class="text-[10px] text-white/60 font-semibold">Horas Extra</span>
+                                </div>
+                                <p class="text-[9px] text-slate-600">Recargos legales</p>
+                                <div class="h-1 w-full bg-slate-700/50 rounded-full overflow-hidden mt-1">
+                                    <div class="h-full bg-emerald-500/30 w-[40%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <!-- UF / UTM -->
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 space-y-1.5">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                    <span class="text-[10px] text-white/60 font-semibold">UF / UTM</span>
+                                </div>
+                                <p class="text-[9px] text-slate-600">Indicadores hoy</p>
+                                <div class="h-1 w-full bg-slate-700/50 rounded-full overflow-hidden mt-1">
+                                    <div class="h-full bg-slate-400/30 w-[88%] rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Mini Chart -->
+                        <div class="relative px-4 pb-4">
+                            <div class="bg-white/[0.03] border border-white/5 rounded-xl p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[9px] text-slate-600 font-medium">Resumen Mensual</span>
+                                    <span class="text-[9px] text-emerald-400/60">+2.4%</span>
+                                </div>
+                                <div class="flex items-end gap-1 h-8">
+                                    <div class="flex-1 bg-blue-500/20 rounded-sm" style="height: 45%"></div>
+                                    <div class="flex-1 bg-blue-500/25 rounded-sm" style="height: 60%"></div>
+                                    <div class="flex-1 bg-blue-500/20 rounded-sm" style="height: 35%"></div>
+                                    <div class="flex-1 bg-blue-500/30 rounded-sm" style="height: 75%"></div>
+                                    <div class="flex-1 bg-blue-500/25 rounded-sm" style="height: 55%"></div>
+                                    <div class="flex-1 bg-blue-500/35 rounded-sm" style="height: 90%"></div>
+                                    <div class="flex-1 bg-purple-500/25 rounded-sm" style="height: 70%"></div>
+                                    <div class="flex-1 bg-purple-500/30 rounded-sm" style="height: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Front Card (Hero) -->
@@ -437,8 +537,8 @@
             <div class="flex flex-col md:flex-row">
                 <!-- Guide Image -->
                 <div class="md:w-2/5 aspect-video md:aspect-auto relative overflow-hidden bg-slate-900">
-                    <img src="assets/guia-vacaciones-proporcionales.png"
-                        alt="Ilustración de calendario y documento laboral que representa el cálculo de vacaciones proporcionales en Chile"
+                    <img src="assets/guia-vacaciones-proporcionales-cover.png"
+                        alt="Panel de cálculo de vacaciones proporcionales mostrando 0 días tras cumplir un año laboral"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <!-- Text Content -->
@@ -475,8 +575,8 @@
             <a href="guia-vacaciones-proporcionales.html" class="group block">
                 <article>
                     <div class="rounded-xl overflow-hidden aspect-video bg-slate-800 mb-4 relative">
-                        <img src="assets/guia-vacaciones-proporcionales.png"
-                            alt="Guía sobre vacaciones proporcionales en Chile"
+                        <img src="assets/guia-vacaciones-proporcionales-cover.png"
+                            alt="Panel de cálculo de vacaciones proporcionales mostrando 0 días tras cumplir un año laboral"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
                         <div class="absolute bottom-4 left-4">
@@ -639,6 +739,8 @@
                         <li><a href="terminos.html" class="hover:text-blue-400 transition-colors">Términos de Uso</a>
                         </li>
                         <li><a href="disclaimer.html" class="hover:text-blue-400 transition-colors">Disclaimer</a></li>
+                        <li><a href="sobre-nosotros.html" class="hover:text-blue-400 transition-colors">Sobre
+                                Nosotros</a></li>
                     </ul>
                 </div>
 
@@ -656,12 +758,13 @@
             <div
                 class="border-t border-white/5 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
                 <p class="text-slate-600 text-xs">
-                    © 2026 Calculadoras Chile. Todos los derechos reservados.
+                    © 2026 CalculadorasChile.cl. Todos los derechos reservados.
                 </p>
                 <p class="text-slate-800 text-[10px] mt-2 md:mt-0">
                     Diseñado con ❤️ en Chile
                 </p>
             </div>
+            <p class="text-xs text-slate-500 mt-4">Versión 1.0 — Febrero 2026</p>
         </div>
     </footer>
 

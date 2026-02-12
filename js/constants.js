@@ -1,4 +1,10 @@
 /**
+ * Release: v1.0.0
+ * Fecha: Febrero 2026
+ * Estado: Producción estable
+ */
+
+/**
  * Centralized Economic Constants for CalculadorasChile
  * Values updated for February 2026
  */

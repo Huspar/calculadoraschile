@@ -1,3 +1,9 @@
+/**
+ * Release: v1.0.0
+ * Fecha: Febrero 2026
+ * Estado: Producción estable
+ */
+
 // DOM Interaction Script - depends on logic.js
 // VERSIÓN CORREGIDA - Encoding UTF-8 + Validaciones + Mejoras
 
@@ -462,6 +468,13 @@ function updateCalculations() {
 
     } catch (error) {
         console.error('Error en cálculo de finiquito:', error);
+        if (typeof window !== 'undefined') {
+            window.__lastFiniquitoError = {
+                message: error.message,
+                stack: error.stack,
+                timestamp: new Date().toISOString()
+            };
+        }
 
         // Show user-friendly error
         if (elements.totalAmount) {
