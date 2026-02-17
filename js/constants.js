@@ -5,7 +5,7 @@
  */
 
 /**
- * Centralized Economic Constants for CalculadorasChile
+ * Centralized Economic Constants for Cálculo Laboral
  * Values updated for February 2026
  */
 

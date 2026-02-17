@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.cause = document.getElementById('cause');
     elements.noticeGiven = document.getElementById('noticeGiven');
     elements.includeAssignmentsInVacation = document.getElementById('includeAssignmentsInVacation');
+    elements.includeAssignmentsInIndemnity = document.getElementById('includeAssignmentsInIndemnity');
 
     // Results
     elements.totalAmount = document.getElementById('totalAmount');
@@ -32,8 +33,34 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.noticeAmount = document.getElementById('noticeAmount');
     elements.vacationPropAmount = document.getElementById('vacationPropAmount');
     elements.vacationPendingAmount = document.getElementById('vacationPendingAmount');
+    elements.afcAmount = document.getElementById('afcAmount');
+    elements.afcRow = document.getElementById('afcRow');
     elements.antiquityOutput = document.getElementById('antiquityOutput');
     elements.totalVacationDaysOutput = document.getElementById('totalVacationDaysOutput');
+
+    // Advanced UI Hooks
+    elements.toggleAdvanced = document.getElementById('toggleAdvanced');
+    elements.advancedControls = document.getElementById('advancedControls');
+    elements.advancedIcon = document.getElementById('advancedIcon');
+    elements.ufCapValue = document.getElementById('ufCapValue');
+    elements.lastUpdateDate = document.getElementById('lastUpdateDate');
+
+    // Initialize UF Display and Dynamic Date
+    if (elements.ufCapValue) {
+        elements.ufCapValue.textContent = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(FINIQUITO_CONSTANTS.UF_VALOR * 90);
+    }
+    if (elements.lastUpdateDate) {
+        const now = new Date();
+        const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        elements.lastUpdateDate.textContent = `Última actualización normativa: ${months[now.getMonth()]} ${now.getFullYear()}`;
+    }
+
+    if (elements.toggleAdvanced) {
+        elements.toggleAdvanced.addEventListener('click', () => {
+            const isHidden = elements.advancedControls.classList.toggle('hidden');
+            elements.advancedIcon.textContent = isHidden ? 'expand_more' : 'expand_less';
+        });
+    }
 
     // New Pending Remuneration Outputs
     elements.pendingSalaryAmount = document.getElementById('pendingSalaryAmount');
@@ -60,6 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.varMonth3 = document.getElementById('varMonth3');
     elements.variableAverageOutput = document.getElementById('variableAverageOutput');
 
+    // Fetch Holidays from JSON
+    fetch('assets/holidays/holidays-2026.json')
+        .then(response => response.json())
+        .then(data => {
+            window.HOLIDAYS_LIST = data;
+            console.log('Holidays loaded:', data.length);
+        })
+        .catch(err => {
+            console.warn('Could not load holidays JSON, using fallback from constants:', err);
+            window.HOLIDAYS_LIST = FINIQUITO_CONSTANTS.HOLIDAYS_2026;
+        });
+
     // ============================================
     // EVENT LISTENERS
     // ============================================
@@ -70,7 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.gratification, elements.assignments, elements.vacationPending,
         elements.hasVariableSalary, elements.varMonth1, elements.varMonth2, elements.varMonth3
     ];
-    const selectInputs = [elements.cause, elements.noticeGiven, elements.includeAssignmentsInVacation];
+    const selectInputs = [
+        elements.cause, elements.noticeGiven,
+        elements.includeAssignmentsInVacation, elements.includeAssignmentsInIndemnity
+    ];
 
     const attachListener = (el, eventType) => {
         if (el) {
@@ -107,6 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.includeAssignmentsInVacation) attachListener(elements.includeAssignmentsInVacation, 'change');
     if (elements.startDate) attachListener(elements.startDate, 'change');
     if (elements.endDate) attachListener(elements.endDate, 'change');
+
+    // Advanced Toggles Listeners
+    if (elements.enableIAS) elements.enableIAS.addEventListener('change', updateCalculations);
+    if (elements.enableNotice) elements.enableNotice.addEventListener('change', updateCalculations);
+    if (elements.simulateAFC) elements.simulateAFC.addEventListener('change', updateCalculations);
 
     // ============================================
     // GRATIFICATION AUTO-CALC & CAP (2026 Rules)
@@ -341,7 +388,10 @@ function updateCalculations() {
             cause: elements.cause.value,
             noticeGiven: elements.noticeGiven.checked,
             includeAssignmentsInVacation: elements.includeAssignmentsInVacation ?
-                elements.includeAssignmentsInVacation.checked : true
+                elements.includeAssignmentsInVacation.checked : true,
+            includeAssignmentsInIndemnity: elements.includeAssignmentsInIndemnity ?
+                elements.includeAssignmentsInIndemnity.checked : true,
+            holidays: window.HOLIDAYS_LIST
         });
 
         const results = calculator.calculate();
@@ -374,11 +424,11 @@ function updateCalculations() {
         }
 
         if (elements.totalVacationDaysOutput) {
-            const vacDays = parseFloat(results.indemnities.vacation.totalCalendarDays);
+            const vacDays = parseFloat(results.vacationIndemnity.totalCalendarDays);
             const displayDays = isNaN(vacDays) ? "—" :
                 new Intl.NumberFormat('es-CL', { maximumFractionDigits: 2 }).format(vacDays);
-            elements.totalVacationDaysOutput.textContent = `${displayDays} días corridos`;
-            elements.totalVacationDaysOutput.title = results.indemnities.vacation.details;
+            elements.totalVacationDaysOutput.textContent = `${displayDays} días hábiles`; // User requested clarity on 'hábiles' vs 'corridos'
+            elements.totalVacationDaysOutput.title = results.vacationIndemnity.details;
         }
 
         // ============================================
@@ -387,19 +437,20 @@ function updateCalculations() {
 
         // Years of Service
         if (elements.yearsRow) {
-            if (results.indemnities.yearsOfService.total === 0) {
+            if (results.yearsOfServiceIndemnity.total === 0) {
                 elements.yearsRow.classList.add('opacity-50', 'line-through');
-                elements.yearsRow.title = "No aplica para esta causal";
+                elements.yearsRow.title = results.yearsOfServiceIndemnity.reason;
             } else {
                 elements.yearsRow.classList.remove('opacity-50', 'line-through');
-                elements.yearsRow.title = `${results.indemnities.yearsOfService.yearsUsed} años computados (Tope 11)`;
+                elements.yearsRow.title = `${results.yearsOfServiceIndemnity.yearsUsed} años computados (Tope 11)`;
             }
         }
 
         // Notice
         if (elements.noticeRow) {
-            if (results.indemnities.notice.total === 0) {
+            if (results.noticeIndemnity.total === 0) {
                 elements.noticeRow.classList.add('opacity-50', 'line-through');
+                elements.noticeRow.title = results.noticeIndemnity.reason;
             } else {
                 elements.noticeRow.classList.remove('opacity-50', 'line-through');
             }
@@ -409,7 +460,7 @@ function updateCalculations() {
         // VACATION EXPLANATION MESSAGE
         // ============================================
 
-        const currentVacProp = results.indemnities.vacation.proportionalTotal;
+        const currentVacProp = results.vacationIndemnity.proportionalTotal;
         const vacMsgId = 'vacationExplanationMsg';
         let existingMsg = document.getElementById(vacMsgId);
 

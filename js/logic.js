@@ -44,23 +44,36 @@ class FiniquitoCalculator {
         this.assignments = parseInt(data.assignments) || 0; // Colación + Movilización (Imponibles para Feriado)
         this.variableAverage = parseInt(data.variableAverage) || 0; // Promedio 3 últimos meses
 
-        // Totales calculados
-        // Base de cálculo IAS (Indemnización por Años de Servicio - Topada 90 UF)
-        this.taxableSalary = this.baseSalary + this.gratification + this.assignments + this.variableAverage;
-
-        // Base de cálculo Feriado (Remuneración Íntegra)
-        this.fullSalary = this.baseSalary + this.gratification + this.assignments + this.variableAverage;
-
         // Parámetros adicionales
         this.cause = data.cause || '161'; // Artículo del Código del Trabajo
         this.noticeGiven = data.noticeGiven || false; // Si se dio aviso previo
-        this.vacationDaysPending = parseFloat(data.vacationDaysPending) || 0; // Días hábiles pendientes
-        this.isExtremeZone = data.isExtremeZone || false; // Zona extrema (20 días vs 15 días)
-        this.ufValue = parseFloat(data.ufValue) || FINIQUITO_CONSTANTS.UF_VALOR;
+        this.enableIAS = data.enableIAS !== undefined ? data.enableIAS : true;
+        this.enableNotice = data.enableNotice !== undefined ? data.enableNotice : true;
+        this.simulateAFC = data.simulateAFC !== undefined ? data.simulateAFC : true;
+        this.holidays = Array.isArray(data.holidays) ? data.holidays : FINIQUITO_CONSTANTS.HOLIDAYS_2026;
+
+        // Toggle: incluir asignaciones en cálculo de indemnización (IAS / Aviso)
+        this.includeAssignmentsInIndemnity = data.includeAssignmentsInIndemnity !== undefined ?
+            data.includeAssignmentsInIndemnity : true;
 
         // Toggle: incluir asignaciones en cálculo de vacaciones
         this.includeAssignmentsInVacation = data.includeAssignmentsInVacation !== undefined ?
             data.includeAssignmentsInVacation : true;
+
+        // Totales calculados
+        // Base de cálculo IAS (Indemnización por Años de Servicio - Topada 90 UF)
+        // Por defecto NO incluye asignaciones (colación/movilización) para IAS/Aviso
+        this.taxableSalary = this.baseSalary + this.gratification + this.variableAverage +
+            (this.includeAssignmentsInIndemnity ? this.assignments : 0);
+
+        // Base de cálculo Feriado (Remuneración Íntegra)
+        // Por defecto SÍ las incluye según criterio común/judicial
+        this.fullSalary = this.baseSalary + this.gratification + this.variableAverage +
+            (this.includeAssignmentsInVacation ? this.assignments : 0);
+
+        this.vacationDaysPending = parseFloat(data.vacationDaysPending) || 0; // Días hábiles pendientes
+        this.isExtremeZone = data.isExtremeZone || false; // Zona extrema (20 días vs 15 días)
+        this.ufValue = parseFloat(data.ufValue) || FINIQUITO_CONSTANTS.UF_VALOR;
 
         // Factor de vacaciones según zona
         this.vacationFactor = this.isExtremeZone ?
@@ -95,6 +108,12 @@ class FiniquitoCalculator {
             vacationAmount.total +
             pendingRemuneration.total;
 
+        const indemnities = {
+            yearsOfService: yearsOfServiceAmount,
+            notice: noticeAmount,
+            vacation: vacationAmount
+        };
+
         return {
             serviceTime,
             economics: {
@@ -108,13 +127,39 @@ class FiniquitoCalculator {
                 salaryCap,
                 ufValue: this.ufValue
             },
-            indemnities: {
-                yearsOfService: yearsOfServiceAmount,
-                notice: noticeAmount,
-                vacation: vacationAmount
-            },
+            indemnities,
+            // Keep redundant for safety
+            yearsOfServiceIndemnity: yearsOfServiceAmount,
+            noticeIndemnity: noticeAmount,
+            vacationIndemnity: vacationAmount,
             pendingRemuneration,
+            afc: this.calculateAFCDeduction(serviceTime, cappedSalary),
             total
+        };
+    }
+
+    /**
+     * Calcula descuento AFC (Simulación)
+     * @param {Object} serviceTime - Información de tiempo servido
+     * @param {Number} cappedSalary - Sueldo base topado
+     * @returns {Object} Monto y detalles
+     */
+    calculateAFCDeduction(serviceTime, cappedSalary) {
+        if (!this.simulateAFC || this.cause !== '161') {
+            return { total: 0, applied: false };
+        }
+
+        // Estimación: 0.6% de remuneración mensual por el tiempo trabajado
+        // En la vida real depende del saldo exacto en la cuenta CIC
+        const estimatedContributionPerMonth = cappedSalary * 0.006;
+        const totalMonths = (serviceTime.years * 12) + serviceTime.months;
+        const total = Math.round(estimatedContributionPerMonth * totalMonths);
+
+        return {
+            total,
+            applied: true,
+            percentage: '0.6%',
+            reason: "Aporte empleador a cuenta individual (Estimado)"
         };
     }
 
@@ -192,11 +237,12 @@ class FiniquitoCalculator {
      */
     calculateYearsOfServiceIndemnity(serviceTime, cappedSalary) {
         // Solo aplica para despido sin causa justificada (Art. 161)
-        if (this.cause !== '161') {
+        // O si el usuario lo desactivó manualmente en modo avanzado
+        if (this.cause !== '161' || !this.enableIAS) {
             return {
                 total: 0,
                 applied: false,
-                reason: "Causal no aplica (Solo Art. 161)",
+                reason: !this.enableIAS ? "Desactivado por usuario" : "Causal no aplica (Solo Art. 161)",
                 yearsUsed: 0,
                 salaryUsed: 0
             };
@@ -220,12 +266,12 @@ class FiniquitoCalculator {
      * @returns {Object} Monto y detalles
      */
     calculateNoticeIndemnity(cappedSalary) {
-        // Solo aplica para Art. 161 sin aviso previo
-        if (this.cause !== '161') {
+        // Solo aplica para Art. 161 sin aviso previo y si está habilitado
+        if (this.cause !== '161' || !this.enableNotice) {
             return {
                 total: 0,
                 applied: false,
-                reason: "Causal no aplica (Solo Art. 161)"
+                reason: !this.enableNotice ? "Desactivado por usuario" : "Causal no aplica (Solo Art. 161)"
             };
         }
 
@@ -301,7 +347,7 @@ class FiniquitoCalculator {
         while (businessDaysCounter < totalBusinessDays && safetyCounter < 1000) {
             const isWeekend = currentDate.getUTCDay() === 0 || currentDate.getUTCDay() === 6;
             const dateString = currentDate.toISOString().split('T')[0];
-            const isHoliday = FINIQUITO_CONSTANTS.HOLIDAYS_2026.includes(dateString);
+            const isHoliday = this.holidays.includes(dateString);
 
             if (!isWeekend && !isHoliday) {
                 // Es día hábil
@@ -368,3 +414,15 @@ else if (typeof window !== 'undefined') {
     window.FiniquitoCalculator = FiniquitoCalculator;
     window.FINIQUITO_CONSTANTS = FINIQUITO_CONSTANTS;
 }
+/**
+ * REGRESIÓN RÁPIDA (Manual Test Case)
+ * 
+ * Caso: base=850000, grat=212500, assignments=80000, variable=0
+ * UF=39682.99 -> Tope 90UF = 3.571.469
+ * 
+ * taxableSalary esperado:
+ * - toggle includeAssignmentsInIndemnity OFF: 850.000 + 212.500 + 0 = 1.062.500
+ * - toggle includeAssignmentsInIndemnity ON: 850.000 + 212.500 + 80.000 = 1.142.500
+ * 
+ * cappedSalary debe aplicarse sobre esos valores (ambos están bajo el tope).
+ */

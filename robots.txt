@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://calculadoraschile.cl/sitemap.xml
