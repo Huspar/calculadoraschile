@@ -1,6 +1,6 @@
-# CalculadorasChile 🇨🇱
+# Cálculo Laboral 🇨🇱
 
-Una suite de herramientas financieras y laborales diseñadas específicamente para el mercado chileno, con un enfoque en precisión legal (2026) y experiencia de usuario premium.
+Una suite de herramientas laborales gratuitas y calculadoras para Chile, con un enfoque en precisión legal (2026) y experiencia de usuario premium.
 
 ## 🚀 Funcionalidades Principales
 
@@ -29,4 +29,4 @@ Este es un proyecto de sitio web estático. Para ejecutarlo localmente:
 2. Abre `index.html` en cualquier navegador moderno.
 
 ---
-Desarrollado con ❤️ para los trabajadores y empleadores de Chile.
+Desarrollado con ❤️ para los trabajadores y empleadores de Chile mediante **calculolaboral.cl**.
