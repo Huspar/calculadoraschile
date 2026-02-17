@@ -5,7 +5,7 @@
  */
 
 /**
- * Indicators Service for CalculadorasChile
+ * Indicators Service for Cálculo Laboral
  * Fetches real-time data from mindicador.cl
  * P1: Added localStorage cache and validation
  */

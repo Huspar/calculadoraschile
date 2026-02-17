@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="application-version" content="1.0.0">
     <title>Cálculo Laboral | Herramientas laborales para Chile</title>
+    <link rel="canonical" href="https://calculolaboral.cl/costo_empleador.html">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -130,15 +131,22 @@
                     <div
                         class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none">
                     </div>
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-semibold text-white flex items-center gap-2">
-                            <span class="material-icons text-primary">tune</span>
-                            Parámetros del Contrato
-                        </h2>
-                        <span
-                            class="text-xs font-medium px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20">Año
-                            2024</span>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+                            <span class="material-icons text-primary">security</span>
+                            Seguro de Invalidez y Sobrevivencia (SIS)
+                        </h3>
+                        <span class="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">
+                            Normativa <span id="dynamic-year">2026</span>
+                        </span>
                     </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        El SIS (Seguro de Invalidez y Sobrevivencia) es de cargo del empleador para trabajadores
+                        dependientes. Las tasas pueden variar según normativa vigente.
+                    </p>
+                    <script>
+                        document.getElementById('dynamic-year').textContent = new Date().getFullYear();
+                    </script>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Sueldo Base -->
                         <div class="space-y-2">

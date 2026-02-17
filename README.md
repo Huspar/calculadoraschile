@@ -1,32 +1,65 @@
-# Cálculo Laboral 🇨🇱
+# Cálculo Laboral (Chile) 🇨🇱
 
-Una suite de herramientas laborales gratuitas y calculadoras para Chile, con un enfoque en precisión legal (2026) y experiencia de usuario premium.
+Suite gratuita de herramientas y simuladores laborales para trabajadores y empleadores de Chile. Enfocada en la precisión legal, cálculos exactos según normativa vigente y una experiencia de usuario moderna y rápida.
 
-## 🚀 Funcionalidades Principales
+## 🚀 Funcionalidades
 
-- **Calculadora de Sueldo Líquido**: Desglose detallado de descuentos legales (AFP, Salud, AFC), impuestos (Impuesto de Segunda Categoría) y haberes no imponibles. Incluye comparativa de ISAPRE vs FONASA.
-- **Calculadora de Finiquito**: Estimación precisa de indemnizaciones por años de servicio, mes de aviso y vacaciones proporcionales según la normativa vigente.
-- **Costo Empleador**: Herramienta para que dueños de empresas calculen el costo real de contratación, incluyendo aportes patronales (SIS, Mutual, Seguro de Cesantía).
-- **Indicadores Económicos en Tiempo Real**: Consumo automático de valores UF y UTM actualizados mediante la API de Mindicador.cl.
-- **Guía de Vacaciones**: Contenido educativo y SEO optimizado sobre legislación laboral chilena.
+- **Calculadora de Sueldo Líquido**: Obtén el detalle exacto de "haberes" y "descuentos" (AFP, Salud, Impuesto Único) a partir de un sueldo bruto o viceversa.
+- **Calculadora de Finiquito**: Simulador completo de indemnizaciones por años de servicio, aviso previo y feriado proporcional.
+- **Costo Empleador**: Herramienta para empresas que permite proyectar el costo total de contratar a un trabajador (incluyendo SIS, Mutual, SC).
+- **Indicadores Económicos**: Actualización diaria de UF, UTM e IMM desde la API de mindicador.cl.
 
 ## 🛠️ Tecnologías
 
-- **Frontend**: HTML5 Semántico, CSS3 con Tailwind CSS (Dark Mode/Glassmorphism).
-- **Lógica**: JavaScript Vanilla (ES6+) con arquitectura modular y orientada a objetos para los motores de cálculo.
-- **Iconografía**: Google Material Icons.
-- **Tipografía**: Google Fonts (Inter).
-- **SEO**: Marcado Schema.org, metadatos optimizados y estructura de encabezados jerárquica.
+Este proyecto es **100% estático** y no requiere backend ni base de datos compleja.
 
-## 📦 Instalación y Uso
+- **Stack**: HTML5, Vanilla JavaScript (ES6+), CSS3 (Tailwind CSS vía CDN).
+- **Diseño**: "Glassmorphism" con modo oscuro nativo.
+- **Performance**: Optimizado para carga instantánea y puntaje SEO alto (Lighthouse 95+).
 
-Este es un proyecto de sitio web estático. Para ejecutarlo localmente:
+## 📦 Ejecución Local
+
+Para probar el proyecto en tu máquina:
 
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/Huspar/calculolaboral.git
    ```
-2. Abre `index.html` en cualquier navegador moderno.
+
+2. Abre el archivo `index.html` directamente en tu navegador.
+   - O usa un servidor local simple:
+     ```bash
+     python3 -m http.server
+     # o
+     npx serve .
+     ```
+
+## 🌐 Despliegue
+
+Este proyecto está listo para desplegarse en **GitHub Pages**, Vercel o Netlify.
+
+### GitHub Pages
+1. Ve a `Settings` > `Pages` en tu repositorio.
+2. Selecciona la rama `main` y la carpeta `/` (root).
+3. Guarda. En segundos tu sitio estará online.
+
+## 📁 Estructura del Proyecto
+
+```
+/
+├── index.html                  # Landing page
+├── sueldo_liquido.html         # Calculadora de Sueldo
+├── finiquito_calculator.html   # Calculadora de Finiquito
+├── costo_empleador.html        # Calculadora Costo Empresa
+├── assets/                     # Imágenes y recursos estáticos
+├── js/                         # Lógica de las calculadoras
+│   ├── logic.js
+│   ├── salary_logic.js
+│   ├── indicators.js
+│   └── ...
+└── robots.txt / sitemap.xml    # SEO
+```
 
 ---
-Desarrollado con ❤️ para los trabajadores y empleadores de Chile mediante **calculolaboral.cl**.
+Desarrollado para la comunidad.
+**[calculolaboral.cl](https://calculolaboral.cl)**
