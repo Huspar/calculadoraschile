@@ -483,101 +483,107 @@
         return `
             <div class="print-header">
                 <div>
-                    <h2 style="margin: 0; font-size: 14pt; color: #0f172a;">CÁLCULO LABORAL</h2>
-                    <span style="font-size: 8pt; color: #64748b;">www.calculolaboral.cl</span>
+                    <h2 style="margin: 0; font-size: 13pt; font-weight: bold; color: #0f172a;">CÁLCULO LABORAL</h2>
+                    <span style="font-size: 7.5pt; color: #64748b;">www.calculolaboral.cl</span>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 9pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE FINIQUITO</span><br>
-                    <span style="font-size: 8pt; color: #94a3b8;">Fecha: ${dateString}</span>
+                    <span style="font-size: 8.5pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE FINIQUITO</span><br>
+                    <span style="font-size: 7.5pt; color: #94a3b8;">Fecha: ${dateString}</span>
                 </div>
             </div>
 
             <div class="print-title">Reporte de Simulación de Finiquito</div>
-            <p style="font-size: 9.5pt; color: #64748b; margin-top: 0; margin-bottom: 20px;">
+            <p style="font-size: 8pt; color: #64748b; margin-top: 0; margin-bottom: 8px;">
                 Este documento muestra el desglose del finiquito laboral estimado según la legislación chilena vigente.
             </p>
 
-            <div class="print-section-title">1. Resumen del Contrato</div>
-            <table class="print-table">
-                <tr>
-                    <td style="font-weight: bold; width: 45%;">Fecha de Inicio:</td>
-                    <td>${formatInputDate(startDateVal)}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Fecha de Término:</td>
-                    <td>${formatInputDate(endDateVal)}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Antigüedad Laboral:</td>
-                    <td>${antiquity}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Causal de Término:</td>
-                    <td>${cause}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">¿Aviso Previo de 30 Días?:</td>
-                    <td>${noticeText}</td>
-                </tr>
-            </table>
+            <!-- Column Layout: Resumen del Contrato and Bases de Cálculo side by side -->
+            <div style="display: flex; gap: 15px; margin-bottom: 5px; width: 100%;">
+                <div style="flex: 1; min-width: 0;">
+                    <div class="print-section-title" style="margin-top: 0; margin-bottom: 4px;">1. Resumen del Contrato</div>
+                    <table class="print-table">
+                        <tr>
+                            <td style="font-weight: bold; width: 45%;">Inicio:</td>
+                            <td>${formatInputDate(startDateVal)}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Término:</td>
+                            <td>${formatInputDate(endDateVal)}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Antigüedad:</td>
+                            <td>${antiquity}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Causal:</td>
+                            <td>${cause}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">¿Aviso previo?:</td>
+                            <td>${noticeText}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="width: 42%; min-width: 0;">
+                    <div class="print-section-title" style="margin-top: 0; margin-bottom: 4px;">2. Bases de Cálculo</div>
+                    <table class="print-table">
+                        <tr>
+                            <td style="font-weight: bold; width: 50%;">Sueldo Base:</td>
+                            <td>$${formatNumber(parseInt(baseSalary || 0))} CLP</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Haberes no Imp.:</td>
+                            <td>$${formatNumber(parseInt(assignments || 0))} CLP</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-            <div class="print-section-title">2. Bases de Cálculo</div>
-            <table class="print-table">
-                <tr>
-                    <td style="font-weight: bold; width: 45%;">Sueldo Base Mensual:</td>
-                    <td>$${baseSalary} CLP</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Haberes no Imponibles (Asig. Colación/Mov):</td>
-                    <td>$${assignments} CLP</td>
-                </tr>
-            </table>
-
-            <div class="print-section-title">3. Detalle de Indemnizaciones y Haberes a Pagar</div>
-            <table class="print-table">
+            <div class="print-section-title" style="margin-top: 4px; margin-bottom: 4px;">3. Detalle de Indemnizaciones y Haberes a Pagar</div>
+            <table class="print-table" style="margin-bottom: 6px;">
                 <thead>
                     <tr>
-                        <th style="width: 65%;">Concepto</th>
-                        <th style="text-align: right;">Monto Estimado</th>
+                        <th style="width: 70%; padding: 2px 5px !important;">Concepto</th>
+                        <th style="text-align: right; padding: 2px 5px !important;">Monto Estimado</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Indemnización por Años de Servicio</td>
-                        <td style="text-align: right; font-weight: 500;">${yearsService}</td>
+                        <td style="padding: 2px 5px !important;">Indemnización por Años de Servicio</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${yearsService}</td>
                     </tr>
                     <tr>
-                        <td>Indemnización Sustitutiva del Aviso Previo (Mes de Aviso)</td>
-                        <td style="text-align: right; font-weight: 500;">${noticeAmount}</td>
+                        <td style="padding: 2px 5px !important;">Indemnización Sustitutiva del Aviso Previo (Mes de Aviso)</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${noticeAmount}</td>
                     </tr>
                     <tr>
-                        <td>Feriado Proporcional (Vacaciones Acumuladas: ${vacationDays})</td>
-                        <td style="text-align: right; font-weight: 500;">${vacationProp}</td>
+                        <td style="padding: 2px 5px !important;">Feriado Proporcional (Vacaciones Acumuladas: ${vacationDays})</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${vacationProp}</td>
                     </tr>
                     <tr>
-                        <td>Feriado Legal Pendiente (Vacaciones anteriores)</td>
-                        <td style="text-align: right; font-weight: 500;">${vacationPending}</td>
+                        <td style="padding: 2px 5px !important;">Feriado Legal Pendiente (Vacaciones anteriores)</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${vacationPending}</td>
                     </tr>
                     <tr>
-                        <td>Remuneraciones del Mes Pendientes (Días Trabajados)</td>
-                        <td style="text-align: right; font-weight: 500;">${pendingSalary}</td>
+                        <td style="padding: 2px 5px !important;">Remuneraciones del Mes Pendientes (Días Trabajados)</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${pendingSalary}</td>
                     </tr>
                     ${afcAmount !== '$0' && afcAmount !== '0' && afcAmount !== '' ? `
                     <tr style="color: #b91c1c;">
-                        <td>Descuento Aporte AFC Empleador (Art. 13 Ley 19.728)</td>
-                        <td style="text-align: right; font-weight: 500;">-${afcAmount}</td>
+                        <td style="padding: 2px 5px !important;">Descuento Aporte AFC Empleador (Art. 13 Ley 19.728)</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">-${afcAmount}</td>
                     </tr>
                     ` : ''}
                 </tbody>
             </table>
 
-            <div class="print-total-box">
-                <span style="font-size: 10pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 5px;">Monto Total Neto Estimado</span>
-                <span class="print-total-amount">${total}</span> <span style="font-size: 12pt; font-weight: bold; color: #15803d;">CLP</span>
+            <div class="print-total-box" style="margin-top: 4px; margin-bottom: 6px; padding: 5px 10px !important;">
+                <span style="font-size: 8.5pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 2px;">Monto Total Neto Estimado</span>
+                <span class="print-total-amount" style="font-size: 13.5pt !important;">${total}</span> <span style="font-size: 10pt; font-weight: bold; color: #15803d;">CLP</span>
             </div>
 
-            <div class="print-disclaimer">
-                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante juzgados o notarías, ni constituye un finiquito oficial.<br><br>
+            <div class="print-disclaimer" style="margin-top: 4px; padding-top: 4px; font-size: 6.5pt !important; line-height: 1.15 !important;">
+                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante juzgados o notarías, ni constituye un finiquito oficial.<br>
                 <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta simulación se ofrece de manera gratuita y con propósitos educativos. Los cálculos de finiquitos reales están condicionados por elementos particulares (créditos sociales vigentes, cotizaciones adeudadas, cláusulas específicas del contrato, etc.). Cálculo Laboral no asume responsabilidad alguna por interpretaciones o decisiones basadas en esta simulación. Se sugiere validar el borrador con la Inspección del Trabajo o un abogado laboral.
             </div>
         `;
@@ -617,106 +623,112 @@
         return `
             <div class="print-header">
                 <div>
-                    <h2 style="margin: 0; font-size: 14pt; color: #0f172a;">CÁLCULO LABORAL</h2>
-                    <span style="font-size: 8pt; color: #64748b;">www.calculolaboral.cl</span>
+                    <h2 style="margin: 0; font-size: 13pt; font-weight: bold; color: #0f172a;">CÁLCULO LABORAL</h2>
+                    <span style="font-size: 7.5pt; color: #64748b;">www.calculolaboral.cl</span>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 9pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE SUELDO LÍQUIDO</span><br>
-                    <span style="font-size: 8pt; color: #94a3b8;">Fecha: ${dateString}</span>
+                    <span style="font-size: 8.5pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE SUELDO LÍQUIDO</span><br>
+                    <span style="font-size: 7.5pt; color: #94a3b8;">Fecha: ${dateString}</span>
                 </div>
             </div>
 
             <div class="print-title">Reporte de Simulación de Sueldo Líquido</div>
-            <p style="font-size: 9.5pt; color: #64748b; margin-top: 0; margin-bottom: 20px;">
+            <p style="font-size: 8pt; color: #64748b; margin-top: 0; margin-bottom: 8px;">
                 Este documento muestra el desglose del sueldo bruto imponible, no imponible y descuentos previsionales aplicados.
             </p>
 
-            <div class="print-section-title">1. Resumen de Ingresos del Trabajador (Haberes)</div>
-            <table class="print-table">
-                <thead>
-                    <tr>
-                        <th style="width: 65%;">Ingresos / Haberes</th>
-                        <th style="text-align: right;">Monto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sueldo Base Mensual</td>
-                        <td style="text-align: right; font-weight: 500;">$${baseSalary} CLP</td>
-                    </tr>
-                    <tr>
-                        <td>Horas Extras Calculadas (${overtimeHours} horas)</td>
-                        <td style="text-align: right; font-weight: 500;">(Incluidas en liquidación)</td>
-                    </tr>
-                    ${bonuses !== '0' && bonuses !== '' ? `
-                    <tr>
-                        <td>Bonos y Comisiones Imponibles</td>
-                        <td style="text-align: right; font-weight: 500;">$${bonuses} CLP</td>
-                    </tr>
-                    ` : ''}
-                    <tr>
-                        <td style="font-weight: bold; background-color: #f8fafc;">Haberes No Imponibles Totales (Colación / Mov / Viáticos)</td>
-                        <td style="text-align: right; font-weight: bold; background-color: #f8fafc;">$${formatNumber(parseInt(colacion || 0) + parseInt(movilizacion || 0) + parseInt(viaticos || 0))} CLP</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="print-section-title">2. Descuentos Previsionales e Impuestos Legales</div>
-            <table class="print-table">
-                <thead>
-                    <tr>
-                        <th style="width: 65%;">Descuento Obligatorio</th>
-                        <th style="text-align: right;">Monto Retenido</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Cotización Previsional AFP (Tasa ${labelAFP})</td>
-                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${afp}</td>
-                    </tr>
-                    <tr>
-                        <td>Cotización de Salud (Fonasa/Isapre: ${labelHealth})</td>
-                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${health}</td>
-                    </tr>
-                    <tr>
-                        <td>Seguro de Cesantía AFC (0.6% cargo trabajador)</td>
-                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${afc}</td>
-                    </tr>
-                    <tr>
-                        <td>Impuesto de Segunda Categoría (SII)</td>
-                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${tax}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Column Layout: Haberes and Descuentos Previsionales side by side -->
+            <div style="display: flex; gap: 15px; margin-bottom: 5px; width: 100%;">
+                <div style="flex: 1; min-width: 0;">
+                    <div class="print-section-title" style="margin-top: 0; margin-bottom: 4px;">1. Haberes (Ingresos)</div>
+                    <table class="print-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60%; padding: 2px 5px !important;">Concepto</th>
+                                <th style="text-align: right; padding: 2px 5px !important;">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 2px 5px !important;">Sueldo Base Mensual</td>
+                                <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">$${formatNumber(parseInt(baseSalary || 0))} CLP</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 5px !important;">Horas Extras (${overtimeHours} horas)</td>
+                                <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">(Incluidas en liquidación)</td>
+                            </tr>
+                            ${bonuses !== '0' && bonuses !== '' ? `
+                            <tr>
+                                <td style="padding: 2px 5px !important;">Bonos e Imponibles</td>
+                                <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">$${formatNumber(parseInt(bonuses || 0))} CLP</td>
+                            </tr>
+                            ` : ''}
+                            <tr>
+                                <td style="font-weight: bold; background-color: #f8fafc; padding: 2px 5px !important;">Haberes No Imponibles</td>
+                                <td style="text-align: right; font-weight: bold; background-color: #f8fafc; padding: 2px 5px !important;">$${formatNumber(parseInt(colacion || 0) + parseInt(movilizacion || 0) + parseInt(viaticos || 0))} CLP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                    <div class="print-section-title" style="margin-top: 0; margin-bottom: 4px;">2. Descuentos Previsionales</div>
+                    <table class="print-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60%; padding: 2px 5px !important;">Descuento Obligatorio</th>
+                                <th style="text-align: right; padding: 2px 5px !important;">Monto Retenido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 2px 5px !important;">AFP (Tasa ${labelAFP})</td>
+                                <td style="text-align: right; font-weight: 500; color: #b91c1c; padding: 2px 5px !important;">-${afp}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 5px !important;">Salud (${labelHealth})</td>
+                                <td style="text-align: right; font-weight: 500; color: #b91c1c; padding: 2px 5px !important;">-${health}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 5px !important;">Seguro de Cesantía AFC</td>
+                                <td style="text-align: right; font-weight: 500; color: #b91c1c; padding: 2px 5px !important;">-${afc}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 5px !important;">Impuesto 2ª Categoría</td>
+                                <td style="text-align: right; font-weight: 500; color: #b91c1c; padding: 2px 5px !important;">-${tax}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             ${ccaf !== '0' || apv !== '0' || prestamos !== '0' || pension !== '0' || sindicato !== '0' || otrosDescuentos !== '0' ? `
-            <div class="print-section-title">3. Otros Descuentos Aplicados (Adicionales)</div>
-            <table class="print-table">
+            <div class="print-section-title" style="margin-top: 4px; margin-bottom: 4px;">3. Otros Descuentos Aplicados (Adicionales)</div>
+            <table class="print-table" style="margin-bottom: 6px;">
                 <thead>
                     <tr>
-                        <th style="width: 65%;">Descuento Adicional</th>
-                        <th style="text-align: right;">Monto</th>
+                        <th style="width: 70%; padding: 2px 5px !important;">Descuento Adicional</th>
+                        <th style="text-align: right; padding: 2px 5px !important;">Monto</th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${ccaf !== '0' && ccaf !== '' ? `<tr><td>Caja Compensación (CCAF)</td><td style="text-align: right; color: #b91c1c;">-$${ccaf} CLP</td></tr>` : ''}
-                    ${apv !== '0' && apv !== '' ? `<tr><td>APV (Ahorro Previsional Voluntario)</td><td style="text-align: right; color: #b91c1c;">-$${apv} CLP</td></tr>` : ''}
-                    ${prestamos !== '0' && prestamos !== '' ? `<tr><td>Préstamos de la Empresa</td><td style="text-align: right; color: #b91c1c;">-$${prestamos} CLP</td></tr>` : ''}
-                    ${pension !== '0' && pension !== '' ? `<tr><td>Pensión Alimenticia</td><td style="text-align: right; color: #b91c1c;">-$${pension} CLP</td></tr>` : ''}
-                    ${sindicato !== '0' && sindicato !== '' ? `<tr><td>Cuota Sindical</td><td style="text-align: right; color: #b91c1c;">-$${sindicato} CLP</td></tr>` : ''}
-                    ${otrosDescuentos !== '0' && otrosDescuentos !== '' ? `<tr><td>Otros Descuentos Diversos</td><td style="text-align: right; color: #b91c1c;">-$${otrosDescuentos} CLP</td></tr>` : ''}
+                    ${ccaf !== '0' && ccaf !== '' ? `<tr><td style="padding: 2px 5px !important;">Caja Compensación (CCAF)</td><td style="text-align: right; color: #b91c1c; padding: 2px 5px !important;">-$${formatNumber(parseInt(ccaf || 0))} CLP</td></tr>` : ''}
+                    ${apv !== '0' && apv !== '' ? `<tr><td style="padding: 2px 5px !important;">APV (Ahorro Previsional Voluntario)</td><td style="text-align: right; color: #b91c1c; padding: 2px 5px !important;">-$${formatNumber(parseInt(apv || 0))} CLP</td></tr>` : ''}
+                    ${prestamos !== '0' && prestamos !== '' ? `<tr><td style="padding: 2px 5px !important;">Préstamos de la Empresa</td><td style="text-align: right; color: #b91c1c; padding: 2px 5px !important;">-$${formatNumber(parseInt(prestamos || 0))} CLP</td></tr>` : ''}
+                    ${pension !== '0' && pension !== '' ? `<tr><td style="padding: 2px 5px !important;">Pensión Alimenticia</td><td style="text-align: right; color: #b91c1c; padding: 2px 5px !important;">-$${formatNumber(parseInt(pension || 0))} CLP</td></tr>` : ''}
+                    ${sindicato !== '0' && sindicato !== '' ? `<tr><td style="padding: 2px 5px !important;">Cuota Sindical</td><td style="text-align: right; color: #b91c1c; padding: 2px 5px !important;">-$${formatNumber(parseInt(sindicato || 0))} CLP</td></tr>` : ''}
+                    ${otrosDescuentos !== '0' && otrosDescuentos !== '' ? `<tr><td style="padding: 2px 5px !important;">Otros Descuentos Diversos</td><td style="text-align: right; color: #b91c1c; padding: 2px 5px !important;">-$${formatNumber(parseInt(otrosDescuentos || 0))} CLP</td></tr>` : ''}
                 </tbody>
             </table>
             ` : ''}
 
-            <div class="print-total-box">
-                <span style="font-size: 10pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 5px;">Sueldo Líquido Estimado a Recibir</span>
-                <span class="print-total-amount">${netSalary}</span> <span style="font-size: 12pt; font-weight: bold; color: #15803d;">CLP</span>
-                <div style="font-size: 8.5pt; color: #64748b; margin-top: 5px;">Total descuentos descontados de la liquidación: ${totalDiscounts}</div>
+            <div class="print-total-box" style="margin-top: 4px; margin-bottom: 6px; padding: 5px 10px !important;">
+                <span style="font-size: 8.5pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 2px;">Sueldo Líquido Estimado a Recibir</span>
+                <span class="print-total-amount" style="font-size: 13.5pt !important;">${netSalary}</span> <span style="font-size: 10pt; font-weight: bold; color: #15803d;">CLP</span>
+                <div style="font-size: 7.5pt; color: #64748b; margin-top: 1px;">Total descuentos descontados de la liquidación: ${totalDiscounts}</div>
             </div>
 
-            <div class="print-disclaimer">
-                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante el empleador, la Inspección del Trabajo o tribunales de justicia.<br><br>
+            <div class="print-disclaimer" style="margin-top: 4px; padding-top: 4px; font-size: 6.5pt !important; line-height: 1.15 !important;">
+                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante el empleador, la Inspección del Trabajo o tribunales de justicia.<br>
                 <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta simulación se ofrece de manera gratuita y con propósitos informativos generales. Los cálculos definitivos de remuneraciones están supeditados a regulaciones contractuales individuales, días de inasistencia, licencias médicas, y otros haberes variables del mes. Cálculo Laboral no asume responsabilidad alguna por interpretaciones o decisiones basadas en esta simulación.
             </div>
         `;
