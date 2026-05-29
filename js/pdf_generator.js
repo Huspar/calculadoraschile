@@ -49,6 +49,7 @@
                         <input type="email" id="pdf-email" required
                             class="w-full px-4 py-3 bg-[#0f172a] border border-white/10 rounded-full text-white placeholder-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition-all"
                             placeholder="tu@correo.com" style="background-color: #0f172a; color: #ffffff;" />
+                        <div id="pdf-email-error" class="hidden text-xs text-rose-400 mt-2 ml-2 font-medium"></div>
                     </div>
                     
                     <!-- Opt-in Checkbox -->
@@ -72,7 +73,7 @@
         document.body.appendChild(modalDiv);
     }
 
-    // 3. INJECT PRINT STYLES
+    // 3. INJECT PRINT STYLES (Optimized to guarantee 1 single page)
     function injectPrintStyles() {
         if (document.getElementById('pdf-print-styles')) return;
 
@@ -80,7 +81,12 @@
         style.id = 'pdf-print-styles';
         style.innerHTML = `
             @media print {
-                /* Hide everything */
+                /* Set A4/Letter margins at the page level */
+                @page {
+                    size: portrait;
+                    margin: 8mm 12mm 8mm 12mm !important;
+                }
+                /* Hide everything except print-section */
                 body > *:not(#print-section) {
                     display: none !important;
                 }
@@ -89,83 +95,91 @@
                     background: #ffffff !important;
                     color: #000000 !important;
                     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-                    font-size: 11pt !important;
+                    font-size: 8.5pt !important;
+                    line-height: 1.25 !important;
                     margin: 0 !important;
                     padding: 0 !important;
                 }
                 #print-section {
                     display: block !important;
                     width: 100% !important;
-                    padding: 40px !important;
+                    padding: 0 !important; /* Zero padding since page margin handles spacing */
                     background: #ffffff !important;
                     color: #000000 !important;
                     box-sizing: border-box !important;
                 }
                 .print-header {
-                    border-bottom: 2px solid #000000 !important;
-                    padding-bottom: 15px !important;
-                    margin-bottom: 25px !important;
+                    border-bottom: 1.5px solid #0f172a !important;
+                    padding-bottom: 6px !important;
+                    margin-bottom: 12px !important;
                     display: flex !important;
                     justify-content: space-between !important;
                     align-items: flex-end !important;
                 }
                 .print-title {
-                    font-size: 18pt !important;
+                    font-size: 13pt !important;
                     font-weight: bold !important;
                     text-transform: uppercase !important;
-                    margin-top: 5px !important;
-                    margin-bottom: 5px !important;
+                    margin-top: 0px !important;
+                    margin-bottom: 4px !important;
+                    color: #0f172a !important;
                 }
                 .print-section-title {
-                    background: #f1f5f9 !important;
-                    padding: 6px 12px !important;
-                    font-size: 11pt !important;
+                    background: #f8fafc !important;
+                    padding: 4px 8px !important;
+                    font-size: 9pt !important;
                     font-weight: bold !important;
                     text-transform: uppercase !important;
-                    border-left: 4px solid #10b981 !important;
-                    margin-top: 25px !important;
-                    margin-bottom: 15px !important;
+                    border-left: 3px solid #10b981 !important;
+                    margin-top: 10px !important;
+                    margin-bottom: 6px !important;
                     color: #0f172a !important;
                 }
                 .print-table {
                     width: 100% !important;
                     border-collapse: collapse !important;
-                    margin-bottom: 20px !important;
+                    margin-bottom: 10px !important;
                 }
                 .print-table th {
                     text-align: left !important;
-                    padding: 8px !important;
-                    font-size: 9.5pt !important;
+                    padding: 4px 6px !important;
+                    font-size: 8pt !important;
                     border-bottom: 1px solid #cbd5e1 !important;
                     color: #475569 !important;
                 }
                 .print-table td {
-                    padding: 8px !important;
-                    font-size: 10pt !important;
+                    padding: 4px 6px !important;
+                    font-size: 8.5pt !important;
                     border-bottom: 1px solid #f1f5f9 !important;
                 }
                 .print-total-box {
-                    border: 2px solid #10b981 !important;
+                    border: 1.5px solid #10b981 !important;
                     background: #f0fdf4 !important;
-                    padding: 15px 20px !important;
-                    border-radius: 8px !important;
-                    margin-top: 30px !important;
-                    margin-bottom: 30px !important;
+                    padding: 8px 12px !important;
+                    border-radius: 6px !important;
+                    margin-top: 10px !important;
+                    margin-bottom: 10px !important;
                     text-align: right !important;
+                    page-break-inside: avoid !important;
                 }
                 .print-total-amount {
-                    font-size: 22pt !important;
-                    font-weight: 900 !important;
+                    font-size: 16pt !important;
+                    font-weight: 800 !important;
                     color: #15803d !important;
                 }
                 .print-disclaimer {
-                    font-size: 8pt !important;
+                    font-size: 7.2pt !important;
                     color: #64748b !important;
-                    line-height: 1.4 !important;
-                    border-top: 1px solid #e2e8f0 !important;
-                    padding-top: 15px !important;
-                    margin-top: 40px !important;
+                    line-height: 1.25 !important;
+                    border-top: 1px solid #cbd5e1 !important;
+                    padding-top: 6px !important;
+                    margin-top: 10px !important;
                     text-align: justify !important;
+                    page-break-inside: avoid !important;
+                }
+                /* Prevent page-break on table rows and content blocks */
+                tr, td, th, table, div, p {
+                    page-break-inside: avoid !important;
                 }
             }
         `;
@@ -178,6 +192,8 @@
         const closeBtn = document.getElementById('close-pdf-modal-btn');
         const modal = document.getElementById('pdf-email-modal');
         const form = document.getElementById('pdf-email-form');
+        const emailInput = document.getElementById('pdf-email');
+        const emailError = document.getElementById('pdf-email-error');
 
         if (downloadBtn) {
             downloadBtn.addEventListener('click', () => {
@@ -195,6 +211,21 @@
             closeBtn.addEventListener('click', () => {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
+                if (emailError) emailError.classList.add('hidden');
+                if (emailInput) {
+                    emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
+                    emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
+                }
+            });
+        }
+
+        // Clear errors as soon as user types
+        if (emailInput && emailError) {
+            emailInput.addEventListener('input', () => {
+                emailError.classList.add('hidden');
+                emailError.textContent = '';
+                emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
+                emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
             });
         }
 
@@ -204,6 +235,11 @@
                 if (e.target === modal) {
                     modal.classList.add('hidden');
                     modal.classList.remove('flex');
+                    if (emailError) emailError.classList.add('hidden');
+                    if (emailInput) {
+                        emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
+                        emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
+                    }
                 }
             });
         }
@@ -211,23 +247,94 @@
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const email = document.getElementById('pdf-email').value;
+                const email = emailInput ? emailInput.value.trim() : '';
                 const optin = document.getElementById('pdf-marketing-optin').checked;
 
-                if (email && optin) {
-                    // Save lead to local database (localStorage)
-                    saveLead(email);
-                    
-                    // Generate report print
-                    generatePDFReport();
+                if (email) {
+                    const validation = isValidRealEmail(email);
+                    if (!validation.valid) {
+                        if (emailError && emailInput) {
+                            emailError.textContent = validation.message;
+                            emailError.classList.remove('hidden');
+                            emailInput.classList.remove('border-white/10', 'focus:ring-emerald-500');
+                            emailInput.classList.add('border-rose-500', 'focus:ring-rose-500');
+                            emailInput.focus();
+                        }
+                        return;
+                    }
 
-                    // Close modal and reset form
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                    form.reset();
+                    if (optin) {
+                        // Save lead to local database (localStorage)
+                        saveLead(email);
+                        
+                        // Generate report print
+                        generatePDFReport();
+
+                        // Close modal and reset form
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                        form.reset();
+                        if (emailError) emailError.classList.add('hidden');
+                        if (emailInput) {
+                            emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
+                            emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
+                        }
+                    }
                 }
             });
         }
+    }
+
+    // 5. HELPER: STRICT EMAIL VALIDATION (Blocks fake, temp, and test emails)
+    function isValidRealEmail(email) {
+        email = email.trim().toLowerCase();
+        
+        // 5.1 Basic Syntax Check with a strict regex
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            return { valid: false, message: "Por favor, ingresa una dirección de correo válida." };
+        }
+
+        const [localPart, domain] = email.split('@');
+
+        // 5.2 Block obvious test/fake local parts or domains
+        const blockedLocalParts = [
+            'test', 'testing', 'prueba', 'pruebas', 'correo', 'email', 'asdf', 'qwer', 'zxcv', 
+            'abc', 'admin', 'soporte', 'support', 'info', 'no-reply', 'noreply', 'asd', '123',
+            '1234', '12345', 'ninguno', 'dummy', 'fake', 'user', 'usuario', 'a', 'b', 'c', 'x'
+        ];
+        
+        const blockedDomains = [
+            'test.com', 'test.cl', 'example.com', 'example.org', 'example.net', 
+            'correo.com', 'correo.cl', 'prueba.com', 'prueba.cl', 'email.com', 'email.cl',
+            'asd.com', 'asdf.com', 'xyz.com', 'abc.com', '123.com', '123.cl', 
+            'none.com', 'no.com', 'domain.com', 'domain.cl', 'mail.com'
+        ];
+
+        if (blockedLocalParts.includes(localPart) || localPart.length < 3) {
+            return { valid: false, message: "Por favor, ingresa un correo personal o laboral real." };
+        }
+
+        if (blockedDomains.includes(domain)) {
+            return { valid: false, message: "Este dominio de correo no parece ser válido o real." };
+        }
+
+        // 5.3 Block disposable/temporary email domains
+        const disposableDomains = [
+            'yopmail.com', 'yopmail.fr', 'yopmail.net', 'tempmail.com', 'tempmailo.com', 
+            '10minutemail.com', 'guerrillamail.com', 'trashmail.com', 'sharklasers.com', 
+            'mailinator.com', 'getairmail.com', 'dispostable.com', 'burnermail.io', 
+            'maildrop.cc', 'temp-mail.org', 'fakemailgenerator.com', 'throwawaymail.com', 
+            'emailondeck.com', 'crazymailing.com', 'boun.cr', 'jetable.org', 'tempail.com',
+            'mohmal.com', 'guerrillamailblock.com', 'guerrillamail.net', 'guerrillamail.org',
+            'guerrillamail.biz', 'grr.la', 'pokemail.net', 'torbox.com'
+        ];
+
+        if (disposableDomains.some(disposable => domain === disposable || domain.endsWith('.' + disposable))) {
+            return { valid: false, message: "No se permiten correos electrónicos temporales o desechables." };
+        }
+
+        return { valid: true };
     }
 
     // 5. HELPER: CHECK IF CALCULATED VISTA IS GREATER THAN 0
