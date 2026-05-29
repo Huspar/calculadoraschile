@@ -402,16 +402,35 @@
                     <form class="space-y-8">
                         <!-- Navigation Tabs (Sleek Glassmorphic Tab Bar) -->
                         <div class="flex border border-white/10 mb-8 p-1 bg-slate-900/50 rounded-2xl backdrop-blur-md">
-                            <button type="button" id="tabBtn-contrato" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20">
+                            <button type="button" id="tabBtn-contrato" onclick="switchTab('contrato')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20">
                                 1. Contrato
                             </button>
-                            <button type="button" id="tabBtn-ingresos" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
+                            <button type="button" id="tabBtn-ingresos" onclick="switchTab('ingresos')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
                                 2. Ingresos
                             </button>
-                            <button type="button" id="tabBtn-avanzado" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
+                            <button type="button" id="tabBtn-avanzado" onclick="switchTab('avanzado')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
                                 3. Opciones
                             </button>
                         </div>
+                        <script>
+                            function switchTab(tabName) {
+                                var tabs = ['contrato', 'ingresos', 'avanzado'];
+                                var activeClasses = 'text-white bg-primary shadow-lg shadow-primary/20';
+                                var inactiveClasses = 'text-slate-400 hover:text-white hover:bg-white/5';
+                                for (var i = 0; i < tabs.length; i++) {
+                                    var btnEl = document.getElementById('tabBtn-' + tabs[i]);
+                                    var contentEl = document.getElementById('tabContent-' + tabs[i]);
+                                    if (!btnEl || !contentEl) continue;
+                                    if (tabs[i] === tabName) {
+                                        contentEl.classList.remove('hidden');
+                                        btnEl.className = 'flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ' + activeClasses;
+                                    } else {
+                                        contentEl.classList.add('hidden');
+                                        btnEl.className = 'flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ' + inactiveClasses;
+                                    }
+                                }
+                            }
+                        </script>
 
                         <!-- TAB CONTENT 1: CONTRATO (Dates + Causal) -->
                         <div id="tabContent-contrato" class="space-y-8">
@@ -1148,11 +1167,11 @@
             });
         }
     </script>
-    <script src="js/constants.js"></script>
-    <script src="js/logic.js"></script>
-    <script src="js/validation.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/pdf_generator.js"></script>
+    <script src="js/constants.js?v=1.0.1"></script>
+    <script src="js/logic.js?v=1.0.1"></script>
+    <script src="js/validation.js?v=1.0.1"></script>
+    <script src="js/ui.js?v=1.0.1"></script>
+    <script src="js/pdf_generator.js?v=1.0.1"></script>
 
     <!-- Integrity Check -->
     <script>
