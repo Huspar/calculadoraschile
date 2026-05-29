@@ -76,7 +76,7 @@
         document.body.appendChild(modalDiv);
     }
 
-    // 3. INJECT PRINT STYLES (Strictly optimized for A4/Letter 1-page budget limits)
+    // 3. INJECT PRINT STYLES (Premium A4 single-page design)
     function injectPrintStyles() {
         if (document.getElementById('pdf-print-styles')) return;
 
@@ -84,22 +84,19 @@
         style.id = 'pdf-print-styles';
         style.innerHTML = `
             @media print {
-                /* Set A4/Letter margins at the page level and force portrait orientation */
                 @page {
                     size: portrait;
-                    margin: 6mm 10mm 6mm 10mm !important;
+                    margin: 8mm 12mm 8mm 12mm !important;
                 }
-                /* Hide everything except print-section */
                 body > *:not(#print-section) {
                     display: none !important;
                 }
-                /* Format printed page - restrict heights strictly to 1 page */
                 html, body {
                     background: #ffffff !important;
-                    color: #000000 !important;
-                    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-                    font-size: 8pt !important;
-                    line-height: 1.2 !important;
+                    color: #1e293b !important;
+                    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                    font-size: 8.5pt !important;
+                    line-height: 1.35 !important;
                     margin: 0 !important;
                     padding: 0 !important;
                     height: 100% !important;
@@ -114,36 +111,58 @@
                     height: 100% !important;
                     max-height: 100% !important;
                     overflow: hidden !important;
-                    padding: 0 !important; /* Zero padding since page margin handles spacing */
+                    padding: 0 !important;
                     background: #ffffff !important;
-                    color: #000000 !important;
+                    color: #1e293b !important;
                     box-sizing: border-box !important;
                 }
                 .print-header {
-                    border-bottom: 1.2px solid #0f172a !important;
-                    padding-bottom: 4px !important;
-                    margin-bottom: 8px !important;
+                    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%) !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                    color: #ffffff !important;
+                    padding: 12px 16px !important;
+                    border-radius: 6px !important;
+                    margin-bottom: 10px !important;
                     display: flex !important;
                     justify-content: space-between !important;
-                    align-items: flex-end !important;
+                    align-items: center !important;
+                    position: relative !important;
+                    overflow: hidden !important;
+                }
+                .print-header::after {
+                    content: '' !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    right: 0 !important;
+                    width: 120px !important;
+                    height: 100% !important;
+                    background: linear-gradient(135deg, transparent 0%, rgba(16,185,129,0.15) 100%) !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
                 }
                 .print-title {
                     font-size: 11pt !important;
-                    font-weight: bold !important;
+                    font-weight: 700 !important;
                     text-transform: uppercase !important;
+                    letter-spacing: 0.3px !important;
                     margin-top: 0px !important;
-                    margin-bottom: 2px !important;
+                    margin-bottom: 3px !important;
                     color: #0f172a !important;
                 }
                 .print-section-title {
-                    background: #f8fafc !important;
-                    padding: 3px 6px !important;
-                    font-size: 8.5pt !important;
-                    font-weight: bold !important;
+                    background: linear-gradient(90deg, #f0fdf4 0%, #f8fafc 100%) !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                    padding: 4px 8px !important;
+                    font-size: 8pt !important;
+                    font-weight: 700 !important;
                     text-transform: uppercase !important;
+                    letter-spacing: 0.5px !important;
                     border-left: 3px solid #10b981 !important;
+                    border-bottom: 1px solid #e2e8f0 !important;
                     margin-top: 8px !important;
-                    margin-bottom: 4px !important;
+                    margin-bottom: 5px !important;
                     color: #0f172a !important;
                 }
                 .print-table {
@@ -153,42 +172,55 @@
                 }
                 .print-table th {
                     text-align: left !important;
-                    padding: 3px 5px !important;
+                    padding: 4px 8px !important;
                     font-size: 7.5pt !important;
-                    border-bottom: 1px solid #cbd5e1 !important;
+                    font-weight: 600 !important;
+                    text-transform: uppercase !important;
+                    letter-spacing: 0.3px !important;
+                    border-bottom: 2px solid #10b981 !important;
                     color: #475569 !important;
+                    background: #f8fafc !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
                 }
                 .print-table td {
-                    padding: 3px 5px !important;
+                    padding: 4px 8px !important;
                     font-size: 8pt !important;
-                    border-bottom: 1px solid #f1f5f9 !important;
+                    border-bottom: 1px solid #e2e8f0 !important;
+                }
+                .print-table tr:nth-child(even) td {
+                    background: #f8fafc !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
                 }
                 .print-total-box {
-                    border: 1.5px solid #10b981 !important;
-                    background: #f0fdf4 !important;
-                    padding: 6px 10px !important;
-                    border-radius: 4px !important;
+                    border: 2px solid #10b981 !important;
+                    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%) !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                    padding: 8px 14px !important;
+                    border-radius: 6px !important;
                     margin-top: 8px !important;
                     margin-bottom: 8px !important;
                     text-align: right !important;
                     page-break-inside: avoid !important;
                 }
                 .print-total-amount {
-                    font-size: 14pt !important;
+                    font-size: 16pt !important;
                     font-weight: 800 !important;
-                    color: #15803d !important;
+                    color: #047857 !important;
+                    letter-spacing: -0.5px !important;
                 }
                 .print-disclaimer {
-                    font-size: 6.8pt !important;
-                    color: #64748b !important;
-                    line-height: 1.2 !important;
-                    border-top: 1px solid #cbd5e1 !important;
-                    padding-top: 4px !important;
-                    margin-top: 8px !important;
+                    font-size: 6.5pt !important;
+                    color: #94a3b8 !important;
+                    line-height: 1.25 !important;
+                    border-top: 1px solid #e2e8f0 !important;
+                    padding-top: 5px !important;
+                    margin-top: 6px !important;
                     text-align: justify !important;
                     page-break-inside: avoid !important;
                 }
-                /* Prevent page-break on table rows and content blocks */
                 tr, td, th, table, div, p {
                     page-break-inside: avoid !important;
                 }
@@ -573,65 +605,81 @@
         const optionsLine = optionsItems.map(o => `${o.active ? checkIcon : uncheckIcon} ${o.label}`).join('&nbsp;&nbsp;│&nbsp;&nbsp;');
 
         return `
+            <!-- Premium Branded Header -->
             <div class="print-header">
                 <div>
-                    <h2 style="margin: 0; font-size: 13pt; font-weight: bold; color: #0f172a;">CÁLCULO LABORAL</h2>
-                    <span style="font-size: 7.5pt; color: #64748b;">www.calculolaboral.cl</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #10b981, #3b82f6); display: flex; align-items: center; justify-content: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                            <span style="color: #fff; font-size: 14pt; font-weight: 800; line-height: 1;">C</span>
+                        </div>
+                        <div>
+                            <h2 style="margin: 0; font-size: 13pt; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">CÁLCULO LABORAL</h2>
+                            <span style="font-size: 7pt; color: #94a3b8; letter-spacing: 0.3px;">www.calculolaboral.cl</span>
+                        </div>
+                    </div>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 8.5pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE FINIQUITO</span><br>
-                    <span style="font-size: 7.5pt; color: #94a3b8;">Fecha: ${dateString} &nbsp;|&nbsp; Folio: ${folio}</span>
+                    <span style="font-size: 9pt; font-weight: 700; color: #10b981; letter-spacing: 0.5px;">SIMULACIÓN DE FINIQUITO</span><br>
+                    <span style="font-size: 7pt; color: #94a3b8;">${dateString}</span><br>
+                    <span style="font-size: 6.5pt; color: #64748b; font-family: monospace;">Folio: ${folio}</span>
                 </div>
             </div>
 
-            <!-- Economic Indicators Bar -->
-            <div style="background: #f1f5f9; border-radius: 3px; padding: 2px 8px; margin-bottom: 6px; font-size: 7pt; color: #475569; display: flex; justify-content: space-between;">
-                <span><strong>Indicadores Económicos Usados:</strong></span>
-                <span>UF: $${typeof uf === 'number' ? formatNumber(uf) : uf} &nbsp;|&nbsp; UTM: $${typeof utm === 'number' ? formatNumber(utm) : utm} &nbsp;|&nbsp; IMM: $${typeof imm === 'number' ? formatNumber(imm) : imm}</span>
+            <!-- Economic Indicators Chips -->
+            <div style="display: flex; gap: 6px; margin-bottom: 8px; font-size: 7pt;">
+                <div style="flex: 1; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; padding: 3px 8px; text-align: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                    <span style="color: #64748b;">UF</span>&nbsp;&nbsp;<strong style="color: #047857;">$${typeof uf === 'number' ? formatNumber(uf) : uf}</strong>
+                </div>
+                <div style="flex: 1; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 3px 8px; text-align: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                    <span style="color: #64748b;">UTM</span>&nbsp;&nbsp;<strong style="color: #1d4ed8;">$${typeof utm === 'number' ? formatNumber(utm) : utm}</strong>
+                </div>
+                <div style="flex: 1; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 4px; padding: 3px 8px; text-align: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                    <span style="color: #64748b;">IMM</span>&nbsp;&nbsp;<strong style="color: #7c3aed;">$${typeof imm === 'number' ? formatNumber(imm) : imm}</strong>
+                </div>
             </div>
 
             <div class="print-title">Reporte de Simulación de Finiquito</div>
-            <p style="font-size: 8pt; color: #64748b; margin-top: 0; margin-bottom: 8px;">
-                Este documento muestra el desglose del finiquito laboral estimado según la legislación chilena vigente.
+            <p style="font-size: 7.5pt; color: #64748b; margin-top: 0; margin-bottom: 8px;">
+                Desglose del finiquito laboral estimado según la legislación chilena vigente (Código del Trabajo).
             </p>
 
             <!-- Column Layout: Resumen del Contrato and Bases de Cálculo side by side -->
-            <div style="display: flex; gap: 15px; margin-bottom: 5px; width: 100%;">
+            <div style="display: flex; gap: 12px; margin-bottom: 5px; width: 100%;">
                 <div style="flex: 1; min-width: 0;">
                     <div class="print-section-title" style="margin-top: 0; margin-bottom: 4px;">1. Resumen del Contrato</div>
                     <table class="print-table">
                         <tr>
-                            <td style="font-weight: bold; width: 45%;">Inicio:</td>
+                            <td style="font-weight: 600; width: 42%; color: #475569;">Inicio:</td>
                             <td>${formatInputDate(startDateVal)}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">Término:</td>
+                            <td style="font-weight: 600; color: #475569;">Término:</td>
                             <td>${formatInputDate(endDateVal)}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">Antigüedad:</td>
-                            <td>${antiquity}</td>
+                            <td style="font-weight: 600; color: #475569;">Antigüedad:</td>
+                            <td style="font-weight: 600; color: #0f172a;">${antiquity}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">Causal:</td>
-                            <td>${cause}</td>
+                            <td style="font-weight: 600; color: #475569;">Causal:</td>
+                            <td style="font-size: 7.5pt;">${cause}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">¿Aviso previo?:</td>
+                            <td style="font-weight: 600; color: #475569;">¿Aviso previo?:</td>
                             <td>${noticeText}</td>
                         </tr>
                     </table>
                 </div>
-                <div style="width: 42%; min-width: 0;">
+                <div style="width: 44%; min-width: 0;">
                     <div class="print-section-title" style="margin-top: 0; margin-bottom: 4px;">2. Bases de Cálculo</div>
                     <table class="print-table">
                         <tr>
-                            <td style="font-weight: bold; width: 50%;">Sueldo Base:</td>
-                            <td>$${formatNumber(parseInt(baseSalary || 0))} CLP</td>
+                            <td style="font-weight: 600; width: 50%; color: #475569;">Sueldo Base:</td>
+                            <td style="font-weight: 600;">$${formatNumber(parseInt(baseSalary || 0))}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">Haberes no Imp.:</td>
-                            <td>$${formatNumber(parseInt(assignments || 0))} CLP</td>
+                            <td style="font-weight: 600; color: #475569;">Haberes no Imp.:</td>
+                            <td>$${formatNumber(parseInt(assignments || 0))}</td>
                         </tr>
                         ${gratificationRow}
                         ${variableSalaryRows}
@@ -640,57 +688,64 @@
                 </div>
             </div>
 
-            <div class="print-section-title" style="margin-top: 4px; margin-bottom: 4px;">3. Detalle de Indemnizaciones y Haberes a Pagar</div>
+            <div class="print-section-title" style="margin-top: 4px; margin-bottom: 4px;">3. Detalle de Indemnizaciones y Haberes</div>
             <table class="print-table" style="margin-bottom: 6px;">
                 <thead>
                     <tr>
-                        <th style="width: 70%; padding: 2px 5px !important;">Concepto</th>
-                        <th style="text-align: right; padding: 2px 5px !important;">Monto Estimado</th>
+                        <th style="width: 70%;">Concepto</th>
+                        <th style="text-align: right;">Monto Estimado</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="padding: 2px 5px !important;">Indemnización por Años de Servicio</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${yearsService}</td>
+                        <td>Indemnización por Años de Servicio</td>
+                        <td style="text-align: right; font-weight: 600;">${yearsService}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 2px 5px !important;">Indemnización Sustitutiva del Aviso Previo (Mes de Aviso)</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${noticeAmount}</td>
+                        <td>Indemnización Sustitutiva del Aviso Previo</td>
+                        <td style="text-align: right; font-weight: 600;">${noticeAmount}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 2px 5px !important;">Feriado Proporcional (Vacaciones Acumuladas: ${vacationDays})</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${vacationProp}</td>
+                        <td>Feriado Proporcional (${vacationDays})</td>
+                        <td style="text-align: right; font-weight: 600;">${vacationProp}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 2px 5px !important;">Feriado Legal Pendiente (Vacaciones anteriores)</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${vacationPendingAmt}</td>
+                        <td>Feriado Legal Pendiente</td>
+                        <td style="text-align: right; font-weight: 600;">${vacationPendingAmt}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 2px 5px !important;">Remuneraciones del Mes Pendientes (Días Trabajados)</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${pendingSalary}</td>
+                        <td>Remuneraciones Pendientes (Días Trabajados)</td>
+                        <td style="text-align: right; font-weight: 600;">${pendingSalary}</td>
                     </tr>
                     ${afcAmount !== '$0' && afcAmount !== '0' && afcAmount !== '' ? `
-                    <tr style="color: #b91c1c;">
-                        <td style="padding: 2px 5px !important;">Descuento Aporte AFC Empleador (Art. 13 Ley 19.728)</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">-${afcAmount}</td>
+                    <tr>
+                        <td style="color: #b91c1c;">Descuento Aporte AFC Empleador (Art. 13)</td>
+                        <td style="text-align: right; font-weight: 600; color: #b91c1c;">-${afcAmount}</td>
                     </tr>
                     ` : ''}
                 </tbody>
             </table>
 
-            <div class="print-total-box" style="margin-top: 4px; margin-bottom: 6px; padding: 5px 10px !important;">
-                <span style="font-size: 8.5pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 2px;">Monto Total Neto Estimado</span>
-                <span class="print-total-amount" style="font-size: 13.5pt !important;">${total}</span> <span style="font-size: 10pt; font-weight: bold; color: #15803d;">CLP</span>
+            <!-- Premium Total Box -->
+            <div class="print-total-box" style="margin-top: 6px; margin-bottom: 8px; padding: 8px 14px !important;">
+                <span style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #047857; display: block; margin-bottom: 3px;">Monto Total Neto Estimado</span>
+                <span class="print-total-amount">${total}</span> <span style="font-size: 11pt; font-weight: 700; color: #047857;">CLP</span>
             </div>
 
-            <!-- Options / Parameters Used -->
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3px 8px; margin-bottom: 5px; font-size: 6.8pt; color: #475569; line-height: 1.3;">
-                <strong>Parámetros de Simulación:</strong>&nbsp;&nbsp;${optionsLine}
+            <!-- Parameters Badges -->
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;">
+                ${optionsItems.map(o => `<span style="font-size: 6.5pt; padding: 2px 6px; border-radius: 3px; border: 1px solid ${o.active ? '#bbf7d0' : '#e2e8f0'}; background: ${o.active ? '#f0fdf4' : '#f8fafc'}; color: ${o.active ? '#047857' : '#94a3b8'}; -webkit-print-color-adjust: exact; print-color-adjust: exact;">${o.active ? '✓' : '✗'} ${o.label}</span>`).join('')}
             </div>
 
-            <div class="print-disclaimer" style="margin-top: 4px; padding-top: 4px; font-size: 6.5pt !important; line-height: 1.15 !important;">
-                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante juzgados o notarías, ni constituye un finiquito oficial.<br>
-                <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta simulación se ofrece de manera gratuita y con propósitos educativos. Los cálculos de finiquitos reales están condicionados por elementos particulares (créditos sociales vigentes, cotizaciones adeudadas, cláusulas específicas del contrato, etc.). Cálculo Laboral no asume responsabilidad alguna por interpretaciones o decisiones basadas en esta simulación. Se sugiere validar el borrador con la Inspección del Trabajo o un abogado laboral.
+            <!-- Footer Disclaimer -->
+            <div class="print-disclaimer">
+                <strong>NOTA INFORMATIVA:</strong> Simulación matemática basada en datos del usuario y normativa vigente. No constituye documento legal ni finiquito oficial.<br>
+                <strong>DESCARGO:</strong> Cálculo Laboral no asume responsabilidad por decisiones basadas en esta simulación. Valide con la Inspección del Trabajo o un abogado laboral.
+            </div>
+
+            <!-- Footer Bar -->
+            <div style="margin-top: 4px; text-align: center; font-size: 6pt; color: #cbd5e1;">
+                www.calculolaboral.cl — Simulador de Finiquito Chile ${new Date().getFullYear()} — Generado automáticamente
             </div>
         `;
     }
