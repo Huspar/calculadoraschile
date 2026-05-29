@@ -6,7 +6,7 @@
 
 (function () {
     // CONFIGURACIÓN DE LEADS: Reemplaza con la URL de tu Google Apps Script desplegado
-    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwKOzuOsaXAOPbpvfQVkLAiR8nZSImF0U1vXB6s4NsGDtj_zRWitaMKuwjFHU0e-2TUWw/exec';
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby81-BL0hip010mshIYnpCwTMHKJYEcyNVrZyKZeoRJDi3_MQ4UWEC7gf2HxhcJ4iL1Ug/exec';
 
     // 1. INJECT MODAL HTML AND CSS ON PAGE LOAD
     window.addEventListener('DOMContentLoaded', () => {
