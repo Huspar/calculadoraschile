@@ -160,10 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Advanced Toggles Listeners
     elements.enableIAS = document.getElementById('enableIAS');
     elements.enableNotice = document.getElementById('enableNotice');
+    elements.enablePending = document.getElementById('enablePending');
     elements.simulateAFC = document.getElementById('simulateAFC');
 
     if (elements.enableIAS) elements.enableIAS.addEventListener('change', updateCalculations);
     if (elements.enableNotice) elements.enableNotice.addEventListener('change', updateCalculations);
+    if (elements.enablePending) elements.enablePending.addEventListener('change', updateCalculations);
     if (elements.simulateAFC) elements.simulateAFC.addEventListener('change', updateCalculations);
 
     // ============================================
@@ -456,6 +458,7 @@ function updateCalculations() {
                 elements.includeAssignmentsInIndemnity.checked : true,
             enableIAS: readBool(elements.enableIAS, true),
             enableNotice: readBool(elements.enableNotice, true),
+            enablePending: readBool(elements.enablePending, true),
             simulateAFC: readBool(elements.simulateAFC, true),
             holidays: window.HOLIDAYS_LIST
         });

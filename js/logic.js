@@ -26,6 +26,7 @@ class FiniquitoCalculator {
         this.noticeGiven = data.noticeGiven || false; // Si se dio aviso previo
         this.enableIAS = data.enableIAS !== undefined ? data.enableIAS : true;
         this.enableNotice = data.enableNotice !== undefined ? data.enableNotice : true;
+        this.enablePending = data.enablePending !== undefined ? data.enablePending : true;
         this.simulateAFC = data.simulateAFC !== undefined ? data.simulateAFC : true;
         this.holidays = Array.isArray(data.holidays) ? data.holidays : (typeof CONSTANTS !== 'undefined' ? CONSTANTS.HOLIDAYS_2026 : []);
 
@@ -82,7 +83,9 @@ class FiniquitoCalculator {
         const vacationAmount = this.calculateVacationIndemnity();
 
         // 4. Calcular remuneración pendiente (días trabajados del último mes)
-        const pendingRemuneration = this.calculatePendingRemuneration();
+        const pendingRemuneration = this.enablePending 
+            ? this.calculatePendingRemuneration() 
+            : { daysWorked: 0, propBase: 0, propGrat: 0, propAssign: 0, propVariable: 0, total: 0 };
 
         // 5. Calcular total
         const afc = this.calculateAFCDeduction(serviceTime, cappedSalary);

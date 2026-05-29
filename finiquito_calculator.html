@@ -704,6 +704,25 @@
                                         </span>
                                     </label>
 
+                                    <!-- Pending Salary Option -->
+                                    <label class="flex items-start gap-3 cursor-pointer group">
+                                        <div class="relative mt-0.5">
+                                            <input id="enablePending" class="peer sr-only" type="checkbox" checked />
+                                            <div
+                                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
+                                                Incluir sueldo del último mes trabajado
+                                            </span>
+                                            <span class="text-[10px] text-slate-500 leading-tight">
+                                                Desmarca esto si tus últimos días trabajados ya te los pagaron por liquidación de sueldo regular.
+                                            </span>
+                                        </div>
+                                    </label>
+
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
                                             <input id="includeAssignmentsInIndemnity" class="peer sr-only"
