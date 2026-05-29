@@ -5,6 +5,9 @@
  */
 
 (function () {
+    // CONFIGURACIÓN DE LEADS: Reemplaza con la URL de tu Google Apps Script desplegado
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwKOzuOsaXAOPbpvfQVkLAiR8nZSImF0U1vXB6s4NsGDtj_zRWitaMKuwjFHU0e-2TUWw/exec';
+
     // 1. INJECT MODAL HTML AND CSS ON PAGE LOAD
     window.addEventListener('DOMContentLoaded', () => {
         injectModalHTML();
@@ -387,23 +390,38 @@
         try {
             const leads = JSON.parse(localStorage.getItem('pdf_leads') || '[]');
             const pageType = window.location.pathname.includes('sueldo') ? 'sueldo_liquido' : 'finiquito';
+            const leadData = {
+                email: email,
+                date: new Date().toISOString(),
+                type: pageType,
+                userAgent: navigator.userAgent
+            };
             
             // Avoid duplicates
             if (!leads.some(l => l.email === email && l.type === pageType)) {
-                leads.push({
-                    email: email,
-                    date: new Date().toISOString(),
-                    type: pageType
-                });
+                leads.push(leadData);
                 localStorage.setItem('pdf_leads', JSON.stringify(leads));
                 console.log("Lead guardado localmente:", email);
             }
             
-            // Here you could send the lead to a Google Sheet Webhook if configured:
-            // fetch('YOUR_APPS_SCRIPT_WEBHOOK_URL', {
-            //     method: 'POST',
-            //     body: JSON.stringify({ email: email, type: pageType })
-            // });
+            // Envío asíncrono al Webhook de Google Sheets si está configurado
+            if (WEBHOOK_URL && WEBHOOK_URL.trim() !== '') {
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(leadData),
+                    redirect: 'follow'
+                })
+                .then(response => response.text())
+                .then(result => {
+                    console.log("Lead sincronizado con Google Sheets:", result);
+                })
+                .catch(err => {
+                    console.warn("No se pudo sincronizar el lead con Google Sheets:", err);
+                });
+            }
         } catch (e) {
             console.error("Error al guardar lead:", e);
         }
@@ -451,6 +469,17 @@
 
     // 8. COMPILE FINIQUITO REPORT
     function compileFiniquitoReport(dateString) {
+        // Generate unique folio: YYYYMMDD-XXXXX
+        const now = new Date();
+        const folioDate = now.getFullYear().toString() + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0');
+        const folioRandom = Math.random().toString(36).substring(2, 7).toUpperCase();
+        const folio = `FIN-${folioDate}-${folioRandom}`;
+
+        // Economic indicators from CONSTANTS (global)
+        const uf = (typeof CONSTANTS !== 'undefined' && CONSTANTS.UF) ? CONSTANTS.UF : '--';
+        const utm = (typeof CONSTANTS !== 'undefined' && CONSTANTS.UTM) ? CONSTANTS.UTM : '--';
+        const imm = (typeof CONSTANTS !== 'undefined' && CONSTANTS.IMM) ? CONSTANTS.IMM : '--';
+
         // Query results safely from DOM
         const total = document.getElementById('totalAmount')?.textContent || '$0';
         const antiquity = document.getElementById('antiquityOutput')?.textContent || 'No especificada';
@@ -460,7 +489,7 @@
         const noticeAmount = document.getElementById('noticeAmount')?.textContent || '$0';
         const pendingSalary = document.getElementById('pendingSalaryAmount')?.textContent || '$0';
         const vacationProp = document.getElementById('vacationPropAmount')?.textContent || '$0';
-        const vacationPending = document.getElementById('vacationPendingAmount')?.textContent || '$0';
+        const vacationPendingAmt = document.getElementById('vacationPendingAmount')?.textContent || '$0';
         
         // AFC Deduction (if displayed or not hidden)
         const afcRow = document.getElementById('afcRow');
@@ -480,6 +509,69 @@
         const noticeCheckbox = document.getElementById('noticeGiven');
         const noticeText = (noticeCheckbox && noticeCheckbox.checked) ? 'Sí' : 'No';
 
+        // --- NEW: Income tab fields ---
+        const hasVariableSalary = document.getElementById('hasVariableSalary')?.checked || false;
+        const varMonth1 = document.getElementById('varMonth1')?.value || '0';
+        const varMonth2 = document.getElementById('varMonth2')?.value || '0';
+        const varMonth3 = document.getElementById('varMonth3')?.value || '0';
+        const variableAverage = document.getElementById('variableAverageOutput')?.textContent || '$0';
+
+        const gratification = document.getElementById('gratification')?.value || '0';
+        const vacPendingDays = document.getElementById('vacationPending')?.value || '0';
+        const includeAssignInVac = document.getElementById('includeAssignmentsInVacation')?.checked || false;
+
+        // --- NEW: Advanced options tab fields ---
+        const enableIAS = document.getElementById('enableIAS')?.checked ?? true;
+        const enableNotice = document.getElementById('enableNotice')?.checked ?? true;
+        const simulateAFC = document.getElementById('simulateAFC')?.checked || false;
+        const enablePending = document.getElementById('enablePending')?.checked ?? true;
+        const includeAssignInIndem = document.getElementById('includeAssignmentsInIndemnity')?.checked || false;
+
+        // Helper: build variable salary rows for Bases de Cálculo
+        let variableSalaryRows = '';
+        if (hasVariableSalary) {
+            variableSalaryRows = `
+                        <tr>
+                            <td style="font-weight: bold;">Sueldo Variable:</td>
+                            <td>Sí (prom. ${variableAverage})</td>
+                        </tr>`;
+        }
+
+        // Helper: gratification row
+        let gratificationRow = '';
+        const gratVal = parseInt(gratification || 0);
+        if (gratVal > 0) {
+            gratificationRow = `
+                        <tr>
+                            <td style="font-weight: bold;">Gratificación Art. 50:</td>
+                            <td>$${formatNumber(gratVal)} CLP</td>
+                        </tr>`;
+        }
+
+        // Helper: vacation pending days row
+        let vacPendingRow = '';
+        const vacPDays = parseInt(vacPendingDays || 0);
+        if (vacPDays > 0) {
+            vacPendingRow = `
+                        <tr>
+                            <td style="font-weight: bold;">Vac. pendientes ant.:</td>
+                            <td>${vacPDays} días</td>
+                        </tr>`;
+        }
+
+        // Build options checkmarks (compact single line per option)
+        const checkIcon = '☑';
+        const uncheckIcon = '☐';
+        const optionsItems = [
+            { label: 'Indemn. Años Serv.', active: enableIAS },
+            { label: 'Aviso Previo', active: enableNotice },
+            { label: 'Desc. AFC', active: simulateAFC },
+            { label: 'Sueldo Pendiente', active: enablePending },
+            { label: 'Asign. en IAS', active: includeAssignInIndem },
+            { label: 'Asign. en Vac.', active: includeAssignInVac }
+        ];
+        const optionsLine = optionsItems.map(o => `${o.active ? checkIcon : uncheckIcon} ${o.label}`).join('&nbsp;&nbsp;│&nbsp;&nbsp;');
+
         return `
             <div class="print-header">
                 <div>
@@ -488,8 +580,14 @@
                 </div>
                 <div style="text-align: right;">
                     <span style="font-size: 8.5pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE FINIQUITO</span><br>
-                    <span style="font-size: 7.5pt; color: #94a3b8;">Fecha: ${dateString}</span>
+                    <span style="font-size: 7.5pt; color: #94a3b8;">Fecha: ${dateString} &nbsp;|&nbsp; Folio: ${folio}</span>
                 </div>
+            </div>
+
+            <!-- Economic Indicators Bar -->
+            <div style="background: #f1f5f9; border-radius: 3px; padding: 2px 8px; margin-bottom: 6px; font-size: 7pt; color: #475569; display: flex; justify-content: space-between;">
+                <span><strong>Indicadores Económicos Usados:</strong></span>
+                <span>UF: $${typeof uf === 'number' ? formatNumber(uf) : uf} &nbsp;|&nbsp; UTM: $${typeof utm === 'number' ? formatNumber(utm) : utm} &nbsp;|&nbsp; IMM: $${typeof imm === 'number' ? formatNumber(imm) : imm}</span>
             </div>
 
             <div class="print-title">Reporte de Simulación de Finiquito</div>
@@ -535,6 +633,9 @@
                             <td style="font-weight: bold;">Haberes no Imp.:</td>
                             <td>$${formatNumber(parseInt(assignments || 0))} CLP</td>
                         </tr>
+                        ${gratificationRow}
+                        ${variableSalaryRows}
+                        ${vacPendingRow}
                     </table>
                 </div>
             </div>
@@ -562,7 +663,7 @@
                     </tr>
                     <tr>
                         <td style="padding: 2px 5px !important;">Feriado Legal Pendiente (Vacaciones anteriores)</td>
-                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${vacationPending}</td>
+                        <td style="text-align: right; font-weight: 500; padding: 2px 5px !important;">${vacationPendingAmt}</td>
                     </tr>
                     <tr>
                         <td style="padding: 2px 5px !important;">Remuneraciones del Mes Pendientes (Días Trabajados)</td>
@@ -580,6 +681,11 @@
             <div class="print-total-box" style="margin-top: 4px; margin-bottom: 6px; padding: 5px 10px !important;">
                 <span style="font-size: 8.5pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 2px;">Monto Total Neto Estimado</span>
                 <span class="print-total-amount" style="font-size: 13.5pt !important;">${total}</span> <span style="font-size: 10pt; font-weight: bold; color: #15803d;">CLP</span>
+            </div>
+
+            <!-- Options / Parameters Used -->
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3px 8px; margin-bottom: 5px; font-size: 6.8pt; color: #475569; line-height: 1.3;">
+                <strong>Parámetros de Simulación:</strong>&nbsp;&nbsp;${optionsLine}
             </div>
 
             <div class="print-disclaimer" style="margin-top: 4px; padding-top: 4px; font-size: 6.5pt !important; line-height: 1.15 !important;">
