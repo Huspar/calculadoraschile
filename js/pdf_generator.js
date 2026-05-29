@@ -73,7 +73,7 @@
         document.body.appendChild(modalDiv);
     }
 
-    // 3. INJECT PRINT STYLES (Optimized to guarantee 1 single page)
+    // 3. INJECT PRINT STYLES (Strictly optimized for A4/Letter 1-page budget limits)
     function injectPrintStyles() {
         if (document.getElementById('pdf-print-styles')) return;
 
@@ -81,99 +81,107 @@
         style.id = 'pdf-print-styles';
         style.innerHTML = `
             @media print {
-                /* Set A4/Letter margins at the page level */
+                /* Set A4/Letter margins at the page level and force portrait orientation */
                 @page {
                     size: portrait;
-                    margin: 8mm 12mm 8mm 12mm !important;
+                    margin: 6mm 10mm 6mm 10mm !important;
                 }
                 /* Hide everything except print-section */
                 body > *:not(#print-section) {
                     display: none !important;
                 }
-                /* Format printed page */
+                /* Format printed page - restrict heights strictly to 1 page */
                 html, body {
                     background: #ffffff !important;
                     color: #000000 !important;
                     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-                    font-size: 8.5pt !important;
-                    line-height: 1.25 !important;
+                    font-size: 8pt !important;
+                    line-height: 1.2 !important;
                     margin: 0 !important;
                     padding: 0 !important;
+                    height: 100% !important;
+                    max-height: 100% !important;
+                    overflow: hidden !important;
+                    page-break-after: avoid !important;
+                    page-break-before: avoid !important;
                 }
                 #print-section {
                     display: block !important;
                     width: 100% !important;
+                    height: 100% !important;
+                    max-height: 100% !important;
+                    overflow: hidden !important;
                     padding: 0 !important; /* Zero padding since page margin handles spacing */
                     background: #ffffff !important;
                     color: #000000 !important;
                     box-sizing: border-box !important;
                 }
                 .print-header {
-                    border-bottom: 1.5px solid #0f172a !important;
-                    padding-bottom: 6px !important;
-                    margin-bottom: 12px !important;
+                    border-bottom: 1.2px solid #0f172a !important;
+                    padding-bottom: 4px !important;
+                    margin-bottom: 8px !important;
                     display: flex !important;
                     justify-content: space-between !important;
                     align-items: flex-end !important;
                 }
                 .print-title {
-                    font-size: 13pt !important;
+                    font-size: 11pt !important;
                     font-weight: bold !important;
                     text-transform: uppercase !important;
                     margin-top: 0px !important;
-                    margin-bottom: 4px !important;
+                    margin-bottom: 2px !important;
                     color: #0f172a !important;
                 }
                 .print-section-title {
                     background: #f8fafc !important;
-                    padding: 4px 8px !important;
-                    font-size: 9pt !important;
+                    padding: 3px 6px !important;
+                    font-size: 8.5pt !important;
                     font-weight: bold !important;
                     text-transform: uppercase !important;
                     border-left: 3px solid #10b981 !important;
-                    margin-top: 10px !important;
-                    margin-bottom: 6px !important;
+                    margin-top: 8px !important;
+                    margin-bottom: 4px !important;
                     color: #0f172a !important;
                 }
                 .print-table {
                     width: 100% !important;
                     border-collapse: collapse !important;
-                    margin-bottom: 10px !important;
+                    margin-bottom: 8px !important;
                 }
                 .print-table th {
                     text-align: left !important;
-                    padding: 4px 6px !important;
-                    font-size: 8pt !important;
+                    padding: 3px 5px !important;
+                    font-size: 7.5pt !important;
                     border-bottom: 1px solid #cbd5e1 !important;
                     color: #475569 !important;
                 }
                 .print-table td {
-                    padding: 4px 6px !important;
-                    font-size: 8.5pt !important;
+                    padding: 3px 5px !important;
+                    font-size: 8pt !important;
                     border-bottom: 1px solid #f1f5f9 !important;
                 }
                 .print-total-box {
                     border: 1.5px solid #10b981 !important;
                     background: #f0fdf4 !important;
-                    padding: 8px 12px !important;
-                    border-radius: 6px !important;
-                    margin-top: 10px !important;
-                    margin-bottom: 10px !important;
+                    padding: 6px 10px !important;
+                    border-radius: 4px !important;
+                    margin-top: 8px !important;
+                    margin-bottom: 8px !important;
                     text-align: right !important;
                     page-break-inside: avoid !important;
                 }
                 .print-total-amount {
-                    font-size: 16pt !important;
+                    font-size: 14pt !important;
                     font-weight: 800 !important;
                     color: #15803d !important;
                 }
                 .print-disclaimer {
-                    font-size: 7.2pt !important;
+                    font-size: 6.8pt !important;
                     color: #64748b !important;
-                    line-height: 1.25 !important;
+                    line-height: 1.2 !important;
                     border-top: 1px solid #cbd5e1 !important;
-                    padding-top: 6px !important;
-                    margin-top: 10px !important;
+                    padding-top: 4px !important;
+                    margin-top: 8px !important;
                     text-align: justify !important;
                     page-break-inside: avoid !important;
                 }
@@ -337,20 +345,38 @@
         return { valid: true };
     }
 
-    // 5. HELPER: CHECK IF CALCULATED VISTA IS GREATER THAN 0
+    // 6. HELPER: CHECK IF CALCULATOR IS GENUINELY CALCULATED WITH REAL INPUTS
     function isCalculated() {
         // For Finiquito
         const totalFiniElement = document.getElementById('totalAmount');
         if (totalFiniElement) {
+            const startDate = document.getElementById('startDate')?.value;
+            const endDate = document.getElementById('endDate')?.value;
+            const baseSalary = document.getElementById('baseSalary')?.value;
+            
+            // If main inputs are completely empty or negative, it's not calculated
+            if (!startDate || !endDate || !baseSalary || parseFloat(baseSalary) <= 0) {
+                return false;
+            }
+            
             const val = totalFiniElement.textContent.trim();
-            return val !== '$0' && val !== '$ --' && val !== '';
+            // Should not be the default placeholder value, error, or empty reset states
+            return val !== '' && val !== '$6.850.250' && val !== '$ — CLP' && !val.includes('Error');
         }
 
         // For Sueldo Liquido
         const netSalElement = document.getElementById('headerNetSalary');
         if (netSalElement) {
+            const salary = document.getElementById('salary')?.value;
+            
+            // If main input is empty or negative/zero, it's not calculated
+            if (!salary || parseFloat(salary) <= 0) {
+                return false;
+            }
+            
             const val = netSalElement.textContent.trim();
-            return val !== '$0' && val !== '$ --' && val !== '';
+            // Should not be the default zero placeholder or error states
+            return val !== '' && val !== '$0' && val !== '$ --' && !val.includes('Error');
         }
 
         return false;
