@@ -400,278 +400,224 @@
                     </div>
 
                     <form class="space-y-8">
-                        <!-- Section 1: Dates -->
-                        <div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <div
-                                    class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                    1</div>
-                                <h3 class="text-lg font-semibold text-white">Fechas del Contrato</h3>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-medium text-slate-400 ml-1">Fecha de
-                                        Inicio</label>
-                                    <div class="relative group">
-                                        <div
-                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                            <span
-                                                class="material-icons text-slate-500 group-focus-within:text-primary text-xl">calendar_today</span>
-                                        </div>
-                                        <input id="startDate"
-                                            class="block w-full pl-12 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                                            type="date" placeholder="Ej: 01/03/2020" />
+                        <!-- Navigation Tabs (Sleek Glassmorphic Tab Bar) -->
+                        <div class="flex border border-white/10 mb-8 p-1 bg-slate-900/50 rounded-2xl backdrop-blur-md">
+                            <button type="button" id="tabBtn-contrato" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20">
+                                1. Contrato
+                            </button>
+                            <button type="button" id="tabBtn-ingresos" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
+                                2. Ingresos
+                            </button>
+                            <button type="button" id="tabBtn-avanzado" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
+                                3. Opciones
+                            </button>
+                        </div>
+
+                        <!-- TAB CONTENT 1: CONTRATO (Dates + Causal) -->
+                        <div id="tabContent-contrato" class="space-y-8">
+                            <!-- Section 1: Dates -->
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                                        1
                                     </div>
-                                    <p class="text-xs text-slate-500 ml-2">Fecha que figura en su contrato.</p>
+                                    <h3 class="text-lg font-semibold text-white">Fechas del Contrato</h3>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-medium text-slate-400 ml-1">Fecha de
-                                        Término</label>
-                                    <div class="relative group">
-                                        <div
-                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                            <span
-                                                class="material-icons text-slate-500 group-focus-within:text-primary text-xl">event_busy</span>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-slate-400 ml-1">Fecha de Inicio</label>
+                                        <div class="relative group">
+                                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                <span class="material-icons text-slate-500 group-focus-within:text-primary text-xl">calendar_today</span>
+                                            </div>
+                                            <input id="startDate" class="block w-full pl-12 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all" type="date" placeholder="Ej: 01/03/2020" />
                                         </div>
-                                        <input id="endDate"
-                                            class="block w-full pl-12 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                                            type="date" placeholder="Ej: 15/01/2026" />
+                                        <p class="text-xs text-slate-500 ml-2">Fecha que figura en su contrato.</p>
                                     </div>
-                                    <p class="text-xs text-slate-500 ml-2">Último día trabajado (despido o
-                                        renuncia).
-                                    </p>
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-slate-400 ml-1">Fecha de Término</label>
+                                        <div class="relative group">
+                                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                <span class="material-icons text-slate-500 group-focus-within:text-primary text-xl">event_busy</span>
+                                            </div>
+                                            <input id="endDate" class="block w-full pl-12 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all" type="date" placeholder="Ej: 15/01/2026" />
+                                        </div>
+                                        <p class="text-xs text-slate-500 ml-2">Último día trabajado (despido o renuncia).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Cause -->
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                                        2
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-white">Causal de Término</h3>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-slate-400 ml-1">Selecciona la Causal</label>
+                                        <div class="relative">
+                                            <select id="cause" class="block w-full pl-4 pr-10 py-3 bg-input-dark border border-white/10 rounded-full text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer">
+                                                <option value="161">Art. 161 - Necesidades de la Empresa</option>
+                                                <option value="159-1">Art. 159 N°1 - Mutuo Acuerdo</option>
+                                                <option value="159-2">Art. 159 N°2 - Renuncia Voluntaria</option>
+                                                <option value="160">Art. 160 - Despido Disciplinario (Sin derecho a indemnización)</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                                <span class="material-icons text-slate-500">expand_more</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-4 rounded-xl bg-primary/10 border border-primary/20">
+                                        <span class="material-icons text-primary text-xl mt-0.5">info</span>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-white mb-1">Sobre el Art. 161</h4>
+                                            <p class="text-xs text-slate-400 leading-relaxed">Esta causal da derecho a indemnización por años de servicio y aviso previo (si no se avisó con 30 días de anticipación).</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between pt-4">
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <div class="relative">
+                                            <input id="noticeGiven" class="peer sr-only" type="checkbox" />
+                                            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">¿Se dio aviso con 30 días de anticipación?</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="h-px bg-white/5 w-full"></div>
-                        <!-- Section 2: Economics -->
-                        <div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <div
-                                    class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                    2</div>
-                                <h3 class="text-lg font-semibold text-white">Datos Económicos</h3>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-4">
-                                    <!-- Sueldo Base -->
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-medium text-slate-400 ml-1">Sueldo Base
-                                            Mensual</label>
-                                        <div class="relative group">
-                                            <div
-                                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <span
-                                                    class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
-                                            </div>
-                                            <input id="baseSalary" data-type="currency"
-                                                class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono"
-                                                placeholder="Ej: 850.000" type="text" />
-                                        </div>
-                                        <p class="text-xs text-slate-500 ml-2">Sueldo bruto pactado en contrato.
-                                        </p>
-                                    </div>
 
-                                    <!-- Variable Salary Toggle (Moved here) -->
-                                    <div class="pt-2 mb-2">
-                                        <label class="flex items-center gap-2 cursor-pointer group">
-                                            <input type="checkbox" id="hasVariableSalary"
-                                                class="w-4 h-4 text-primary bg-input-dark border-gray-600 rounded focus:ring-primary focus:ring-2 transition-all">
-                                            <span
-                                                class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">¿Sueldo
-                                                Variable / Comisiones?</span>
-                                        </label>
+                        <!-- TAB CONTENT 2: INGRESOS & VACACIONES (Economics) -->
+                        <div id="tabContent-ingresos" class="space-y-8 hidden">
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                                        3
                                     </div>
+                                    <h3 class="text-lg font-semibold text-white">Datos Económicos</h3>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-4">
+                                        <!-- Sueldo Base -->
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-slate-400 ml-1">Sueldo Base Mensual</label>
+                                            <div class="relative group">
+                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                    <span class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
+                                                </div>
+                                                <input id="baseSalary" data-type="currency" class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono" placeholder="Ej: 850.000" type="text" />
+                                            </div>
+                                            <p class="text-xs text-slate-500 ml-2">Sueldo bruto pactado en contrato.</p>
+                                        </div>
 
-                                    <!-- Variable Salary Inputs (Hidden by default) -->
-                                    <!-- Variable Salary Inputs (Hidden by default) -->
-                                    <div id="variableSalaryContainer"
-                                        class="hidden space-y-3 pt-2 bg-white/5 p-4 rounded-xl border border-white/5 mb-4">
-                                        <div class="flex items-start gap-2">
-                                            <span class="material-icons text-primary text-xs mt-0.5">info</span>
-                                            <p class="text-xs text-slate-400 leading-relaxed">Ingrese los montos
-                                                variables brutos de los <strong>últimos 3 meses
-                                                    completos</strong>
-                                                trabajados.</p>
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                            <div class="space-y-1">
-                                                <label class="text-xs text-slate-500 ml-1">Mes 1</label>
-                                                <input id="varMonth1" data-type="currency"
-                                                    class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono"
-                                                    placeholder="Ej: 150.000">
-                                            </div>
-                                            <div class="space-y-1">
-                                                <label class="text-xs text-slate-500 ml-1">Mes 2</label>
-                                                <input id="varMonth2" data-type="currency"
-                                                    class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono"
-                                                    placeholder="Ej: 120.000">
-                                            </div>
-                                            <div class="space-y-1">
-                                                <label class="text-xs text-slate-500 ml-1">Mes 3</label>
-                                                <input id="varMonth3" data-type="currency"
-                                                    class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono"
-                                                    placeholder="Ej: 180.000">
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between items-center pt-2 border-t border-white/5">
-                                            <span
-                                                class="text-xs text-slate-400 uppercase tracking-wider font-medium">Promedio</span>
-                                            <span id="variableAverageOutput"
-                                                class="text-primary font-bold font-mono">$0</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Gratificación -->
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-medium text-slate-400 ml-1">Gratificación
-                                            (Art.
-                                            50)</label>
-                                        <div class="relative group">
-                                            <div
-                                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <span
-                                                    class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
-                                            </div>
-                                            <input id="gratification" data-type="currency"
-                                                class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono"
-                                                placeholder="Ej: 213.354 (Tope)" type="text" />
-                                        </div>
-                                        <p class="text-xs text-slate-500 ml-2">Generalmente "25% con tope 4.75
-                                            IMM".
-                                        </p>
-                                    </div>
-                                    <!-- Asignaciones -->
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-medium text-slate-400 ml-1">Asig. Fijas
-                                            (Colación/Mov)</label>
-                                        <div class="relative group">
-                                            <div
-                                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <span
-                                                    class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
-                                            </div>
-                                            <input id="assignments" data-type="currency"
-                                                class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono"
-                                                placeholder="Ej: 80.000" type="text" />
-                                        </div>
-                                        <p class="text-xs text-slate-500 ml-2">Total mensual de Colación y
-                                            Movilización.
-                                        </p>
-                                        <div class="pt-2">
-                                            <label class="flex items-center gap-2 cursor-pointer select-none">
-                                                <input type="checkbox" id="includeAssignmentsInVacation"
-                                                    class="w-4 h-4 text-primary bg-input-dark border-gray-600 rounded focus:ring-primary focus:ring-2"
-                                                    checked>
-                                                <span class="text-xs text-slate-400">Incluir en Vacaciones
-                                                    (Criterio
-                                                    Judicial)</span>
+                                        <!-- Variable Salary Toggle -->
+                                        <div class="pt-2 mb-2">
+                                            <label class="flex items-center gap-2 cursor-pointer group">
+                                                <input type="checkbox" id="hasVariableSalary" class="w-4 h-4 text-primary bg-input-dark border-gray-600 rounded focus:ring-primary focus:ring-2 transition-all">
+                                                <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">¿Sueldo Variable / Comisiones?</span>
                                             </label>
                                         </div>
+
+                                        <!-- Variable Salary Inputs -->
+                                        <div id="variableSalaryContainer" class="hidden space-y-3 pt-2 bg-white/5 p-4 rounded-xl border border-white/5 mb-4">
+                                            <div class="flex items-start gap-2">
+                                                <span class="material-icons text-primary text-xs mt-0.5">info</span>
+                                                <p class="text-xs text-slate-400 leading-relaxed">Ingrese los montos variables brutos de los <strong>últimos 3 meses completos</strong> trabajados.</p>
+                                            </div>
+                                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                <div class="space-y-1">
+                                                    <label class="text-xs text-slate-500 ml-1">Mes 1</label>
+                                                    <input id="varMonth1" data-type="currency" class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono" placeholder="Ej: 150.000">
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <label class="text-xs text-slate-500 ml-1">Mes 2</label>
+                                                    <input id="varMonth2" data-type="currency" class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono" placeholder="Ej: 120.000">
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <label class="text-xs text-slate-500 ml-1">Mes 3</label>
+                                                    <input id="varMonth3" data-type="currency" class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono" placeholder="Ej: 180.000">
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between items-center pt-2 border-t border-white/5">
+                                                <span class="text-xs text-slate-400 uppercase tracking-wider font-medium">Promedio</span>
+                                                <span id="variableAverageOutput" class="text-primary font-bold font-mono">$0</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gratificación -->
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-slate-400 ml-1">Gratificación (Art. 50)</label>
+                                            <div class="relative group">
+                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                    <span class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
+                                                </div>
+                                                <input id="gratification" data-type="currency" class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono" placeholder="Ej: 213.354 (Tope)" type="text" />
+                                            </div>
+                                            <p class="text-xs text-slate-500 ml-2">Generalmente "25% con tope 4.75 IMM".</p>
+                                        </div>
+
+                                        <!-- Asignaciones -->
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-slate-400 ml-1">Asig. Fijas (Colación/Mov)</label>
+                                            <div class="relative group">
+                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                    <span class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
+                                                </div>
+                                                <input id="assignments" data-type="currency" class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono" placeholder="Ej: 80.000" type="text" />
+                                            </div>
+                                            <p class="text-xs text-slate-500 ml-2">Total mensual de Colación y Movilización.</p>
+                                            <div class="pt-2">
+                                                <label class="flex items-center gap-2 cursor-pointer select-none">
+                                                    <input type="checkbox" id="includeAssignmentsInVacation" class="w-4 h-4 text-primary bg-input-dark border-gray-600 rounded focus:ring-primary focus:ring-2" checked>
+                                                    <span class="text-xs text-slate-400">Incluir en Vacaciones (Criterio Judicial)</span>
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-medium text-slate-400 ml-1">Días de
-                                        Vacaciones
-                                        Pendientes</label>
-                                    <div
-                                        class="relative flex items-center bg-input-dark border border-white/10 rounded-full p-1 w-full">
-                                        <button id="btnVacationMinus"
-                                            class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors"
-                                            type="button">
-                                            <span class="material-icons text-sm">remove</span>
-                                        </button>
-                                        <input id="vacationPending"
-                                            class="flex-1 bg-transparent border-none text-center text-white focus:ring-0 font-bold"
-                                            type="number" placeholder="Ej: 15" />
-                                        <button id="btnVacationPlus"
-                                            class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors"
-                                            type="button">
-                                            <span class="material-icons text-sm">add</span>
-                                        </button>
+                                    <div class="space-y-4">
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-slate-400 ml-1">Días de Vacaciones Pendientes</label>
+                                            <div class="relative flex items-center bg-input-dark border border-white/10 rounded-full p-1 w-full">
+                                                <button id="btnVacationMinus" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors" type="button">
+                                                    <span class="material-icons text-sm">remove</span>
+                                                </button>
+                                                <input id="vacationPending" class="flex-1 bg-transparent border-none text-center text-white focus:ring-0 font-bold" type="number" placeholder="Ej: 15" />
+                                                <button id="btnVacationPlus" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors" type="button">
+                                                    <span class="material-icons text-sm">add</span>
+                                                </button>
+                                            </div>
+                                            <p class="text-xs text-slate-500 ml-2 text-center mt-1">Días hábiles acumulados no usados.</p>
+                                        </div>
                                     </div>
-                                    <p class="text-xs text-slate-500 ml-2 text-center mt-1">Días hábiles
-                                        acumulados
-                                        no
-                                        usados.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="h-px bg-white/5 w-full"></div>
-                        <!-- Section 3: Cause -->
-                        <div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <div
-                                    class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                    3</div>
-                                <h3 class="text-lg font-semibold text-white">Causal de Término</h3>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-medium text-slate-400 ml-1">Selecciona la
-                                        Causal</label>
-                                    <div class="relative">
-                                        <select id="cause"
-                                            class="block w-full pl-4 pr-10 py-3 bg-input-dark border border-white/10 rounded-full text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer">
-                                            <option value="161">Art. 161 - Necesidades de la Empresa</option>
-                                            <option value="159-1">Art. 159 N°1 - Mutuo Acuerdo</option>
-                                            <option value="159-2">Art. 159 N°2 - Renuncia Voluntaria</option>
-                                            <option value="160">Art. 160 - Despido Disciplinario (Sin derecho a
-                                                indemnización)</option>
-                                        </select>
-                                        <div
-                                            class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                            <span class="material-icons text-slate-500">expand_more</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex items-start gap-3 p-4 rounded-xl bg-primary/10 border border-primary/20">
-                                    <span class="material-icons text-primary text-xl mt-0.5">info</span>
-                                    <div>
-                                        <h4 class="text-sm font-bold text-white mb-1">Sobre el Art. 161</h4>
-                                        <p class="text-xs text-slate-400 leading-relaxed">Esta causal da derecho
-                                            a
-                                            indemnización por años de servicio y aviso previo (si no se avisó
-                                            con 30
-                                            días de anticipación).</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between pt-2">
-                                <label class="flex items-center gap-3 cursor-pointer group">
-                                    <div class="relative">
-                                        <input id="noticeGiven" class="peer sr-only" type="checkbox" />
-                                        <div
-                                            class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary">
-                                        </div>
-                                    </div>
-                                    <span
-                                        class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">¿Se
-                                        dio aviso con 30 días de anticipación?</span>
-                                </label>
-                            </div>
 
-                            <!-- Advanced Controls -->
-                            <div class="pt-4 mt-6 border-t border-white/5">
-                                <button type="button" id="toggleAdvanced"
-                                    class="flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-primary transition-colors focus:outline-none uppercase tracking-widest">
-                                    <span class="material-icons text-lg" id="advancedIcon">expand_more</span>
-                                    Opciones Avanzadas
-                                </button>
-
-                                <div id="advancedControls" class="hidden mt-4 space-y-4">
+                        <!-- TAB CONTENT 3: OPCIONES AVANZADAS -->
+                        <div id="tabContent-avanzado" class="space-y-6 hidden">
+                            <div>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                                        4
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-white">Parámetros del Finiquito</h3>
+                                </div>
+                                <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                                    Activa o desactiva qué conceptos deseas incorporar en la liquidación del finiquito. Útil si ciertos montos ya se pagaron de forma anticipada.
+                                </p>
+                                
+                                <div id="advancedControls" class="space-y-5">
                                     <!-- IAS Option -->
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
                                             <input id="enableIAS" class="peer sr-only" type="checkbox" checked />
-                                            <div
-                                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
-                                            </div>
+                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
                                         </div>
-                                        <span
-                                            class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
+                                        <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
                                             Calcular Indemnización Años de Servicio (IAS)
                                         </span>
                                     </label>
@@ -680,12 +626,9 @@
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
                                             <input id="enableNotice" class="peer sr-only" type="checkbox" checked />
-                                            <div
-                                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
-                                            </div>
+                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
                                         </div>
-                                        <span
-                                            class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
+                                        <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
                                             Calcular Aviso Previo
                                         </span>
                                     </label>
@@ -694,12 +637,9 @@
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
                                             <input id="simulateAFC" class="peer sr-only" type="checkbox" checked />
-                                            <div
-                                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
-                                            </div>
+                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
                                         </div>
-                                        <span
-                                            class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
+                                        <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
                                             Simular Descuento Aporte AFC Empleador
                                         </span>
                                     </label>
@@ -708,13 +648,10 @@
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
                                             <input id="enablePending" class="peer sr-only" type="checkbox" checked />
-                                            <div
-                                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
-                                            </div>
+                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span
-                                                class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
+                                            <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
                                                 Incluir sueldo del último mes trabajado
                                             </span>
                                             <span class="text-[10px] text-slate-500 leading-tight">
@@ -723,29 +660,23 @@
                                         </div>
                                     </label>
 
+                                    <!-- Include Assignments in IAS -->
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
-                                            <input id="includeAssignmentsInIndemnity" class="peer sr-only"
-                                                type="checkbox" />
-                                            <div
-                                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
-                                            </div>
+                                            <input id="includeAssignmentsInIndemnity" class="peer sr-only" type="checkbox" />
+                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span
-                                                class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">Incluir
-                                                colación/movilización en IAS y aviso (no recomendado)</span>
-                                            <span class="text-[10px] text-slate-500 leading-tight">Muchas
-                                                calculadoras
-                                                no lo incluyen por no ser remuneración (Art. 41).</span>
+                                            <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">Incluir colación/movilización en IAS y aviso (no recomendado)</span>
+                                            <span class="text-[10px] text-slate-500 leading-tight">Muchas calculadoras no lo incluyen por no ser remuneración (Art. 41).</span>
                                         </div>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                </div>
-                </form>
-            </div>
+                    </form>
+                </div> <!-- Closes Line 377 Form Card -->
+            </div> <!-- Closes Line 231 COLUMNA IZQUIERDA -->
 
 
             <!-- COLUMNA DERECHA -->
