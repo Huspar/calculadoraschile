@@ -1,0 +1,605 @@
+/**
+ * PDF Report Generator & Lead Capture System - Cálculo Laboral (2026)
+ * Handles modal injection, email capture (opt-in), leads backup in localStorage,
+ * and compiles pixel-perfect print sheets for native browser PDF export.
+ */
+
+(function () {
+    // 1. INJECT MODAL HTML AND CSS ON PAGE LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+        injectModalHTML();
+        injectPrintStyles();
+        setupEventListeners();
+    });
+
+    // 2. MODAL HTML TEMPLATE
+    function injectModalHTML() {
+        if (document.getElementById('pdf-email-modal')) return;
+
+        const modalDiv = document.createElement('div');
+        modalDiv.id = 'pdf-email-modal';
+        modalDiv.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4';
+        modalDiv.innerHTML = `
+            <div class="w-full max-w-md rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/10 bg-[#1e293b] text-white" style="background: #1e293b; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                <!-- Decorative Top Bar -->
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-blue-600"></div>
+                
+                <!-- Header -->
+                <div class="flex justify-between items-start mb-4 mt-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                            <span class="material-icons text-white text-sm">picture_as_pdf</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Descargar Reporte PDF</h3>
+                    </div>
+                    <button id="close-pdf-modal-btn" class="p-1 rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-colors cursor-pointer" type="button">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                
+                <!-- Description -->
+                <p class="text-sm text-slate-300 mb-5 leading-relaxed">
+                    Ingresa tu correo electrónico para descargar al instante un informe estructurado con todo el desglose matemático y legal de tu simulación.
+                </p>
+                
+                <!-- Form -->
+                <form id="pdf-email-form" class="space-y-4">
+                    <div>
+                        <label for="pdf-email" class="block text-xs font-semibold text-slate-400 mb-2 ml-1">Correo Electrónico</label>
+                        <input type="email" id="pdf-email" required
+                            class="w-full px-4 py-3 bg-[#0f172a] border border-white/10 rounded-full text-white placeholder-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition-all"
+                            placeholder="tu@correo.com" style="background-color: #0f172a; color: #ffffff;" />
+                    </div>
+                    
+                    <!-- Opt-in Checkbox -->
+                    <label class="flex items-start gap-3 cursor-pointer group mt-4">
+                        <input type="checkbox" id="pdf-marketing-optin" required
+                            class="w-4 h-4 mt-0.5 rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-emerald-500/50 cursor-pointer" />
+                        <span class="text-xs text-slate-400 group-hover:text-slate-300 transition-colors leading-relaxed select-none">
+                            Acepto recibir guías, ebooks y novedades sobre derechos laborales en Chile de acuerdo con la <a href="/privacidad" target="_blank" class="text-emerald-400 hover:underline font-semibold">Política de Privacidad</a>.
+                        </span>
+                    </label>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-full shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer mt-6">
+                        <span class="material-icons text-sm">download</span>
+                        Generar y Descargar PDF
+                    </button>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(modalDiv);
+    }
+
+    // 3. INJECT PRINT STYLES
+    function injectPrintStyles() {
+        if (document.getElementById('pdf-print-styles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'pdf-print-styles';
+        style.innerHTML = `
+            @media print {
+                /* Hide everything */
+                body > *:not(#print-section) {
+                    display: none !important;
+                }
+                /* Format printed page */
+                html, body {
+                    background: #ffffff !important;
+                    color: #000000 !important;
+                    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+                    font-size: 11pt !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+                #print-section {
+                    display: block !important;
+                    width: 100% !important;
+                    padding: 40px !important;
+                    background: #ffffff !important;
+                    color: #000000 !important;
+                    box-sizing: border-box !important;
+                }
+                .print-header {
+                    border-bottom: 2px solid #000000 !important;
+                    padding-bottom: 15px !important;
+                    margin-bottom: 25px !important;
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    align-items: flex-end !important;
+                }
+                .print-title {
+                    font-size: 18pt !important;
+                    font-weight: bold !important;
+                    text-transform: uppercase !important;
+                    margin-top: 5px !important;
+                    margin-bottom: 5px !important;
+                }
+                .print-section-title {
+                    background: #f1f5f9 !important;
+                    padding: 6px 12px !important;
+                    font-size: 11pt !important;
+                    font-weight: bold !important;
+                    text-transform: uppercase !important;
+                    border-left: 4px solid #10b981 !important;
+                    margin-top: 25px !important;
+                    margin-bottom: 15px !important;
+                    color: #0f172a !important;
+                }
+                .print-table {
+                    width: 100% !important;
+                    border-collapse: collapse !important;
+                    margin-bottom: 20px !important;
+                }
+                .print-table th {
+                    text-align: left !important;
+                    padding: 8px !important;
+                    font-size: 9.5pt !important;
+                    border-bottom: 1px solid #cbd5e1 !important;
+                    color: #475569 !important;
+                }
+                .print-table td {
+                    padding: 8px !important;
+                    font-size: 10pt !important;
+                    border-bottom: 1px solid #f1f5f9 !important;
+                }
+                .print-total-box {
+                    border: 2px solid #10b981 !important;
+                    background: #f0fdf4 !important;
+                    padding: 15px 20px !important;
+                    border-radius: 8px !important;
+                    margin-top: 30px !important;
+                    margin-bottom: 30px !important;
+                    text-align: right !important;
+                }
+                .print-total-amount {
+                    font-size: 22pt !important;
+                    font-weight: 900 !important;
+                    color: #15803d !important;
+                }
+                .print-disclaimer {
+                    font-size: 8pt !important;
+                    color: #64748b !important;
+                    line-height: 1.4 !important;
+                    border-top: 1px solid #e2e8f0 !important;
+                    padding-top: 15px !important;
+                    margin-top: 40px !important;
+                    text-align: justify !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // 4. SETUP EVENT LISTENERS
+    function setupEventListeners() {
+        const downloadBtn = document.getElementById('download-pdf-btn');
+        const closeBtn = document.getElementById('close-pdf-modal-btn');
+        const modal = document.getElementById('pdf-email-modal');
+        const form = document.getElementById('pdf-email-form');
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                // Verify that calculator is calculated
+                if (!isCalculated()) {
+                    alert("Por favor, realiza una simulación primero ingresando tus datos para generar el reporte.");
+                    return;
+                }
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+        }
+
+        // Close when clicking outside content card
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+        }
+
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('pdf-email').value;
+                const optin = document.getElementById('pdf-marketing-optin').checked;
+
+                if (email && optin) {
+                    // Save lead to local database (localStorage)
+                    saveLead(email);
+                    
+                    // Generate report print
+                    generatePDFReport();
+
+                    // Close modal and reset form
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    form.reset();
+                }
+            });
+        }
+    }
+
+    // 5. HELPER: CHECK IF CALCULATED VISTA IS GREATER THAN 0
+    function isCalculated() {
+        // For Finiquito
+        const totalFiniElement = document.getElementById('totalAmount');
+        if (totalFiniElement) {
+            const val = totalFiniElement.textContent.trim();
+            return val !== '$0' && val !== '$ --' && val !== '';
+        }
+
+        // For Sueldo Liquido
+        const netSalElement = document.getElementById('headerNetSalary');
+        if (netSalElement) {
+            const val = netSalElement.textContent.trim();
+            return val !== '$0' && val !== '$ --' && val !== '';
+        }
+
+        return false;
+    }
+
+    // 6. HELPER: SAVE EMAIL LEAD TO LOCAL STORAGE DATABASE
+    function saveLead(email) {
+        try {
+            const leads = JSON.parse(localStorage.getItem('pdf_leads') || '[]');
+            const pageType = window.location.pathname.includes('sueldo') ? 'sueldo_liquido' : 'finiquito';
+            
+            // Avoid duplicates
+            if (!leads.some(l => l.email === email && l.type === pageType)) {
+                leads.push({
+                    email: email,
+                    date: new Date().toISOString(),
+                    type: pageType
+                });
+                localStorage.setItem('pdf_leads', JSON.stringify(leads));
+                console.log("Lead guardado localmente:", email);
+            }
+            
+            // Here you could send the lead to a Google Sheet Webhook if configured:
+            // fetch('YOUR_APPS_SCRIPT_WEBHOOK_URL', {
+            //     method: 'POST',
+            //     body: JSON.stringify({ email: email, type: pageType })
+            // });
+        } catch (e) {
+            console.error("Error al guardar lead:", e);
+        }
+    }
+
+    // 7. MAIN FUNCTION: GENERATE PRINT REPORT AND TRIGGER WINDOW.PRINT
+    function generatePDFReport() {
+        const isSueldoPage = window.location.pathname.includes('sueldo');
+        
+        // Remove existing print section
+        const oldSection = document.getElementById('print-section');
+        if (oldSection) oldSection.remove();
+
+        const printSection = document.createElement('div');
+        printSection.id = 'print-section';
+        printSection.style.display = 'none';
+
+        const currentDate = new Date().toLocaleDateString('es-CL', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        let htmlContent = '';
+
+        if (isSueldoPage) {
+            htmlContent = compileSueldoReport(currentDate);
+        } else {
+            htmlContent = compileFiniquitoReport(currentDate);
+        }
+
+        printSection.innerHTML = htmlContent;
+        document.body.appendChild(printSection);
+
+        // Wait a tiny bit for render, then print
+        setTimeout(() => {
+            window.print();
+            // Clean up print section after dialog close
+            setTimeout(() => {
+                const sec = document.getElementById('print-section');
+                if (sec) sec.remove();
+            }, 1000);
+        }, 100);
+    }
+
+    // 8. COMPILE FINIQUITO REPORT
+    function compileFiniquitoReport(dateString) {
+        // Query results safely from DOM
+        const total = document.getElementById('totalAmount')?.textContent || '$0';
+        const antiquity = document.getElementById('antiquityOutput')?.textContent || 'No especificada';
+        const vacationDays = document.getElementById('totalVacationDaysOutput')?.textContent || '0 días';
+        
+        const yearsService = document.getElementById('yearsServiceAmount')?.textContent || '$0';
+        const noticeAmount = document.getElementById('noticeAmount')?.textContent || '$0';
+        const pendingSalary = document.getElementById('pendingSalaryAmount')?.textContent || '$0';
+        const vacationProp = document.getElementById('vacationPropAmount')?.textContent || '$0';
+        const vacationPending = document.getElementById('vacationPendingAmount')?.textContent || '$0';
+        
+        // AFC Deduction (if displayed or not hidden)
+        const afcRow = document.getElementById('afcRow');
+        const afcAmount = (afcRow && !afcRow.classList.contains('hidden')) 
+            ? document.getElementById('afcAmount')?.textContent 
+            : '$0';
+
+        // Query input values for general details
+        const startDateVal = document.getElementById('startDate')?.value || '--';
+        const endDateVal = document.getElementById('endDate')?.value || '--';
+        const baseSalary = document.getElementById('baseSalary')?.value || '0';
+        const assignments = document.getElementById('assignments')?.value || '0';
+        
+        const causeSelect = document.getElementById('cause');
+        const cause = causeSelect ? causeSelect.options[causeSelect.selectedIndex]?.text : 'No especificada';
+        
+        const noticeCheckbox = document.getElementById('noticeGiven');
+        const noticeText = (noticeCheckbox && noticeCheckbox.checked) ? 'Sí' : 'No';
+
+        return `
+            <div class="print-header">
+                <div>
+                    <h2 style="margin: 0; font-size: 14pt; color: #0f172a;">CÁLCULO LABORAL</h2>
+                    <span style="font-size: 8pt; color: #64748b;">www.calculolaboral.cl</span>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 9pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE FINIQUITO</span><br>
+                    <span style="font-size: 8pt; color: #94a3b8;">Fecha: ${dateString}</span>
+                </div>
+            </div>
+
+            <div class="print-title">Reporte de Simulación de Finiquito</div>
+            <p style="font-size: 9.5pt; color: #64748b; margin-top: 0; margin-bottom: 20px;">
+                Este documento muestra el desglose del finiquito laboral estimado según la legislación chilena vigente.
+            </p>
+
+            <div class="print-section-title">1. Resumen del Contrato</div>
+            <table class="print-table">
+                <tr>
+                    <td style="font-weight: bold; width: 45%;">Fecha de Inicio:</td>
+                    <td>${formatInputDate(startDateVal)}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Fecha de Término:</td>
+                    <td>${formatInputDate(endDateVal)}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Antigüedad Laboral:</td>
+                    <td>${antiquity}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Causal de Término:</td>
+                    <td>${cause}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">¿Aviso Previo de 30 Días?:</td>
+                    <td>${noticeText}</td>
+                </tr>
+            </table>
+
+            <div class="print-section-title">2. Bases de Cálculo</div>
+            <table class="print-table">
+                <tr>
+                    <td style="font-weight: bold; width: 45%;">Sueldo Base Mensual:</td>
+                    <td>$${baseSalary} CLP</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Haberes no Imponibles (Asig. Colación/Mov):</td>
+                    <td>$${assignments} CLP</td>
+                </tr>
+            </table>
+
+            <div class="print-section-title">3. Detalle de Indemnizaciones y Haberes a Pagar</div>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th style="width: 65%;">Concepto</th>
+                        <th style="text-align: right;">Monto Estimado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Indemnización por Años de Servicio</td>
+                        <td style="text-align: right; font-weight: 500;">${yearsService}</td>
+                    </tr>
+                    <tr>
+                        <td>Indemnización Sustitutiva del Aviso Previo (Mes de Aviso)</td>
+                        <td style="text-align: right; font-weight: 500;">${noticeAmount}</td>
+                    </tr>
+                    <tr>
+                        <td>Feriado Proporcional (Vacaciones Acumuladas: ${vacationDays})</td>
+                        <td style="text-align: right; font-weight: 500;">${vacationProp}</td>
+                    </tr>
+                    <tr>
+                        <td>Feriado Legal Pendiente (Vacaciones anteriores)</td>
+                        <td style="text-align: right; font-weight: 500;">${vacationPending}</td>
+                    </tr>
+                    <tr>
+                        <td>Remuneraciones del Mes Pendientes (Días Trabajados)</td>
+                        <td style="text-align: right; font-weight: 500;">${pendingSalary}</td>
+                    </tr>
+                    ${afcAmount !== '$0' && afcAmount !== '0' && afcAmount !== '' ? `
+                    <tr style="color: #b91c1c;">
+                        <td>Descuento Aporte AFC Empleador (Art. 13 Ley 19.728)</td>
+                        <td style="text-align: right; font-weight: 500;">-${afcAmount}</td>
+                    </tr>
+                    ` : ''}
+                </tbody>
+            </table>
+
+            <div class="print-total-box">
+                <span style="font-size: 10pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 5px;">Monto Total Neto Estimado</span>
+                <span class="print-total-amount">${total}</span> <span style="font-size: 12pt; font-weight: bold; color: #15803d;">CLP</span>
+            </div>
+
+            <div class="print-disclaimer">
+                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante juzgados o notarías, ni constituye un finiquito oficial.<br><br>
+                <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta simulación se ofrece de manera gratuita y con propósitos educativos. Los cálculos de finiquitos reales están condicionados por elementos particulares (créditos sociales vigentes, cotizaciones adeudadas, cláusulas específicas del contrato, etc.). Cálculo Laboral no asume responsabilidad alguna por interpretaciones o decisiones basadas en esta simulación. Se sugiere validar el borrador con la Inspección del Trabajo o un abogado laboral.
+            </div>
+        `;
+    }
+
+    // 9. COMPILE SUELDO REPORT
+    function compileSueldoReport(dateString) {
+        // Query results safely from DOM
+        const netSalary = document.getElementById('headerNetSalary')?.textContent || '$0';
+        const totalDiscounts = document.getElementById('headerTotalDiscounts')?.textContent || '$0';
+        
+        const afp = document.getElementById('resultAFP')?.textContent || '$0';
+        const health = document.getElementById('resultHealth')?.textContent || '$0';
+        const afc = document.getElementById('resultAFC')?.textContent || '$0';
+        const tax = document.getElementById('resultTax')?.textContent || '$0';
+
+        const labelAFP = document.getElementById('labelAFP')?.textContent || 'Modelo';
+        const labelHealth = document.getElementById('labelHealth')?.textContent || '7%';
+
+        // Input values
+        const baseSalary = document.getElementById('salary')?.value || '0';
+        const overtimeHours = document.getElementById('overtime')?.value || '0';
+        const bonuses = document.getElementById('bonuses')?.value || '0';
+        
+        const colacion = document.getElementById('colacion')?.value || '0';
+        const movilizacion = document.getElementById('movilizacion')?.value || '0';
+        const viaticos = document.getElementById('viaticos')?.value || '0';
+
+        // Additional discounts
+        const ccaf = document.getElementById('ccaf')?.value || '0';
+        const apv = document.getElementById('apv')?.value || '0';
+        const prestamos = document.getElementById('prestamos')?.value || '0';
+        const pension = document.getElementById('pension')?.value || '0';
+        const sindicato = document.getElementById('sindicato')?.value || '0';
+        const otrosDescuentos = document.getElementById('otrosDescuentos')?.value || '0';
+
+        return `
+            <div class="print-header">
+                <div>
+                    <h2 style="margin: 0; font-size: 14pt; color: #0f172a;">CÁLCULO LABORAL</h2>
+                    <span style="font-size: 8pt; color: #64748b;">www.calculolaboral.cl</span>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 9pt; font-weight: bold; color: #64748b;">SIMULACIÓN DE SUELDO LÍQUIDO</span><br>
+                    <span style="font-size: 8pt; color: #94a3b8;">Fecha: ${dateString}</span>
+                </div>
+            </div>
+
+            <div class="print-title">Reporte de Simulación de Sueldo Líquido</div>
+            <p style="font-size: 9.5pt; color: #64748b; margin-top: 0; margin-bottom: 20px;">
+                Este documento muestra el desglose del sueldo bruto imponible, no imponible y descuentos previsionales aplicados.
+            </p>
+
+            <div class="print-section-title">1. Resumen de Ingresos del Trabajador (Haberes)</div>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th style="width: 65%;">Ingresos / Haberes</th>
+                        <th style="text-align: right;">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sueldo Base Mensual</td>
+                        <td style="text-align: right; font-weight: 500;">$${baseSalary} CLP</td>
+                    </tr>
+                    <tr>
+                        <td>Horas Extras Calculadas (${overtimeHours} horas)</td>
+                        <td style="text-align: right; font-weight: 500;">(Incluidas en liquidación)</td>
+                    </tr>
+                    ${bonuses !== '0' && bonuses !== '' ? `
+                    <tr>
+                        <td>Bonos y Comisiones Imponibles</td>
+                        <td style="text-align: right; font-weight: 500;">$${bonuses} CLP</td>
+                    </tr>
+                    ` : ''}
+                    <tr>
+                        <td style="font-weight: bold; background-color: #f8fafc;">Haberes No Imponibles Totales (Colación / Mov / Viáticos)</td>
+                        <td style="text-align: right; font-weight: bold; background-color: #f8fafc;">$${formatNumber(parseInt(colacion || 0) + parseInt(movilizacion || 0) + parseInt(viaticos || 0))} CLP</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="print-section-title">2. Descuentos Previsionales e Impuestos Legales</div>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th style="width: 65%;">Descuento Obligatorio</th>
+                        <th style="text-align: right;">Monto Retenido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cotización Previsional AFP (Tasa ${labelAFP})</td>
+                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${afp}</td>
+                    </tr>
+                    <tr>
+                        <td>Cotización de Salud (Fonasa/Isapre: ${labelHealth})</td>
+                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${health}</td>
+                    </tr>
+                    <tr>
+                        <td>Seguro de Cesantía AFC (0.6% cargo trabajador)</td>
+                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${afc}</td>
+                    </tr>
+                    <tr>
+                        <td>Impuesto de Segunda Categoría (SII)</td>
+                        <td style="text-align: right; font-weight: 500; color: #b91c1c;">-${tax}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            ${ccaf !== '0' || apv !== '0' || prestamos !== '0' || pension !== '0' || sindicato !== '0' || otrosDescuentos !== '0' ? `
+            <div class="print-section-title">3. Otros Descuentos Aplicados (Adicionales)</div>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th style="width: 65%;">Descuento Adicional</th>
+                        <th style="text-align: right;">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${ccaf !== '0' && ccaf !== '' ? `<tr><td>Caja Compensación (CCAF)</td><td style="text-align: right; color: #b91c1c;">-$${ccaf} CLP</td></tr>` : ''}
+                    ${apv !== '0' && apv !== '' ? `<tr><td>APV (Ahorro Previsional Voluntario)</td><td style="text-align: right; color: #b91c1c;">-$${apv} CLP</td></tr>` : ''}
+                    ${prestamos !== '0' && prestamos !== '' ? `<tr><td>Préstamos de la Empresa</td><td style="text-align: right; color: #b91c1c;">-$${prestamos} CLP</td></tr>` : ''}
+                    ${pension !== '0' && pension !== '' ? `<tr><td>Pensión Alimenticia</td><td style="text-align: right; color: #b91c1c;">-$${pension} CLP</td></tr>` : ''}
+                    ${sindicato !== '0' && sindicato !== '' ? `<tr><td>Cuota Sindical</td><td style="text-align: right; color: #b91c1c;">-$${sindicato} CLP</td></tr>` : ''}
+                    ${otrosDescuentos !== '0' && otrosDescuentos !== '' ? `<tr><td>Otros Descuentos Diversos</td><td style="text-align: right; color: #b91c1c;">-$${otrosDescuentos} CLP</td></tr>` : ''}
+                </tbody>
+            </table>
+            ` : ''}
+
+            <div class="print-total-box">
+                <span style="font-size: 10pt; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 5px;">Sueldo Líquido Estimado a Recibir</span>
+                <span class="print-total-amount">${netSalary}</span> <span style="font-size: 12pt; font-weight: bold; color: #15803d;">CLP</span>
+                <div style="font-size: 8.5pt; color: #64748b; margin-top: 5px;">Total descuentos descontados de la liquidación: ${totalDiscounts}</div>
+            </div>
+
+            <div class="print-disclaimer">
+                <strong>NOTA DE CARÁCTER INFORMATIVO:</strong> Este documento representa una simulación matemática basada en los datos ingresados voluntariamente por el usuario y los parámetros regulatorios vigentes en Chile. No tiene validez legal oficial ante el empleador, la Inspección del Trabajo o tribunales de justicia.<br><br>
+                <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta simulación se ofrece de manera gratuita y con propósitos informativos generales. Los cálculos definitivos de remuneraciones están supeditados a regulaciones contractuales individuales, días de inasistencia, licencias médicas, y otros haberes variables del mes. Cálculo Laboral no asume responsabilidad alguna por interpretaciones o decisiones basadas en esta simulación.
+            </div>
+        `;
+    }
+
+    // 10. FORMAT HELPERS
+    function formatInputDate(dateStr) {
+        if (!dateStr || dateStr === '--') return '--';
+        const parts = dateStr.split('-');
+        if (parts.length === 3) {
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+        return dateStr;
+    }
+
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+})();

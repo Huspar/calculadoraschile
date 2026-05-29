@@ -700,7 +700,15 @@
                                     <p id="resultTax" class="text-lg font-bold text-white">$0</p>
                                 </div>
                             </div>
-                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="mt-6">
+                        <button id="download-pdf-btn" type="button"
+                            class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-full shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+                            <span class="material-icons">picture_as_pdf</span>
+                            Descargar Informe PDF
+                        </button>
                     </div>
 
                     <div class="mt-8 mb-6">
@@ -1229,6 +1237,7 @@
     <script src="js/salary_logic.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/salary_ui.js"></script>
+    <script src="js/pdf_generator.js"></script>
 
     <!-- Integrity Check -->
     <script>

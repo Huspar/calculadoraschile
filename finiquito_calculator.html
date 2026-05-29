@@ -804,21 +804,14 @@
                             <!-- Deductions Example -->
                             <!-- Deductions Example Removed -->
                         </div>
-                        <!-- CTA Buttons (feature latente: descomentar para reactivar PDF/Email) -->
-                        <!--
-                            <div class="space-y-3 pt-4">
-                                <button
-                                    class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-full shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
-                                    <span class="material-icons">picture_as_pdf</span>
-                                    Descargar Informe PDF
-                                </button>
-                                <button
-                                    class="w-full bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-6 rounded-full border border-white/10 transition-colors flex items-center justify-center gap-2">
-                                    <span class="material-icons text-slate-400">email</span>
-                                    Enviar por Email
-                                </button>
-                            </div>
-                            -->
+                        <!-- CTA Buttons (PDF Download Enabled) -->
+                        <div class="space-y-3 pt-4">
+                            <button id="download-pdf-btn" type="button"
+                                class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-full shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+                                <span class="material-icons">picture_as_pdf</span>
+                                Descargar Informe PDF
+                            </button>
+                        </div>
 
 
                     </div>
@@ -1196,6 +1189,7 @@
     <script src="js/logic.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/ui.js"></script>
+    <script src="js/pdf_generator.js"></script>
 
     <!-- Integrity Check -->
     <script>
