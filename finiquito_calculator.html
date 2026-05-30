@@ -733,64 +733,6 @@
                     </div>
                 </div>
 
-                <!-- Cómo Calculamos Accordion -->
-                <details
-                    class="group rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden transition-all open:border-primary/30 mt-2">
-                    <summary
-                        class="flex items-center justify-between p-4 cursor-pointer list-none select-none hover:bg-white/5 transition-colors">
-                        <div class="flex items-center gap-2">
-                            <span class="material-icons text-primary text-lg">science</span>
-                            <span class="text-sm font-semibold text-white">¿Cómo calculamos tu finiquito?</span>
-                        </div>
-                        <span
-                            class="material-icons text-slate-400 group-open:rotate-180 transition-transform duration-200">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-5 pt-1 border-t border-white/5 space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <h4 class="text-xs font-bold text-primary uppercase tracking-wider">Variables utilizadas
-                                </h4>
-                                <ul class="text-xs text-slate-400 space-y-1.5 leading-relaxed">
-                                    <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                        Última remuneración mensual</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                        Fecha de inicio y término del contrato</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                        Causal de término (Art. 159-161 CT)</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span> Días
-                                        de vacaciones tomados</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                        Aviso previo (si aplica)</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                        Haberes pendientes del último mes</li>
-                                </ul>
-                            </div>
-                            <div class="space-y-2">
-                                <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Topes y
-                                    supuestos</h4>
-                                <ul class="text-xs text-slate-400 space-y-1.5 leading-relaxed">
-                                    <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                        Indemnización tope: <strong class="text-white">90 UF/mes</strong></li>
-                                    <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                        Máximo indemnizable: <strong class="text-white">11 años</strong></li>
-                                    <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                        Factor vacaciones: 1,25 (L-V) / 1,67 (L-S)</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                        Feriados legales: 15 días hábiles/año</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                        Fracción > 6 meses = 1 año completo</li>
-                                    <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                        No incluye deudas a cajas ni pensiones alimenticias</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <p class="text-[11px] text-slate-500 leading-relaxed border-t border-white/5 pt-3">
-                            📖 Fuentes: <strong class="text-slate-400">Código del Trabajo</strong> (Art. 159-178),
-                            <strong class="text-slate-400">Dirección del Trabajo</strong> (dictámenes), <strong
-                                class="text-slate-400">mindicador.cl</strong> (valor UF para topes).
-                        </p>
-                    </div>
-                </details>
             </div> <!-- Closes Line 231 COLUMNA IZQUIERDA -->
 
 
@@ -916,22 +858,7 @@
                             </a>
                         </div>
                     </div>
-                    <!-- Trust Badges (E-E-A-T) -->
-                    <div class="bg-slate-900/80 p-3 border-t border-white/5 flex flex-wrap justify-center gap-4 text-[11px] font-medium text-slate-400">
-                        <div class="flex items-center gap-1"><span class="material-icons text-emerald-400 text-sm">verified</span> Código del Trabajo</div>
-                        <div class="flex items-center gap-1"><span class="material-icons text-blue-400 text-sm">update</span> Ley 40 Horas (2026)</div>
-                        <div class="flex items-center gap-1"><span class="material-icons text-purple-400 text-sm">lock</span> 100% Privado</div>
-                    </div>
-                    <!-- Disclaimer -->
-                    <div class="bg-slate-900/50 p-4 border-t border-white/5">
-                        <p class="text-[10px] text-slate-500 text-center leading-relaxed">
-                            ⚠️ Este cálculo es estimativo y no reemplaza asesoría legal. Los montos pueden
-                            variar
-                            según contrato, gratificación, bonos y acuerdos.
-                            <br>
-                            * Valores referenciales basados en el Código del Trabajo de Chile.
-                        </p>
-                    </div>
+
                 </div>
                 <!-- Helpful Links (feature latente: descomentar para reactivar Abogados/Carta) -->
                 <!--
@@ -956,12 +883,73 @@
             </div> <!-- Cierra Columna Derecha -->
         </div> <!-- Cierra Grid -->
 
-        <div class="max-w-[1200px] mx-auto px-6 mt-16 space-y-12">
+        <div class="max-w-[1200px] mx-auto px-6 mt-16 space-y-8 pb-8">
 
-            <!-- AdSense Block 2 (Responsive) -->
-            <!--
-            <section id="ad-slot-2" class="ad-slot" aria-label="Espacio publicitario"></section>
-            -->
+            <!-- Cómo Calculamos Accordion -->
+            <details
+                class="group glass-panel overflow-hidden transition-all open:border-primary/30">
+                <summary
+                    class="flex items-center justify-between p-4 cursor-pointer list-none select-none hover:bg-white/5 transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="material-icons text-primary text-lg">science</span>
+                        <span class="text-sm font-semibold text-white">¿Cómo calculamos tu finiquito?</span>
+                    </div>
+                    <span
+                        class="material-icons text-slate-400 group-open:rotate-180 transition-transform duration-200">expand_more</span>
+                </summary>
+                <div class="px-4 pb-5 pt-1 border-t border-white/5 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <h4 class="text-xs font-bold text-primary uppercase tracking-wider">Variables utilizadas
+                            </h4>
+                            <ul class="text-xs text-slate-400 space-y-1.5 leading-relaxed">
+                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
+                                    Última remuneración mensual</li>
+                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
+                                    Fecha de inicio y término del contrato</li>
+                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
+                                    Causal de término (Art. 159-161 CT)</li>
+                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span> Días
+                                    de vacaciones tomados</li>
+                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
+                                    Aviso previo (si aplica)</li>
+                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
+                                    Haberes pendientes del último mes</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Topes y
+                                supuestos</h4>
+                            <ul class="text-xs text-slate-400 space-y-1.5 leading-relaxed">
+                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
+                                    Indemnización tope: <strong class="text-white">90 UF/mes</strong></li>
+                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
+                                    Máximo indemnizable: <strong class="text-white">11 años</strong></li>
+                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
+                                    Factor vacaciones: 1,25 (L-V) / 1,67 (L-S)</li>
+                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
+                                    Feriados legales: 15 días hábiles/año</li>
+                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
+                                    Fracción > 6 meses = 1 año completo</li>
+                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
+                                    No incluye deudas a cajas ni pensiones alimenticias</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-500 leading-relaxed border-t border-white/5 pt-3">
+                        📖 Fuentes: <strong class="text-slate-400">Código del Trabajo</strong> (Art. 159-178),
+                        <strong class="text-slate-400">Dirección del Trabajo</strong> (dictámenes), <strong
+                            class="text-slate-400">mindicador.cl</strong> (valor UF para topes).
+                    </p>
+                </div>
+            </details>
+
+            <!-- Trust Badges (E-E-A-T) -->
+            <div class="glass-panel p-4 flex flex-wrap justify-center gap-6 text-[11px] font-semibold text-slate-300">
+                <div class="flex items-center gap-1"><span class="material-icons text-emerald-400 text-sm">verified</span> Código del Trabajo</div>
+                <div class="flex items-center gap-1"><span class="material-icons text-blue-400 text-sm">update</span> Ley 40 Horas (2026)</div>
+                <div class="flex items-center gap-1"><span class="material-icons text-purple-400 text-sm">lock</span> 100% Privado</div>
+            </div>
 
 <!-- Educational Content -->
             <section class="prose dark:prose-invert max-w-none glass-panel p-8">
@@ -1118,6 +1106,15 @@
                     </details>
                 </div>
             </section>
+
+            <!-- Privacy & Legal Notes -->
+            <div class="glass-panel p-6 text-xs text-slate-400 leading-relaxed">
+                <strong class="text-slate-300">Privacidad y Aspectos Legales:</strong>
+                Todos los cálculos se ejecutan localmente en tu navegador. No almacenamos ni enviamos los datos ingresados a ningún servidor.
+                <div class="mt-4 text-slate-500">
+                    ⚠️ Este cálculo es estimativo y referencial basado en el Código del Trabajo de Chile. No reemplaza una liquidación o finiquito formal del empleador. Los montos pueden variar según contrato, bonos, deudas a cajas de compensación y pensiones de alimentos.
+                </div>
+            </div>
 
             <!-- CTA Section -->
             <div
