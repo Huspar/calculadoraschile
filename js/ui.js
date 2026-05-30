@@ -271,27 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // DATE VALIDATION
     // ============================================
 
-    if (elements.startDate && elements.endDate) {
-        const validateDates = () => {
-            if (!elements.startDate.value || !elements.endDate.value) return true;
-
-            const start = new Date(elements.startDate.value);
-            const end = new Date(elements.endDate.value);
-
-            if (end < start) {
-                // Show error
-                elements.endDate.setCustomValidity('La fecha de término debe ser posterior a la fecha de inicio');
-                elements.endDate.reportValidity();
-                return false;
-            } else {
-                elements.endDate.setCustomValidity('');
-                return true;
-            }
-        };
-
-        elements.startDate.addEventListener('change', validateDates);
-        elements.endDate.addEventListener('change', validateDates);
-    }
+    // Date validation is handled inline and non-intrusively during updateCalculations via Validation module.
 
     // ============================================
     // ACTION BUTTONS

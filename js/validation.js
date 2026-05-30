@@ -116,6 +116,14 @@ const Validation = {
             this.showFieldError(endEl, 'Fecha de término no válida');
             return false;
         }
+
+        // Avoid triggering validation while the user is still typing the year (e.g. "0002")
+        if (start.getFullYear() < 1900 || end.getFullYear() < 1900) {
+            this.clearFieldError(startEl);
+            this.clearFieldError(endEl);
+            return true;
+        }
+
         if (end < start) {
             this.showFieldError(endEl, 'Debe ser posterior a la fecha de inicio');
             return false;
