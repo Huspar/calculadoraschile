@@ -78,44 +78,163 @@
                         "surface-highlight": "#20303b"
                     },
                     fontFamily: {
-                        "display": ["Inter", "sans-serif"]
+                        "display": ["Outfit", "sans-serif"],
+                        "sans": ["Plus Jakarta Sans", "Inter", "sans-serif"]
                     },
                     borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
                 },
             },
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <style>
+        :root {
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-body);
+            background-color: #070a13;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: var(--font-display);
+            letter-spacing: -0.02em;
+        }
+
+        /* Refined Premium Glassmorphism */
         .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(20, 30, 48, 0.45) 0%, rgba(13, 20, 35, 0.65) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            border-radius: 1.25rem;
         }
 
-        /* Animación Sticky Result */
+        /* Ambient Glows */
+        .bg-glow-1 {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -150px;
+            left: -150px;
+            z-index: -1;
+            filter: blur(60px);
+        }
+
+        .bg-glow-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            bottom: -100px;
+            right: -150px;
+            z-index: -1;
+            filter: blur(60px);
+        }
+
+        /* Premium Inputs */
+        .glass-input {
+            background: rgba(10, 15, 26, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 0.75rem !important;
+            padding: 0.875rem 1rem !important;
+            color: #ffffff !important;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4) !important;
+            pointer-events: auto;
+            position: relative;
+            z-index: 20;
+        }
+
+        .glass-input:hover:not(:focus) {
+            border-color: rgba(255, 255, 255, 0.18) !important;
+        }
+
+        .glass-input:focus {
+            border-color: #0ea5e9 !important;
+            box-shadow: 
+                inset 0 2px 4px 0 rgba(0, 0, 0, 0.4), 
+                0 0 0 3px rgba(14, 165, 233, 0.15) !important;
+            outline: none !important;
+            transform: translateY(-1px);
+        }
+
+        /* Tactile & Micro-interaction Buttons */
+        .btn-primary-premium {
+            background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 
+                0 4px 12px 0 rgba(14, 165, 233, 0.25);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 
+                0 8px 20px 0 rgba(14, 165, 233, 0.4);
+            filter: brightness(1.05);
+        }
+
+        .btn-primary-premium:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .btn-secondary-premium {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-secondary-premium:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary-premium:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        /* Tabular figures for flawless numeric alignments */
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Sticky Result Scroll Anim */
         #sticky-result-container {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #sticky-result-container.scrolled {
-            background: rgba(16, 28, 34, 0.98);
+            background: rgba(13, 20, 35, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(10, 160, 235, 0.3);
-            box-shadow: 0 10px 40px rgba(10, 160, 235, 0.2);
+            border: 1px solid rgba(14, 165, 233, 0.25);
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+                0 20px 40px -10px rgba(14, 165, 233, 0.15), 
+                0 15px 30px rgba(0, 0, 0, 0.6);
             padding: 1rem;
-            border-radius: 1rem;
+            border-radius: 1.25rem;
         }
 
         #sticky-result-container.scrolled .result-amount {
@@ -123,37 +242,18 @@
             transition: font-size 0.3s ease;
         }
 
-        /* Smooth scroll behavior */
+        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Loading Spinner */
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-
-        /* Tooltips */
-        [title] {
-            position: relative;
-        }
-
+        /* Tooltips & Help Cursor */
         .cursor-help {
             cursor: help;
         }
 
         .cursor-help:hover {
-            color: #0aa0eb;
+            color: #0ea5e9;
         }
 
         /* Mobile Optimizations */
@@ -168,80 +268,30 @@
 
             .glass-input {
                 font-size: 16px;
-                /* Previene zoom automático en iOS */
                 padding: 0.875rem;
             }
 
             button {
                 min-height: 44px;
-                /* Tamaño mínimo recomendado para touch */
-            }
-
-            .space-y-4>*+* {
-                margin-top: 1.25rem;
             }
         }
 
-        /* Landscape mobile */
-        @media (max-width: 768px) and (orientation: landscape) {
-            #sticky-result-container {
-                position: relative;
-                top: 0;
-            }
-        }
-
-        /* Visual Feedback */
-        .glass-input:focus {
-            border-color: #0aa0eb;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(10, 160, 235, 0.2);
-            transform: translateY(-1px);
-            transition: all 0.2s ease;
-        }
-
-        .glass-input:hover:not(:focus) {
-            border-color: rgba(10, 160, 235, 0.5);
-        }
-
-        .glass-input:valid {
-            border-color: rgba(34, 197, 94, 0.3);
-        }
-
-        .glass-input:invalid:not(:placeholder-shown) {
-            border-color: rgba(239, 68, 68, 0.5);
-        }
-
-        .glass-input {
-            background: rgba(16, 28, 34, 0.9) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            color: #ffffff !important;
-            pointer-events: auto;
-            position: relative;
-            z-index: 20;
-        }
-
-        .glass-input:focus {
-            border-color: #0aa0eb;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(10, 160, 235, 0.2);
-        }
-
-        /* Custom scrollbar for dark theme */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #101c22;
+            background: #070a13;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: #1e293b;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: #334155;
         }
     </style>
     <!-- Google Analytics -->
@@ -253,7 +303,7 @@
         gtag('config', 'G-9Y03F1WB8J');
     </script>
     <!-- End Google Analytics -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body
@@ -668,7 +718,7 @@
                                         <span class="material-icons text-[10px] text-slate-500 cursor-help"
                                             title="Descuento obligatorio del 10% al 13% según AFP. Va al fondo de pensiones.">help_outline</span>
                                     </p>
-                                    <p id="resultAFP" class="text-lg font-bold text-white">$0</p>
+                                    <p id="resultAFP" class="text-lg font-bold text-white tabular-nums">$0</p>
                                 </div>
                                 <span id="labelAFP"
                                     class="text-[10px] bg-slate-700/50 px-2 py-1 rounded text-slate-300">Modelo</span>
@@ -681,7 +731,7 @@
                                         <span class="material-icons text-[10px] text-slate-500 cursor-help"
                                             title="Fonasa: 7% fijo. Isapre: 7% mínimo + plan adicional.">help_outline</span>
                                     </p>
-                                    <p id="resultHealth" class="text-lg font-bold text-white">$0</p>
+                                    <p id="resultHealth" class="text-lg font-bold text-white tabular-nums">$0</p>
                                 </div>
                                 <span id="labelHealth"
                                     class="text-[10px] bg-slate-700/50 px-2 py-1 rounded text-slate-300">7%</span>
@@ -690,7 +740,7 @@
                             <div class="glass-panel rounded-lg p-4 flex justify-between items-center bg-slate-800/40">
                                 <div>
                                     <p class="text-xs text-slate-400">Seguro Cesantía</p>
-                                    <p id="resultAFC" class="text-lg font-bold text-white">$0</p>
+                                    <p id="resultAFC" class="text-lg font-bold text-white tabular-nums">$0</p>
                                 </div>
                                 <span class="text-[10px] bg-slate-700/50 px-2 py-1 rounded text-slate-300">0.6%</span>
                             </div>
@@ -702,7 +752,7 @@
                                         <span class="material-icons text-[10px] text-slate-500 cursor-help"
                                             title="Impuesto progresivo sobre sueldos. Se aplica si ganas más de 13.5 UF mensuales.">help_outline</span>
                                     </p>
-                                    <p id="resultTax" class="text-lg font-bold text-white">$0</p>
+                                    <p id="resultTax" class="text-lg font-bold text-white tabular-nums">$0</p>
                                 </div>
                             </div>
                     </div>
@@ -710,7 +760,7 @@
                     <!-- Action Buttons -->
                     <div class="mt-6">
                         <button id="download-pdf-btn" type="button"
-                            class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-full shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+                            class="w-full btn-primary-premium text-white font-bold py-4 px-6 rounded-full flex items-center justify-center gap-2 cursor-pointer">
                             <span class="material-icons">picture_as_pdf</span>
                             Descargar Informe PDF
                         </button>
