@@ -250,10 +250,10 @@
             <!-- COLUMNA IZQUIERDA -->
             <div class="space-y-6">
                 <!-- Form Card -->
-                <div class="glass-panel rounded-2xl p-6 sm:p-8 shadow-xl relative">
+                <div class="glass-panel rounded-2xl p-4 sm:p-6 shadow-xl relative">
                     <!-- Form Header with Actions -->
                     <div
-                        class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 border-b border-white/5 pb-6">
+                        class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-5 border-b border-white/5 pb-4">
                         <div class="flex-1 min-w-0 pr-4">
                             <h2 class="text-xl font-bold text-white mb-1">Calculadora de Finiquito</h2>
                             <p class="text-sm text-slate-400 mb-2">Ingresa los datos de tu relación laboral</p>
@@ -275,9 +275,9 @@
                         </div>
                     </div>
 
-                    <form id="calculator-form" class="space-y-8">
+                    <form id="calculator-form" class="space-y-5">
                         <!-- Navigation Tabs (Sleek Glassmorphic Tab Bar) -->
-                        <div class="flex border border-white/10 mb-8 p-1 bg-slate-900/50 rounded-2xl backdrop-blur-md">
+                        <div class="flex border border-white/10 mb-5 p-1 bg-slate-900/50 rounded-2xl backdrop-blur-md">
                             <button type="button" id="tabBtn-contrato" onclick="switchTab('contrato')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20">
                                 1. Contrato
                             </button>
@@ -313,10 +313,10 @@
                         </script>
 
                         <!-- TAB CONTENT 1: CONTRATO (Dates + Causal) -->
-                        <div id="tabContent-contrato" class="space-y-8">
+                        <div id="tabContent-contrato" class="space-y-5">
                             <!-- Section 1: Dates -->
                             <div>
-                                <div class="flex items-center gap-3 mb-6">
+                                <div class="flex items-center gap-3 mb-4">
                                     <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
                                         1
                                     </div>
@@ -348,17 +348,17 @@
 
                             <!-- Section 3: Cause -->
                             <div>
-                                <div class="flex items-center gap-3 mb-6">
+                                <div class="flex items-center gap-3 mb-4">
                                     <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
                                         2
                                     </div>
                                     <h3 class="text-lg font-semibold text-white">Causal de Término</h3>
                                 </div>
-                                <div class="space-y-4">
+                                <div class="space-y-3">
                                     <div class="space-y-2">
                                         <label class="block text-sm font-medium text-slate-400 ml-1">Selecciona la Causal</label>
                                         <div class="relative">
-                                            <select id="cause" class="block w-full pl-4 pr-10 py-3 bg-input-dark border border-white/10 rounded-full text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer">
+                                            <select id="cause" style="background-image: none !important;" class="block w-full pl-4 pr-10 py-3 bg-input-dark border border-white/10 rounded-full text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer">
                                                 <option value="161">Art. 161 - Necesidades de la Empresa</option>
                                                 <option value="159-1">Art. 159 N°1 - Mutuo Acuerdo</option>
                                                 <option value="159-2">Art. 159 N°2 - Renuncia Voluntaria</option>
@@ -369,11 +369,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex items-start gap-3 p-4 rounded-xl bg-primary/10 border border-primary/20">
-                                        <span class="material-icons text-primary text-xl mt-0.5">info</span>
+                                    <div class="flex items-start gap-3 p-3 rounded-xl bg-primary/10 border border-primary/20">
+                                        <span class="material-icons text-primary text-lg mt-0.5">info</span>
                                         <div>
-                                            <h4 class="text-sm font-bold text-white mb-1">Sobre el Art. 161</h4>
-                                            <p class="text-xs text-slate-400 leading-relaxed">Esta causal da derecho a indemnización por años de servicio y aviso previo (si no se avisó con 30 días de anticipación).</p>
+                                            <h4 class="text-xs font-bold text-white mb-1">Sobre el Art. 161</h4>
+                                            <p class="text-[11px] text-slate-400 leading-relaxed">Esta causal da derecho a indemnización por años de servicio y aviso previo (si no se avisó con 30 días de anticipación).</p>
                                         </div>
                                     </div>
                                 </div>
@@ -396,16 +396,16 @@
                         </div>
 
                         <!-- TAB CONTENT 2: INGRESOS & VACACIONES (Economics) -->
-                        <div id="tabContent-ingresos" class="space-y-8 hidden">
+                        <div id="tabContent-ingresos" class="space-y-5 hidden">
                             <div>
-                                <div class="flex items-center gap-3 mb-6">
+                                <div class="flex items-center gap-3 mb-4">
                                     <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
                                         3
                                     </div>
                                     <h3 class="text-lg font-semibold text-white">Datos Económicos</h3>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div class="space-y-3">
                                         <!-- Sueldo Base -->
                                         <div class="space-y-2">
                                             <label class="block text-sm font-medium text-slate-400 ml-1">Sueldo Base Mensual</label>
@@ -513,19 +513,19 @@
                         </div>
 
                         <!-- TAB CONTENT 3: OPCIONES AVANZADAS -->
-                        <div id="tabContent-avanzado" class="space-y-6 hidden">
+                        <div id="tabContent-avanzado" class="space-y-4 hidden">
                             <div>
-                                <div class="flex items-center gap-3 mb-4">
+                                <div class="flex items-center gap-3 mb-3">
                                     <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
                                         4
                                     </div>
                                     <h3 class="text-lg font-semibold text-white">Parámetros del Finiquito</h3>
                                 </div>
-                                <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                                <p class="text-xs text-slate-400 mb-3 leading-relaxed">
                                     Activa o desactiva qué conceptos deseas incorporar en la liquidación del finiquito. Útil si ciertos montos ya se pagaron de forma anticipada.
                                 </p>
                                 
-                                <div id="advancedControls" class="space-y-5">
+                                <div id="advancedControls" class="space-y-3.5">
                                     <!-- IAS Option -->
                                     <label class="flex items-start gap-3 cursor-pointer group">
                                         <div class="relative mt-0.5">
