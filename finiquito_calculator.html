@@ -588,7 +588,7 @@
                                         <span class="material-icons text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
                                         Atrás
                                     </button>
-                                    <button type="button" onclick="document.getElementById('results-panel').scrollIntoView({behavior: 'smooth', block: 'start'})" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-500 shadow-lg shadow-emerald-600/20 transition-all text-sm group">
+                                    <button type="button" onclick="showSimulationSummary()" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-500 shadow-lg shadow-emerald-600/20 transition-all text-sm group">
                                         Ver resultado
                                         <span class="material-icons text-sm transition-transform group-hover:translate-y-0.5">done</span>
                                     </button>
@@ -1168,6 +1168,227 @@
             if (typeof CONSTANTS === 'undefined' || typeof FiniquitoCalculator === 'undefined') {
                 console.error("Critical Dependencies Missing");
                 alert("Error crítico: No se pudieron cargar los archivos de configuración. Por favor, desactiva el bloqueador de anuncios o recarga la página.");
+            }
+        });
+    </script>
+
+    <!-- Modal Resumen de Simulación y Captura de Lead -->
+    <div id="summary-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+        <div class="w-full max-w-lg rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/10 bg-[#1e293b] text-white" style="background: #1e293b; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+            <!-- Decorative Top Bar -->
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-blue-600"></div>
+            
+            <!-- Header -->
+            <div class="flex justify-between items-start mb-5 mt-2">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                        <span class="material-icons text-white text-sm">auto_awesome</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">¡Simulación Completada!</h3>
+                </div>
+                <button id="btn-close-summary-modal" class="p-1 rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-colors cursor-pointer" type="button">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <!-- Total Panel -->
+            <div class="bg-slate-900/60 rounded-xl p-5 border border-white/5 text-center mb-6">
+                <span class="text-xs text-slate-400 uppercase tracking-wider block mb-1">Total Estimado del Finiquito</span>
+                <span id="modal-total-amount" class="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">$0</span>
+                <span class="text-xs text-slate-400 ml-1">CLP</span>
+            </div>
+            
+            <!-- Breakdown Details -->
+            <div class="space-y-3 mb-6 bg-slate-900/30 p-4 rounded-xl border border-white/5 max-h-[180px] overflow-y-auto">
+                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Desglose de Conceptos</h4>
+                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
+                    <span class="text-slate-400">Indemnización Años de Servicio</span>
+                    <span id="modal-years-amount" class="text-white font-medium">$0</span>
+                </div>
+                <div id="modal-notice-row" class="flex justify-between text-sm py-1.5 border-b border-white/5">
+                    <span class="text-slate-400">Indemnización Falta de Aviso</span>
+                    <span id="modal-notice-amount" class="text-white font-medium">$0</span>
+                </div>
+                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
+                    <span class="text-slate-400">Vacaciones Proporcionales</span>
+                    <span id="modal-vacation-prop-amount" class="text-white font-medium">$0</span>
+                </div>
+                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
+                    <span class="text-slate-400">Vacaciones Pendientes</span>
+                    <span id="modal-vacation-pending-amount" class="text-white font-medium">$0</span>
+                </div>
+                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
+                    <span class="text-slate-400">Sueldo / Haberes Pendientes</span>
+                    <span id="modal-pending-salary-amount" class="text-white font-medium">$0</span>
+                </div>
+                <div id="modal-afc-row" class="flex justify-between text-sm py-1.5 border-b border-white/5 hidden text-rose-400">
+                    <span class="text-slate-400">Descuento AFC (Art. 13)</span>
+                    <span id="modal-afc-amount" class="font-medium">-$0</span>
+                </div>
+            </div>
+
+            <!-- Lead Form -->
+            <div class="border-t border-white/10 pt-4">
+                <p class="text-xs text-slate-300 mb-3 leading-relaxed">
+                    Si deseas descargar el **Informe PDF completo** con el sustento legal del Código del Trabajo, ingresa tu correo electrónico:
+                </p>
+                <form id="summary-lead-form" class="space-y-4">
+                    <div>
+                        <input type="email" id="summary-lead-email" required
+                            class="w-full px-4 py-2.5 bg-[#0f172a] border border-white/10 rounded-full text-white placeholder-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition-all"
+                            placeholder="tu@correo.com" style="background-color: #0f172a; color: #ffffff;" />
+                        <div id="summary-lead-email-error" class="hidden text-xs text-rose-400 mt-2 ml-2 font-medium"></div>
+                    </div>
+                    
+                    <label class="flex items-start gap-2.5 cursor-pointer group">
+                        <input type="checkbox" id="summary-lead-optin" required
+                            class="w-4 h-4 mt-0.5 rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-emerald-500/50 cursor-pointer" />
+                        <span class="text-[10px] text-slate-400 group-hover:text-slate-300 transition-colors leading-normal select-none">
+                            Acepto recibir guías y novedades laborales de acuerdo con la <a href="/privacidad" target="_blank" class="text-emerald-400 hover:underline font-semibold">Política de Privacidad</a>.
+                        </span>
+                    </label>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button type="button" id="btn-close-summary-only" class="flex-1 py-3 px-5 border border-slate-600 text-slate-300 hover:text-white hover:bg-white/5 rounded-full text-sm font-semibold transition-all">
+                            Cerrar y Ver Detalle
+                        </button>
+                        <button type="submit" class="flex-1 bg-gradient-to-r from-emerald-500 to-blue-600 hover:opacity-95 text-white font-bold py-3 px-5 rounded-full shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                            <span class="material-icons text-sm">download</span>
+                            Descargar Reporte PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Modal Scripts -->
+    <script>
+        function showSimulationSummary() {
+            // Check if calculated
+            const totalEl = document.getElementById('totalAmount');
+            if (!totalEl || totalEl.textContent.trim() === '$ --' || totalEl.textContent.trim() === '$0' || totalEl.textContent.trim() === '') {
+                alert("Por favor, ingresa los datos mínimos requeridos para realizar la simulación.");
+                return;
+            }
+
+            const copyText = (fromId, toId) => {
+                const fromEl = document.getElementById(fromId);
+                const toEl = document.getElementById(toId);
+                if (fromEl && toEl) toEl.textContent = fromEl.textContent;
+            };
+            
+            copyText('totalAmount', 'modal-total-amount');
+            copyText('yearsServiceAmount', 'modal-years-amount');
+            copyText('noticeAmount', 'modal-notice-amount');
+            copyText('vacationPropAmount', 'modal-vacation-prop-amount');
+            copyText('vacationPendingAmount', 'modal-vacation-pending-amount');
+            copyText('pendingSalaryAmount', 'modal-pending-salary-amount');
+            copyText('afcAmount', 'modal-afc-amount');
+            
+            const checkVisibility = (rowId, modalRowId) => {
+                const rowEl = document.getElementById(rowId);
+                const modalRowEl = document.getElementById(modalRowId);
+                if (rowEl && modalRowEl) {
+                    if (rowEl.classList.contains('hidden')) {
+                        modalRowEl.classList.add('hidden');
+                    } else {
+                        modalRowEl.classList.remove('hidden');
+                    }
+                }
+            };
+            
+            checkVisibility('noticeRow', 'modal-notice-row');
+            checkVisibility('afcRow', 'modal-afc-row');
+            
+            const modal = document.getElementById('summary-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+            const resultsPanel = document.getElementById('results-panel');
+            if (resultsPanel) {
+                resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeBtn = document.getElementById('btn-close-summary-modal');
+            const closeOnlyBtn = document.getElementById('btn-close-summary-only');
+            const modal = document.getElementById('summary-modal');
+            
+            if (closeBtn) closeBtn.addEventListener('click', closeSummaryModal);
+            if (closeOnlyBtn) closeOnlyBtn.addEventListener('click', closeSummaryModal);
+            
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeSummaryModal();
+                    }
+                });
+            }
+
+            const leadForm = document.getElementById('summary-lead-form');
+            if (leadForm) {
+                leadForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('summary-lead-email');
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const optin = document.getElementById('summary-lead-optin').checked;
+                    
+                    if (email && optin) {
+                        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                        if (!emailRegex.test(email)) {
+                            const errEl = document.getElementById('summary-lead-email-error');
+                            if (errEl) {
+                                errEl.textContent = "Por favor, ingresa una dirección de correo válida.";
+                                errEl.classList.remove('hidden');
+                            }
+                            if (emailInput) {
+                                emailInput.classList.add('border-rose-500', 'focus:ring-rose-500');
+                                emailInput.focus();
+                            }
+                            return;
+                        }
+                        
+                        const origEmail = document.getElementById('pdf-email');
+                        const origOptin = document.getElementById('pdf-marketing-optin');
+                        const origForm = document.getElementById('pdf-email-form');
+                        
+                        if (origEmail && origOptin && origForm) {
+                            origEmail.value = email;
+                            origOptin.checked = true;
+                            
+                            // Close the summary modal
+                            if (modal) {
+                                modal.classList.add('hidden');
+                                modal.classList.remove('flex');
+                            }
+                            
+                            // Trigger submit of original pdf form
+                            origForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+                        } else {
+                            console.error("Original PDF form dependencies missing.");
+                        }
+                    }
+                });
+
+                const emailInput = document.getElementById('summary-lead-email');
+                if (emailInput) {
+                    emailInput.addEventListener('input', () => {
+                        const errEl = document.getElementById('summary-lead-email-error');
+                        if (errEl) errEl.classList.add('hidden');
+                        emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
+                    });
+                }
             }
         });
     </script>
