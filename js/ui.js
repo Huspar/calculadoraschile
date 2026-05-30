@@ -107,6 +107,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // ============================================
+    // TAB NAVIGATION HANDLING
+    // ============================================
+    const tabButtons = {
+        contrato: document.getElementById('tabBtn-contrato'),
+        ingresos: document.getElementById('tabBtn-ingresos'),
+        avanzado: document.getElementById('tabBtn-avanzado')
+    };
+
+    const tabContents = {
+        contrato: document.getElementById('tabContent-contrato'),
+        ingresos: document.getElementById('tabContent-ingresos'),
+        avanzado: document.getElementById('tabContent-avanzado')
+    };
+
+    const switchTab = (activeKey) => {
+        Object.keys(tabContents).forEach(key => {
+            if (tabContents[key]) {
+                tabContents[key].classList.toggle('hidden', key !== activeKey);
+            }
+        });
+
+        Object.keys(tabButtons).forEach(key => {
+            const btn = tabButtons[key];
+            if (btn) {
+                if (key === activeKey) {
+                    btn.className = "flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20";
+                } else {
+                    btn.className = "flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5";
+                }
+            }
+        });
+    };
+
+    Object.keys(tabButtons).forEach(key => {
+        const btn = tabButtons[key];
+        if (btn) {
+            btn.addEventListener('click', () => switchTab(key));
+        }
+    });
+
+    // ============================================
     // EVENT LISTENERS
     // ============================================
 
