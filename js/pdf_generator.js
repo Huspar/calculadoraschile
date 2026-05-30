@@ -606,22 +606,20 @@
 
         return `
             <!-- Premium Branded Header -->
-            <div class="print-header">
-                <div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div style="width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #10b981, #3b82f6); display: flex; align-items: center; justify-content: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
-                            <span style="color: #fff; font-size: 14pt; font-weight: 800; line-height: 1;">C</span>
-                        </div>
-                        <div>
-                            <h2 style="margin: 0; font-size: 13pt; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">CÁLCULO LABORAL</h2>
-                            <span style="font-size: 7pt; color: #94a3b8; letter-spacing: 0.3px;">www.calculolaboral.cl</span>
-                        </div>
+            <div style="background-color: #0f172a !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; color: #ffffff; padding: 14px 18px; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: #10b981 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #ffffff; font-size: 16pt; font-weight: 900; line-height: 1;">C</span>
+                    </div>
+                    <div>
+                        <h2 style="margin: 0; font-size: 14pt; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">CÁLCULO LABORAL</h2>
+                        <span style="font-size: 7.5pt; color: #94a3b8; letter-spacing: 0.3px;">www.calculolaboral.cl</span>
                     </div>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 9pt; font-weight: 700; color: #10b981; letter-spacing: 0.5px;">SIMULACIÓN DE FINIQUITO</span><br>
-                    <span style="font-size: 7pt; color: #94a3b8;">${dateString}</span><br>
-                    <span style="font-size: 6.5pt; color: #64748b; font-family: monospace;">Folio: ${folio}</span>
+                    <span style="font-size: 9pt; font-weight: 700; color: #34d399; letter-spacing: 0.5px;">SIMULACIÓN DE FINIQUITO</span><br>
+                    <span style="font-size: 7pt; color: #cbd5e1;">${dateString}</span><br>
+                    <span style="font-size: 6.5pt; color: #94a3b8; font-family: 'Courier New', monospace; letter-spacing: 0.5px;">${folio}</span>
                 </div>
             </div>
 
@@ -727,14 +725,14 @@
             </table>
 
             <!-- Premium Total Box -->
-            <div class="print-total-box" style="margin-top: 6px; margin-bottom: 8px; padding: 8px 14px !important;">
+            <div style="border: 2px solid #10b981; background-color: #ecfdf5 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; padding: 10px 16px; border-radius: 6px; margin-top: 6px; margin-bottom: 8px; text-align: right;">
                 <span style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #047857; display: block; margin-bottom: 3px;">Monto Total Neto Estimado</span>
-                <span class="print-total-amount">${total}</span> <span style="font-size: 11pt; font-weight: 700; color: #047857;">CLP</span>
+                <span style="font-size: 18pt; font-weight: 800; color: #047857; letter-spacing: -0.5px;">${total}</span> <span style="font-size: 11pt; font-weight: 700; color: #047857;">CLP</span>
             </div>
 
             <!-- Parameters Badges -->
             <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;">
-                ${optionsItems.map(o => `<span style="font-size: 6.5pt; padding: 2px 6px; border-radius: 3px; border: 1px solid ${o.active ? '#bbf7d0' : '#e2e8f0'}; background: ${o.active ? '#f0fdf4' : '#f8fafc'}; color: ${o.active ? '#047857' : '#94a3b8'}; -webkit-print-color-adjust: exact; print-color-adjust: exact;">${o.active ? '✓' : '✗'} ${o.label}</span>`).join('')}
+                ${optionsItems.map(o => `<span style="font-size: 6.5pt; padding: 2px 6px; border-radius: 3px; border: 1px solid ${o.active ? '#bbf7d0' : '#e2e8f0'}; background-color: ${o.active ? '#f0fdf4' : '#f8fafc'} !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; color: ${o.active ? '#047857' : '#94a3b8'};">${o.active ? '✓' : '✗'} ${o.label}</span>`).join('')}
             </div>
 
             <!-- Footer Disclaimer -->
