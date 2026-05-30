@@ -317,54 +317,13 @@
             <!-- Main Calculator Section -->
             <div class="space-y-6">
                 <!-- Header Text -->
-                <div class="mb-8">
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3">Calculadora de Sueldo
-                        Líquido</h2>
-                    <p class="text-slate-500 dark:text-slate-400 text-lg mb-4">Ingresa tu sueldo bruto para obtener el
-                        detalle exacto de tus descuentos legales en Chile.</p>
-                    <a href="/como-calcular-sueldo-liquido-paso-a-paso" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20">
-                        <span class="material-icons text-base">chrome_reader_mode</span>
-                        ¿No sabes cómo hacerlo? Lee nuestra guía paso a paso aquí
-                    </a>
-                </div>
-
-                <!-- Disclaimer Banner -->
-                <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-sm p-4 flex items-start gap-3"
-                    role="alert">
-                    <span class="material-icons text-amber-400 text-xl mt-0.5 flex-shrink-0">gavel</span>
-                    <div>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            <strong class="text-amber-400">Simulación referencial.</strong>
-                            Los resultados no constituyen asesoría legal ni contable. El cálculo depende de tu contrato,
-                            AFP, régimen de salud y otros factores individuales.
-                            <a href="/disclaimer"
-                                class="text-amber-400 hover:text-amber-300 underline underline-offset-2 decoration-amber-400/30 transition-colors">Ver
-                                disclaimer completo</a>.
-                        </p>
-                    </div>
-                </div>
-
-                
-
-                <!-- Sticky Result Header -->
-                <div id="sticky-result-container" class="sticky top-24 z-40 mb-8 transition-all duration-300">
-                    <div
-                        class="glass-panel rounded-xl p-6 border border-emerald-500/30 bg-slate-900/90 backdrop-blur-md shadow-2xl shadow-emerald-500/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="text-center sm:text-left">
-                            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Tu Sueldo
-                                Líquido Estimado</h3>
-                            <div class="flex items-baseline gap-2 justify-center sm:justify-start">
-                                <span id="headerNetSalary"
-                                    class="text-5xl sm:text-6xl font-black text-white tracking-tight">$0</span>
-                                <span id="headerPercentage" class="text-lg font-medium text-slate-400">0%</span>
-                            </div>
-                            <p class="text-xs text-slate-500 mt-1">del sueldo bruto</p>
-                        </div>
-                        <div class="text-right hidden sm:block">
-                            <span class="text-xs text-slate-500 block">Total Descuentos</span>
-                            <span id="headerTotalDiscounts" class="text-lg font-semibold text-red-400">-$0</span>
-                        </div>
-                    </div>
+                <div class="mb-6 text-center sm:text-left">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+                        Calculadora de Sueldo Líquido
+                    </h1>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Ingresa tu sueldo bruto para obtener el desglose exacto de tus descuentos legales en Chile, actualizado al 2026.
+                    </p>
                 </div>
 
                 <!-- Input Card -->
@@ -645,6 +604,51 @@
                     </details>
 
                     <!-- Buttons removed: calculation is real-time -->
+                </div>
+
+                <!-- Sticky Result Header (Mobile Only) -->
+                <div id="sticky-result-container" class="lg:hidden sticky top-24 z-40 mb-6 transition-all duration-300">
+                    <div
+                        class="glass-panel rounded-xl p-6 border border-emerald-500/30 bg-slate-900/90 backdrop-blur-md shadow-2xl shadow-emerald-500/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Tu Sueldo
+                                Líquido Estimado</h3>
+                            <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                                <span id="headerNetSalary"
+                                    class="text-5xl sm:text-6xl font-black text-white tracking-tight">$0</span>
+                                <span id="headerPercentage" class="text-lg font-medium text-slate-400">0%</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">del sueldo bruto</p>
+                        </div>
+                        <div class="text-right hidden sm:block">
+                            <span class="text-xs text-slate-500 block">Total Descuentos</span>
+                            <span id="headerTotalDiscounts" class="text-lg font-semibold text-red-400">-$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer Banner -->
+                <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-sm p-4 flex items-start gap-3 mt-4"
+                    role="alert">
+                    <span class="material-icons text-amber-400 text-xl mt-0.5 flex-shrink-0">gavel</span>
+                    <div>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            <strong class="text-amber-400">Simulación referencial.</strong>
+                            Los resultados no constituyen asesoría legal ni contable. El cálculo depende de tu contrato,
+                            AFP, régimen de salud y otros factores individuales.
+                            <a href="/disclaimer"
+                                class="text-amber-400 hover:text-amber-300 underline underline-offset-2 decoration-amber-400/30 transition-colors">Ver
+                                disclaimer completo</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Guide Reference Link -->
+                <div class="mt-4 text-center sm:text-left">
+                    <a href="/como-calcular-sueldo-liquido-paso-a-paso" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20">
+                        <span class="material-icons text-base">chrome_reader_mode</span>
+                        ¿No sabes cómo calcularlo? Lee nuestra guía paso a paso aquí
+                    </a>
                 </div>
                 <!-- Result Breakdown -->
                 <div class="space-y-6">
