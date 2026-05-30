@@ -571,7 +571,7 @@
 
         // Helper: gratification row
         let gratificationRow = '';
-        const gratVal = parseInt(gratification || 0);
+        const gratVal = parseInt((gratification || '0').toString().replace(/\./g, ''));
         if (gratVal > 0) {
             gratificationRow = `
                         <tr>
@@ -673,11 +673,11 @@
                     <table class="print-table">
                         <tr>
                             <td style="font-weight: 600; width: 50%; color: #475569;">Sueldo Base:</td>
-                            <td style="font-weight: 600;">$${formatNumber(parseInt(baseSalary || 0))}</td>
+                            <td style="font-weight: 600;">$${formatNumber(parseInt((baseSalary || '0').toString().replace(/\./g, '')))}</td>
                         </tr>
                         <tr>
                             <td style="font-weight: 600; color: #475569;">Haberes no Imp.:</td>
-                            <td>$${formatNumber(parseInt(assignments || 0))}</td>
+                            <td>$${formatNumber(parseInt((assignments || '0').toString().replace(/\./g, '')))}</td>
                         </tr>
                         ${gratificationRow}
                         ${variableSalaryRows}
