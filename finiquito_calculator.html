@@ -271,7 +271,7 @@
                         </div>
                     </div>
 
-                    <form class="space-y-8">
+                    <form id="calculator-form" class="space-y-8">
                         <!-- Navigation Tabs (Sleek Glassmorphic Tab Bar) -->
                         <div class="flex border border-white/10 mb-8 p-1 bg-slate-900/50 rounded-2xl backdrop-blur-md">
                             <button type="button" id="tabBtn-contrato" onclick="switchTab('contrato')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20">
@@ -300,6 +300,10 @@
                                         contentEl.classList.add('hidden');
                                         btnEl.className = 'flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ' + inactiveClasses;
                                     }
+                                }
+                                var formEl = document.getElementById('calculator-form');
+                                if (formEl) {
+                                    formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }
                             }
                         </script>
@@ -377,6 +381,12 @@
                                         </div>
                                         <span class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">¿Se dio aviso con 30 días de anticipación?</span>
                                     </label>
+                                </div>
+                                <div class="flex justify-end pt-6 border-t border-white/5 mt-8">
+                                    <button type="button" onclick="switchTab('ingresos')" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-hover shadow-lg shadow-primary/20 transition-all text-sm group">
+                                        Siguiente paso
+                                        <span class="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -485,6 +495,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-8">
+                                    <button type="button" onclick="switchTab('contrato')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 text-slate-300 font-semibold rounded-xl hover:bg-white/10 hover:text-white transition-all text-sm group">
+                                        <span class="material-icons text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
+                                        Atrás
+                                    </button>
+                                    <button type="button" onclick="switchTab('avanzado')" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-hover shadow-lg shadow-primary/20 transition-all text-sm group">
+                                        Siguiente paso
+                                        <span class="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -562,6 +582,16 @@
                                             <span class="text-[10px] text-slate-500 leading-tight">Muchas calculadoras no lo incluyen por no ser remuneración (Art. 41).</span>
                                         </div>
                                     </label>
+                                </div>
+                                <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-8">
+                                    <button type="button" onclick="switchTab('ingresos')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 text-slate-300 font-semibold rounded-xl hover:bg-white/10 hover:text-white transition-all text-sm group">
+                                        <span class="material-icons text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
+                                        Atrás
+                                    </button>
+                                    <button type="button" onclick="document.getElementById('results-panel').scrollIntoView({behavior: 'smooth', block: 'start'})" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-500 shadow-lg shadow-emerald-600/20 transition-all text-sm group">
+                                        Ver resultado
+                                        <span class="material-icons text-sm transition-transform group-hover:translate-y-0.5">done</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -1126,11 +1156,11 @@
             });
         }
     </script>
-    <script src="js/constants.js?v=1.0.5"></script>
-    <script src="js/logic.js?v=1.0.5"></script>
-    <script src="js/validation.js?v=1.0.5"></script>
-    <script src="js/ui.js?v=1.0.5"></script>
-    <script src="js/pdf_generator.js?v=1.0.5"></script>
+    <script src="js/constants.js?v=1.0.6"></script>
+    <script src="js/logic.js?v=1.0.6"></script>
+    <script src="js/validation.js?v=1.0.6"></script>
+    <script src="js/ui.js?v=1.0.6"></script>
+    <script src="js/pdf_generator.js?v=1.0.6"></script>
 
     <!-- Integrity Check -->
     <script>
