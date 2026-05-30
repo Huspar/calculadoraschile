@@ -891,11 +891,11 @@
                     </h3>
                     <div class="flex justify-center mb-6 relative">
                         <!-- Donut Chart Representation using conic-gradient CSS -->
-                        <div class="w-48 h-48 rounded-full relative"
+                        <div id="distribution-chart" class="w-48 h-48 rounded-full relative"
                             style="background: conic-gradient(#10b981 0% 81%, #3b82f6 81% 91%, #ef4444 91% 97%, #f97316 97% 98%, #a855f7 98% 100%);">
                             <div
                                 class="absolute inset-2 bg-surface-dark rounded-full flex items-center justify-center flex-col">
-                                <span class="text-3xl font-bold text-white">81%</span>
+                                <span id="chart-liquid-percent" class="text-3xl font-bold text-white">81%</span>
                                 <span class="text-xs text-slate-400 font-medium">Líquido</span>
                             </div>
                         </div>
@@ -906,28 +906,35 @@
                                 <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
                                 <span class="text-slate-300">Sueldo Líquido</span>
                             </div>
-                            <span class="font-medium text-white">81.7%</span>
+                            <span id="legend-liquido-percent" class="font-medium text-white">81.7%</span>
                         </div>
                         <div class="flex items-center justify-between text-sm">
                             <div class="flex items-center gap-2">
                                 <div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
                                 <span class="text-slate-300">AFP</span>
                             </div>
-                            <span class="font-medium text-white">10.6%</span>
+                            <span id="legend-afp-percent" class="font-medium text-white">10.6%</span>
                         </div>
                         <div class="flex items-center justify-between text-sm">
                             <div class="flex items-center gap-2">
                                 <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
                                 <span class="text-slate-300">Salud</span>
                             </div>
-                            <span class="font-medium text-white">6.2%</span>
+                            <span id="legend-health-percent" class="font-medium text-white">6.2%</span>
                         </div>
                         <div class="flex items-center justify-between text-sm">
                             <div class="flex items-center gap-2">
                                 <div class="w-2.5 h-2.5 rounded-full bg-purple-500"></div>
                                 <span class="text-slate-300">Impuesto</span>
                             </div>
-                            <span class="font-medium text-white">0.9%</span>
+                            <span id="legend-tax-percent" class="font-medium text-white">0.9%</span>
+                        </div>
+                        <div id="legend-otros-container" class="flex items-center justify-between text-sm hidden">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
+                                <span class="text-slate-300">Otros</span>
+                            </div>
+                            <span id="legend-otros-percent" class="font-medium text-white">0%</span>
                         </div>
                     </div>
                 </div>
@@ -1224,12 +1231,12 @@
 
 
     <!-- Logic Scripts -->
-    <script src="js/constants.js?v=1.0.5"></script>
-    <script src="js/indicators.js?v=1.0.5"></script>
-    <script src="js/salary_logic.js?v=1.0.5"></script>
-    <script src="js/validation.js?v=1.0.5"></script>
-    <script src="js/salary_ui.js?v=1.0.5"></script>
-    <script src="js/pdf_generator.js?v=1.0.5"></script>
+    <script src="js/constants.js?v=1.0.6"></script>
+    <script src="js/indicators.js?v=1.0.6"></script>
+    <script src="js/salary_logic.js?v=1.0.6"></script>
+    <script src="js/validation.js?v=1.0.6"></script>
+    <script src="js/salary_ui.js?v=1.0.6"></script>
+    <script src="js/pdf_generator.js?v=1.0.6"></script>
 
     <!-- Integrity Check -->
     <script>

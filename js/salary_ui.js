@@ -70,8 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
         otrosResult: getEl('resultOtros'),
 
         // Chart
-        chart: document.querySelector('.w-48.h-48.rounded-full'),
-        chartLabel: document.querySelector('.w-48.h-48.rounded-full span.text-3xl'),
+        chart: getEl('distribution-chart') || document.querySelector('.w-48.h-48.rounded-full'),
+        chartLabel: getEl('chart-liquid-percent') || document.querySelector('.w-48.h-48.rounded-full span.text-3xl'),
+        legendLiquido: getEl('legend-liquido-percent'),
+        legendAFP: getEl('legend-afp-percent'),
+        legendHealth: getEl('legend-health-percent'),
+        legendTax: getEl('legend-tax-percent'),
+        legendOtrosContainer: getEl('legend-otros-container'),
+        legendOtrosPercent: getEl('legend-otros-percent'),
 
         // Indicators (stable selectors)
         ufVal: document.querySelector('.uf-value'),
@@ -457,22 +463,53 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 6. Chart
+        // 6. Chart & Dynamic Legend
         if (display.chart) {
             const total = d.netSalary + totalDeductions;
             if (total === 0) return;
 
-            // Simplified Chart: Net vs Deductions
+            // Calculate precise percentages for the 5 categories
             const pNet = (d.netSalary / total) * 100;
-            const pDed = 100 - pNet;
+            const pAFP = ((d.afpAmount + d.afcAmount) / total) * 100;
+            const pHealth = (d.healthAmount / total) * 100;
+            const pTax = (d.taxAmount / total) * 100;
+            
+            const otherDeductionsValue = d.ccafAmount + d.apvAmount + d.prestamos + d.pension + d.sindicato + d.otrosDescuentos;
+            const pOtros = (otherDeductionsValue / total) * 100;
 
-            // Green for Net, Red/Blue for Deductions
+            // Build consecutive conic-gradient segments
+            const endNet = pNet;
+            const endAFP = endNet + pAFP;
+            const endHealth = endAFP + pHealth;
+            const endTax = endHealth + pTax;
+
             display.chart.style.background = `conic-gradient(
-                #10b981 0% ${pNet}%, 
-                #ef4444 ${pNet}% 100%
+                #10b981 0% ${endNet}%, 
+                #3b82f6 ${endNet}% ${endAFP}%, 
+                #ef4444 ${endAFP}% ${endHealth}%, 
+                #a855f7 ${endHealth}% ${endTax}%,
+                #f97316 ${endTax}% 100%
             )`;
 
-            if (display.chartLabel) display.chartLabel.textContent = `${Math.round(pNet)}%`;
+            if (display.chartLabel) {
+                display.chartLabel.textContent = `${Math.round(pNet)}%`;
+            }
+
+            // Update Legend texts dynamically
+            if (display.legendLiquido) display.legendLiquido.textContent = `${pNet.toFixed(1)}%`;
+            if (display.legendAFP) display.legendAFP.textContent = `${pAFP.toFixed(1)}%`;
+            if (display.legendHealth) display.legendHealth.textContent = `${pHealth.toFixed(1)}%`;
+            if (display.legendTax) display.legendTax.textContent = `${pTax.toFixed(1)}%`;
+
+            // Handle "Otros" element visibility and value
+            if (display.legendOtrosContainer && display.legendOtrosPercent) {
+                if (otherDeductionsValue > 0) {
+                    display.legendOtrosContainer.classList.remove('hidden');
+                    display.legendOtrosPercent.textContent = `${pOtros.toFixed(1)}%`;
+                } else {
+                    display.legendOtrosContainer.classList.add('hidden');
+                }
+            }
         }
     };
 
