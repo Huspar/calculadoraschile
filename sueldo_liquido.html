@@ -1040,7 +1040,7 @@
     <!-- Footer -->
     <!-- Footer -->
     <footer class="border-t border-white/10 bg-slate-900 pt-16 pb-8 mt-auto relative z-50">
-        <div class="max-w-[1200px] mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-1">
                     <div class="flex items-center gap-2 mb-4">
@@ -1048,25 +1048,24 @@
                             class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                             <span class="material-icons text-white text-[10px]">calculate</span>
                         </div>
-                        <span class="font-bold text-lg text-white">Cálculo <span
+                        <span class="font-bold text-lg text-white">Cálculo<span
                                 class="text-blue-400">Laboral</span></span>
                     </div>
                     <p class="text-slate-500 text-sm">
-                        Herramientas laborales gratuitas y calculadoras para Chile.
+                        Herramientas gratuitas para trabajadores en Chile.
                     </p>
                 </div>
 
                 <div>
-                    <h4 class="text-white font-semibold mb-4">Plataforma</h4>
+                    <h4 class="text-white font-semibold mb-4">Calculadoras</h4>
                     <ul class="space-y-2 text-sm text-slate-400">
                         <li><a href="/" class="hover:text-blue-400 transition-colors">Inicio</a></li>
-                        <li><a href="/finiquito_calculator" class="hover:text-blue-400 transition-colors">Calculadora
-                                Finiquito</a></li>
-                        <li><a href="/sueldo_liquido" class="hover:text-blue-400 transition-colors">Calculadora
-                                Sueldo</a></li>
-                        <li><a href="/blog" class="hover:text-blue-400 transition-colors">Blog</a></li>
-                        <li><a href="/sobre-nosotros" class="hover:text-blue-400 transition-colors">Sobre
-                                Nosotros</a></li>
+                        <li><a href="/sueldo_liquido" class="hover:text-blue-400 transition-colors">Sueldo
+                                Líquido</a></li>
+                        <li><a href="/finiquito_calculator"
+                                class="hover:text-blue-400 transition-colors">Calcular Finiquito</a></li>
+                        <li><a href="/guia-vacaciones-proporcionales"
+                                class="hover:text-blue-400 transition-colors">Guía Vacaciones</a></li>
                     </ul>
                 </div>
 
@@ -1077,45 +1076,35 @@
                         <li><a href="/terminos" class="hover:text-blue-400 transition-colors">Términos de Uso</a>
                         </li>
                         <li><a href="/disclaimer" class="hover:text-blue-400 transition-colors">Disclaimer</a></li>
+                        <li><a href="/sobre-nosotros" class="hover:text-blue-400 transition-colors">Sobre
+                                Nosotros</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-white font-semibold mb-4">Contacto</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="mailto:soporte@calculolaboral.cl"
-                                class="hover:text-blue-400 transition-colors">Soporte</a></li>
-                        <li><a href="mailto:contacto@calculolaboral.cl?subject=Publicidad"
-                                class="hover:text-blue-400 transition-colors">Publicidad</a></li>
-                        <li class="flex gap-4 mt-4">
-                            <a href="mailto:contacto@calculolaboral.cl"
-                                class="text-slate-500 hover:text-white transition-colors"><span
-                                    class="material-icons">email</span></a>
-                            <button
-                                onclick="navigator.clipboard.writeText(window.location.href); alert('Enlace copiado al portapapeles');"
-                                class="text-slate-500 hover:text-white transition-colors"><span
-                                    class="material-icons">share</span></button>
-                        </li>
-                    </ul>
+                    <p class="text-sm text-slate-400 mb-2">Consultas y sugerencias:</p>
+                    <a href="mailto:contacto@calculolaboral.cl"
+                        class="inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                        <span class="material-icons text-base">email</span>
+                        contacto@calculolaboral.cl
+                    </a>
                 </div>
             </div>
 
             <!-- Disclaimer for Calculator Page -->
-            <div class="border-t border-white/5 pt-8 pb-4 text-center">
-                <p class="text-[10px] text-slate-500 leading-relaxed max-w-3xl mx-auto">
+            <div class="border-t border-white/5 pt-8 pb-4 text-center text-slate-500">
+                <p class="text-[10px] leading-relaxed max-w-3xl mx-auto uppercase tracking-wide opacity-60">
                     ⚠️ <strong>Nota Legal:</strong> Esta calculadora es una herramienta de simulación referencial basada
                     en el Código del Trabajo de Chile.
-                    Los resultados no constituyen asesoría legal oficial ni reemplazan el cálculo formal que debe
-                    realizar el empleador o un contador.
-                    Cálculo Laboral no se hace responsable por diferencias en los montos finales.
+                    Los resultados no constituyen asesoría legal oficial.
                 </p>
             </div>
 
             <div
                 class="border-t border-white/5 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
                 <p class="text-slate-600 text-xs">
-                    © 2026 Cálculo Laboral. Todos los derechos reservados. | <a href="https://calculolaboral.cl"
-                        class="hover:text-blue-400 transition-colors">calculolaboral.cl</a>
+                    © 2026 calculolaboral.cl. Todos los derechos reservados.
                 </p>
                 <p class="text-slate-800 text-[10px] mt-2 md:mt-0">
                     Diseñado con ❤️ en Chile
