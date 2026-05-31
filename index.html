@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="application-version" content="1.0.0">
     <meta name="description"
-        content="Herramientas gratuitas para trabajadores en Chile. Calcula tu sueldo líquido y finiquito exacto con formato oficial. Actualizado a 2026 con leyes de la Dirección del Trabajo (DT).">
-    <title>Cálculo Laboral Chile 2026 | Calculadoras Oficiales de Finiquito y Sueldo Líquido</title>
+        content="Calcula gratis tu sueldo líquido y finiquito en Chile. Herramientas oficiales actualizadas a 2026 con las leyes de la Dirección del Trabajo. Sin registro.">
+    <title>Cálculo Laboral Chile 2026 | Finiquito y Sueldo Líquido</title>
     <link rel="canonical" href="https://calculolaboral.cl/">
     <link rel="alternate" hreflang="es-CL" href="https://calculolaboral.cl/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Cálculo Laboral Chile 2026 | Calculadoras Oficiales">
@@ -196,6 +202,100 @@
     </script>
     <!-- End Google Analytics -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Cálculo Laboral Chile",
+      "url": "https://calculolaboral.cl/",
+      "logo": "https://calculolaboral.cl/assets/og-image.png",
+      "sameAs": [],
+      "description": "Calculadoras oficiales de finiquito y sueldo líquido para trabajadores en Chile."
+    }
+    </script>
+
+    <!-- Structured Data: WebSite + SearchAction -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Cálculo Laboral Chile",
+      "url": "https://calculolaboral.cl/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://calculolaboral.cl/blog?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://calculolaboral.cl/"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Es gratis usar las calculadoras?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, todas nuestras herramientas son 100% gratuitas para uso personal y educativo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Es exacto el cálculo del finiquito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nuestras calculadoras utilizan los parámetros legales vigentes (UF, IMM, topes). Sin embargo, son herramientas referenciales y no reemplazan el cálculo oficial de un contador o abogado laboral."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué incluye el finiquito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Generalmente incluye indemnización por años de servicio (si aplica), vacaciones proporcionales y pendientes, remuneraciones adeudadas y otros haberes según contrato."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se calcula el sueldo líquido?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Se parte del Sueldo Bruto y se restan los descuentos legales obligatorios: 10% (aprox) para AFP, 7% para Salud, y Seguro de Cesantía (0.6% o cargo empleador según contrato)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Se actualiza con la ley chilena?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutamente. Actualizamos nuestros parámetros (UF, UTM, Topes) mensualmente y revisamos cualquier cambio en la legislación laboral, como la Ley de 40 Horas."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body class="antialiased overflow-x-hidden relative">
@@ -257,6 +357,9 @@
             </div>
         </div>
     </header>
+
+    <!-- Main Content -->
+    <main>
 
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -814,6 +917,8 @@
                 según tu caso. No reemplaza asesoría profesional.</p>
         </div>
     </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="border-t border-white/10 bg-slate-900 pt-16 pb-8">
