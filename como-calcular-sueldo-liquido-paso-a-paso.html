@@ -205,6 +205,48 @@
     </script>
     <!-- End Google Analytics -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cada cuánto se actualizan los tramos de impuesto a la renta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los tramos de impuesto único de segunda categoría se actualizan anualmente según la variación del IPC. El SII publica la nueva tabla durante diciembre para el año siguiente."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué es el sueldo imponible y cómo se calcula?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Es la base sobre la que se calculan los descuentos legales (AFP, salud, seguro de cesantía). Se obtiene restando al sueldo bruto los ingresos no imponibles como colación y movilización dentro de los límites legales."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿La gratificación legal se descuenta en el sueldo líquido?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, la gratificación legal es tributable. Forma parte del sueldo imponible y sobre ella se aplican AFP y salud. Existe un tope anual de 4.75 ingresos mínimos mensuales."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué son los haberes no imponibles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beneficios que no pagan cotizaciones ni impuestos: asignación familiar, colación y movilización (con tope), indemnización por años de servicio (con tope), y viáticos comprobados."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body class="min-h-screen flex flex-col">
