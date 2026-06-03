@@ -8,165 +8,17 @@
     // CONFIGURACIÓN DE LEADS: Reemplaza con la URL de tu Google Apps Script desplegado
     const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby81-BL0hip010mshIYnpCwTMHKJYEcyNVrZyKZeoRJDi3_MQ4UWEC7gf2HxhcJ4iL1Ug/exec';
 
-    // 1. INJECT PRINT STYLES AND EVENT LISTENERS ON PAGE LOAD
+    // 1. SETUP EVENT LISTENERS ON PAGE LOAD (print styles now inline in HTML)
     window.addEventListener('DOMContentLoaded', () => {
-        injectPrintStyles();
         setupEventListeners();
     });
 
     // 2. MODAL HTML TEMPLATE (REMOVED: PDF is downloaded directly without asking for email)
 
-    // 3. INJECT PRINT STYLES (Premium A4 single-page design)
+    // 3. INJECT PRINT STYLES — MOVED TO INLINE CSS (kept as no-op for compatibility)
     function injectPrintStyles() {
-        if (document.getElementById('pdf-print-styles')) return;
-
-        const style = document.createElement('style');
-        style.id = 'pdf-print-styles';
-        style.innerHTML = `
-            @media print {
-                @page {
-                    size: portrait;
-                    margin: 8mm 12mm 8mm 12mm !important;
-                }
-                body > *:not(#print-section) {
-                    display: none !important;
-                }
-                html, body {
-                    background: #ffffff !important;
-                    color: #1e293b !important;
-                    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
-                    font-size: 8.5pt !important;
-                    line-height: 1.35 !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    height: 100% !important;
-                    max-height: 100% !important;
-                    overflow: hidden !important;
-                    page-break-after: avoid !important;
-                    page-break-before: avoid !important;
-                }
-                #print-section {
-                    display: block !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    max-height: 100% !important;
-                    overflow: hidden !important;
-                    padding: 0 !important;
-                    background: #ffffff !important;
-                    color: #1e293b !important;
-                    box-sizing: border-box !important;
-                }
-                .print-header {
-                    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%) !important;
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                    color: #ffffff !important;
-                    padding: 12px 16px !important;
-                    border-radius: 6px !important;
-                    margin-bottom: 10px !important;
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    align-items: center !important;
-                    position: relative !important;
-                    overflow: hidden !important;
-                }
-                .print-header::after {
-                    content: '' !important;
-                    position: absolute !important;
-                    top: 0 !important;
-                    right: 0 !important;
-                    width: 120px !important;
-                    height: 100% !important;
-                    background: linear-gradient(135deg, transparent 0%, rgba(16,185,129,0.15) 100%) !important;
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                }
-                .print-title {
-                    font-size: 11pt !important;
-                    font-weight: 700 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.3px !important;
-                    margin-top: 0px !important;
-                    margin-bottom: 3px !important;
-                    color: #0f172a !important;
-                }
-                .print-section-title {
-                    background: linear-gradient(90deg, #f0fdf4 0%, #f8fafc 100%) !important;
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                    padding: 4px 8px !important;
-                    font-size: 8pt !important;
-                    font-weight: 700 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.5px !important;
-                    border-left: 3px solid #10b981 !important;
-                    border-bottom: 1px solid #e2e8f0 !important;
-                    margin-top: 8px !important;
-                    margin-bottom: 5px !important;
-                    color: #0f172a !important;
-                }
-                .print-table {
-                    width: 100% !important;
-                    border-collapse: collapse !important;
-                    margin-bottom: 8px !important;
-                }
-                .print-table th {
-                    text-align: left !important;
-                    padding: 4px 8px !important;
-                    font-size: 7.5pt !important;
-                    font-weight: 600 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.3px !important;
-                    border-bottom: 2px solid #10b981 !important;
-                    color: #475569 !important;
-                    background: #f8fafc !important;
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                }
-                .print-table td {
-                    padding: 4px 8px !important;
-                    font-size: 8pt !important;
-                    border-bottom: 1px solid #e2e8f0 !important;
-                }
-                .print-table tr:nth-child(even) td {
-                    background: #f8fafc !important;
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                }
-                .print-total-box {
-                    border: 2px solid #10b981 !important;
-                    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%) !important;
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                    padding: 8px 14px !important;
-                    border-radius: 6px !important;
-                    margin-top: 8px !important;
-                    margin-bottom: 8px !important;
-                    text-align: right !important;
-                    page-break-inside: avoid !important;
-                }
-                .print-total-amount {
-                    font-size: 16pt !important;
-                    font-weight: 800 !important;
-                    color: #047857 !important;
-                    letter-spacing: -0.5px !important;
-                }
-                .print-disclaimer {
-                    font-size: 6.5pt !important;
-                    color: #94a3b8 !important;
-                    line-height: 1.25 !important;
-                    border-top: 1px solid #e2e8f0 !important;
-                    padding-top: 5px !important;
-                    margin-top: 6px !important;
-                    text-align: justify !important;
-                    page-break-inside: avoid !important;
-                }
-                tr, td, th, table, div, p {
-                    page-break-inside: avoid !important;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        // Print styles are now in the HTML <style> block for better mobile support.
+        // This function is intentionally empty — do not remove to avoid breaking references.
     }
 
     // 4. SETUP EVENT LISTENERS

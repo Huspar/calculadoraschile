@@ -549,17 +549,40 @@ HTML_LAYOUT = """<!DOCTYPE html>
         .print-only {{ display: none !important; }}
         
         @media print {{
+            @page {{
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }}
             body > *:not(#print-section) {{
                 display: none !important;
             }}
             #print-section {{
                 display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
             }}
             html, body {{
                 background: #ffffff !important;
                 color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }}
+            * {{
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }}
         }}
     </style>
@@ -593,9 +616,9 @@ HTML_LAYOUT = """<!DOCTYPE html>
     </script>
     
     <!-- Load shared indicators script -->
-    <script src="/js/constants.js?v=2.0.2"></script>
-    <script src="/js/indicators.js?v=2.0.2"></script>
-    <script src="/js/pdf_generator.js?v=2.0.2"></script>
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
         (function() {{
             emailjs.init("HIi9_S1hAf7mWQU_W");
@@ -3450,11 +3473,11 @@ INDEX_CONTENT = """
 
 INDEX_SCRIPTS = """
     <!-- Calculator Scripts -->
-    <script src="/js/salary_logic.js?v=2.0.2"></script>
-    <script src="/js/salary_ui.js?v=2.0.2"></script>
-    <script src="/js/logic.js?v=2.0.2"></script>
-    <script src="/js/ui.js?v=2.0.2"></script>
-    <script src="/js/validation.js?v=2.0.2"></script>
+    <script src="/js/salary_logic.js?v=2.0.3"></script>
+    <script src="/js/salary_ui.js?v=2.0.3"></script>
+    <script src="/js/logic.js?v=2.0.3"></script>
+    <script src="/js/ui.js?v=2.0.3"></script>
+    <script src="/js/validation.js?v=2.0.3"></script>
     <script>
         // High-end tab system switching between both calculators
         function switchCalculatorTab(tab) {

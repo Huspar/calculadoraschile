@@ -235,23 +235,83 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
-        .print-only { display: none !important; }
+                .print-only { display: none !important; }
         
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }
             body > *:not(#print-section) {
                 display: none !important;
             }
             #print-section {
                 display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
             }
             html, body {
                 background: #ffffff !important;
                 color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            /* Print header */
+            .print-header, #print-section > div:first-child {
+                background-color: #0f172a !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color: #ffffff !important;
+                padding: 12px 16px !important;
+                border-radius: 6px !important;
+                margin-bottom: 10px !important;
+            }
+            /* Tables */
+            .print-table, #print-section table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-bottom: 8px !important;
+            }
+            .print-table th, #print-section th {
+                text-align: left !important;
+                padding: 4px 8px !important;
+                font-size: 7.5pt !important;
+                font-weight: 600 !important;
+                text-transform: uppercase !important;
+                border-bottom: 2px solid #10b981 !important;
+                color: #475569 !important;
+                background: #f8fafc !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .print-table td, #print-section td {
+                padding: 4px 8px !important;
+                font-size: 8pt !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+            tr, td, th, table, div, p {
+                page-break-inside: avoid !important;
+            }
+            /* Green colors preserved */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
-    </style>
+</style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
 </head>
@@ -1575,9 +1635,9 @@
     </script>
     
     <!-- Load shared indicators script -->
-    <script src="/js/constants.js?v=2.0.2"></script>
-    <script src="/js/indicators.js?v=2.0.2"></script>
-    <script src="/js/pdf_generator.js?v=2.0.2"></script>
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
         (function() {
             emailjs.init("HIi9_S1hAf7mWQU_W");
@@ -1611,11 +1671,11 @@
     </script>
     
     <!-- Calculator Scripts -->
-    <script src="/js/salary_logic.js?v=2.0.2"></script>
-    <script src="/js/salary_ui.js?v=2.0.2"></script>
-    <script src="/js/logic.js?v=2.0.2"></script>
-    <script src="/js/ui.js?v=2.0.2"></script>
-    <script src="/js/validation.js?v=2.0.2"></script>
+    <script src="/js/salary_logic.js?v=2.0.3"></script>
+    <script src="/js/salary_ui.js?v=2.0.3"></script>
+    <script src="/js/logic.js?v=2.0.3"></script>
+    <script src="/js/ui.js?v=2.0.3"></script>
+    <script src="/js/validation.js?v=2.0.3"></script>
     <script>
         // High-end tab system switching between both calculators
         function switchCalculatorTab(tab) {
