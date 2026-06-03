@@ -179,15 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-        // Mobile Menu Logic
-        const mobileMenuBtn = getEl('mobile-menu-btn');
-        const mobileMenu = getEl('mobile-menu');
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                const isHidden = mobileMenu.classList.toggle('hidden');
-                mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
-            });
-        }
+        // Mobile Menu Logic — NOW HANDLED VIA onclick IN HTML (avoids double-toggle)
 
         // Prevent Negative Inputs
         document.querySelectorAll('input[type="number"]').forEach(input => {

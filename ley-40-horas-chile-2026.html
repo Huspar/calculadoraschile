@@ -318,7 +318,7 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center gap-4">
-                    <button id="mobile-menu-btn" aria-label="Abrir menú de navegación" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100">
+                    <button id="mobile-menu-btn" aria-label="Abrir menú de navegación" onclick="var m=document.getElementById('mobile-menu');if(m)m.classList.toggle('hidden')" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100">
                         <span class="material-icons">menu</span>
                     </button>
                 </div>
@@ -778,18 +778,7 @@
     </div>
 
 
-    <!-- Shared Toggle Mobile Menu Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        });
-    </script>
+
     
     <!-- Load shared indicators script -->
     <script src="/js/constants.js?v=2.0.2"></script>
