@@ -549,12 +549,18 @@ HTML_LAYOUT = """<!DOCTYPE html>
         .print-only {{ display: none !important; }}
         
         @media print {{
-            header, footer, nav, button, .no-print, #finiquito-calc-container, #sueldo-calc-container {{ 
-                display: none !important; 
+            body > *:not(#print-section) {{
+                display: none !important;
             }}
-            body {{ background: white !important; color: #000000 !important; padding: 20px; }}
-            #print-template-finiquito:not(.hidden) {{ display: block !important; }}
-            #print-template-sueldo:not(.hidden) {{ display: block !important; }}
+            #print-section {{
+                display: block !important;
+            }}
+            html, body {{
+                background: #ffffff !important;
+                color: #1e293b !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }}
         }}
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -589,15 +595,11 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <!-- Load shared indicators script -->
     <script src="/js/constants.js"></script>
     <script src="/js/indicators.js"></script>
-    <!-- EmailJS & PDF print functions -->
+    <script src="/js/pdf_generator.js"></script>
     <script>
         (function() {{
             emailjs.init("{{HIi9_S1hAf7mWQU_W}}");
         }})();
-
-        function descargarPDF() {{
-            window.print();
-        }}
 
         function enviarLead() {{
             var nombre = document.getElementById('lead-nombre').value.trim();
@@ -2693,8 +2695,8 @@ INDEX_CONTENT = """
 
             <!-- PDF and Lead Capture section -->
             <div id="pdf-section" class="mt-4 hidden no-print">
-              <button onclick="descargarPDF()" 
-                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors">
+              <button id="download-pdf-btn" 
+                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
                 📥 Descargar Desglose PDF
               </button>
               <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
@@ -3048,8 +3050,8 @@ INDEX_CONTENT = """
 
             <!-- PDF section -->
             <div id="pdf-section" class="mt-4 hidden no-print">
-              <button onclick="descargarPDF()" 
-                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors">
+              <button id="download-pdf-btn-sueldo" 
+                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
                 📥 Descargar Desglose PDF
               </button>
               <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>

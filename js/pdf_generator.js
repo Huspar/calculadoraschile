@@ -231,23 +231,31 @@
 
     // 4. SETUP EVENT LISTENERS
     function setupEventListeners() {
-        const downloadBtn = document.getElementById('download-pdf-btn');
+        const downloadBtnFini = document.getElementById('download-pdf-btn');
+        const downloadBtnSueldo = document.getElementById('download-pdf-btn-sueldo');
         const closeBtn = document.getElementById('close-pdf-modal-btn');
         const modal = document.getElementById('pdf-email-modal');
         const form = document.getElementById('pdf-email-form');
         const emailInput = document.getElementById('pdf-email');
         const emailError = document.getElementById('pdf-email-error');
 
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', () => {
-                // Verify that calculator is calculated
-                if (!isCalculated()) {
-                    alert("Por favor, realiza una simulación primero ingresando tus datos para generar el reporte.");
-                    return;
-                }
+        const openModalHandler = () => {
+            // Verify that calculator is calculated
+            if (!isCalculated()) {
+                alert("Por favor, realiza una simulación primero ingresando tus datos para generar el reporte.");
+                return;
+            }
+            if (modal) {
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
-            });
+            }
+        };
+
+        if (downloadBtnFini) {
+            downloadBtnFini.addEventListener('click', openModalHandler);
+        }
+        if (downloadBtnSueldo) {
+            downloadBtnSueldo.addEventListener('click', openModalHandler);
         }
 
         if (closeBtn) {
@@ -382,36 +390,40 @@
 
     // 6. HELPER: CHECK IF CALCULATOR IS GENUINELY CALCULATED WITH REAL INPUTS
     function isCalculated() {
-        // For Finiquito
-        const totalFiniElement = document.getElementById('totalAmount');
-        if (totalFiniElement) {
-            const startDate = document.getElementById('startDate')?.value;
-            const endDate = document.getElementById('endDate')?.value;
-            const baseSalary = document.getElementById('baseSalary')?.value;
-            
-            // If main inputs are completely empty or negative, it's not calculated
-            if (!startDate || !endDate || !baseSalary || parseFloat(baseSalary) <= 0) {
-                return false;
-            }
-            
-            const val = totalFiniElement.textContent.trim();
-            // Should not be the default placeholder value, error, or empty reset states
-            return val !== '' && val !== '$6.850.250' && val !== '$ — CLP' && !val.includes('Error');
-        }
+        const isSueldoActive = document.getElementById('sueldo-calc-container') && !document.getElementById('sueldo-calc-container').classList.contains('hidden');
 
-        // For Sueldo Liquido
-        const netSalElement = document.getElementById('headerNetSalary');
-        if (netSalElement) {
-            const salary = document.getElementById('salary')?.value;
-            
-            // If main input is empty or negative/zero, it's not calculated
-            if (!salary || parseFloat(salary) <= 0) {
-                return false;
+        if (isSueldoActive) {
+            // For Sueldo Liquido
+            const netSalElement = document.getElementById('headerNetSalary');
+            if (netSalElement) {
+                const salary = document.getElementById('salary')?.value;
+                
+                // If main input is empty or negative/zero, it's not calculated
+                if (!salary || parseFloat(salary.replace(/\./g, '')) <= 0) {
+                    return false;
+                }
+                
+                const val = netSalElement.textContent.trim();
+                // Should not be the default zero placeholder or error states
+                return val !== '' && val !== '$0' && val !== '$ --' && !val.includes('Error') && !val.includes('—');
             }
-            
-            const val = netSalElement.textContent.trim();
-            // Should not be the default zero placeholder or error states
-            return val !== '' && val !== '$0' && val !== '$ --' && !val.includes('Error');
+        } else {
+            // For Finiquito
+            const totalFiniElement = document.getElementById('totalAmount');
+            if (totalFiniElement) {
+                const startDate = document.getElementById('startDate')?.value;
+                const endDate = document.getElementById('endDate')?.value;
+                const baseSalary = document.getElementById('baseSalary')?.value;
+                
+                // If main inputs are completely empty or negative, it's not calculated
+                if (!startDate || !endDate || !baseSalary || parseFloat(baseSalary.replace(/\./g, '')) <= 0) {
+                    return false;
+                }
+                
+                const val = totalFiniElement.textContent.trim();
+                // Should not be the default placeholder value, error, or empty reset states
+                return val !== '' && val !== '$6.850.250' && val !== '$ — CLP' && !val.includes('Error') && !val.includes('—');
+            }
         }
 
         return false;
@@ -421,7 +433,8 @@
     function saveLead(email) {
         try {
             const leads = JSON.parse(localStorage.getItem('pdf_leads') || '[]');
-            const pageType = window.location.pathname.includes('sueldo') ? 'sueldo_liquido' : 'finiquito';
+            const isSueldoActive = document.getElementById('sueldo-calc-container') && !document.getElementById('sueldo-calc-container').classList.contains('hidden');
+            const pageType = isSueldoActive ? 'sueldo_liquido' : 'finiquito';
             const leadData = {
                 email: email,
                 date: new Date().toISOString(),
@@ -461,7 +474,7 @@
 
     // 7. MAIN FUNCTION: GENERATE PRINT REPORT AND TRIGGER WINDOW.PRINT
     function generatePDFReport() {
-        const isSueldoPage = window.location.pathname.includes('sueldo');
+        const isSueldoActive = document.getElementById('sueldo-calc-container') && !document.getElementById('sueldo-calc-container').classList.contains('hidden');
         
         // Remove existing print section
         const oldSection = document.getElementById('print-section');
@@ -479,7 +492,7 @@
 
         let htmlContent = '';
 
-        if (isSueldoPage) {
+        if (isSueldoActive) {
             htmlContent = compileSueldoReport(currentDate);
         } else {
             htmlContent = compileFiniquitoReport(currentDate);
