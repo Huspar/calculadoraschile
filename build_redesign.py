@@ -697,7 +697,7 @@ def extract_article_info(file_path):
         
         body = body.replace('prose-dark', 'prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900')
         # 1. Capture and style specific CTA buttons FIRST (before generic text-white replacements)
-        body = body.replace('class="inline-flex items-center gap-2 px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:scale-105"', 'class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]"')
+        body = body.replace('class="inline-flex items-center gap-2 px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:scale-105"', 'class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]"')
         body = body.replace('bg-blue-600 hover:bg-blue-500 text-white font-bold', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline font-bold shadow-sm')
         body = body.replace('bg-blue-600 hover:bg-blue-500 text-white', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline shadow-sm')
         body = body.replace('bg-blue-600 hover:bg-blue-500 text-slate-800 font-bold', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline font-bold shadow-sm')
@@ -881,7 +881,7 @@ def clean_article_body(body, filename):
                         Ingresa tu sueldo bruto y nuestra calculadora te mostrará exactamente cuánto deberían ser tus descuentos de AFP, salud, impuesto y tu sueldo líquido final.
                     </p>
                     <a href="sueldo_liquido"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                         <span class="material-icons">account_balance_wallet</span>
                         Verificar mi Sueldo Líquido
                     </a>
