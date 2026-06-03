@@ -1,6 +1,7 @@
 import os
 import re
 import glob
+import json
 
 # Paths
 SOURCE_DIR = r"c:\Users\Jhon\Desktop\Arreglarpagina"
@@ -8,6 +9,74 @@ DEST_DIR = r"c:\Users\Jhon\Desktop\Arreglarpagina\calculolaboral-v2"
 
 if not os.path.exists(DEST_DIR):
     os.makedirs(DEST_DIR)
+
+def generate_seo_tags(filename, title, description, page_type="website"):
+    # 1. Canonical URL
+    if filename == "index.html":
+        canonical_url = "https://calculolaboral.cl/"
+    else:
+        canonical_url = f"https://calculolaboral.cl/{filename}"
+        
+    # 2. Open Graph Tags
+    og_tags_list = [
+        f'<meta property="og:title" content="{title}">',
+        f'<meta property="og:description" content="{description}">',
+        f'<meta property="og:type" content="{page_type}">',
+        f'<meta property="og:url" content="{canonical_url}">',
+        '<meta property="og:image" content="https://calculolaboral.cl/assets/og-image.png">',
+        '<meta property="og:locale" content="es_CL">',
+        '<meta property="og:site_name" content="Cálculo Laboral">'
+    ]
+    og_tags = "\n    ".join(og_tags_list)
+    
+    # 3. JSON-LD Structured Data
+    if filename == "index.html":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Cálculo Laboral Chile",
+            "url": "https://calculolaboral.cl/",
+            "description": "Calcula gratis tu sueldo líquido y finiquito en Chile.",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://calculolaboral.cl/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    elif filename in ["sueldo_liquido.html", "finiquito_calculator.html"]:
+        calc_name = "Calculadora de Sueldo Líquido" if filename == "sueldo_liquido.html" else "Calculadora de Finiquito"
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": calc_name,
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "description": description,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+        }
+    elif page_type == "article":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": title.split("|")[0].strip(),
+            "description": description,
+            "author": { "@type": "Organization", "name": "Cálculo Laboral" },
+            "datePublished": "2026-01-01",
+            "dateModified": "2026-06-01"
+        }
+    else:
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": title.split("|")[0].strip(),
+            "description": description,
+            "url": canonical_url
+        }
+        
+    json_ld_str = f'<script type="application/ld+json">\n{json.dumps(json_ld_data, indent=4, ensure_ascii=False)}\n</script>'
+    
+    return canonical_url, og_tags, json_ld_str
+
 
 # 1. Base Layout Components
 HEADER_HTML = """
@@ -264,6 +333,21 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{description}">
     <title>{title}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{canonical_url}">
+    
+    <!-- Open Graph Tags -->
+    {og_tags}
+    
+    <!-- Structured Data -->
+    {json_ld}
     
     <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1777,10 +1861,15 @@ for filename in articles:
     </div>
     """
     
+    canonical_url, og_tags, json_ld = generate_seo_tags(filename, title, description, page_type="article")
+    
     html_out = HTML_LAYOUT.format(
         title=title,
         description=description,
-        custom_head=custom_head,
+        canonical_url=canonical_url,
+        og_tags=og_tags,
+        json_ld=json_ld,
+        custom_head="",
         header=HEADER_HTML,
         indicator_bar=INDICATOR_BAR_HTML,
         content=article_content,
@@ -1835,9 +1924,14 @@ for filename, (title, desc) in simple_pages.items():
         </div>
         """
         
+        canonical_url, og_tags, json_ld = generate_seo_tags(filename, title, desc, page_type="website")
+        
         html_out = HTML_LAYOUT.format(
             title=title,
             description=desc,
+            canonical_url=canonical_url,
+            og_tags=og_tags,
+            json_ld=json_ld,
             custom_head="",
             header=HEADER_HTML,
             indicator_bar=INDICATOR_BAR_HTML,
@@ -1997,9 +2091,14 @@ blog_content = """
 </div>
 """
 
+canonical_url, og_tags, json_ld = generate_seo_tags("blog.html", blog_title, blog_desc, page_type="website")
+
 html_out = HTML_LAYOUT.format(
     title=blog_title,
     description=blog_desc,
+    canonical_url=canonical_url,
+    og_tags=og_tags,
+    json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
@@ -2177,9 +2276,14 @@ contacto_custom_script = """
     </script>
 """
 
+canonical_url, og_tags, json_ld = generate_seo_tags("contacto.html", "Contacto | Cálculo Laboral Chile", "Contáctanos ante cualquier duda sobre tus remuneraciones, finiquitos o indemnizaciones laborales en Chile. Respuestas rápidas.", page_type="website")
+
 html_out = HTML_LAYOUT.format(
     title="Contacto | Cálculo Laboral Chile",
     description="Contáctanos ante cualquier duda sobre tus remuneraciones, finiquitos o indemnizaciones laborales en Chile. Respuestas rápidas.",
+    canonical_url=canonical_url,
+    og_tags=og_tags,
+    json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
@@ -2198,6 +2302,16 @@ print("Contact page complete.")
 # This page contains both calculators in layout
 INDEX_CONTENT = """
 <div class="max-w-[1200px] mx-auto px-6">
+    <!-- H1 Header Section for SEO -->
+    <div class="text-center sm:text-left my-8 max-w-xl mx-auto">
+        <h1 class="text-2xl font-bold text-slate-900">
+            Calculadoras Laborales Chile 2026
+        </h1>
+        <p class="text-slate-500 text-sm mt-1">
+            Sueldo líquido y finiquito con todas las deducciones legales vigentes.
+        </p>
+    </div>
+
     <!-- Tab Controls for Calculator Selection -->
     <div class="flex max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-1 mb-8 shadow-sm">
         <button id="tab-btn-finiquito" onclick="switchCalculatorTab('finiquito')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100">
@@ -2998,9 +3112,13 @@ INDEX_SCRIPTS = """
 
 # Generate index.html
 print("Generating: index.html...")
+canonical_url, og_tags, json_ld = generate_seo_tags("index.html", "Cálculo Laboral Chile 2026 | Finiquito y Sueldo Líquido", "Calcula gratis tu sueldo líquido y finiquito en Chile. Herramientas oficiales actualizadas a 2026 con las leyes de la Dirección del Trabajo. Sin registro.", page_type="website")
 index_html_out = HTML_LAYOUT.format(
     title="Cálculo Laboral Chile 2026 | Finiquito y Sueldo Líquido",
     description="Calcula gratis tu sueldo líquido y finiquito en Chile. Herramientas oficiales actualizadas a 2026 con las leyes de la Dirección del Trabajo. Sin registro.",
+    canonical_url=canonical_url,
+    og_tags=og_tags,
+    json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
@@ -3014,9 +3132,13 @@ with open(os.path.join(DEST_DIR, "index.html"), "w", encoding="utf-8") as f:
 
 # Generate sueldo_liquido.html (Redirects tab on load)
 print("Generating: sueldo_liquido.html...")
+canonical_url, og_tags, json_ld = generate_seo_tags("sueldo_liquido.html", "Calculadora de Sueldo Líquido Chile 2026 | Pasar de Bruto a Neto Exacto", "Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.", page_type="website")
 sueldo_html_out = HTML_LAYOUT.format(
     title="Calculadora de Sueldo Líquido Chile 2026 | Pasar de Bruto a Neto Exacto",
     description="Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.",
+    canonical_url=canonical_url,
+    og_tags=og_tags,
+    json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
@@ -3036,9 +3158,13 @@ with open(os.path.join(DEST_DIR, "sueldo_liquido.html"), "w", encoding="utf-8") 
 
 # Generate finiquito_calculator.html (Redirects tab on load)
 print("Generating: finiquito_calculator.html...")
+canonical_url, og_tags, json_ld = generate_seo_tags("finiquito_calculator.html", "Calculadora de Finiquito Chile 2026 (Formato Oficial) | Simulador Exacto", "Calcula tu finiquito online en segundos con el formato oficial de la DT. Incluye indemnización por años de servicio, vacaciones y aviso previo.", page_type="website")
 finiquito_html_out = HTML_LAYOUT.format(
     title="Calculadora de Finiquito Chile 2026 (Formato Oficial) | Simulador Exacto",
     description="Calcula tu finiquito online en segundos con el formato oficial de la DT. Incluye indemnización por años de servicio, vacaciones y aviso previo.",
+    canonical_url=canonical_url,
+    og_tags=og_tags,
+    json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
