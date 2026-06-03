@@ -238,6 +238,8 @@
         @media print {
             header, footer, nav, button, .no-print { display: none !important; }
             body { background: white; padding: 20px; }
+            #finiquito-calc-container, #sueldo-calc-container { display: block !important; width: 100% !important; }
+            .flex-grow { width: 100% !important; max-width: 100% !important; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -677,7 +679,7 @@
             </div>
 
             <!-- PDF and Lead Capture section -->
-            <div id="pdf-section" class="mt-4 hidden">
+            <div id="pdf-section" class="mt-4 hidden no-print">
               <button onclick="descargarPDF()" 
                 class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors">
                 📥 Descargar Desglose PDF
@@ -1032,7 +1034,7 @@
             </div>
 
             <!-- PDF section -->
-            <div id="pdf-section" class="mt-4 hidden">
+            <div id="pdf-section" class="mt-4 hidden no-print">
               <button onclick="descargarPDF()" 
                 class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors">
                 📥 Descargar Desglose PDF
@@ -1057,7 +1059,7 @@
     <!-- ---------------------------------------------------- -->
     <!-- EDUCATIONAL ACCORDIONS (Below the fold)              -->
     <!-- ---------------------------------------------------- -->
-    <div class="max-w-3xl mx-auto mt-20">
+    <div class="max-w-3xl mx-auto mt-20 no-print">
         <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Información y Preguntas Frecuentes</h2>
         <div class="space-y-4">
             <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
@@ -1115,7 +1117,7 @@
     <!-- ---------------------------------------------------- -->
     <!-- RELATED GUIDES SECTION (6 Cards)                     -->
     <!-- ---------------------------------------------------- -->
-    <div class="max-w-[1200px] mx-auto mt-24">
+    <div class="max-w-[1200px] mx-auto mt-24 no-print">
         <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Guías Prácticas de Utilidad</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Card 1 -->
