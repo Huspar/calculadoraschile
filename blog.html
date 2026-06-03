@@ -230,17 +230,15 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
+        .print-only { display: none !important; }
+        
         @media print {
-            header, footer, nav, button, .no-print { display: none !important; }
-            body { background: white; padding: 20px; }
-            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
-                display: block !important; 
-                width: 100% !important; 
+            header, footer, nav, button, .no-print, #finiquito-calc-container, #sueldo-calc-container { 
+                display: none !important; 
             }
-            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
-                display: none !important;
-            }
-            .flex-grow { width: 100% !important; max-width: 100% !important; }
+            body { background: white !important; color: #000000 !important; padding: 20px; }
+            #print-template-finiquito:not(.hidden) { display: block !important; }
+            #print-template-sueldo:not(.hidden) { display: block !important; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -331,6 +329,7 @@
                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100">🆕 Despido Injustificado</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
                 <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
@@ -391,17 +390,6 @@
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Card: Despido Injustificado (NUEVO) -->
-        <a href="reclamar-despido-injustificado-chile" class="group block bg-white border border-sky-200 rounded-2xl overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ring-1 ring-sky-500/20">
-            <div class="flex items-center justify-center h-36 bg-gradient-to-br from-sky-50 to-blue-50 p-4">
-                <span class="text-5xl">⚖️</span>
-            </div>
-            <div class="p-5">
-                <span class="inline-block px-2.5 py-0.5 text-[10px] font-bold bg-sky-100 text-sky-700 rounded-full uppercase tracking-wider mb-2">🆕 Nuevo</span>
-                <h3 class="text-base font-extrabold text-slate-900 group-hover:text-sky-500 transition-colors leading-snug">Cómo Reclamar un Despido Injustificado</h3>
-                <p class="text-xs text-slate-500 mt-2 leading-relaxed">Plazos, causales, indemnizaciones con recargo y cuándo necesitas abogado.</p>
-            </div>
-        </a>
         <!-- 1. Sueldo Líquido -->
         <a href="como-calcular-sueldo-liquido-paso-a-paso" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
             <div class="aspect-video bg-slate-100 overflow-hidden relative border-b border-slate-100">
@@ -668,7 +656,7 @@
     <!-- EmailJS & PDF print functions -->
     <script>
         (function() {
-            emailjs.init("HIi9_S1hAf7mWQU_W");
+            emailjs.init("{HIi9_S1hAf7mWQU_W}");
         })();
 
         function descargarPDF() {
@@ -686,7 +674,7 @@
                 return;
             }
 
-            emailjs.send("service_plsair4", "template_u1juvx1", {
+            emailjs.send("{service_plsair4}", "{template_u1juvx1}", {
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,

@@ -546,17 +546,15 @@ HTML_LAYOUT = """<!DOCTYPE html>
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }}
+        .print-only {{ display: none !important; }}
+        
         @media print {{
-            header, footer, nav, button, .no-print {{ display: none !important; }}
-            body {{ background: white; padding: 20px; }}
-            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) {{ 
-                display: block !important; 
-                width: 100% !important; 
+            header, footer, nav, button, .no-print, #finiquito-calc-container, #sueldo-calc-container {{ 
+                display: none !important; 
             }}
-            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {{
-                display: none !important;
-            }}
-            .flex-grow {{ width: 100% !important; max-width: 100% !important; }}
+            body {{ background: white !important; color: #000000 !important; padding: 20px; }}
+            #print-template-finiquito:not(.hidden) {{ display: block !important; }}
+            #print-template-sueldo:not(.hidden) {{ display: block !important; }}
         }}
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -3153,6 +3151,254 @@ INDEX_CONTENT = """
                 </div>
             </a>
         </div>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- PRINT-ONLY TEMPLATES FOR PROFESSIONAL PDF            -->
+    <!-- ---------------------------------------------------- -->
+    
+    <!-- Finiquito Print Template -->
+    <div id="print-template-finiquito" class="print-only hidden font-sans text-slate-800 p-8 max-w-4xl mx-auto">
+      <!-- Header with Logo and Brand -->
+      <div class="flex justify-between items-center border-b-2 border-slate-200 pb-6 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+              <line x1="9" y1="9" x2="15" y2="9"></line>
+              <line x1="9" y1="13" x2="15" y2="13"></line>
+              <line x1="9" y1="17" x2="15" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Simulación Legal de Finiquito</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <h2 class="text-base font-bold text-slate-800 uppercase tracking-wider">Reporte de Finiquito</h2>
+          <p class="text-[10px] text-slate-400 font-semibold mt-0.5">Fecha de emisión: <span id="print-date-finiquito" class="font-mono">—</span></p>
+        </div>
+      </div>
+
+      <!-- Summary of Inputs -->
+      <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 mb-6">
+        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Parámetros de la Simulación</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Fecha de Inicio:</span>
+            <span id="print-input-start-date" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Fecha de Término:</span>
+            <span id="print-input-end-date" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Antigüedad:</span>
+            <span id="print-input-antiquity" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Causal de Término:</span>
+            <span id="print-input-cause" class="font-bold text-slate-700">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Sueldo Base:</span>
+            <span id="print-input-base-salary" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Gratificación:</span>
+            <span id="print-input-gratification" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Asignaciones Fijas:</span>
+            <span id="print-input-assignments" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Vac. Pendientes:</span>
+            <span id="print-input-vacation-pending" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Breakdown Table -->
+      <div class="border border-slate-200 rounded-2xl overflow-hidden mb-6">
+        <table class="w-full border-collapse text-left text-xs">
+          <thead>
+            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider">
+              <th class="py-3 px-4">Concepto Liquidado</th>
+              <th class="py-3 px-4 text-right">Monto CLP</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-slate-700">Indemnización por Años de Servicio (IAS)</td>
+              <td id="print-row-ias" class="py-3.5 px-4 text-right font-mono font-bold">$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-slate-700">Indemnización Sustitutiva de Aviso Previo</td>
+              <td id="print-row-notice" class="py-3.5 px-4 text-right font-mono font-bold">$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-slate-700">Vacaciones Proporcionales</td>
+              <td id="print-row-vacation-prop" class="py-3.5 px-4 text-right font-mono font-bold">$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-slate-700">Vacaciones Pendientes</td>
+              <td id="print-row-vacation-pending" class="py-3.5 px-4 text-right font-mono font-bold">$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-slate-700">Remuneraciones Pendientes (Días del Mes)</td>
+              <td id="print-row-pending-salary" class="py-3.5 px-4 text-right font-mono font-bold">$ —</td>
+            </tr>
+            <tr id="print-row-afc-container" class="text-red-600 bg-red-500/5">
+              <td class="py-3.5 px-4 font-semibold">Descuento AFC Aporte Empleador</td>
+              <td id="print-row-afc" class="py-3.5 px-4 text-right font-mono font-bold">-$ —</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="bg-slate-900 text-white font-bold text-sm">
+              <td class="py-4 px-4 rounded-bl-2xl">Total Neto del Finiquito Estimado</td>
+              <td id="print-row-total" class="py-4 px-4 text-right font-mono rounded-br-2xl text-base">$ —</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Footer Disclaimer -->
+      <div class="text-[9px] text-slate-400 space-y-2 mt-8 leading-relaxed border-t border-slate-100 pt-4">
+        <p><strong>Nota legal explicativa:</strong> Esta simulación de finiquito es de carácter meramente ilustrativo e informativo y no constituye asesoría legal ni vinculante para ninguna de las partes. El cálculo ha sido efectuado de acuerdo con las normativas legales de la Dirección del Trabajo (DT) vigentes en la República de Chile para el año 2026. Los valores definitivos pueden variar dependiendo de la revisión detallada de liquidaciones históricas y variables específicas de la relación laboral.</p>
+        <p>© 2026 Cálculo Laboral Chile (calculolaboral.cl) — Herramientas gratuitas para el trabajador.</p>
+      </div>
+    </div>
+
+    <!-- Sueldo Liquido Print Template -->
+    <div id="print-template-sueldo" class="print-only hidden font-sans text-slate-800 p-8 max-w-4xl mx-auto">
+      <!-- Header with Logo and Brand -->
+      <div class="flex justify-between items-center border-b-2 border-slate-200 pb-6 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+              <line x1="9" y1="9" x2="15" y2="9"></line>
+              <line x1="9" y1="13" x2="15" y2="13"></line>
+              <line x1="9" y1="17" x2="15" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Simulación Legal de Sueldo Líquido</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <h2 class="text-base font-bold text-slate-800 uppercase tracking-wider">Detalle de Liquidación</h2>
+          <p class="text-[10px] text-slate-400 font-semibold mt-0.5">Fecha de emisión: <span id="print-date-sueldo" class="font-mono">—</span></p>
+        </div>
+      </div>
+
+      <!-- Summary of Inputs -->
+      <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 mb-6">
+        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Haberes e Ingresos</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Sueldo Base Mensual:</span>
+            <span id="print-input-salary-base" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Horas Extraordinarias:</span>
+            <span id="print-input-salary-ot" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Gratificación Legal:</span>
+            <span id="print-input-salary-grat" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Bonos Imponibles:</span>
+            <span id="print-input-salary-bonuses" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Asignación Colación:</span>
+            <span id="print-input-salary-colacion" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Asignación Movilización:</span>
+            <span id="print-input-salary-movilizacion" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">Viáticos / Otros No Imp:</span>
+            <span id="print-input-salary-viaticos" class="font-bold text-slate-700 font-mono">—</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold mb-0.5">AFP Seleccionada:</span>
+            <span id="print-input-salary-afp-name" class="font-bold text-slate-700">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Breakdown Table -->
+      <div class="border border-slate-200 rounded-2xl overflow-hidden mb-6">
+        <table class="w-full border-collapse text-left text-xs">
+          <thead>
+            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider">
+              <th class="py-3 px-4">Concepto Descontado / Liquidado</th>
+              <th class="py-3 px-4 text-right">Monto CLP</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-700">Cotización Previsional Obligatoria (AFP)</td>
+              <td id="print-row-salary-afp" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-700">Cotización Legal de Salud (7% Fonasa / Isapre)</td>
+              <td id="print-row-salary-health" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-700">Seguro de Cesantía (AFC Trabajador)</td>
+              <td id="print-row-salary-afc" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-700">Impuesto de Segunda Categoría (SII)</td>
+              <td id="print-row-salary-tax" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr id="print-row-salary-ccaf-container" class="hidden bg-red-500/5">
+              <td class="py-3 px-4 font-semibold text-slate-700">Descuento CCAF (Caja de Compensación)</td>
+              <td id="print-row-salary-ccaf" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr id="print-row-salary-apv-container" class="hidden bg-red-500/5">
+              <td class="py-3 px-4 font-semibold text-slate-700">Descuento APV (Ahorro Previsional Voluntario)</td>
+              <td id="print-row-salary-apv" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr id="print-row-salary-loans-container" class="hidden bg-red-500/5">
+              <td class="py-3 px-4 font-semibold text-slate-700">Descuento por Préstamos / Mutuales</td>
+              <td id="print-row-salary-loans" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr id="print-row-salary-pension-container" class="hidden bg-red-500/5">
+              <td class="py-3 px-4 font-semibold text-slate-700">Descuento por Pensión Alimenticia</td>
+              <td id="print-row-salary-pension" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr id="print-row-salary-sindicato-container" class="hidden bg-red-500/5">
+              <td class="py-3 px-4 font-semibold text-slate-700">Cuota Sindical</td>
+              <td id="print-row-salary-sindicato" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+            <tr id="print-row-salary-other-container" class="hidden bg-red-500/5">
+              <td class="py-3 px-4 font-semibold text-slate-700">Otros Descuentos Autorizados</td>
+              <td id="print-row-salary-other" class="py-3 px-4 text-right font-mono font-bold text-red-600">-$ —</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="bg-slate-900 text-white font-bold text-sm">
+              <td class="py-4 px-4 rounded-bl-2xl">Sueldo Líquido Final Estimado (Líquido a Pago)</td>
+              <td id="print-row-salary-net" class="py-4 px-4 text-right font-mono rounded-br-2xl text-base">$ —</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Footer Disclaimer -->
+      <div class="text-[9px] text-slate-400 space-y-2 mt-8 leading-relaxed border-t border-slate-100 pt-4">
+        <p><strong>Nota legal explicativa:</strong> Este cálculo de sueldo líquido es referencial e ilustrativo y se ha elaborado conforme a los topes imponibles y tasas previsionales vigentes para el año 2026 en Chile. Las liquidaciones definitivas extendidas por el empleador pueden tener variaciones específicas derivadas de comisiones exactas de AFP, tramos de seguro de cesantía o descuentos particulares pactados colectivamente.</p>
+        <p>© 2026 Cálculo Laboral Chile (calculolaboral.cl) — Herramientas gratuitas para el trabajador.</p>
+      </div>
     </div>
 </div>
 """

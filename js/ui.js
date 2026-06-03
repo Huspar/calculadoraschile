@@ -351,6 +351,7 @@ function updateCalculations() {
     // Reset PDF and Lead section visibility on every update
     document.querySelector('#finiquito-calc-container #pdf-section')?.classList.add('hidden');
     document.getElementById('lead-section')?.classList.add('hidden');
+    document.getElementById('print-template-finiquito')?.classList.add('hidden');
 
     const V = window.Validation;
 
@@ -627,6 +628,45 @@ function updateCalculations() {
         window.resultadoActualMonto = format(results.total);
         document.querySelector('#finiquito-calc-container #pdf-section')?.classList.remove('hidden');
         document.getElementById('lead-section')?.classList.remove('hidden');
+
+        // Populate print template
+        const printDate = new Date().toLocaleDateString('es-CL');
+        if (document.getElementById('print-date-finiquito')) {
+            document.getElementById('print-date-finiquito').textContent = printDate;
+            
+            // Fill inputs
+            document.getElementById('print-input-start-date').textContent = document.getElementById('startDate').value;
+            document.getElementById('print-input-end-date').textContent = document.getElementById('endDate').value;
+            document.getElementById('print-input-antiquity').textContent = document.getElementById('antiquityOutput').textContent;
+            document.getElementById('print-input-cause').textContent = document.getElementById('cause').options[document.getElementById('cause').selectedIndex].text;
+            document.getElementById('print-input-base-salary').textContent = format(baseSalary);
+            document.getElementById('print-input-gratification').textContent = format(gratification);
+            document.getElementById('print-input-assignments').textContent = format(assignments);
+            document.getElementById('print-input-vacation-pending').textContent = `${vacationDaysPending} días`;
+
+            // Fill breakdown rows
+            document.getElementById('print-row-ias').textContent = format(results.indemnities.yearsOfService.total);
+            document.getElementById('print-row-notice').textContent = format(results.indemnities.notice.total);
+            document.getElementById('print-row-vacation-prop').textContent = format(results.indemnities.vacation.proportionalTotal);
+            document.getElementById('print-row-vacation-pending').textContent = format(results.indemnities.vacation.pendingTotal);
+            document.getElementById('print-row-pending-salary').textContent = format(results.pendingRemuneration.total);
+            
+            const afcPrintRow = document.getElementById('print-row-afc-container');
+            if (afcPrintRow) {
+                if (results.afc.applied && results.afc.total > 0) {
+                    afcPrintRow.classList.remove('hidden');
+                    document.getElementById('print-row-afc').textContent = `-${format(results.afc.total)}`;
+                } else {
+                    afcPrintRow.classList.add('hidden');
+                }
+            }
+            
+            document.getElementById('print-row-total').textContent = format(results.total);
+
+            // Make this print template active
+            document.getElementById('print-template-finiquito').classList.remove('hidden');
+            document.getElementById('print-template-sueldo')?.classList.add('hidden');
+        }
 
     } catch (error) {
         console.error('Error en cálculo de finiquito:', error);

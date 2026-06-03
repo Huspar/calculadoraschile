@@ -235,17 +235,15 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
+        .print-only { display: none !important; }
+        
         @media print {
-            header, footer, nav, button, .no-print { display: none !important; }
-            body { background: white; padding: 20px; }
-            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
-                display: block !important; 
-                width: 100% !important; 
+            header, footer, nav, button, .no-print, #finiquito-calc-container, #sueldo-calc-container { 
+                display: none !important; 
             }
-            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
-                display: none !important;
-            }
-            .flex-grow { width: 100% !important; max-width: 100% !important; }
+            body { background: white !important; color: #000000 !important; padding: 20px; }
+            #print-template-finiquito:not(.hidden) { display: block !important; }
+            #print-template-sueldo:not(.hidden) { display: block !important; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -303,6 +301,7 @@
                                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Vacaciones Proporcionales</a>
                                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cobrar Seguro Cesantía</a>
                                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Si no te Pagan el Finiquito</a>
+                                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100 rounded-lg transition-colors">🆕 Despido Injustificado</a>
                             </div>
                         </div>
                     </div>
@@ -335,6 +334,7 @@
                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100">🆕 Despido Injustificado</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
                 <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
@@ -408,6 +408,10 @@
                 
             <div class="prose-content max-w-none">
                 
+            <div class="prose-content max-w-none">
+                
+            <div class="prose-content max-w-none">
+                
 
             <!-- Breadcrumb -->
             <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
@@ -470,7 +474,7 @@
                     <div class="grid grid-cols-3 gap-3 sm:gap-6 text-center">
                         <div class="opacity-60">
                             <div class="w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-full bg-slate-200 border-2 border-slate-300 flex items-center justify-center mb-2">
-                                <span class="text-lg sm:text-2xl font-bold text-slate-400">44</span>
+                                <span class="text-lg sm:text-2xl font-bold text-slate-500">44</span>
                             </div>
                             <p class="!text-slate-500 !text-xs !mb-0 font-semibold">Abril 2024</p>
                             <p class="!text-slate-600 !text-[10px] !mb-0">Completado ✓</p>
@@ -625,7 +629,7 @@
                         Con la nueva jornada de 42 horas, tu valor por hora cambió. Calcula tu sueldo líquido actualizado y conoce el desglose completo.
                     </p>
                     <a href="sueldo_liquido"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                         <span class="material-icons">account_balance_wallet</span>
                         Calcular mi Sueldo Líquido
                     </a>
@@ -647,6 +651,10 @@
                         <strong>Aviso legal:</strong> Esta guía es de carácter informativo y está basada en la Ley 21.561 publicada en el Diario Oficial. Para consultas específicas sobre tu situación laboral, contacta a la Dirección del Trabajo o consulta con un abogado laboralista.
                     </p>
                 </div>
+            </div>
+        
+            </div>
+        
             </div>
         
             </div>
@@ -797,7 +805,7 @@
     <!-- EmailJS & PDF print functions -->
     <script>
         (function() {
-            emailjs.init("HIi9_S1hAf7mWQU_W");
+            emailjs.init("{HIi9_S1hAf7mWQU_W}");
         })();
 
         function descargarPDF() {
@@ -815,7 +823,7 @@
                 return;
             }
 
-            emailjs.send("service_plsair4", "template_u1juvx1", {
+            emailjs.send("{service_plsair4}", "{template_u1juvx1}", {
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,

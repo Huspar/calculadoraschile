@@ -230,17 +230,15 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
+        .print-only { display: none !important; }
+        
         @media print {
-            header, footer, nav, button, .no-print { display: none !important; }
-            body { background: white; padding: 20px; }
-            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
-                display: block !important; 
-                width: 100% !important; 
+            header, footer, nav, button, .no-print, #finiquito-calc-container, #sueldo-calc-container { 
+                display: none !important; 
             }
-            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
-                display: none !important;
-            }
-            .flex-grow { width: 100% !important; max-width: 100% !important; }
+            body { background: white !important; color: #000000 !important; padding: 20px; }
+            #print-template-finiquito:not(.hidden) { display: block !important; }
+            #print-template-sueldo:not(.hidden) { display: block !important; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -298,6 +296,7 @@
                                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Vacaciones Proporcionales</a>
                                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cobrar Seguro Cesantía</a>
                                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Si no te Pagan el Finiquito</a>
+                                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100 rounded-lg transition-colors">🆕 Despido Injustificado</a>
                             </div>
                         </div>
                     </div>
@@ -330,6 +329,7 @@
                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100">🆕 Despido Injustificado</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
                 <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
@@ -383,6 +383,24 @@
         
         <div class="max-w-3xl mx-auto px-6 pt-6">
             <h1 class="text-3xl font-extrabold text-slate-900 mb-6 text-center">Disclaimer Legal</h1>
+            <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+                <div class="prose-content max-w-none">
+                    
+        
+        <div class="max-w-3xl mx-auto px-6 pt-6">
+            
+            <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+                <div class="prose-content max-w-none">
+                    
+        
+        <div class="max-w-3xl mx-auto px-6 pt-6">
+            
+            <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+                <div class="prose-content max-w-none">
+                    
+        
+        <div class="max-w-3xl mx-auto px-6 pt-6">
+            
             <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
                 <div class="prose-content max-w-none">
                     
@@ -472,6 +490,21 @@
                 </section>
             </div>
         
+                </div>
+            </div>
+        </div>
+        
+    
+                </div>
+            </div>
+        </div>
+        
+    
+                </div>
+            </div>
+        </div>
+        
+    
                 </div>
             </div>
         </div>
@@ -632,7 +665,7 @@
     <!-- EmailJS & PDF print functions -->
     <script>
         (function() {
-            emailjs.init("HIi9_S1hAf7mWQU_W");
+            emailjs.init("{HIi9_S1hAf7mWQU_W}");
         })();
 
         function descargarPDF() {
@@ -650,7 +683,7 @@
                 return;
             }
 
-            emailjs.send("service_plsair4", "template_u1juvx1", {
+            emailjs.send("{service_plsair4}", "{template_u1juvx1}", {
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,

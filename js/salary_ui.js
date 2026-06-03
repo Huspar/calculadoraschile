@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calculate = () => {
         // Reset PDF section visibility
         document.querySelector('#sueldo-calc-container #pdf-section')?.classList.add('hidden');
+        document.getElementById('print-template-sueldo')?.classList.add('hidden');
 
         // Gate: validate first
         if (!validateSalaryForm()) return;
@@ -517,6 +518,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Show PDF section
         document.querySelector('#sueldo-calc-container #pdf-section')?.classList.remove('hidden');
+
+        // Populate print template
+        const printDate = new Date().toLocaleDateString('es-CL');
+        if (document.getElementById('print-date-sueldo')) {
+            document.getElementById('print-date-sueldo').textContent = printDate;
+            
+            // Fill inputs
+            document.getElementById('print-input-salary-base').textContent = formatCLP(data.baseSalary);
+            
+            const otHours = data.overtimeHours;
+            const otAmount = res.details.overtimeAmount;
+            document.getElementById('print-input-salary-ot').textContent = `${otHours} hrs (${formatCLP(otAmount)})`;
+            
+            document.getElementById('print-input-salary-grat').textContent = formatCLP(res.details.gratification);
+            document.getElementById('print-input-salary-bonuses').textContent = formatCLP(data.bonusAmount);
+            document.getElementById('print-input-salary-colacion').textContent = formatCLP(data.colacion);
+            document.getElementById('print-input-salary-movilizacion').textContent = formatCLP(data.movilizacion);
+            document.getElementById('print-input-salary-viaticos').textContent = formatCLP(data.viaticos);
+            document.getElementById('print-input-salary-afp-name').textContent = data.afpName;
+
+            // Fill breakdown rows
+            document.getElementById('print-row-salary-afp').textContent = `-${formatCLP(res.details.afpAmount)}`;
+            
+            const healthName = data.healthSystem === 'fonasa' ? 'Fonasa' : 'Isapre';
+            document.getElementById('print-row-salary-health').textContent = `-${formatCLP(res.details.healthAmount)} (${healthName})`;
+            
+            document.getElementById('print-row-salary-afc').textContent = `-${formatCLP(res.details.afcAmount)}`;
+            document.getElementById('print-row-salary-tax').textContent = `-${formatCLP(res.details.taxAmount)}`;
+
+            // Optional rows helper
+            const togglePrintRow = (containerId, textId, amountVal) => {
+                const container = document.getElementById(containerId);
+                const text = document.getElementById(textId);
+                if (container && text) {
+                    if (amountVal > 0) {
+                        container.classList.remove('hidden');
+                        text.textContent = `-${formatCLP(amountVal)}`;
+                    } else {
+                        container.classList.add('hidden');
+                    }
+                }
+            };
+
+            togglePrintRow('print-row-salary-ccaf-container', 'print-row-salary-ccaf', res.details.ccafAmount);
+            togglePrintRow('print-row-salary-apv-container', 'print-row-salary-apv', res.details.apvAmount);
+            togglePrintRow('print-row-salary-loans-container', 'print-row-salary-loans', res.details.prestamos);
+            togglePrintRow('print-row-salary-pension-container', 'print-row-salary-pension', res.details.pension);
+            togglePrintRow('print-row-salary-sindicato-container', 'print-row-salary-sindicato', res.details.sindicato);
+            togglePrintRow('print-row-salary-other-container', 'print-row-salary-other', res.details.otrosDescuentos);
+
+            document.getElementById('print-row-salary-net').textContent = formatCLP(res.details.netSalary);
+
+            // Make this print template active
+            document.getElementById('print-template-sueldo').classList.remove('hidden');
+            document.getElementById('print-template-finiquito')?.classList.add('hidden');
+        }
     };
 
     init();
