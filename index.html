@@ -1694,6 +1694,10 @@
                 document.getElementById('mobile-result-bar').classList.add('translate-y-full');
                 var label = document.getElementById('mobile-result-label');
                 if (label) label.textContent = 'Total Finiquito';
+                var val = document.getElementById('mobile-result-value');
+                if (val) val.textContent = '$0';
+                var pct = document.getElementById('mobile-result-percentage');
+                if (pct) pct.textContent = '—';
                 if (typeof updateCalculations === 'function') updateCalculations();
             } else {
                 containerFiniquito.classList.add('hidden');
@@ -1704,6 +1708,10 @@
                 // Trigger sueldo calculations
                 var label = document.getElementById('mobile-result-label');
                 if (label) label.textContent = 'Líquido a pago';
+                var val = document.getElementById('mobile-result-value');
+                if (val) val.textContent = '$0';
+                var pct = document.getElementById('mobile-result-percentage');
+                if (pct) pct.textContent = '—';
                 const salaryInput = document.getElementById('salary');
                 if (salaryInput) salaryInput.dispatchEvent(new Event('input', { bubbles: true }));
             }
