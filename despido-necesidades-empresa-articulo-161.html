@@ -238,7 +238,13 @@
         @media print {
             header, footer, nav, button, .no-print { display: none !important; }
             body { background: white; padding: 20px; }
-            #finiquito-calc-container, #sueldo-calc-container { display: block !important; width: 100% !important; }
+            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
+                display: block !important; 
+                width: 100% !important; 
+            }
+            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
+                display: none !important;
+            }
             .flex-grow { width: 100% !important; max-width: 100% !important; }
         }
     </style>
@@ -400,6 +406,8 @@
                 
             <div class="prose-content max-w-none">
                 
+            <div class="prose-content max-w-none">
+                
 
             <!-- Breadcrumb -->
             <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
@@ -445,10 +453,10 @@
             <!-- Hero Image -->
             <figure class="mb-10 max-w-[900px] mx-auto">
 <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
-                    <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-despido-necesidades-empresa-161.png"
+                    <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-despido-necesidades-empresa-161.png"
                         alt="Documento gráfico sobre el Artículo 161 del Código del Trabajo, mostrando causales de despido e indemnizaciones."
                         title="Despido por necesidades de la empresa (Artículo 161)"
-                        class="w-full h-auto max-h-[45vh] object-contain" loading="lazy" width="1280" height="720" /></div></div></div></div>
+                        class="w-full h-auto max-h-[45vh] object-contain" loading="lazy" width="1280" height="720" /></div></div></div></div></div>
                 </div>
                 <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
                     Principales conceptos asociados al despido por necesidades de la empresa según el Código del
@@ -775,6 +783,8 @@
                         dirigirse a la Inspección de Trabajo para orientación.
                     </p>
                 </div>
+            </div>
+        
             </div>
         
             </div>

@@ -238,7 +238,13 @@
         @media print {
             header, footer, nav, button, .no-print { display: none !important; }
             body { background: white; padding: 20px; }
-            #finiquito-calc-container, #sueldo-calc-container { display: block !important; width: 100% !important; }
+            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
+                display: block !important; 
+                width: 100% !important; 
+            }
+            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
+                display: none !important;
+            }
             .flex-grow { width: 100% !important; max-width: 100% !important; }
         }
     </style>
@@ -400,6 +406,8 @@
                 
             <div class="prose-content max-w-none">
                 
+            <div class="prose-content max-w-none">
+                
 
             <!-- Breadcrumb -->
             <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
@@ -438,7 +446,7 @@
             </header>
 
             <div class="mb-10 w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/10 border border-slate-200 aspect-[16/9] sm:aspect-[21/9] relative">
-                <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-ley-40-horas-chile-cover.png" alt="Ilustración 3D del concepto de reducción de jornada laboral de 40 horas" class="w-full h-full object-cover" /></div></div></div></div>
+                <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-ley-40-horas-chile-cover.png" alt="Ilustración 3D del concepto de reducción de jornada laboral de 40 horas" class="w-full h-full object-cover" /></div></div></div></div></div>
             </div>
 
             <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900 text-sm sm:text-base">
@@ -630,6 +638,8 @@
                         <strong>Aviso legal:</strong> Esta guía es de carácter informativo y está basada en la Ley 21.561 publicada en el Diario Oficial. Para consultas específicas sobre tu situación laboral, contacta a la Dirección del Trabajo o consulta con un abogado laboralista.
                     </p>
                 </div>
+            </div>
+        
             </div>
         
             </div>

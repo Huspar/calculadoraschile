@@ -238,7 +238,13 @@
         @media print {
             header, footer, nav, button, .no-print { display: none !important; }
             body { background: white; padding: 20px; }
-            #finiquito-calc-container, #sueldo-calc-container { display: block !important; width: 100% !important; }
+            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
+                display: block !important; 
+                width: 100% !important; 
+            }
+            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
+                display: none !important;
+            }
             .flex-grow { width: 100% !important; max-width: 100% !important; }
         }
     </style>
@@ -392,6 +398,8 @@
     
         
         <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+            <div class="prose-content max-w-none">
+                
             <div class="prose-content max-w-none">
                 
             <div class="prose-content max-w-none">
@@ -604,6 +612,8 @@
                     </div>
                 </aside>
                 
+            </div>
+        
             </div>
         
             </div>

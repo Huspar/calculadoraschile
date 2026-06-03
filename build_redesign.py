@@ -547,7 +547,13 @@ HTML_LAYOUT = """<!DOCTYPE html>
         @media print {{
             header, footer, nav, button, .no-print {{ display: none !important; }}
             body {{ background: white; padding: 20px; }}
-            #finiquito-calc-container, #sueldo-calc-container {{ display: block !important; width: 100% !important; }}
+            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) {{ 
+                display: block !important; 
+                width: 100% !important; 
+            }}
+            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {{
+                display: none !important;
+            }}
             .flex-grow {{ width: 100% !important; max-width: 100% !important; }}
         }}
     </style>
