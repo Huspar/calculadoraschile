@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{META}}
+    <link rel="canonical" href="{{CANONICAL}}">
+    <link rel="alternate" hreflang="es-CL" href="{{CANONICAL}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']}}}}}</script>
+    <style>
+        /* ONLY light-theme styles — no dark remnants */
+        .prose-content { line-height: 1.75; color: #334155; }
+        .prose-content h1 { font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; }
+        .prose-content h2 { font-size: 1.35rem; font-weight: 700; color: #0f172a; margin: 2rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; }
+        .prose-content h3 { font-size: 1.1rem; font-weight: 600; color: #1e293b; margin: 1.5rem 0 0.5rem; }
+        .prose-content p { margin-bottom: 1rem; }
+        .prose-content ul, .prose-content ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+        .prose-content li { margin-bottom: 0.4rem; }
+        .prose-content strong { color: #0f172a; font-weight: 600; }
+        .prose-content a { color: #0ea5e9; text-decoration: underline; text-underline-offset: 2px; }
+        .prose-content a:hover { color: #0284c7; }
+        .prose-content blockquote { border-left: 3px solid #cbd5e1; padding: 0.5rem 1rem; margin: 1.25rem 0; color: #64748b; font-style: italic; }
+        .prose-content img { max-width: 100%; border-radius: 8px; margin: 1.5rem 0; }
+        .prose-content table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .prose-content th { background: #f8fafc; text-align: left; padding: 0.6rem 0.9rem; font-weight: 600; color: #475569; border-bottom: 2px solid #e2e8f0; }
+        .prose-content td { padding: 0.6rem 0.9rem; border-bottom: 1px solid #f1f5f9; }
+        .callout { background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .callout-warning { background: #fffbeb; border-left-color: #f59e0b; }
+        .callout-danger { background: #fef2f2; border-left-color: #ef4444; }
+        .img-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin: 1.5rem 0; }
+        .img-card img { width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 8px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2.5 no-underline flex-shrink-0">
+            <div class="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">CL</div>
+            <span class="text-[15px] font-semibold text-slate-900">Cálculo<span class="text-sky-500">Laboral</span>.cl</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-1">
+            <a href="/" class="px-3 py-2 text-[13px] font-medium text-slate-600 hover:text-sky-600 rounded-md transition-colors">Calculadoras</a>
+            <div class="relative group">
+                <span class="px-3 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-800 rounded-md cursor-pointer">Guías ▾</span>
+                <div class="absolute top-full right-0 mt-1 w-64 bg-white border border-slate-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                    <a href="/como-calcular-finiquito-chile.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600 rounded-t-lg">📋 Cómo calcular tu finiquito</a>
+                    <a href="/como-calcular-sueldo-liquido-paso-a-paso.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600">💼 Cómo calcular sueldo líquido</a>
+                    <a href="/como-leer-liquidacion-de-sueldo.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600">📄 Cómo leer tu liquidación</a>
+                    <a href="/despido-necesidades-empresa-articulo-161.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600">⚖️ Despido Art. 161</a>
+                    <a href="/ley-40-horas-chile-2026.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600">🕐 Ley 40 Horas</a>
+                    <a href="/guia-vacaciones-proporcionales.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600">🏖️ Vacaciones proporcionales</a>
+                    <a href="/seguro-de-cesantia-chile-como-cobrar.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600">🛡️ Seguro de Cesantía</a>
+                    <a href="/que-hacer-si-no-te-pagan-el-finiquito.html" class="block px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-sky-600 rounded-b-lg">❗ No te pagaron el finiquito</a>
+                </div>
+            </div>
+            <a href="/blog.html" class="px-3 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-800 rounded-md transition-colors">Blog</a>
+            <a href="/contacto.html" class="px-3 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-800 rounded-md transition-colors">Contacto</a>
+        </nav>
+        <!-- Mobile hamburger -->
+        <button class="md:hidden p-2 text-slate-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pb-3">
+        <a href="/" class="block py-2 text-sm text-slate-600">Calculadoras</a>
+        <span class="block py-2 text-sm font-semibold text-slate-800">Guías</span>
+        <a href="/como-calcular-finiquito-chile.html" class="block py-1.5 pl-3 text-sm text-slate-600">📋 Finiquito</a>
+        <a href="/como-calcular-sueldo-liquido-paso-a-paso.html" class="block py-1.5 pl-3 text-sm text-slate-600">💼 Sueldo Líquido</a>
+        <a href="/como-leer-liquidacion-de-sueldo.html" class="block py-1.5 pl-3 text-sm text-slate-600">📄 Liquidación</a>
+        <a href="/despido-necesidades-empresa-articulo-161.html" class="block py-1.5 pl-3 text-sm text-slate-600">⚖️ Art. 161</a>
+        <a href="/ley-40-horas-chile-2026.html" class="block py-1.5 pl-3 text-sm text-slate-600">🕐 Ley 40 Horas</a>
+        <a href="/guia-vacaciones-proporcionales.html" class="block py-1.5 pl-3 text-sm text-slate-600">🏖️ Vacaciones</a>
+        <a href="/seguro-de-cesantia-chile-como-cobrar.html" class="block py-1.5 pl-3 text-sm text-slate-600">🛡️ Cesantía</a>
+        <a href="/que-hacer-si-no-te-pagan-el-finiquito.html" class="block py-1.5 pl-3 text-sm text-slate-600">❗ Reclamo</a>
+        <a href="/blog.html" class="block py-2 text-sm text-slate-600">Blog</a>
+        <a href="/contacto.html" class="block py-2 text-sm text-slate-600">Contacto</a>
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-10 pb-16">
+{{CONTENT}}
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-white border-t border-slate-200 py-10 px-4">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+        <div>
+            <h4 class="font-semibold text-slate-900 mb-3">Calculadoras</h4>
+            <ul class="space-y-2 text-slate-600">
+                <li><a href="/" class="hover:text-sky-600 transition-colors">Sueldo Líquido</a></li>
+                <li><a href="/" class="hover:text-sky-600 transition-colors">Finiquito</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-semibold text-slate-900 mb-3">Guías</h4>
+            <ul class="space-y-2 text-slate-600">
+                <li><a href="/como-calcular-finiquito-chile.html" class="hover:text-sky-600 transition-colors">Calcular Finiquito</a></li>
+                <li><a href="/como-calcular-sueldo-liquido-paso-a-paso.html" class="hover:text-sky-600 transition-colors">Calcular Sueldo Líquido</a></li>
+                <li><a href="/ley-40-horas-chile-2026.html" class="hover:text-sky-600 transition-colors">Ley 40 Horas</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-semibold text-slate-900 mb-3">Legal</h4>
+            <ul class="space-y-2 text-slate-600">
+                <li><a href="/privacidad.html" class="hover:text-sky-600 transition-colors">Privacidad</a></li>
+                <li><a href="/terminos.html" class="hover:text-sky-600 transition-colors">Términos</a></li>
+                <li><a href="/disclaimer.html" class="hover:text-sky-600 transition-colors">Disclaimer</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-semibold text-slate-900 mb-3">Sitio</h4>
+            <ul class="space-y-2 text-slate-600">
+                <li><a href="/blog.html" class="hover:text-sky-600 transition-colors">Blog</a></li>
+                <li><a href="/contacto.html" class="hover:text-sky-600 transition-colors">Contacto</a></li>
+                <li><a href="/sobre-nosotros.html" class="hover:text-sky-600 transition-colors">Sobre Nosotros</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-5xl mx-auto mt-8 pt-6 border-t border-slate-100 text-center text-xs text-slate-400">
+        © 2026 Cálculo Laboral Chile — Herramientas informativas. No constituye asesoría legal.
+    </div>
+</footer>
+</body>
+</html>
