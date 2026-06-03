@@ -316,19 +316,14 @@
                     <a href="contacto" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
                 </nav>
 
-                <!-- Mobile Menu Button -->
-                <div class="flex items-center gap-4">
-                    <button id="mobile-menu-btn" aria-label="Abrir menú de navegación" onclick="var m=document.getElementById('mobile-menu');if(m)m.classList.toggle('hidden')" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100">
+                                <!-- Mobile Menu -->
+                <details class="md:hidden">
+                    <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
                         <span class="material-icons">menu</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200 absolute w-full left-0 z-40 shadow-lg">
-            <div class="px-4 py-4 space-y-2">
-                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                    </summary>
+                    <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
+                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
+<a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
                 <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
@@ -344,8 +339,10 @@
                 <div class="border-t border-slate-100 my-2"></div>
                 <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
                 <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
-            </div>
-        </div>
+                        </div>
+                    </div>
+                </details>
+
     </header>
 
     
@@ -372,262 +369,11 @@
                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Imponible AFP</span>
                 <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF</span>
             </div>
-            <!-- Tope Finiquito Card -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
-                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Finiquito</span>
-                <span class="text-lg font-extrabold text-slate-900 font-mono">90 UF</span>
-            </div>
-        </div>
-        <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
-            <div id="indicators-status" class="flex items-center gap-1">
-                <span class="material-icons text-[12px] animate-spin">sync</span> Cargando indicadores del Banco Central...
-            </div>
-            <a href="#" id="btn-history" class="text-sky-500 hover:text-sky-600 hover:underline flex items-center gap-0.5">
-                <span class="material-icons text-[12px]">history</span> Historial de Valores
-            </a>
-        </div>
-    </div>
+  
 
+... [OUTPUT TRUNCATED - 16169 chars omitted out of 66169 total] ...
 
-    <!-- Main Content -->
-    <main class="flex-grow pt-4 pb-16">
-        
-    <div class="max-w-4xl mx-auto px-6 pt-6">
-        
-    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
-        <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
-        <span class="material-icons text-xs">chevron_right</span>
-        <a href="blog" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
-        <span class="material-icons text-xs">chevron_right</span>
-        <span class="text-slate-600 font-semibold">¿Cuánto te corresponde de finiquito en 2026? Cómo calcularlo paso a paso en Chile</span>
-    </nav>
-    
-        
-        <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
-            <div class="prose-content max-w-none">
-                
-                
-                
-                
-                
-                
-
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
-                <a href="/" class="hover:text-sky-600 transition-colors">Inicio</a>
-                <span class="material-icons text-[12px]">chevron_right</span>
-                <a href="finiquito_calculator" class="hover:text-sky-600 transition-colors">Calculadora
-                    Finiquito</a>
-                <span class="material-icons text-[12px]">chevron_right</span>
-                <span class="text-slate-500">Cómo calcular finiquito</span>
-            </nav>
-
-            <!-- Article Header -->
-            <header class="mb-12">
-                <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 border border-sky-200 bg-sky-50/40 rounded-2xl p-5 shadow-sm my-6 text-xs font-semibold tracking-wider uppercase mb-4">
-                    <span class="material-icons text-[14px]">gavel</span>
-                    Guía Laboral
-                </div>
-                <h1 class="text-3xl sm:text-4xl font-bold text-slate-800 leading-tight mb-4">
-                    Cómo calcular finiquito en Chile
-                    <span class="text-slate-500 font-normal text-2xl sm:text-3xl block mt-1">(con ejemplo real
-                        2026)</span>
-                </h1>
-                <div class="flex items-center gap-4 text-xs text-slate-500 mb-6">
-                    <span>Actualizado: Febrero 2026</span>
-                    <span>•</span>
-                    <span>12 min lectura</span>
-                </div>
-
-                <!-- E-E-A-T Trust Badge -->
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6 mb-8 mt-2">
-                    <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center flex-shrink-0">
-                        <span class="material-icons text-sky-600">gavel</span>
-                    </div>
-                    <div>
-                        <p class="text-sm text-slate-800 font-semibold m-0">Revisado por Equipo Legal</p>
-                        <p class="text-xs text-slate-500 m-0">Basado estrictamente en el Código del Trabajo y
-                            Jurisprudencia de la Dirección del Trabajo (2026).</p>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Hero Image -->
-            <figure class="mb-10 max-w-[900px] mx-auto">
-                <div class="rounded-2xl overflow-hidden border border-slate-100">
-                    <img src="assets/guia-calculo-finiquito-chile-2026.png"
-                        alt="Ejemplo visual de cálculo de finiquito en Chile 2026 con indemnización y vacaciones proporcionales"
-                        title="Simulación de finiquito en Chile: desglose de indemnización, vacaciones y aviso previo"
-                        class="w-full h-auto max-h-[35vh] object-contain bg-slate-100/50" loading="lazy" width="1024"
-                        height="640" />
-                </div>
-                <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
-                    Ejemplo de simulación de finiquito con indemnización por años de servicio y vacaciones
-                    proporcionales según normativa chilena.
-                </figcaption>
-            </figure>
-
-            <!-- Article Body -->
-            <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900 text-sm sm:text-base">
-
-                <!-- =============== 1. INTRODUCCIÓN =============== -->
-                <p>
-                    Si estás por dejar tu trabajo o ya te despidieron, una de las primeras preguntas que surge es
-                    <strong>cuánto me corresponde de finiquito</strong>. El finiquito es el documento legal que pone
-                    fin a la relación laboral, y realizar el <strong>cálculo de finiquito en Chile</strong> de forma
-                    correcta es esencial para asegurar que recibas todos los pagos que el empleador debe realizarte al
-                    terminar tu contrato.
-                </p>
-                <p>
-                    Muchas personas aceptan su finiquito sin revisar los montos en detalle. Aquí te explicamos cómo
-                    verificar paso a paso que el cálculo sea correcto.
-                </p>
-                <p>
-                    En Chile, <strong>calcular el finiquito</strong> correctamente implica sumar varios componentes:
-                    la <strong>indemnización por años de servicio</strong>, las <strong>vacaciones
-                        proporcionales</strong>, el aviso previo y las remuneraciones pendientes. Sin embargo, muchos
-                    trabajadores calculan mal su monto porque desconocen los topes legales, confunden años completos con
-                    fracciones, o no consideran la causal de despido.
-                </p>
-                <p>
-                    En esta guía te explicamos paso a paso cómo calcular cada componente, con un
-                    <strong>ejemplo numérico real</strong> y las fórmulas que necesitas. Si prefieres una estimación
-                    rápida, puedes usar nuestra
-                    <a href="finiquito_calculator">calculadora para calcular tu finiquito en Chile</a> gratuita.
-                </p>
-
-                <h2>¿Cuánto me corresponde de finiquito según mis años trabajados?</h2>
-                <p>
-                    El monto exacto que recibirás dependerá directamente de tu antigüedad, de tu remuneración mensual y
-                    de la causal de término de contrato. La ley establece que se debe pagar un mes de sueldo por cada
-                    año trabajado, considerando ciertos topes. Para no confundirte con las matemáticas y los factores,
-                    puedes ingresar tus datos exactos en el <a href="finiquito_calculator">simulador de finiquito en
-                        Chile</a> para conocer de inmediato el monto estimado antes de firmar cualquier documento.
-                </p>
-
-                <!-- =============== 2. ¿QUÉ INCLUYE EL FINIQUITO? =============== -->
-                <h2>¿Qué incluye el finiquito?</h2>
-                <p>
-                    El finiquito en Chile puede incluir los siguientes conceptos, dependiendo de tu situación:
-                </p>
-                <ol>
-                    <li><strong>Remuneraciones pendientes:</strong> días trabajados del mes en curso que aún no te han
-                        pagado.</li>
-                    <li><strong>Indemnización sustitutiva del aviso previo:</strong> equivale a un mes de sueldo. Se
-                        paga cuando el empleador no te avisa con 30 días de anticipación (Art. 162 del
-                        <a href="https://www.bcn.cl/leychile/navegar?idNorma=207436" target="_blank"
-                            rel="noopener noreferrer">Código del Trabajo</a>).
-                    </li>
-                    <li><strong>Indemnización por años de servicio:</strong> un mes de sueldo por cada año trabajado,
-                        con tope de 11 años y 90 UF por mes (Art. 163). Solo aplica en ciertos tipos de despido.</li>
-                    <li><strong>Vacaciones proporcionales:</strong> los días de descanso que acumulaste y no tomaste en
-                        el año laboral en curso.</li>
-                    <li><strong>Vacaciones pendientes:</strong> días de vacaciones de años anteriores que no utilizaste.
-                    </li>
-                    <li><strong>Gratificación proporcional:</strong> si tu empresa paga gratificación legal.</li>
-                    <li><strong>Otros conceptos:</strong> bonos pactados, horas extra adeudadas u otros haberes según
-                        contrato o convenio colectivo.</li>
-                </ol>
-
-                <div class="callout">
-                    <p class="!mb-0"><strong>Importante:</strong> No todos los conceptos se pagan siempre. La
-                        indemnización por años de servicio, por ejemplo, <strong>solo aplica cuando te despiden por
-                            necesidades de la empresa</strong> (Art. 161) u otras causales específicas. Si renuncias
-                        voluntariamente, ese ítem no corresponde.</p>
-                </div>
-
-                <!-- Callout con enlace a finiquito no pagado -->
-                <div class="my-6 p-5 rounded-xl bg-slate-50 border border-slate-200/80 rounded-2xl shadow-sm transition-all border-red-200 bg-red-50/40 shadow-lg">
-                    <h4 class="text-red-600 font-bold text-sm mb-2 flex items-center gap-2 m-0">
-                        <span class="material-icons text-base">warning</span> ¿Tu empleador se está retrasando en el pago?
-                    </h4>
-                    <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-                        Por ley, existe un plazo máximo estricto para el pago de tu liquidación final. Te recomendamos leer nuestra guía crítica:
-                    </p>
-                    <p class="text-xs text-slate-500 m-0">
-                        👉 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="text-slate-800 hover:text-red-600 font-semibold underline transition-colors">
-                            Qué hacer si no te pagan el finiquito a tiempo en Chile
-                        </a>: Conoce las multas, el reajuste por IPC y cómo iniciar un reclamo formal ante la Inspección del Trabajo.
-                    </p>
-                </div>
-
-                <!-- =============== 3. FÓRMULA INDEMNIZACIÓN =============== -->
-                <h2>Fórmula para calcular la indemnización por años de servicio</h2>
-                <p>
-                    La indemnización por años de servicio es generalmente el componente más grande del finiquito.
-                    La fórmula es:
-                </p>
-
-                <div class="formula-box">
-                    <p class="!text-sky-700 !mb-2 text-sm">Indemnización = Última remuneración mensual × Años de
-                        servicio</p>
-                    <p class="!text-slate-500 !mb-0 text-xs">Topes: máximo 11 años y 90 UF por mes de indemnización</p>
-                </div>
-
-                <p>
-                    La <strong>última remuneración mensual</strong> incluye el sueldo base, gratificación legal y
-                    asignaciones imponibles habituales. No incluye horas extra ocasionales ni bonos esporádicos.
-                </p>
-
-                <h3>Ejemplo: cálculo de indemnización</h3>
-                <p>Supongamos los siguientes datos:</p>
-                <ul>
-                    <li><strong>Sueldo base:</strong> $800.000</li>
-                    <li><strong>Gratificación legal:</strong> $200.000 (tope legal)</li>
-                    <li><strong>Remuneración mensual:</strong> $1.000.000</li>
-                    <li><strong>Antigüedad:</strong> 5 años y 3 meses</li>
-                    <li><strong>Causal:</strong> Necesidades de la empresa (Art. 161)</li>
-                </ul>
-
-                <div class="callout-green callout">
-                    <p class="!mb-2"><strong>Paso 1:</strong> Calcular años de servicio → <strong>5 años y 3
-                            meses</strong>.</p>
-                    <p class="!mb-2">La ley reconoce <strong>fracciones superiores a 6 meses como un año
-                            completo</strong>. Como 3 meses no supera los 6, se cuentan <strong>5 años</strong>.</p>
-                    <p class="!mb-2"><strong>Paso 2:</strong> Verificar tope de 90 UF → $1.000.000 ÷ UF $38.800 ≈ 25,77
-                        UF. Está bajo el tope ✅</p>
-                    <p class="!mb-0"><strong>Paso 3:</strong> Indemnización = $1.000.000 × 5 =
-                        <strong>$5.000.000</strong>
-                    </p>
-                </div>
-
-                <p>
-                    Si tu sueldo supera las 90 UF mensuales (aprox. $3.492.000 en febrero 2026), la indemnización se
-                    calcula usando 90 UF como tope por cada año. Puedes verificar el valor actual de la UF en la
-                    <a href="https://www.sii.cl/valores_y_fechas/uf/uf2026.htm" target="_blank" rel="noopener noreferrer">página
-                        del SII</a>.
-                </p>
-
-                <!-- CTA intermedio -->
-                <div class="callout">
-                    <p class="!mb-0">💡 <strong>¿Prefieres calcularlo automáticamente?</strong>
-                        Usa nuestra <a href="finiquito_calculator">calculadora para calcular tu finiquito en
-                            Chile</a> y obtén un estimado en segundos.
-                    </p>
-                </div>
-
-                <!-- =============== 4. VACACIONES PROPORCIONALES =============== -->
-                <h2>Cómo calcular vacaciones proporcionales</h2>
-                <p>
-                    En Chile, todo trabajador tiene derecho a <strong>15 días hábiles de vacaciones por año
-                        trabajado</strong>. Si no completaste el año laboral en curso, te corresponde una fracción
-                    proporcional basada en el factor <strong>1,25 días hábiles por cada mes trabajado</strong>.
-                </p>
-
-                <div class="formula-box">
-                    <p class="!text-sky-700 !mb-2 text-sm">Días proporcionales = 1,25 × meses trabajados en el período
-                    </p>
-                    <p class="!text-sky-700 !mb-2 text-sm">Monto = (Sueldo ÷ 30) × Días proporcionales × 1,4</p>
-                    <p class="!text-slate-500 !mb-0 text-xs">El factor 1,4 convierte días hábiles a días corridos
-                        (calendario)</p>
-                </div>
-
-                <h3>Ejemplo: vacaciones proporcionales</h3>
-                <p>Siguiendo con nuestro caso (sueldo $800.000 + gratificación $200.000, 3,5 meses en el período
-                    actual — del 1 de diciembre al 15 de marzo):</p>
-                <ul>
-                    <li><strong>Meses en el período actual:</strong> 3,5</li>
+>
                     <li><strong>Días hábiles proporcionales:</strong> 1,25 × 3,5 = 4,375 días</li>
                     <li><strong>Días corridos:</strong> 4,375 × 1,4 = 6,125 días</li>
                     <li><strong>Sueldo diario:</strong> $1.000.000 ÷ 30 = $33.333</li>

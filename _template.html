@@ -65,25 +65,32 @@
             <a href="/blog.html" class="px-3 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-800 rounded-md transition-colors">Blog</a>
             <a href="/contacto.html" class="px-3 py-2 text-[13px] font-medium text-slate-600 hover:text-slate-800 rounded-md transition-colors">Contacto</a>
         </nav>
-        <!-- Mobile hamburger -->
-        <button class="md:hidden p-2 text-slate-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-    </div>
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pb-3">
-        <a href="/" class="block py-2 text-sm text-slate-600">Calculadoras</a>
-        <span class="block py-2 text-sm font-semibold text-slate-800">Guías</span>
-        <a href="/como-calcular-finiquito-chile.html" class="block py-1.5 pl-3 text-sm text-slate-600">📋 Finiquito</a>
-        <a href="/como-calcular-sueldo-liquido-paso-a-paso.html" class="block py-1.5 pl-3 text-sm text-slate-600">💼 Sueldo Líquido</a>
-        <a href="/como-leer-liquidacion-de-sueldo.html" class="block py-1.5 pl-3 text-sm text-slate-600">📄 Liquidación</a>
-        <a href="/despido-necesidades-empresa-articulo-161.html" class="block py-1.5 pl-3 text-sm text-slate-600">⚖️ Art. 161</a>
-        <a href="/ley-40-horas-chile-2026.html" class="block py-1.5 pl-3 text-sm text-slate-600">🕐 Ley 40 Horas</a>
-        <a href="/guia-vacaciones-proporcionales.html" class="block py-1.5 pl-3 text-sm text-slate-600">🏖️ Vacaciones</a>
-        <a href="/seguro-de-cesantia-chile-como-cobrar.html" class="block py-1.5 pl-3 text-sm text-slate-600">🛡️ Cesantía</a>
-        <a href="/que-hacer-si-no-te-pagan-el-finiquito.html" class="block py-1.5 pl-3 text-sm text-slate-600">❗ Reclamo</a>
-        <a href="/blog.html" class="block py-2 text-sm text-slate-600">Blog</a>
-        <a href="/contacto.html" class="block py-2 text-sm text-slate-600">Contacto</a>
+        <!-- Mobile Menu -->
+        <details class="md:hidden">
+            <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
+                <span class="material-icons">menu</span>
+            </summary>
+            <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
+                <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
+                    <a href="/sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                    <a href="/finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                    <div class="border-t border-slate-100 my-2"></div>
+                    <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                    <a href="/como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
+                    <a href="/como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
+                    <a href="/como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
+                    <a href="/despido-necesidades-empresa-articulo-161" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Art. 161 Necesidades Empresa</a>
+                    <a href="/ley-40-horas-chile-2026" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Ley 40 Horas 2026</a>
+                    <a href="/guia-vacaciones-proporcionales" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
+                    <a href="/seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
+                    <a href="/que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                    <a href="/reclamar-despido-injustificado-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100">🆕 Despido Injustificado</a>
+                    <div class="border-t border-slate-100 my-2"></div>
+                    <a href="/blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
+                    <a href="/contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
+                </div>
+            </div>
+        </details>
     </div>
 </header>
 

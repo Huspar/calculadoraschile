@@ -316,19 +316,14 @@
                     <a href="contacto" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
                 </nav>
 
-                <!-- Mobile Menu Button -->
-                <div class="flex items-center gap-4">
-                    <button id="mobile-menu-btn" aria-label="Abrir menú de navegación" onclick="var m=document.getElementById('mobile-menu');if(m)m.classList.toggle('hidden')" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100">
+                                <!-- Mobile Menu -->
+                <details class="md:hidden">
+                    <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
                         <span class="material-icons">menu</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200 absolute w-full left-0 z-40 shadow-lg">
-            <div class="px-4 py-4 space-y-2">
-                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                    </summary>
+                    <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
+                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
+<a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
                 <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
@@ -344,8 +339,10 @@
                 <div class="border-t border-slate-100 my-2"></div>
                 <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
                 <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
-            </div>
-        </div>
+                        </div>
+                    </div>
+                </details>
+
     </header>
 
     
@@ -370,131 +367,11 @@
             <!-- Tope AFP Card -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Imponible AFP</span>
-                <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF</span>
-            </div>
-            <!-- Tope Finiquito Card -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
-                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Finiquito</span>
-                <span class="text-lg font-extrabold text-slate-900 font-mono">90 UF</span>
-            </div>
-        </div>
-        <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
-            <div id="indicators-status" class="flex items-center gap-1">
-                <span class="material-icons text-[12px] animate-spin">sync</span> Cargando indicadores del Banco Central...
-            </div>
-            <a href="#" id="btn-history" class="text-sky-500 hover:text-sky-600 hover:underline flex items-center gap-0.5">
-                <span class="material-icons text-[12px]">history</span> Historial de Valores
-            </a>
-        </div>
-    </div>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF<
 
+... [OUTPUT TRUNCATED - 7382 chars omitted out of 57382 total] ...
 
-    <!-- Main Content -->
-    <main class="flex-grow pt-4 pb-16">
-        
-    <div class="max-w-4xl mx-auto px-6 pt-6">
-        
-    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
-        <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
-        <span class="material-icons text-xs">chevron_right</span>
-        <a href="blog" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
-        <span class="material-icons text-xs">chevron_right</span>
-        <span class="text-slate-600 font-semibold">Guía Definitiva: Despido por Necesidades de la Empresa (Art. 161)</span>
-    </nav>
-    
-        
-        <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
-            <div class="prose-content max-w-none">
-                
-                
-                
-                
-                
-                
-
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
-                <a href="/" class="hover:text-sky-600 transition-colors">Inicio</a>
-                <span class="material-icons text-[12px]">chevron_right</span>
-                <a href="finiquito_calculator" class="hover:text-sky-600 transition-colors">Calculadora
-                    Finiquito</a>
-                <span class="material-icons text-[12px]">chevron_right</span>
-                <span class="text-slate-500">Necesidades de la empresa (Art. 161)</span>
-            </nav>
-
-            <!-- Article Header -->
-            <header class="mb-12">
-                <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 border border-sky-200 bg-sky-50/40 rounded-2xl p-5 shadow-sm my-6 text-xs font-semibold tracking-wider uppercase mb-4">
-                    <span class="material-icons text-[14px]">gavel</span>
-                    Guía Laboral
-                </div>
-                <h1 class="text-3xl sm:text-4xl font-bold text-slate-800 leading-tight mb-4">
-                    Despido por necesidades de la empresa en Chile (Artículo 161)
-                    <span class="text-slate-500 font-normal text-2xl sm:text-3xl block mt-1">qué significa y cuánto
-                        corresponde</span>
-                </h1>
-                <div class="flex items-center gap-4 text-xs text-slate-500 mb-6">
-                    <span>Actualizado: Febrero 2026</span>
-                    <span>•</span>
-                    <span>10 min lectura</span>
-                </div>
-
-                <!-- E-E-A-T Trust Badge -->
-<div class="flex items-center gap-4 p-4 rounded-xl bg-sky-50 border border-sky-100 mb-8 mt-2">
-                    <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center flex-shrink-0">
-                        <span class="material-icons text-sky-600">gavel</span>
-                    </div>
-                    <div>
-                        <p class="text-sm text-slate-800 font-semibold m-0">Revisado por Equipo Legal</p>
-                        <p class="text-xs text-slate-500 m-0">Basado estrictamente en el Código del Trabajo y
-                            Jurisprudencia de la Dirección del Trabajo (2026).</p>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Hero Image -->
-            <figure class="mb-10 max-w-[900px] mx-auto">
-                <div class="rounded-2xl overflow-hidden border border-slate-100">
-                    <img src="assets/guia-despido-necesidades-empresa-161.png"
-                        alt="Documento gráfico sobre el Artículo 161 del Código del Trabajo, mostrando causales de despido e indemnizaciones."
-                        title="Despido por necesidades de la empresa (Artículo 161)"
-                        class="w-full h-auto max-h-[35vh] object-contain bg-slate-100/50" loading="lazy" width="1024"
-                        height="640" />
-                </div>
-                <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
-                    Principales conceptos asociados al despido por necesidades de la empresa según el Código del Trabajo.
-                </figcaption>
-            </figure>
-
-            <!-- Article Body -->
-            <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900 text-sm sm:text-base">
-
-                <!-- =============== 1. INTRODUCCIÓN =============== -->
-                <p>
-                    Enfrentar la pérdida de empleo nunca es sencillo, y una de las causales más recurrentes al hablar de
-                    <strong>despido necesidades empresa Chile</strong>
-                    es precisamente el <strong>despido por necesidades de la empresa</strong>, reglamentado por la
-                    normativa laboral vigente.
-                    Cuando recibes esta noticia, la principal duda es saber
-                    <strong>cuánto me corresponde de finiquito artículo 161</strong>.
-                </p>
-                <p>
-                    El despido por necesidades de la empresa es una de las causales más utilizadas en Chile. Sin
-                    embargo, no siempre está correctamente aplicada. Aquí revisamos qué dice la ley y cuándo corresponde
-                    indemnización.
-                </p>
-                <p>
-                    El <strong>artículo 161 código del trabajo</strong> se aplica en distintas reorganizaciones
-                    empresariales, recortes presupuestarios o bajas en la productividad que fuerzan a los empleadores a
-                    reducir su personal. Aunque es una herramienta legal que las compañías pueden usar, tienen la
-                    obligación rotunda de cubrir los pagos asociados: el mes de aviso y tu indemnización por años de
-                    servicio si proceden.
-                </p>
-                <p>
-                    A lo largo de esta guía despejaremos todas tus inquietudes respecto a la <strong>indemnización
-                        artículo 161</strong>, daremos ejemplos concretos de montos, y te contaremos qué sucede con tus
-                    días de vacaciones. Además, te invitamos a revisar los conceptos técnicos visitando nuestro artículo
+más, te invitamos a revisar los conceptos técnicos visitando nuestro artículo
                     sobre
                     <a href="como-calcular-finiquito-chile">cómo calcular el finiquito en Chile</a>.
                 </p>
