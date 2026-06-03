@@ -2772,7 +2772,7 @@ INDEX_CONTENT = """
                     <label class="block text-xs font-bold text-slate-600 uppercase ml-1" for="salary">Sueldo Base Mensual</label>
                     <div class="relative">
                         <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
-                        <input id="salary" name="salary" placeholder="539.000" type="text" value="539.000" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-right font-mono" />
+                        <input id="salary" name="salary" placeholder="539.000" type="text" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-right font-mono" />
                     </div>
                 </div>
 
