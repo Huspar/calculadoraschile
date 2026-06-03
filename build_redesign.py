@@ -662,6 +662,45 @@ def wrap_images(content):
         return f'<div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm">{img_tag}</div>'
     return re.sub(r'<img[^>]+>', img_replacer, content)
 
+def strip_outer_divs(body):
+    while True:
+        body_stripped = body.strip()
+        match = re.match(r'^<div[^>]*>', body_stripped, re.IGNORECASE)
+        if not match:
+            break
+        
+        open_tag = match.group(0)
+        depth = 0
+        div_indices = []
+        for m in re.finditer(r'</?div\b[^>]*>', body_stripped, re.IGNORECASE):
+            tag = m.group(0)
+            start = m.start()
+            end = m.end()
+            is_close = tag.startswith('</')
+            div_indices.append((start, end, is_close))
+        
+        if not div_indices or div_indices[0][0] != 0:
+            break
+            
+        closing_idx = -1
+        depth = 0
+        for i, (start, end, is_close) in enumerate(div_indices):
+            if is_close:
+                depth -= 1
+                if depth == 0:
+                    closing_idx = i
+                    break
+            else:
+                depth += 1
+                
+        if closing_idx != -1:
+            c_start, c_end, _ = div_indices[closing_idx]
+            if c_end == len(body_stripped):
+                body = body_stripped[len(open_tag):c_start]
+                continue
+        break
+    return body
+
 def extract_article_info(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         html = f.read()
@@ -689,6 +728,9 @@ def extract_article_info(file_path):
         body = re.sub(r'<nav[^>]*id="breadcrumb"[^>]*>.*?</nav>', '', body, re.DOTALL | re.IGNORECASE)
         body = re.sub(r'<nav[^>]*class="[^"]*breadcrumb[^"]*"[^>]*>.*?</nav>', '', body, re.DOTALL | re.IGNORECASE)
         body = re.sub(r'<header[^>]*>.*?</header>', '', body, re.DOTALL | re.IGNORECASE)
+        
+        # Strip any pre-existing nested outer wrappers before performing adjustments
+        body = strip_outer_divs(body)
         
         # Call clean_article_body first to let file-specific replacements match original HTML!
         body = clean_article_body(body, os.path.basename(file_path))
@@ -1872,7 +1914,8 @@ articles = [
     "ley-40-horas-chile-2026.html",
     "guia-vacaciones-proporcionales.html",
     "seguro-de-cesantia-chile-como-cobrar.html",
-    "que-hacer-si-no-te-pagan-el-finiquito.html"
+    "que-hacer-si-no-te-pagan-el-finiquito.html",
+    "reclamar-despido-injustificado-chile.html"
 ]
 
 print("Starting page migration to light theme...")

@@ -29,7 +29,7 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Cómo Reclamar un Despido Injustificado en Chile (2026)",
+    "headline": "Cómo Reclamar un Despido Injustificado en Chile",
     "description": "Guía legal completa para reclamar un despido injustificado en Chile. Plazos, causales, pasos, indemnizaciones con recargo y cuándo necesitas abogado. Actualizado 2026.",
     "author": {
         "@type": "Organization",
@@ -235,17 +235,15 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
+        .print-only { display: none !important; }
+        
         @media print {
-            header, footer, nav, button, .no-print { display: none !important; }
-            body { background: white; padding: 20px; }
-            #finiquito-calc-container:not(.hidden), #sueldo-calc-container:not(.hidden) { 
-                display: block !important; 
-                width: 100% !important; 
+            header, footer, nav, button, .no-print, #finiquito-calc-container, #sueldo-calc-container { 
+                display: none !important; 
             }
-            #finiquito-calc-container.hidden, #sueldo-calc-container.hidden {
-                display: none !important;
-            }
-            .flex-grow { width: 100% !important; max-width: 100% !important; }
+            body { background: white !important; color: #000000 !important; padding: 20px; }
+            #print-template-finiquito:not(.hidden) { display: block !important; }
+            #print-template-sueldo:not(.hidden) { display: block !important; }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -303,6 +301,7 @@
                                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Vacaciones Proporcionales</a>
                                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cobrar Seguro Cesantía</a>
                                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Si no te Pagan el Finiquito</a>
+                                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100 rounded-lg transition-colors">🆕 Despido Injustificado</a>
                             </div>
                         </div>
                     </div>
@@ -335,6 +334,7 @@
                 <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
                 <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
                 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 hover:bg-sky-100">🆕 Despido Injustificado</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
                 <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
@@ -393,535 +393,293 @@
         <span class="material-icons text-xs">chevron_right</span>
         <a href="blog" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
         <span class="material-icons text-xs">chevron_right</span>
-        <span class="text-slate-600 font-semibold">¿Cuánto te corresponde de finiquito en 2026? Cómo calcularlo paso a paso en Chile</span>
+        <span class="text-slate-600 font-semibold">Cómo Reclamar un Despido Injustificado en Chile</span>
     </nav>
     
         
         <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
             <div class="prose-content max-w-none">
                 
-            <div class="prose-content max-w-none">
                 
-            <div class="prose-content max-w-none">
-                
-            <div class="prose-content max-w-none">
-                
-            <div class="prose-content max-w-none">
-                
-
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
-                <a href="/" class="hover:text-sky-600 transition-colors">Inicio</a>
-                <span class="material-icons text-[12px]">chevron_right</span>
-                <a href="finiquito_calculator" class="hover:text-sky-600 transition-colors">Calculadora
-                    Finiquito</a>
-                <span class="material-icons text-[12px]">chevron_right</span>
-                <span class="text-slate-500">Cómo calcular finiquito</span>
-            </nav>
-
-            <!-- Article Header -->
-            <header class="mb-12">
-                <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 border border-sky-200 bg-sky-50/40 rounded-2xl p-5 shadow-sm my-6 text-sky-600 text-xs font-semibold tracking-wider uppercase mb-4">
-                    <span class="material-icons text-[14px]">gavel</span>
-                    Guía Laboral
-                </div>
-                <h1 class="text-3xl sm:text-4xl font-bold text-slate-800 leading-tight mb-4">
-                    Cómo Reclamar un Despido Injustificado en Chile
-                    <span class="text-slate-500 font-normal text-2xl sm:text-3xl block mt-1">(guía legal 2026)</span>
-                </h1>
-                <div class="flex items-center gap-4 text-xs text-slate-500 mb-6">
-                    <span>Actualizado: Febrero 2026</span>
-                    <span>•</span>
-                    <span>12 min lectura</span>
-                </div>
-
-                <!-- E-E-A-T Trust Badge -->
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6 mb-8 mt-2">
-                    <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center flex-shrink-0">
-                        <span class="material-icons text-sky-600">gavel</span>
+                <!-- Article Header -->
+                <header class="mb-12">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 border border-sky-200 text-xs font-semibold tracking-wider uppercase mb-4">
+                        <span class="material-icons text-[14px]">gavel</span>
+                        Guía Legal
                     </div>
-                    <div>
-                        <p class="text-sm text-slate-800 font-semibold m-0">Revisado por Equipo Legal</p>
-                        <p class="text-xs text-slate-500 m-0">Basado estrictamente en el Código del Trabajo y
-                            Jurisprudencia de la Dirección del Trabajo (2026).</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-800 leading-tight mb-4">
+                        Cómo Reclamar un Despido Injustificado en Chile
+                        <span class="text-slate-500 font-normal text-2xl sm:text-3xl block mt-1">(guía legal 2026)</span>
+                    </h1>
+                    <div class="flex items-center gap-4 text-xs text-slate-500 mb-6">
+                        <span>Actualizado: Febrero 2026</span>
+                        <span>•</span>
+                        <span>12 min lectura</span>
                     </div>
-                </div>
-            </header>
 
-            <!-- Hero Image -->
-            <figure class="mb-10 max-w-[900px] mx-auto">
-                <div class="rounded-2xl overflow-hidden border border-slate-100">
-                    <img src="assets/guia-reclamar-despido-injustificado-cover.jpg"
-                        alt="Ilustración 3D conceptual sobre reclamo de despido injustificado en Chile - escalas de justicia y documentos legales"
-                        title="Guía para reclamar un despido injustificado en Chile: plazos, pasos e indemnizaciones"
-                        class="w-full h-auto max-h-[35vh] object-contain bg-slate-100/50" loading="lazy" width="1024"
-                        height="640" />
-                </div>
-                <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
-                    Guía legal sobre cómo reclamar un despido injustificado en Chile: plazos, indemnizaciones y
-                    recargos según el Código del Trabajo.
-                </figcaption>
-            </figure>
+                    <!-- E-E-A-T Trust Badge -->
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 mb-8 mt-2">
+                        <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-sky-600">gavel</span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-800 font-semibold m-0">Revisado por Equipo Legal</p>
+                            <p class="text-xs text-slate-500 m-0">Basado estrictamente en el Código del Trabajo y Jurisprudencia de la Dirección del Trabajo (2026).</p>
+                        </div>
+                    </div>
+                </header>
 
-            <!-- Article Body -->
-            <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900 text-sm sm:text-base">
+                <!-- Hero Image -->
+                <figure class="mb-10 max-w-[900px] mx-auto">
+                    <div class="rounded-2xl overflow-hidden border border-slate-100">
+                        <img src="assets/guia-reclamar-despido-injustificado-cover.jpg"
+                            alt="Ilustración 3D conceptual sobre reclamo de despido injustificado en Chile - escalas de justicia y documentos legales"
+                            title="Guía para reclamar un despido injustificado en Chile: plazos, pasos e indemnizaciones"
+                            class="w-full h-auto max-h-[35vh] object-contain bg-slate-100/50" loading="lazy" width="1024"
+                            height="640" />
+                    </div>
+                    <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
+                        Guía legal sobre cómo reclamar un despido injustificado en Chile: plazos, indemnizaciones y recargos según el Código del Trabajo.
+                    </figcaption>
+                </figure>
 
                 <!-- =============== 1. INTRODUCCIÓN =============== -->
                 <p>
-                    Si estás por dejar tu trabajo o ya te despidieron, una de las primeras preguntas que surge es
-                    <strong>cuánto me corresponde de finiquito</strong>. El finiquito es el documento legal que pone
-                    fin a la relación laboral, y realizar el <strong>cálculo de finiquito en Chile</strong> de forma
-                    correcta es esencial para asegurar que recibas todos los pagos que el empleador debe realizarte al
-                    terminar tu contrato.
+                    El término de una relación laboral suele ser un proceso complejo, pero se vuelve aún más difícil cuando consideras que tu desvinculación es arbitraria. En Chile, la legislación laboral protege la estabilidad en el empleo estableciendo que <strong>todo despido debe fundarse en alguna causal legal</strong> específica contemplada en el Código del Trabajo.
                 </p>
                 <p>
-                    Muchas personas aceptan su finiquito sin revisar los montos en detalle. Aquí te explicamos cómo
-                    verificar paso a paso que el cálculo sea correcto.
+                    Si tu empleador te despide sin invocar una causal válida, o si los hechos en los que se fundamenta la carta de despido son falsos, exagerados o inexistentes, te encuentras ante un <strong>despido injustificado, indebido o improcedente</strong>. Ante esto, la ley te otorga el derecho de reclamar para exigir recargos legales sobre tus indemnizaciones y la devolución de descuentos aplicados de forma indebida.
                 </p>
+
+                <!-- =============== 2. QUÉ ES EL DESPIDO INJUSTIFICADO =============== -->
+                <h2>1. ¿Qué se considera Despido Injustificado en Chile?</h2>
                 <p>
-                    En Chile, <strong>calcular el finiquito</strong> correctamente implica sumar varios componentes:
-                    la <strong>indemnización por años de servicio</strong>, las <strong>vacaciones
-                        proporcionales</strong>, el aviso previo y las remuneraciones pendientes. Sin embargo, muchos
-                    trabajadores calculan mal su monto porque desconocen los topes legales, confunden años completos con
-                    fracciones, o no consideran la causal de despido.
+                    Un despido se considera injustificado cuando no cumple con los requisitos mínimos de legalidad. Esto ocurre principalmente en tres situaciones:
                 </p>
-                <p>
-                    En esta guía te explicamos paso a paso cómo calcular cada componente, con un
-                    <strong>ejemplo numérico real</strong> y las fórmulas que necesitas. Si prefieres una estimación
-                    rápida, puedes usar nuestra
-                    <a href="finiquito_calculator">calculadora para calcular tu finiquito en Chile</a> gratuita.
-                </p>
-
-                <h2>¿Cuánto me corresponde de finiquito según mis años trabajados?</h2>
-                <p>
-                    El monto exacto que recibirás dependerá directamente de tu antigüedad, de tu remuneración mensual y
-                    de la causal de término de contrato. La ley establece que se debe pagar un mes de sueldo por cada
-                    año trabajado, considerando ciertos topes. Para no confundirte con las matemáticas y los factores,
-                    puedes ingresar tus datos exactos en el <a href="finiquito_calculator">simulador de finiquito en
-                        Chile</a> para conocer de inmediato el monto estimado antes de firmar cualquier documento.
-                </p>
-
-                <!-- =============== 2. ¿QUÉ INCLUYE EL FINIQUITO? =============== -->
-                <h2>¿Qué incluye el finiquito?</h2>
-                <p>
-                    El finiquito en Chile puede incluir los siguientes conceptos, dependiendo de tu situación:
-                </p>
-                <ol>
-                    <li><strong>Remuneraciones pendientes:</strong> días trabajados del mes en curso que aún no te han
-                        pagado.</li>
-                    <li><strong>Indemnización sustitutiva del aviso previo:</strong> equivale a un mes de sueldo. Se
-                        paga cuando el empleador no te avisa con 30 días de anticipación (Art. 162 del
-                        <a href="https://www.bcn.cl/leychile/navegar?idNorma=207436" target="_blank"
-                            rel="noopener noreferrer">Código del Trabajo</a>).
-                    </li>
-                    <li><strong>Indemnización por años de servicio:</strong> un mes de sueldo por cada año trabajado,
-                        con tope de 11 años y 90 UF por mes (Art. 163). Solo aplica en ciertos tipos de despido.</li>
-                    <li><strong>Vacaciones proporcionales:</strong> los días de descanso que acumulaste y no tomaste en
-                        el año laboral en curso.</li>
-                    <li><strong>Vacaciones pendientes:</strong> días de vacaciones de años anteriores que no utilizaste.
-                    </li>
-                    <li><strong>Gratificación proporcional:</strong> si tu empresa paga gratificación legal.</li>
-                    <li><strong>Otros conceptos:</strong> bonos pactados, horas extra adeudadas u otros haberes según
-                        contrato o convenio colectivo.</li>
-                </ol>
-
-                <div class="callout">
-                    <p class="!mb-0"><strong>Importante:</strong> No todos los conceptos se pagan siempre. La
-                        indemnización por años de servicio, por ejemplo, <strong>solo aplica cuando te despiden por
-                            necesidades de la empresa</strong> (Art. 161) u otras causales específicas. Si renuncias
-                        voluntariamente, ese ítem no corresponde.</p>
-                </div>
-
-                <!-- Callout con enlace a finiquito no pagado -->
-                <div class="my-6 p-5 rounded-xl bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all border border-red-200 bg-red-50/40 rounded-2xl p-5 shadow-sm my-6 shadow-lg">
-                    <h4 class="text-red-600 font-bold text-sm mb-2 flex items-center gap-2 m-0">
-                        <span class="material-icons text-base">warning</span> ¿Tu empleador se está retrasando en el pago?
-                    </h4>
-                    <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-                        Por ley, existe un plazo máximo estricto para el pago de tu liquidación final. Te recomendamos leer nuestra guía crítica:
-                    </p>
-                    <p class="text-xs text-slate-500 m-0">
-                        👉 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="text-slate-800 hover:text-red-600 font-semibold underline transition-colors">
-                            Qué hacer si no te pagan el finiquito a tiempo en Chile
-                        </a>: Conoce las multas, el reajuste por IPC y cómo iniciar un reclamo formal ante la Inspección del Trabajo.
-                    </p>
-                </div>
-
-                <!-- =============== 3. FÓRMULA INDEMNIZACIÓN =============== -->
-                <h2>Fórmula para calcular la indemnización por años de servicio</h2>
-                <p>
-                    La indemnización por años de servicio es generalmente el componente más grande del finiquito.
-                    La fórmula es:
-                </p>
-
-                <div class="formula-box">
-                    <p class="!text-sky-700 !mb-2 text-sm">Indemnización = Última remuneración mensual × Años de
-                        servicio</p>
-                    <p class="!text-slate-500 !mb-0 text-xs">Topes: máximo 11 años y 90 UF por mes de indemnización</p>
-                </div>
-
-                <p>
-                    La <strong>última remuneración mensual</strong> incluye el sueldo base, gratificación legal y
-                    asignaciones imponibles habituales. No incluye horas extra ocasionales ni bonos esporádicos.
-                </p>
-
-                <h3>Ejemplo: cálculo de indemnización</h3>
-                <p>Supongamos los siguientes datos:</p>
                 <ul>
-                    <li><strong>Sueldo base:</strong> $800.000</li>
-                    <li><strong>Gratificación legal:</strong> $200.000 (tope legal)</li>
-                    <li><strong>Remuneración mensual:</strong> $1.000.000</li>
-                    <li><strong>Antigüedad:</strong> 5 años y 3 meses</li>
-                    <li><strong>Causal:</strong> Necesidades de la empresa (Art. 161)</li>
+                    <li><strong>Falta de causal legal:</strong> El empleador despide al trabajador sin invocar ninguna de las causales de los artículos 159, 160 o 161 del Código del Trabajo.</li>
+                    <li><strong>Causal improcedente (necesidades de la empresa no reales):</strong> Se invoca el artículo 161 (Necesidades de la empresa), pero los motivos no son objetivos, externos o permanentes (por ejemplo, despedir a alguien para contratar a otro trabajador con un sueldo menor).</li>
+                    <li><strong>Causal indebida (acusaciones falsas):</strong> Se aplican las causales de despido disciplinario del artículo 160 (falta de probidad, ausencias injustificadas, incumplimiento grave) sin pruebas reales o de manera desproporcionada.</li>
                 </ul>
 
-                <div class="callout-green callout">
-                    <p class="!mb-2"><strong>Paso 1:</strong> Calcular años de servicio → <strong>5 años y 3
-                            meses</strong>.</p>
-                    <p class="!mb-2">La ley reconoce <strong>fracciones superiores a 6 meses como un año
-                            completo</strong>. Como 3 meses no supera los 6, se cuentan <strong>5 años</strong>.</p>
-                    <p class="!mb-2"><strong>Paso 2:</strong> Verificar tope de 90 UF → $1.000.000 ÷ UF $38.800 ≈ 25,77
-                        UF. Está bajo el tope ✅</p>
-                    <p class="!mb-0"><strong>Paso 3:</strong> Indemnización = $1.000.000 × 5 =
-                        <strong>$5.000.000</strong>
-                    </p>
-                </div>
-
+                <!-- =============== 3. CAUSALES MÁS RECLAMADAS =============== -->
+                <h2>2. Las causales de despido más reclamadas</h2>
+                
+                <h3>Artículo 161: Necesidades de la Empresa</h3>
                 <p>
-                    Si tu sueldo supera las 90 UF mensuales (aprox. $3.492.000 en febrero 2026), la indemnización se
-                    calcula usando 90 UF como tope por cada año. Puedes verificar el valor actual de la UF en la
-                    <a href="https://www.sii.cl/valores_y_fechas/uf/uf2026.htm" target="_blank" rel="noopener noreferrer">página
-                        del SII</a>.
+                    Es la causal más utilizada y la que más juicios laborales genera. Los tribunales y la Dirección del Trabajo han establecido que las necesidades de la empresa deben ser <strong>graves, permanentes y ajenas a la voluntad del empleador</strong> (como una crisis económica severa o una reestructuración profunda e irreversible).
+                </p>
+                <p>
+                    Si la empresa sigue contratando personal en tu misma área, si tus funciones simplemente se reparten entre tus compañeros sin una reestructuración técnica real, o si el motivo de tu despido es meramente una mala relación personal, el despido es calificado como <strong>injustificado</strong>.
                 </p>
 
-                <!-- CTA intermedio -->
-                <div class="callout">
-                    <p class="!mb-0">💡 <strong>¿Prefieres calcularlo automáticamente?</strong>
-                        Usa nuestra <a href="finiquito_calculator">calculadora para calcular tu finiquito en
-                            Chile</a> y obtén un estimado en segundos.
-                    </p>
-                </div>
-
-                <!-- =============== 4. VACACIONES PROPORCIONALES =============== -->
-                <h2>Cómo calcular vacaciones proporcionales</h2>
+                <h3>Artículo 160: Despido Disciplinario (Sin derecho a indemnización)</h3>
                 <p>
-                    En Chile, todo trabajador tiene derecho a <strong>15 días hábiles de vacaciones por año
-                        trabajado</strong>. Si no completaste el año laboral en curso, te corresponde una fracción
-                    proporcional basada en el factor <strong>1,25 días hábiles por cada mes trabajado</strong>.
+                    Dado que estas causales eximen al empleador de pagar indemnización por años de servicio y aviso previo, los jueces son sumamente estrictos a la hora de evaluarlas. El empleador debe tener <strong>pruebas contundentes</strong> (documentos, grabaciones de seguridad, auditorías) y los hechos deben tener una gravedad tal que hagan imposible la continuidad laboral. Si la causal no está debidamente justificada, el juez ordenará pagar todas las indemnizaciones correspondientes más un recargo muy alto.
                 </p>
 
-                <div class="formula-box">
-                    <p class="!text-sky-700 !mb-2 text-sm">Días proporcionales = 1,25 × meses trabajados en el período
-                    </p>
-                    <p class="!text-sky-700 !mb-2 text-sm">Monto = (Sueldo ÷ 30) × Días proporcionales × 1,4</p>
-                    <p class="!text-slate-500 !mb-0 text-xs">El factor 1,4 convierte días hábiles a días corridos
-                        (calendario)</p>
-                </div>
-
-                <h3>Ejemplo: vacaciones proporcionales</h3>
-                <p>Siguiendo con nuestro caso (sueldo $800.000 + gratificación $200.000, 3,5 meses en el período
-                    actual — del 1 de diciembre al 15 de marzo):</p>
-                <ul>
-                    <li><strong>Meses en el período actual:</strong> 3,5</li>
-                    <li><strong>Días hábiles proporcionales:</strong> 1,25 × 3,5 = 4,375 días</li>
-                    <li><strong>Días corridos:</strong> 4,375 × 1,4 = 6,125 días</li>
-                    <li><strong>Sueldo diario:</strong> $1.000.000 ÷ 30 = $33.333</li>
-                    <li><strong>Monto:</strong> $33.333 × 6,125 = <strong>$204.167</strong> (aprox.)</li>
-                </ul>
-
+                <!-- =============== 4. PLAZOS LEGALES =============== -->
+                <h2>3. Los Plazos Legales para Reclamar</h2>
+                <p>
+                    Este es el punto más crítico del proceso: <strong>los plazos en materia laboral son cortos y fatales</strong>.
+                </p>
                 <div class="callout callout-amber">
-                    <p class="!mb-0">⚠️ <strong>¿Por qué pueden aparecer como $0?</strong> Si tu contrato termina
-                        justo en tu aniversario laboral (por ejemplo, cumples exactamente 5 años), no hay fracción de
-                        año que compensar. Los días de ese nuevo período aún no se han generado. Para más detalles,
-                        consulta nuestra
-                        <a href="guia-vacaciones-proporcionales">guía sobre vacaciones proporcionales</a>.
+                    <p class="!mb-0">
+                        ⚠️ <strong>Plazo principal:</strong> Dispones de un plazo de <strong>60 días hábiles</strong> (contados de lunes a sábado, excluyendo domingos y festivos) desde la fecha en que se hizo efectivo tu despido para interponer la demanda en los Tribunales de Letras del Trabajo.
+                    </p>
+                </div>
+                <h3>La interrupción del plazo por reclamo administrativo</h3>
+                <p>
+                    Si presentas un reclamo administrativo ante la <strong>Inspección del Trabajo</strong>, el plazo de 60 días <strong>se suspende</strong> temporalmente mientras dure el proceso de mediación.
+                </p>
+                <ul>
+                    <li>Una vez que finaliza el proceso administrativo (ya sea con acuerdo o con acta de no acuerdo), el plazo vuelve a correr.</li>
+                    <li><strong>Límite absoluto:</strong> La ley establece que, bajo ninguna circunstancia (incluso con la suspensión de la Inspección), se podrá interponer la demanda judicial transcurridos más de <strong>90 días corridos</strong> desde la fecha de desvinculación.</li>
+                </ul>
+
+                <!-- =============== 5. PASOS PARA RECLAMAR =============== -->
+                <h2>4. Pasos para Reclamar un Despido Injustificado</h2>
+                <p>
+                    Para asegurar que tu reclamo sea viable, debes seguir estrictamente los siguientes pasos ordenados cronológicamente:
+                </p>
+
+                <div class="step-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="step-number">1</span>
+                        <h4 class="m-0 font-bold text-slate-800">Firma del Finiquito con Reserva de Derechos</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-0">
+                        <strong>Este paso es obligatorio.</strong> Si firmas el finiquito de manera simple, estás aceptando que la relación laboral terminó conforme a la ley y que no tienes nada que reclamar. Para poder demandar, debes escribir a mano (de puño y letra) en el espacio de tu firma la siguiente leyenda: 
+                        <br><br>
+                        <span class="font-mono bg-slate-100 p-1.5 rounded block border border-slate-200 text-[11px] text-slate-700">"Me reservo el derecho de accionar judicialmente por despido injustificado, cobro de prestaciones adeudadas y devolución del descuento AFC".</span>
+                        <br>
+                        El empleador no puede negarte el pago de los montos no disputados del finiquito por escribir esta reserva. Si se niega a pagarte o a dejarte firmar con reserva, retírate y acude de inmediato a la Inspección del Trabajo.
                     </p>
                 </div>
 
-                <!-- =============== 5. EJEMPLO COMPLETO =============== -->
-                <h2>Ejemplo completo de finiquito paso a paso</h2>
-                <p>Ahora veamos el finiquito completo con todos los componentes:</p>
-
-<div class="bg-slate-50 border border-slate-200 rounded-xl p-5 my-6 shadow-sm">
-                    <h3 class="text-slate-800 font-bold mt-0 mb-3 text-base">📋 Datos del caso</h3>
-                    <ul class="mb-0 text-slate-750 space-y-1 font-medium">
-                        <li><strong>Trabajador:</strong> contrato indefinido</li>
-                        <li><strong>Sueldo base:</strong> $800.000</li>
-                        <li><strong>Gratificación legal:</strong> $200.000</li>
-                        <li><strong>Inicio contrato:</strong> 1 de diciembre de 2020</li>
-                        <li><strong>Fecha de despido:</strong> 15 de marzo de 2026</li>
-                        <li><strong>Causal:</strong> Necesidades de la empresa (Art. 161)</li>
-                        <li><strong>Aviso previo:</strong> No se dio con 30 días de anticipación</li>
-                        <li><strong>Vacaciones pendientes:</strong> 5 días</li>
-                    </ul>
+                <div class="step-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="step-number">2</span>
+                        <h4 class="m-0 font-bold text-slate-800">Presentación del Reclamo en la Inspección del Trabajo (DT)</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-0">
+                        Ingresa a la web de Mi DT o acude a una sucursal física de la Inspección del Trabajo para interponer tu reclamo administrativo. Esto detendrá provisionalmente el plazo legal de caducidad.
+                    </p>
                 </div>
 
-                <div class="overflow-x-auto my-6">
-                    <table class="w-full text-sm border-collapse">
+                <div class="step-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="step-number">3</span>
+                        <h4 class="m-0 font-bold text-slate-800">Asistencia a la Audiencia de Conciliación</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-0">
+                        Un fiscalizador de la Inspección citará a una reunión virtual o presencial entre tú y un representante de la empresa para revisar el caso. Si el empleador reconoce que el despido no está plenamente justificado, se puede firmar un acta de conciliación acordando el pago de un monto compensatorio extra.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="step-number">4</span>
+                        <h4 class="m-0 font-bold text-slate-800">Demanda en los Tribunales de Letras del Trabajo</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-0">
+                        Si en la Inspección no se llega a un acuerdo (se firma un "Acta de no Acuerdo"), debes iniciar una demanda judicial en tribunales laboralistas. Aquí se requerirá la representación de un abogado laboralista.
+                    </p>
+                </div>
+
+                <!-- =============== 6. RECANTOS Y MONTOS =============== -->
+                <h2>5. Montos e Indemnizaciones: Los Recargos Legales</h2>
+                <p>
+                    Si el Tribunal del Trabajo determina que tu despido fue efectivamente injustificado o improcedente, el empleador será condenado a pagarte las indemnizaciones legales con un **recargo porcentual** sobre la indemnización por años de servicio:
+                </p>
+
+                <div class="table-wrap">
+                    <table class="w-full text-xs text-left border border-slate-200">
                         <thead>
-                            <tr class="border-b border-slate-200">
-                                <th class="text-left py-3 pr-4 text-slate-600 font-semibold">Concepto</th>
-                                <th class="text-left py-3 pr-4 text-slate-600 font-semibold">Detalle</th>
-                                <th class="text-right py-3 text-slate-600 font-semibold">Monto</th>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 font-bold">
+                                <th class="py-2.5 px-4">Causal Invocada Originalmente</th>
+                                <th class="py-2.5 px-4 text-center">Recargo Legal Aplicado</th>
+                                <th class="py-2.5 px-4">Efecto Legal en Indemnizaciones</th>
                             </tr>
                         </thead>
-                        <tbody class="text-slate-500">
-                            <tr class="border-b border-slate-100">
-                                <td class="py-3 pr-4 font-medium text-slate-600">Remuneraciones pendientes</td>
-                                <td class="py-3 pr-4">15 días de marzo</td>
-                                <td class="py-3 text-right font-mono">$500.000</td>
+                        <tbody class="divide-y divide-slate-100 text-slate-700">
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Art. 161 (Necesidades de la empresa)</td>
+                                <td class="py-3 px-4 text-center font-bold text-sky-600 font-mono">+30%</td>
+                                <td class="py-3 px-4">Se calcula el 30% extra sobre el total de la indemnización por años de servicio.</td>
                             </tr>
-                            <tr class="border-b border-slate-100">
-                                <td class="py-3 pr-4 font-medium text-slate-600">Aviso previo</td>
-                                <td class="py-3 pr-4">1 mes de remuneración</td>
-                                <td class="py-3 text-right font-mono">$1.000.000</td>
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Art. 159 (Sin causal o vencimiento de contrato)</td>
+                                <td class="py-3 px-4 text-center font-bold text-amber-600 font-mono">+50%</td>
+                                <td class="py-3 px-4">Se ordena pagar la indemnización por años de servicio completa con un 50% de recargo.</td>
                             </tr>
-                            <tr class="border-b border-slate-100">
-                                <td class="py-3 pr-4 font-medium text-slate-600">Indemnización años de servicio</td>
-                                <td class="py-3 pr-4">$1.000.000 × 5 años</td>
-                                <td class="py-3 text-right font-mono">$5.000.000</td>
-                            </tr>
-                            <tr class="border-b border-slate-100">
-                                <td class="py-3 pr-4 font-medium text-slate-600">Vacaciones proporcionales</td>
-                                <td class="py-3 pr-4">3,5 meses del período actual</td>
-                                <td class="py-3 text-right font-mono">$204.167</td>
-                            </tr>
-                            <tr class="border-b border-slate-100">
-                                <td class="py-3 pr-4 font-medium text-slate-600">Vacaciones pendientes</td>
-                                <td class="py-3 pr-4">5 días × $33.333</td>
-                                <td class="py-3 text-right font-mono">$166.667</td>
-                            </tr>
-                            <tr class="border-t border-slate-200">
-                                <td class="py-4 pr-4 font-bold text-slate-800 text-base" colspan="2">Total estimado
-                                    finiquito</td>
-                                <td class="py-4 text-right font-bold text-emerald-600 text-base font-mono">$6.870.834
-                                </td>
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Art. 160 (Conductas imputables del trabajador)</td>
+                                <td class="py-3 px-4 text-center font-bold text-red-600 font-mono">+80% a +100%</td>
+                                <td class="py-3 px-4">Se restituye el derecho a indemnización por años de servicio y aviso previo, aplicando un recargo del 80% (o 100% si es infundada).</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
+                <h3>La Devolución del Descuento del Aporte Patronal AFC</h3>
                 <p>
-                    Este es un <strong>estimado referencial</strong>. Los montos exactos pueden variar según
-                    descuentos legales, bonos pactados y otros factores. Puedes obtener un cálculo más preciso usando
-                    nuestra <a href="finiquito_calculator">calculadora de finiquito</a>.
+                    Cuando el empleador te despide por Necesidades de la Empresa (Art. 161), la ley le permite descontar de tu indemnización por años de servicio el monto que él haya aportado a tu Cuenta Individual de Cesantía de la AFC (el 1,6% mensual de tu remuneración imponible).
                 </p>
-
-                <!-- =============== 6. ERRORES COMUNES =============== -->
-                <h2>Errores comunes al calcular el finiquito</h2>
-
-                <div class="space-y-4 my-6">
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">
-                            <span class="text-red-600">❌</span> No considerar el tope de 90 UF
-                        </h3>
-                        <p class="!mb-0 !text-sm">Si ganas más de 90 UF mensuales (aprox. $3.492.000), la
-                            indemnización no se calcula sobre tu sueldo real, sino sobre el tope de 90 UF. Muchos
-                            trabajadores se llevan una sorpresa al recibir menos de lo esperado.</p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">
-                            <span class="text-red-600">❌</span> Confundir años completos con fracciones
-                        </h3>
-                        <p class="!mb-0 !text-sm">La ley dice que las fracciones superiores a 6 meses se cuentan como
-                            un año completo. Pero si llevas, digamos, 5 años y 3 meses, solo cuentan 5 años para la
-                            indemnización. Muchas personas asumen que se redondea siempre hacia arriba.</p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">
-                            <span class="text-red-600">❌</span> No considerar la causal de despido
-                        </h3>
-                        <p class="!mb-0 !text-sm">La indemnización por años de servicio <strong>no se paga en todas las
-                                causales</strong>. Si te despiden por conducta improcedente (Art. 160), en principio no
-                            corresponde — aunque puedes reclamar si consideras que la causal no fue justificada.
-                            Consulta la
-                            <a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Dirección del Trabajo</a>
-                            para orientación.
-                        </p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">
-                            <span class="text-red-600">❌</span> Olvidar las vacaciones pendientes
-                        </h3>
-                        <p class="!mb-0 !text-sm">Las vacaciones proporcionales (del año en curso) y las vacaciones
-                            pendientes (de años anteriores) son conceptos distintos. Ambas deben pagarse en el
-                            finiquito. Verifica cuántos días tienes acumulados.</p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6 border-dashed">
-                        <p class="!mb-0 !text-sm text-slate-600">
-                            💡 <strong>Tip Útil:</strong> Puedes verificar tu remuneración imponible usando nuestra
-                            <a href="sueldo_liquido" class="text-sky-600 hover:underline">calculadora de sueldo
-                                líquido</a>.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- =============== 7. ARTÍCULO 160 =============== -->
-                <h2>¿Qué pasa si me despiden por el artículo 160?</h2>
-                <p>
-                    El <a href="https://www.bcn.cl/leychile/navegar?idNorma=207436" target="_blank"
-                        rel="noopener noreferrer">artículo 160 del Código del Trabajo</a> contempla las causales de despido
-                    sin derecho a indemnización, como conducta indebida grave, negociaciones incompatibles,
-                    abandono del trabajo, entre otras.
-                </p>
-                <p>
-                    Si te despiden invocando el artículo 160, <strong>en principio no te corresponde indemnización
-                        por años de servicio ni aviso previo</strong>. Sin embargo, sí te corresponden:
-                </p>
-                <ul>
-                    <li>Remuneraciones pendientes por los días trabajados.</li>
-                    <li>Vacaciones proporcionales y pendientes.</li>
-                    <li>Gratificación proporcional, si corresponde.</li>
-                </ul>
-
-                <div class="callout callout-amber">
-                    <p class="!mb-0">⚠️ <strong>¿Consideras que la causal es injustificada?</strong> Puedes reclamar
-                        ante la <a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Inspección del
-                            Trabajo</a> o demandar ante los Juzgados de Letras del
-                        Trabajo dentro de los <strong>60 días hábiles</strong> siguientes al despido. Si un juez
-                        declara el despido improcedente, el empleador deberá pagar la indemnización por años de
-                        servicio con un <strong>recargo del 50% al 80%</strong> según la causal invocada.
+                <div class="callout callout-danger">
+                    <p class="!mb-0">
+                        🛡️ <strong>Jurisprudencia unificada:</strong> La Corte Suprema ha establecido que **si el despido es declarado injustificado por el juez**, dicho descuento del aporte patronal de la AFC se vuelve **nulo e ilegal**. Por lo tanto, en la demanda judicial se exige y se ordena siempre **la devolución íntegra de ese monto descontado**.
                     </p>
                 </div>
 
-                <!-- =============== 8. FAQ =============== -->
-                <h2>Preguntas frecuentes sobre el finiquito</h2>
+                <!-- =============== 7. ¿SE REQUIERE ABOGADO? =============== -->
+                <h2>6. ¿Cuándo es Obligatorio un Abogado Laboral?</h2>
+                <p>
+                    La necesidad de contar con patrocinio de un abogado laboral depende del monto total demandado:
+                </p>
+                <ul>
+                    <li><strong>Procedimiento Monitorio (Menos de 15 UTM):</strong> Si la suma de lo que reclamas (indemnizaciones más recargos) es inferior a 15 UTM (aprox. $1.040.000 en 2026), puedes presentar la demanda en el tribunal laboral por ti mismo, sin abogado, utilizando formularios provistos por el tribunal. Sin embargo, contar con asistencia jurídica (como la Defensoría Laboral Pública - ODL o asesores particulares) incrementa sustancialmente las probabilidades de éxito.</li>
+                    <li><strong>Procedimiento General (15 UTM o más):</strong> Si tu reclamo supera las 15 UTM, la comparecencia y representación por medio de un **abogado habilitado para el ejercicio de la profesión es de carácter obligatorio**.</li>
+                </ul>
 
-                <div class="space-y-4 mb-8">
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿Cuánto tiempo tengo para firmar el
-                            finiquito?</h3>
-                        <p class="!mb-0 !text-sm">El empleador tiene un plazo máximo de <strong>10 días
-                                hábiles</strong> desde el término de la relación laboral para poner a disposición del
-                            trabajador el finiquito y su pago. No estás obligado a firmarlo de inmediato si no estás de
-                            acuerdo con los montos. Fuente:
-                            <a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Dirección del Trabajo</a>.
-                        </p>
+                <!-- =============== FAQ =============== -->
+                <h2>Preguntas Frecuentes sobre Despido Injustificado</h2>
+                
+                <div class="space-y-4 my-6">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿Puedo cobrar mi Seguro de Cesantía si demando al empleador?</h3>
+                        <p class="!mb-0 !text-sm">Sí. Iniciar una demanda judicial o un reclamo en la Inspección del Trabajo **no interfiere con el cobro de tus fondos de cesantía en la AFC**. Una vez que recibes tu carta de despido, puedes acudir a la AFC a tramitar tus giros mensuales de inmediato.</p>
                     </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿Puedo firmar el finiquito con reserva
-                            de derechos?</h3>
-                        <p class="!mb-0 !text-sm">Sí. Puedes firmar dejando constancia escrita de que te reservas el
-                            derecho a reclamar respecto de determinados conceptos o montos. Esto te permite cobrar lo
-                            que no está en disputa y reclamar el resto ante la Inspección del Trabajo o tribunales
-                            laborales.</p>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿Qué pasa si mi empleador me presiona para firmar el finiquito de inmediato?</h3>
+                        <p class="!mb-0 !text-sm">Por ley, el empleador tiene un plazo de **10 días hábiles** para poner a disposición del trabajador el finiquito y su pago. No existe ninguna obligación legal de firmar el mismo día del despido. Tómate el tiempo para leerlo, verificar los montos con nuestra <a href="finiquito_calculator" class="text-sky-600 font-semibold underline">calculadora de finiquito</a> y decidir si redactarás tu reserva de derechos.</p>
                     </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿Qué pasa si no estoy de acuerdo con
-                            el monto?</h3>
-                        <p class="!mb-0 !text-sm">Puedes no firmarlo y acudir a la
-                            <a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Inspección del Trabajo</a>
-                            para interponer un reclamo. Si no se llega a acuerdo en conciliación, puedes demandar ante
-                            los Juzgados de Letras del Trabajo. El plazo para reclamar judicialmente es de <strong>60
-                                días hábiles</strong> desde el despido.
-                        </p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿El finiquito paga impuestos?</h3>
-                        <p class="!mb-0 !text-sm">La indemnización por años de servicio hasta el tope legal (11 años)
-                            está <strong>exenta de impuestos</strong>. Sin embargo, las remuneraciones pendientes, el
-                            aviso previo y las vacaciones pueden estar afectas al impuesto único al trabajo. Para más
-                            detalles, consulta el
-                            <a href="https://www.sii.cl" target="_blank" rel="noopener noreferrer">Servicio de Impuestos
-                                Internos</a>.
-                        </p>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <h3 class="text-slate-800 font-semibold !text-sm !font-bold !mt-0 !mb-2">¿Cuánto se demora un juicio laboral en Chile?</h3>
+                        <p class="!mb-0 !text-sm">En promedio, un juicio laboral bajo procedimiento general tarda entre **3 y 6 meses** en resolverse en primera instancia, dependiendo de la carga del tribunal de tu comuna. La gran mayoría de los casos se resuelven antes de la sentencia mediante una conciliación acordada ante el juez en la primera audiencia.</p>
                     </div>
                 </div>
 
-                <!-- =============== 8. FUENTES OFICIALES =============== -->
+                <!-- =============== FUENTES OFICIALES =============== -->
                 <h2>Fuentes oficiales y referencias</h2>
                 <ul>
-                    <li><a href="https://www.bcn.cl/leychile/navegar?idNorma=207436" target="_blank"
-                            rel="noopener noreferrer">Código del Trabajo</a> — Biblioteca del Congreso Nacional (Arts. 159–178)
-                    </li>
-                    <li><a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Dirección del Trabajo</a> —
-                        Portal de consultas laborales</li>
-                    <li><a href="https://www.sii.cl/valores_y_fechas/uf/uf2026.htm" target="_blank"
-                            rel="noopener noreferrer">Servicio de Impuestos Internos</a> — Valores UF actualizados</li>
+                    <li><a href="https://www.bcn.cl/leychile/navegar?idNorma=207436" target="_blank" rel="noopener noreferrer">Código del Trabajo de Chile</a> — Artículos 161, 168 y 177, que regulan la validez de los despidos y las formalidades de los finiquitos.</li>
+                    <li><a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Dirección del Trabajo (DT)</a> — Dictámenes y circulares sobre el uso correcto del Artículo 161 y los requisitos de la reserva de derechos.</li>
+                    <li><a href="https://www.sii.cl" target="_blank" rel="noopener noreferrer">Servicio de Impuestos Internos (SII)</a> — Tabla de valores vigentes de la UF y UTM para el año 2026.</li>
                 </ul>
 
-                <!-- =============== 9. CTA =============== -->
-                <div
-                    class="mt-10 p-8 rounded-2xl bg-gradient-to-br from-sky-50 to-blue-50 border border-sky-100 rounded-2xl p-8 my-6 text-center border border-sky-200 bg-sky-50/40 rounded-2xl p-5 shadow-sm my-6 text-center shadow-lg shadow-blue-500/10">
+                <!-- =============== CTA =============== -->
+                <div class="mt-10 p-8 rounded-2xl bg-gradient-to-br from-sky-50 to-blue-50 border border-sky-200 text-center shadow-lg shadow-blue-500/10">
                     <h3 class="text-slate-800 font-semibold !text-2xl !font-bold !mb-4 !mt-0 !border-0 !pb-0">
-                        Simula tu próximo finiquito online
+                        Calcula tu finiquito con precisión legal
                     </h3>
                     <p class="!text-slate-600 !text-base !mb-6">
-                        Si quieres evitar el cálculo manual, utiliza nuestra herramienta automatizada. Nuestra <strong>calculadora de finiquito</strong> está actualizada a 2026 e incluye todos los topes legales de la Dirección del Trabajo.
+                        Antes de firmar o iniciar cualquier reclamo, verifica los montos de tu indemnización por años de servicio, aviso previo y feriado proporcional de manera automática. Nuestra herramienta gratuita está actualizada a la normativa de 2026.
                     </p>
                     <a href="finiquito_calculator" title="Calculadora de Finiquito en Chile"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                         <span class="material-icons">calculate</span>
                         Ir a la Calculadora de Finiquito
                     </a>
                     <p class="!text-xs !text-slate-500 !mt-4 !mb-0">
-                        Resultados instantáneos y 100% confidenciales
+                        Resultados inmediatos con topes oficiales y desglose legal completo.
                     </p>
                 </div>
 
                 <!-- Cross-links -->
                 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <a href="sueldo_liquido"
-                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-200 hover:shadow-md transition-all border border-slate-100 hover:border-green-400 hover:bg-green-50/30 transition-colors group block">
+                    <a href="despido-necesidades-empresa-articulo-161"
+                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-sky-400 hover:bg-sky-50/30 hover:shadow-md transition-all group block">
                         <div class="flex items-center gap-3">
-                            <span
-                                class="material-icons text-emerald-600 group-hover:text-green-300 transition-colors">payments</span>
+                            <span class="material-icons text-sky-600">gavel</span>
                             <div>
-                                <p class="text-slate-800 font-semibold !text-sm !font-semibold !mb-0">Calculadora de Sueldo Líquido</p>
-                                <p class="!text-slate-500 !text-xs !mb-0">Calcula cuánto te queda después de
-                                    descuentos</p>
+                                <p class="text-slate-800 font-semibold !text-sm !font-semibold !mb-0">Guía de Necesidades de la Empresa</p>
+                                <p class="!text-slate-500 !text-xs !mb-0">Aprende qué hechos justifican el uso legal de la causal del Art. 161</p>
                             </div>
                         </div>
                     </a>
                     <a href="guia-vacaciones-proporcionales"
-                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-200 hover:shadow-md transition-all border border-slate-100 hover:border-sky-400 hover:bg-sky-50/30 transition-colors group block">
+                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-sky-400 hover:bg-sky-50/30 hover:shadow-md transition-all group block">
                         <div class="flex items-center gap-3">
-                            <span
-                                class="material-icons text-sky-600 group-hover:text-sky-700 transition-colors">beach_access</span>
+                            <span class="material-icons text-sky-600">beach_access</span>
                             <div>
-                                <p class="text-slate-800 font-semibold !text-sm !font-semibold !mb-0">Guía de Vacaciones Proporcionales
-                                </p>
-                                <p class="!text-slate-500 !text-xs !mb-0">Entiende cuándo corresponden y cuándo dan $0
-                                </p>
+                                <p class="text-slate-800 font-semibold !text-sm !font-semibold !mb-0">Cálculo de Vacaciones Proporcionales</p>
+                                <p class="!text-slate-500 !text-xs !mb-0">Entiende cómo se valorizan tus días pendientes en el finiquito</p>
                             </div>
                         </div>
                     </a>
                 </div>
 
-                <!-- E-E-A-T -->
-                <div class="mt-8 p-4 rounded-lg bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
+                <!-- E-E-A-T Disclaimer -->
+                <div class="mt-8 p-4 rounded-lg bg-slate-50 border border-slate-200">
                     <p class="!text-xs !text-slate-500 !mb-0 !leading-relaxed">
-                        📋 Contenido actualizado conforme al Código del Trabajo vigente a febrero 2026.
-                        Los valores de UF y topes legales corresponden a los publicados por el
-                        <a href="https://www.sii.cl/valores_y_fechas/uf/uf2026.htm" target="_blank"
-                            rel="noopener noreferrer">Servicio de Impuestos Internos</a>.
+                        📋 Contenido de orientación jurídica elaborado en conformidad con el Código del Trabajo y jurisprudencia judicial de la República de Chile vigente al año 2026.
                     </p>
                     <p class="!text-xs !text-slate-500 !mt-2 !mb-0 !leading-relaxed italic">
-                        Esta guía fue elaborada con base en normativa vigente y revisión de fuentes oficiales públicas.
+                        Esta información es de carácter general. Ante una desvinculación laboral, te sugerimos asesorarte con abogados especialistas para el análisis de tu caso particular.
                     </p>
                 </div>
-
-                <!-- Disclaimer -->
-                <div class="mt-8 p-4 rounded-lg bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6">
-                    <p class="!text-xs !text-slate-500 !mb-0 !leading-relaxed">
-                        <strong>Aviso legal:</strong> Esta guía es informativa y no constituye asesoría legal. Los
-                        montos y condiciones pueden variar según las particularidades de cada contrato, convenio
-                        colectivo o sentencia judicial. Para casos específicos, consulta a un abogado laboralista o
-                        acude a la
-                        <a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Inspección del Trabajo</a>.
-                    </p>
-                </div>
-            </div>
-        
-            </div>
-        
-            </div>
-        
-            </div>
-        
-            </div>
-        
+            
             </div>
         </article>
     </div>
@@ -1062,7 +820,7 @@
     <!-- EmailJS & PDF print functions -->
     <script>
         (function() {
-            emailjs.init("HIi9_S1hAf7mWQU_W");
+            emailjs.init("{HIi9_S1hAf7mWQU_W}");
         })();
 
         function descargarPDF() {
@@ -1080,7 +838,7 @@
                 return;
             }
 
-            emailjs.send("service_plsair4", "template_u1juvx1", {
+            emailjs.send("{service_plsair4}", "{template_u1juvx1}", {
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,
