@@ -362,6 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (display.mobileResultBar) {
             setText(display.mobileResultValue, formatCLP(d.netSalary));
             setText(display.mobileResultPercentage, `${perc.toFixed(1)}%`);
+            var mobileLabel = document.getElementById('mobile-result-label');
+            if (mobileLabel) mobileLabel.textContent = 'Líquido a pago';
 
             if (d.netSalary > 0) {
                 display.mobileResultBar.classList.remove('translate-y-full');

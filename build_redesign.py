@@ -3085,7 +3085,7 @@ INDEX_CONTENT = """
     <!-- Mobile Result Bar shared at the bottom -->
     <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
         <div>
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
+            <span id="mobile-result-label" class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
             <div class="flex items-baseline gap-1.5">
                 <span id="mobile-result-value" class="text-2xl font-black text-slate-900 tracking-tight font-mono">$0</span>
                 <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>

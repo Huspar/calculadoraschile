@@ -1120,7 +1120,7 @@
     <!-- Mobile Result Bar shared at the bottom -->
     <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
         <div>
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
+            <span id="mobile-result-label" class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
             <div class="flex items-baseline gap-1.5">
                 <span id="mobile-result-value" class="text-2xl font-black text-slate-900 tracking-tight font-mono">$0</span>
                 <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>
@@ -1693,6 +1693,8 @@
                 
                 // Hide sueldo mobile bar and trigger calculations for finiquito
                 document.getElementById('mobile-result-bar').classList.add('translate-y-full');
+                var label = document.getElementById('mobile-result-label');
+                if (label) label.textContent = 'Total Finiquito';
                 if (typeof updateCalculations === 'function') updateCalculations();
             } else {
                 containerFiniquito.classList.add('hidden');
@@ -1701,6 +1703,8 @@
                 btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
                 
                 // Trigger sueldo calculations
+                var label = document.getElementById('mobile-result-label');
+                if (label) label.textContent = 'Líquido a pago';
                 const salaryInput = document.getElementById('salary');
                 if (salaryInput) salaryInput.dispatchEvent(new Event('input', { bubbles: true }));
             }

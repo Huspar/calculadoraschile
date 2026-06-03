@@ -496,6 +496,8 @@ function updateCalculations() {
 
         // Update Mobile Bottom Bar if exists
         if (elements.mobileResultValue) elements.mobileResultValue.textContent = format(results.total).replace(' CLP', '');
+        var mobileLabel = document.getElementById('mobile-result-label');
+        if (mobileLabel) mobileLabel.textContent = 'Total Finiquito';
 
         if (elements.yearsServiceAmount) elements.yearsServiceAmount.textContent = format(results.indemnities.yearsOfService.total);
 
