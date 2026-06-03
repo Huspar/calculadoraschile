@@ -78,6 +78,36 @@
       "sourceType": "github",
       "skillPath": "skills/stitch-skill/SKILL.md",
       "computedHash": "acf2921a7e50c06e637f072ba52e36a994cbb44ecbe6e31435bc113b894f5499"
+    },
+    "uiux-designer": {
+      "source": "antigravityskills.com/skills/skill-uiux-designer-914f95c8",
+      "sourceType": "url",
+      "skillPath": "skills/uiux-designer/SKILL.md",
+      "computedHash": "e2dc02f0728694c6886f840e01d8d100d4f5fac4f9ddd3774790341591890326"
+    },
+    "frontend-expert": {
+      "source": "antigravityskills.com/skills/skill-frontend-expert-1b313720",
+      "sourceType": "url",
+      "skillPath": "skills/frontend-expert/SKILL.md",
+      "computedHash": "cb81d33012d12d90a2cf705219d1f2a5a7399adcaed05af5af56d323fc87c1ac"
+    },
+    "humanizer": {
+      "source": "antigravityskills.com/skills/skill-humanizer-fe530a47",
+      "sourceType": "url",
+      "skillPath": "skills/humanizer/SKILL.md",
+      "computedHash": "8326b10ddf4f821fac337e9f413fb98577d7275314096969a131bfe1e3aa176e"
+    },
+    "docs-generator": {
+      "source": "antigravityskills.com/skills/skill-docs-generator-76dd4cdb",
+      "sourceType": "url",
+      "skillPath": "skills/docs-generator/SKILL.md",
+      "computedHash": "cc857795ae4bda0efe7614345c833c6423d835b70621a96c720e0fb619c2820d"
+    },
+    "api-builder": {
+      "source": "antigravityskills.com/skills/skill-api-builder-aa5bc505",
+      "sourceType": "url",
+      "skillPath": "skills/api-builder/SKILL.md",
+      "computedHash": "2b6b73028a09b278486733b882f932f86d868500f7663fede6ffe000c95d37ee"
     }
   }
 }

@@ -1,308 +1,272 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="es">
-
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calcula tu finiquito online en segundos con el formato oficial de la DT. Incluye indemnización por años de servicio, vacaciones y aviso previo.">
     <title>Calculadora de Finiquito Chile 2026 (Formato Oficial) | Simulador Exacto</title>
-    <meta name="description"
-        content="Calcula tu finiquito online en segundos con el formato oficial de la DT. Incluye indemnización por años de servicio, vacaciones y aviso previo. Gratis y actualizado a 2026.">
-    <meta name="keywords"
-        content="finiquito, calculadora finiquito, cálculo laboral, leyes laborales chile, indemnización años de servicio, vacaciones proporcionales, calculolaboral.cl">
-    <link rel="canonical" href="https://calculolaboral.cl/finiquito_calculator">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
-    <link rel="icon" href="/favicon.ico?v=3">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
-
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Calculadora de Finiquito en Chile - Cálculo Laboral">
-    <meta property="og:description"
-        content="Calcula tu finiquito de forma rápida y gratuita siguiendo la legislación laboral chilena.">
-    <meta property="og:image" content="https://calculolaboral.cl/assets/guia-calculo-finiquito-chile-2026.png">
-    <meta property="og:url" content="https://calculolaboral.cl/finiquito_calculator">
-    <meta property="og:type" content="website">
-
-    <!-- Schema.org for Google -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Simulador de Finiquito en Chile (2026) | Calcula tu indemnización al instante",
-      "url": "https://calculolaboral.cl/finiquito_calculator",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript",
-      "description": "Calculadora legal para liquidación de finiquitos en Chile."
-    }
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'sans-serif'],
+                        mono: ['Geist Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                    }
+                }
+            }
+        }
     </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "¿Quanto tiempo tiene el empleador para pagar el finiquito?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El empleador tiene un plazo máximo de 10 días hábiles contados desde el término de la relación laboral para poner el finiquito y su pago a disposición del trabajador."
-        }
-      }, {
-        "@type": "Question",
-        "name": "¿El finiquito incluye vacaciones proporcionales?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sí. El finiquito debe incluir el pago de los días de vacaciones que el trabajador no alcanzó a usar (feriado proporcional), calculados en base a su sueldo íntegro."
-        }
-      }, {
-        "@type": "Question",
-        "name": "¿Se paga indemnización si renuncio?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Si renuncias voluntariamente (Art. 159 N°2), no tienes derecho a indemnización por años de servicio ni aviso previo. Solo se pagan las vacaciones proporcionales y días trabajados."
-        }
-      }, {
-        "@type": "Question",
-        "name": "¿Qué pasa si no me pagan el finiquito?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Debes acudir a la Inspección del Trabajo para interponer un reclamo. Si el empleador no paga, podría ser sancionado con multas y reajustes."
-        }
-      }, {
-        "@type": "Question",
-        "name": "¿El cálculo es exacto?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Esta calculadora entrega una estimación muy precisa basada en el Código del Trabajo. Sin embargo, el monto final puede variar según bonos específicos, Gratificaciones pendientes o deudas con la CCAF."
-        }
-      }]
-    }
-    </script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <!-- Tailwind Configuration -->
     <style>
-        :root {
-            --font-display: 'Outfit', sans-serif;
-            --font-body: 'Plus Jakarta Sans', 'Inter', sans-serif;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: #070a13;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-
-        h1, h2, h3, h4, h5, h6, .font-display {
-            font-family: var(--font-display);
+        .prose-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
         }
-
-        /* Custom scrollbar for dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .prose-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
         }
-
-        ::-webkit-scrollbar-track {
-            background: #070a13;
+        .prose-content p {
+            margin-bottom: 1.25rem;
+            line-height: 1.75;
         }
-
-        ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 4px;
+        .prose-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #334155;
+        .prose-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
         }
-
-        /* Refined Premium Glassmorphism */
-        .glass-panel {
-            background: linear-gradient(135deg, rgba(20, 30, 48, 0.45) 0%, rgba(13, 20, 35, 0.65) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-                0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 20px 40px -15px rgba(0, 0, 0, 0.5);
-            border-radius: 1.25rem;
+        .prose-content li {
+            margin-bottom: 0.5rem;
         }
-
-        .glass {
-            background: rgba(13, 20, 35, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .prose-content strong {
+            color: #0f172a;
+            font-weight: 600;
         }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #0ea5e9, #22d3ee);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .prose-content a {
+            color: #0ea5e9;
+            text-decoration: underline;
+            font-weight: 500;
         }
-
-        /* Premium Form Inputs */
-        .glass-input {
-            background: rgba(10, 15, 26, 0.85) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 0.75rem !important;
-            padding: 0.875rem 1rem !important;
+        .prose-content a:hover {
+            color: #0284c7;
+        }
+        .prose-content a.cta-btn {
             color: #ffffff !important;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4) !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
         }
-
-        .glass-input:hover:not(:focus) {
-            border-color: rgba(255, 255, 255, 0.18) !important;
+        .prose-content a.cta-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
         }
-
-        .glass-input:focus {
-            border-color: #0ea5e9 !important;
-            box-shadow: 
-                inset 0 2px 4px 0 rgba(0, 0, 0, 0.4), 
-                0 0 0 3px rgba(14, 165, 233, 0.15) !important;
-            outline: none !important;
-            transform: translateY(-1px);
+        .prose-content .callout {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
         }
-
-        /* Hide number input spinners */
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            appearance: none;
-            margin: 0;
+        .prose-content .callout-amber {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
         }
-
-        input[type=number] {
-            -moz-appearance: textfield;
-            appearance: textfield;
+        .prose-content .formula-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            text-align: center;
         }
-
-        /* Tactile Buttons with Spring Physics Feedback */
-        .btn-primary-premium {
-            background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 
-                0 4px 12px 0 rgba(14, 165, 233, 0.25);
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .rubro-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
         }
-
-        .btn-primary-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 
-                0 8px 20px 0 rgba(14, 165, 233, 0.4);
-            filter: brightness(1.05);
+        .rubro-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
-
-        .btn-primary-premium:active {
-            transform: translateY(0) scale(0.97);
+        .rubro-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            flex-shrink: 0;
         }
-
-        .btn-secondary-premium {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .rubro-imponible {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border: 1px solid #e0f2fe;
         }
-
-        .btn-secondary-premium:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
+        .rubro-no-imponible {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #dcfce7;
         }
-
-        .btn-secondary-premium:active {
-            transform: translateY(0) scale(0.97);
+        .rubro-descuento {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fee2e2;
         }
-
-        /* Tabular figures for decimals alignment */
-        .tabular-nums {
-            font-variant-numeric: tabular-nums;
+        .timeline-item {
+            position: relative;
+            padding-left: 1.75rem;
+            border-left: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
         }
-
-        /* Ad Slots configuration */
-        .ad-slot {
-            display: none;
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: #cbd5e1;
+            border: 2px solid #ffffff;
+            transition: all 0.2s ease;
         }
-
-        .ad-slot.is-active {
-            display: block;
+        .timeline-item.active {
+            border-left-color: #0ea5e9;
+        }
+        .timeline-item.active::before {
+            background-color: #0ea5e9;
+            left: -7px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 0 4px rgb(14 165 233 / 0.15);
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .step-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+        }
+        .step-number {
+            width: 2.25rem;
+            height: 2.25rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .field-error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
         }
     </style>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y03F1WB8J"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-9Y03F1WB8J');
-    </script>
-    <!-- End Google Analytics -->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- Structured Data: BreadcrumbList -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://calculolaboral.cl/" },
-        { "@type": "ListItem", "position": 2, "name": "Calculadora de Finiquito", "item": "https://calculolaboral.cl/finiquito_calculator" }
-      ]
-    }
-    </script>
+    
 </head>
+<body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
-<body
-    class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200 min-h-screen flex flex-col selection:bg-primary selection:text-white">
+    
     <!-- Header -->
-    <header class="fixed w-full top-0 z-50 transition-all duration-300 glass border-b border-white/5">
+    <header class="sticky top-0 w-full z-50 bg-white border-b border-slate-200 shadow-sm transition-all duration-300">
         <div class="max-w-[1200px] mx-auto px-6">
-            <div class="flex justify-between items-center h-16 sm:h-20">
+            <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <a href="/"
-                    class="flex-shrink-0 flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-                    <div
-                        class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                        <span class="material-icons text-white text-sm">calculate</span>
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                            <line x1="9" y1="9" x2="15" y2="9"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                            <line x1="9" y1="17" x2="15" y2="17"></line>
+                        </svg>
                     </div>
-                    <span class="font-bold text-xl tracking-tight text-white">Cálculo<span
-                            class="text-blue-400">Laboral</span></span>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
                 </a>
 
                 <!-- Desktop Menu -->
-                <nav class="hidden md:flex gap-8">
-                    <a href="/#herramientas"
-                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Calculadoras</a>
-                    <a href="/blog"
-                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Blog</a>
-                    <a href="/#faq"
-                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Preguntas</a>
-                    <a href="/contacto"
-                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Contacto</a>
+                <nav class="hidden md:flex gap-6 items-center">
+                    <!-- Dropdown Calculadoras -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors py-2 outline-none">
+                            Calculadoras
+                            <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
+                        </button>
+                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1">
+                                <a href="sueldo_liquido.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
+                                <a href="finiquito_calculator.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Guías -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors py-2 outline-none">
+                            Guías
+                            <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
+                        </button>
+                        <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1 max-h-[300px] overflow-y-auto">
+                                <a href="como-calcular-finiquito-chile.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Finiquito</a>
+                                <a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Sueldo Líquido</a>
+                                <a href="como-leer-liquidacion-de-sueldo.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Leer Liquidación</a>
+                                <a href="despido-necesidades-empresa-articulo-161.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Art. 161 Necesidades Empresa</a>
+                                <a href="ley-40-horas-chile-2026.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Ley 40 Horas 2026</a>
+                                <a href="guia-vacaciones-proporcionales.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Vacaciones Proporcionales</a>
+                                <a href="seguro-de-cesantia-chile-como-cobrar.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cobrar Seguro Cesantía</a>
+                                <a href="que-hacer-si-no-te-pagan-el-finiquito.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Si no te Pagan el Finiquito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="blog.html" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Blog</a>
+                    <a href="contacto.html" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
                 </nav>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center gap-4">
-                    <button id="mobile-menu-btn"
-                        class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-white/5 transition-colors">
+                    <button id="mobile-menu-btn" aria-label="Abrir menú de navegación" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100">
                         <span class="material-icons">menu</span>
                     </button>
                 </div>
@@ -310,1190 +274,1006 @@
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu"
-            class="hidden md:hidden glass border-t border-white/5 absolute w-full left-0 bg-slate-900/95">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200 absolute w-full left-0 z-40 shadow-lg">
             <div class="px-4 py-4 space-y-2">
-                <a href="/#herramientas"
-                    class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Calculadoras</a>
-                <a href="/blog"
-                    class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Blog</a>
-                <a href="/#faq"
-                    class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Preguntas</a>
-                <a href="/contacto"
-                    class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">Contacto</a>
+                <a href="sueldo_liquido.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="finiquito_calculator.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <a href="como-calcular-finiquito-chile.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
+                <a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
+                <a href="como-leer-liquidacion-de-sueldo.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
+                <a href="despido-necesidades-empresa-articulo-161.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Art. 161 Necesidades Empresa</a>
+                <a href="ley-40-horas-chile-2026.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Ley 40 Horas 2026</a>
+                <a href="guia-vacaciones-proporcionales.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
+                <a href="seguro-de-cesantia-chile-como-cobrar.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
+                <a href="que-hacer-si-no-te-pagan-el-finiquito.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <a href="blog.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
+                <a href="contacto.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
             </div>
         </div>
     </header>
-    <!-- Main Content -->
-    <main class="flex-grow pt-24 pb-8 px-4 sm:px-6 lg:px-8">
-        <!-- Intro Section (Full Width, Centered above the 2-Column Grid) -->
-        <div class="max-w-[1200px] mx-auto px-6 mb-8 text-center sm:text-left">
-            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-                Simulador de Finiquito en Chile
-            </h1>
-            <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                Calcula gratis tu indemnización por años de servicio, aviso previo y vacaciones proporcionales. Revisa tus montos antes de firmar, actualizado al 2026.
-            </p>
-            <div class="flex flex-wrap gap-2.5 justify-center sm:justify-start">
-                <span
-                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-[11px] font-semibold border border-green-500/20">
-                    <span class="material-icons text-[12px]">check_circle</span> Actualizado 2026
-                </span>
-                <span
-                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[11px] font-semibold border border-blue-500/20">
-                    <span class="material-icons text-[12px]">verified_user</span> Seguro y Privado
-                </span>
-                <span
-                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[11px] font-semibold border border-purple-500/20">
-                    <span class="material-icons text-[12px]">scale</span> Conforme a DT Chile
-                </span>
+
+    
+    <!-- Indicators Grid (5 Cards) -->
+    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <!-- UF Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">UF (Unidad de Fomento)</span>
+                <span class="uf-value text-lg font-extrabold text-slate-900 font-mono">$39.682,99</span>
+            </div>
+            <!-- UTM Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">UTM Mensual</span>
+                <span class="utm-value text-lg font-extrabold text-slate-900 font-mono">$69.611</span>
+            </div>
+            <!-- Sueldo Mínimo Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Sueldo Mínimo</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">$539.000</span>
+            </div>
+            <!-- Tope AFP Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Imponible AFP</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF</span>
+            </div>
+            <!-- Tope Finiquito Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Finiquito</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">90 UF</span>
             </div>
         </div>
-
-        <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-8 items-start">
-
-            <!-- COLUMNA IZQUIERDA -->
-            <div class="space-y-6">
-                <!-- Form Card -->
-                <div class="glass-panel rounded-2xl p-4 sm:p-6 shadow-xl relative">
-                    <!-- Form Header with Actions -->
-                    <div
-                        class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-5 border-b border-white/5 pb-4">
-                        <div class="flex-1 min-w-0 pr-4">
-                            <h2 class="text-xl font-bold text-white mb-1">Calculadora de Finiquito</h2>
-                            <p class="text-sm text-slate-400 mb-2">Ingresa los datos de tu relación laboral</p>
-                            <p class="text-sm text-slate-300 leading-relaxed">Usa este simulador de finiquito para
-                                calcular cuánto te
-                                corresponde por indemnización, aviso previo y vacaciones proporcionales.</p>
-                        </div>
-                        <div class="flex flex-wrap gap-3 w-full lg:w-auto shrink-0 mt-2 lg:mt-0">
-                            <button id="btnLoadExample" type="button"
-                                class="flex-1 sm:flex-none py-2 px-4 border border-[#0EA5E9] text-[#0EA5E9] hover:bg-[#0EA5E9]/10 font-medium rounded-lg text-sm transition-all shadow-[0_0_10px_rgba(14,165,233,0.1)] hover:shadow-[0_0_15px_rgba(14,165,233,0.3)] flex items-center justify-center gap-2">
-                                <span class="material-icons text-sm">auto_fix_high</span>
-                                Cargar Ejemplo
-                            </button>
-                            <button id="btnClear" type="button"
-                                class="flex-1 sm:flex-none py-2 px-4 border border-slate-600 text-slate-400 hover:text-white hover:border-slate-500 hover:bg-white/5 font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                                <span class="material-icons text-sm">restart_alt</span>
-                                Limpiar
-                            </button>
-                        </div>
-                    </div>
-
-                    <form id="calculator-form" class="space-y-5">
-                        <!-- Navigation Tabs (Sleek Glassmorphic Tab Bar) -->
-                        <div class="flex border border-white/10 mb-5 p-1 bg-slate-900/50 rounded-2xl backdrop-blur-md">
-                            <button type="button" id="tabBtn-contrato" onclick="switchTab('contrato')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-primary shadow-lg shadow-primary/20">
-                                1. Contrato
-                            </button>
-                            <button type="button" id="tabBtn-ingresos" onclick="switchTab('ingresos')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
-                                2. Ingresos
-                            </button>
-                            <button type="button" id="tabBtn-avanzado" onclick="switchTab('avanzado')" class="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-white hover:bg-white/5">
-                                3. Opciones
-                            </button>
-                        </div>
-                        <script>
-                            function switchTab(tabName) {
-                                var tabs = ['contrato', 'ingresos', 'avanzado'];
-                                var activeClasses = 'text-white bg-primary shadow-lg shadow-primary/20';
-                                var inactiveClasses = 'text-slate-400 hover:text-white hover:bg-white/5';
-                                for (var i = 0; i < tabs.length; i++) {
-                                    var btnEl = document.getElementById('tabBtn-' + tabs[i]);
-                                    var contentEl = document.getElementById('tabContent-' + tabs[i]);
-                                    if (!btnEl || !contentEl) continue;
-                                    if (tabs[i] === tabName) {
-                                        contentEl.classList.remove('hidden');
-                                        btnEl.className = 'flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ' + activeClasses;
-                                    } else {
-                                        contentEl.classList.add('hidden');
-                                        btnEl.className = 'flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ' + inactiveClasses;
-                                    }
-                                }
-                            }
-                        </script>
-
-                        <!-- TAB CONTENT 1: CONTRATO (Dates + Causal) -->
-                        <div id="tabContent-contrato" class="space-y-5">
-                            <!-- Section 1: Dates -->
-                            <div>
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                        1
-                                    </div>
-                                    <h3 class="text-lg font-semibold text-white">Fechas del Contrato</h3>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-medium text-slate-400 ml-1">Fecha de Inicio</label>
-                                        <div class="relative group">
-                                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <span class="material-icons text-slate-500 group-focus-within:text-primary text-xl">calendar_today</span>
-                                            </div>
-                                            <input id="startDate" class="block w-full pl-12 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all" type="date" placeholder="Ej: 01/03/2020" />
-                                        </div>
-                                        <p class="text-xs text-slate-500 ml-2">Fecha que figura en su contrato.</p>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-medium text-slate-400 ml-1">Fecha de Término</label>
-                                        <div class="relative group">
-                                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <span class="material-icons text-slate-500 group-focus-within:text-primary text-xl">event_busy</span>
-                                            </div>
-                                            <input id="endDate" class="block w-full pl-12 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all" type="date" placeholder="Ej: 15/01/2026" />
-                                        </div>
-                                        <p class="text-xs text-slate-500 ml-2">Último día trabajado (despido o renuncia).</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Section 3: Cause -->
-                            <div>
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                        2
-                                    </div>
-                                    <h3 class="text-lg font-semibold text-white">Causal de Término</h3>
-                                </div>
-                                <div class="space-y-3">
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-medium text-slate-400 ml-1">Selecciona la Causal</label>
-                                        <div class="relative">
-                                            <select id="cause" style="background-image: none !important;" class="block w-full pl-4 pr-10 py-3 bg-input-dark border border-white/10 rounded-full text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none cursor-pointer">
-                                                <option value="161">Art. 161 - Necesidades de la Empresa</option>
-                                                <option value="159-1">Art. 159 N°1 - Mutuo Acuerdo</option>
-                                                <option value="159-2">Art. 159 N°2 - Renuncia Voluntaria</option>
-                                                <option value="160">Art. 160 - Despido Disciplinario (Sin derecho a indemnización)</option>
-                                            </select>
-                                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                                <span class="material-icons text-slate-500">expand_more</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start gap-3 p-3 rounded-xl bg-primary/10 border border-primary/20">
-                                        <span class="material-icons text-primary text-lg mt-0.5">info</span>
-                                        <div>
-                                            <h4 class="text-xs font-bold text-white mb-1">Sobre el Art. 161</h4>
-                                            <p class="text-[11px] text-slate-400 leading-relaxed">Esta causal da derecho a indemnización por años de servicio y aviso previo (si no se avisó con 30 días de anticipación).</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between pt-4">
-                                    <label class="flex items-center gap-3 cursor-pointer group">
-                                        <div class="relative">
-                                            <input id="noticeGiven" class="peer sr-only" type="checkbox" />
-                                            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-                                        </div>
-                                        <span class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">¿Se dio aviso con 30 días de anticipación?</span>
-                                    </label>
-                                </div>
-                                <div class="flex justify-end pt-6 border-t border-white/5 mt-8">
-                                    <button type="button" onclick="switchTab('ingresos')" class="inline-flex items-center gap-2 px-6 py-3 btn-primary-premium text-white font-semibold rounded-xl transition-all text-sm group">
-                                        Siguiente paso
-                                        <span class="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- TAB CONTENT 2: INGRESOS & VACACIONES (Economics) -->
-                        <div id="tabContent-ingresos" class="space-y-5 hidden">
-                            <div>
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                        3
-                                    </div>
-                                    <h3 class="text-lg font-semibold text-white">Datos Económicos</h3>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    <div class="space-y-3">
-                                        <!-- Sueldo Base -->
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-slate-400 ml-1">Sueldo Base Mensual</label>
-                                            <div class="relative group">
-                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <span class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
-                                                </div>
-                                                <input id="baseSalary" data-type="currency" class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono" placeholder="Ej: 850.000" type="text" />
-                                            </div>
-                                            <p class="text-xs text-slate-500 ml-2">Sueldo bruto pactado en contrato.</p>
-                                        </div>
-
-                                        <!-- Variable Salary Toggle -->
-                                        <div class="pt-2 mb-2">
-                                            <label class="flex items-center gap-2 cursor-pointer group">
-                                                <input type="checkbox" id="hasVariableSalary" class="w-4 h-4 text-primary bg-input-dark border-gray-600 rounded focus:ring-primary focus:ring-2 transition-all">
-                                                <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">¿Sueldo Variable / Comisiones?</span>
-                                            </label>
-                                        </div>
-
-                                        <!-- Variable Salary Inputs -->
-                                        <div id="variableSalaryContainer" class="hidden space-y-3 pt-2 bg-white/5 p-4 rounded-xl border border-white/5 mb-4">
-                                            <div class="flex items-start gap-2">
-                                                <span class="material-icons text-primary text-xs mt-0.5">info</span>
-                                                <p class="text-xs text-slate-400 leading-relaxed">Ingrese los montos variables brutos de los <strong>últimos 3 meses completos</strong> trabajados.</p>
-                                            </div>
-                                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                <div class="space-y-1">
-                                                    <label class="text-xs text-slate-500 ml-1">Mes 1</label>
-                                                    <input id="varMonth1" data-type="currency" class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono" placeholder="Ej: 150.000">
-                                                </div>
-                                                <div class="space-y-1">
-                                                    <label class="text-xs text-slate-500 ml-1">Mes 2</label>
-                                                    <input id="varMonth2" data-type="currency" class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono" placeholder="Ej: 120.000">
-                                                </div>
-                                                <div class="space-y-1">
-                                                    <label class="text-xs text-slate-500 ml-1">Mes 3</label>
-                                                    <input id="varMonth3" data-type="currency" class="block w-full px-3 py-2 bg-input-dark border border-white/10 rounded-lg text-white text-sm placeholder-slate-600 focus:ring-1 focus:ring-primary focus:border-transparent text-right font-mono" placeholder="Ej: 180.000">
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-between items-center pt-2 border-t border-white/5">
-                                                <span class="text-xs text-slate-400 uppercase tracking-wider font-medium">Promedio</span>
-                                                <span id="variableAverageOutput" class="text-primary font-bold font-mono">$0</span>
-                                            </div>
-                                        </div>
-
-                                        <!-- Gratificación -->
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-slate-400 ml-1">Gratificación (Art. 50)</label>
-                                            <div class="relative group">
-                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <span class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
-                                                </div>
-                                                <input id="gratification" data-type="currency" class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono" placeholder="Ej: 213.354 (Tope)" type="text" />
-                                            </div>
-                                            <p class="text-xs text-slate-500 ml-2">Generalmente "25% con tope 4.75 IMM".</p>
-                                        </div>
-
-                                        <!-- Asignaciones -->
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-slate-400 ml-1">Asig. Fijas (Colación/Mov)</label>
-                                            <div class="relative group">
-                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                    <span class="text-slate-500 group-focus-within:text-primary font-bold">$</span>
-                                                </div>
-                                                <input id="assignments" data-type="currency" class="block w-full pl-10 pr-4 py-3 bg-input-dark border border-white/10 rounded-full text-white placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono" placeholder="Ej: 80.000" type="text" />
-                                            </div>
-                                            <p class="text-xs text-slate-500 ml-2">Total mensual de Colación y Movilización.</p>
-                                            <div class="pt-2">
-                                                <label class="flex items-center gap-2 cursor-pointer select-none">
-                                                    <input type="checkbox" id="includeAssignmentsInVacation" class="w-4 h-4 text-primary bg-input-dark border-gray-600 rounded focus:ring-primary focus:ring-2" checked>
-                                                    <span class="text-xs text-slate-400">Incluir en Vacaciones (Criterio Judicial)</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="space-y-4">
-                                        <div class="space-y-2">
-                                            <label class="block text-sm font-medium text-slate-400 ml-1">Días de Vacaciones Pendientes</label>
-                                            <div class="relative flex items-center bg-input-dark border border-white/10 rounded-full p-1 w-full">
-                                                <button id="btnVacationMinus" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors" type="button">
-                                                    <span class="material-icons text-sm">remove</span>
-                                                </button>
-                                                <input id="vacationPending" class="flex-1 bg-transparent border-none text-center text-white focus:ring-0 font-bold" type="number" placeholder="Ej: 15" />
-                                                <button id="btnVacationPlus" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors" type="button">
-                                                    <span class="material-icons text-sm">add</span>
-                                                </button>
-                                            </div>
-                                            <p class="text-xs text-slate-500 ml-2 text-center mt-1">Días hábiles acumulados no usados.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-8">
-                                    <button type="button" onclick="switchTab('contrato')" class="inline-flex items-center gap-2 px-5 py-2.5 btn-secondary-premium text-slate-300 font-semibold rounded-xl hover:text-white transition-all text-sm group">
-                                        <span class="material-icons text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
-                                        Atrás
-                                    </button>
-                                    <button type="button" onclick="switchTab('avanzado')" class="inline-flex items-center gap-2 px-6 py-3 btn-primary-premium text-white font-semibold rounded-xl transition-all text-sm group">
-                                        Siguiente paso
-                                        <span class="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- TAB CONTENT 3: OPCIONES AVANZADAS -->
-                        <div id="tabContent-avanzado" class="space-y-4 hidden">
-                            <div>
-                                <div class="flex items-center gap-3 mb-3">
-                                    <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
-                                        4
-                                    </div>
-                                    <h3 class="text-lg font-semibold text-white">Parámetros del Finiquito</h3>
-                                </div>
-                                <p class="text-xs text-slate-400 mb-3 leading-relaxed">
-                                    Activa o desactiva qué conceptos deseas incorporar en la liquidación del finiquito. Útil si ciertos montos ya se pagaron de forma anticipada.
-                                </p>
-                                
-                                <div id="advancedControls" class="space-y-3.5">
-                                    <!-- IAS Option -->
-                                    <label class="flex items-start gap-3 cursor-pointer group">
-                                        <div class="relative mt-0.5">
-                                            <input id="enableIAS" class="peer sr-only" type="checkbox" checked />
-                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                                        </div>
-                                        <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
-                                            Calcular Indemnización Años de Servicio (IAS)
-                                        </span>
-                                    </label>
-
-                                    <!-- Notice Option -->
-                                    <label class="flex items-start gap-3 cursor-pointer group">
-                                        <div class="relative mt-0.5">
-                                            <input id="enableNotice" class="peer sr-only" type="checkbox" checked />
-                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                                        </div>
-                                        <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
-                                            Calcular Aviso Previo
-                                        </span>
-                                    </label>
-
-                                    <!-- AFC Option -->
-                                    <label class="flex items-start gap-3 cursor-pointer group">
-                                        <div class="relative mt-0.5">
-                                            <input id="simulateAFC" class="peer sr-only" type="checkbox" checked />
-                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                                        </div>
-                                        <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
-                                            Simular Descuento Aporte AFC Empleador
-                                        </span>
-                                    </label>
-
-                                    <!-- Pending Salary Option -->
-                                    <label class="flex items-start gap-3 cursor-pointer group">
-                                        <div class="relative mt-0.5">
-                                            <input id="enablePending" class="peer sr-only" type="checkbox" checked />
-                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">
-                                                Incluir sueldo del último mes trabajado
-                                            </span>
-                                            <span class="text-[10px] text-slate-500 leading-tight">
-                                                Desmarca esto si tus últimos días trabajados ya te los pagaron por liquidación de sueldo regular.
-                                            </span>
-                                        </div>
-                                    </label>
-
-                                    <!-- Include Assignments in IAS -->
-                                    <label class="flex items-start gap-3 cursor-pointer group">
-                                        <div class="relative mt-0.5">
-                                            <input id="includeAssignmentsInIndemnity" class="peer sr-only" type="checkbox" />
-                                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <span class="text-xs font-medium text-slate-400 group-hover:text-white transition-colors">Incluir colación/movilización en IAS y aviso (no recomendado)</span>
-                                            <span class="text-[10px] text-slate-500 leading-tight">Muchas calculadoras no lo incluyen por no ser remuneración (Art. 41).</span>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-8">
-                                    <button type="button" onclick="switchTab('ingresos')" class="inline-flex items-center gap-2 px-5 py-2.5 btn-secondary-premium text-slate-300 font-semibold rounded-xl hover:text-white transition-all text-sm group">
-                                        <span class="material-icons text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
-                                        Atrás
-                                    </button>
-                                    <button type="button" onclick="showSimulationSummary()" class="inline-flex items-center gap-2 px-6 py-3 btn-primary-premium text-white font-semibold rounded-xl transition-all text-sm group">
-                                        Ver resultado
-                                        <span class="material-icons text-sm transition-transform group-hover:translate-y-0.5">done</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div> <!-- Closes Line 377 Form Card -->
-
-                <!-- Sticky Result Header (Mobile Only) -->
-                <div id="sticky-result-container" class="lg:hidden mb-6 transition-all duration-300">
-                    <div
-                        class="glass-panel shadow-2xl ring-1 ring-primary/30 bg-slate-900/95 backdrop-blur-xl border-primary/30 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="text-center sm:text-left flex-1 min-w-0">
-                            <h3 class="text-xs font-bold text-primary uppercase tracking-widest mb-1 truncate">Total
-                                Estimado</h3>
-                            <div class="flex items-baseline gap-2 justify-center sm:justify-start">
-                                <span id="totalAmountMobile"
-                                    class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight break-all">$
-                                    —</span>
-                                <span class="text-xs sm:text-sm font-medium text-slate-400">CLP</span>
-                            </div>
-                        </div>
-                        <div class="flex-shrink-0 mt-4 sm:mt-0">
-                            <button
-                                onclick="document.getElementById('results-panel').scrollIntoView({behavior: 'smooth', block: 'start'})"
-                                class="flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary text-sm font-bold rounded-lg transition-all border border-primary/20">
-                                <span class="material-icons text-sm">visibility</span>
-                                Ver detalle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Disclaimer Banner -->
-                <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-sm p-4 flex items-start gap-3 mt-4"
-                    role="alert">
-                    <span class="material-icons text-amber-400 text-xl mt-0.5 flex-shrink-0">gavel</span>
-                    <div>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            <strong class="text-amber-400">Simulación referencial.</strong>
-                            Los resultados no constituyen asesoría legal oficial ni reemplazan el cálculo formal del
-                            empleador. El monto exacto depende de la causal de término, contrato colectivo y otros
-                            factores.
-                            <a href="/disclaimer"
-                                class="text-amber-400 hover:text-amber-300 underline underline-offset-2 decoration-amber-400/30 transition-colors">Ver
-                                disclaimer completo</a>.
-                        </p>
-                    </div>
-                </div>
-
-            </div> <!-- Closes Line 231 COLUMNA IZQUIERDA -->
-
-
-            <!-- COLUMNA DERECHA -->
-            <div class="space-y-6 lg:sticky lg:top-24 lg:self-start">
-                <div id="results-panel"
-                    class="w-full glass-panel rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-                    <!-- Card Header with Gradient -->
-                    <div
-                        class="bg-gradient-to-r from-slate-900 to-slate-800 p-6 border-b border-white/5 relative overflow-hidden">
-                        <!-- Abstract deco -->
-                        <div
-                            class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none">
-                        </div>
-                        <h3 class="text-sm font-medium text-primary uppercase tracking-wider mb-1">Total
-                            Estimado
-                        </h3>
-                        <div class="flex items-baseline gap-1">
-                            <span id="totalAmount"
-                                class="text-4xl sm:text-5xl font-bold text-white tracking-tight">$6.850.250</span>
-                            <span class="text-sm text-slate-400 font-medium">CLP</span>
-                        </div>
-                        <p class="text-xs text-slate-500 mt-2 flex items-center gap-1">
-                            <span class="material-icons text-[14px]">update</span>
-                            Actualizado en tiempo real
-                        </p>
-                    </div>
-                    <!-- Card Body: Breakdown -->
-                    <div class="p-6 space-y-6 bg-card-dark/50">
-                        <!-- Key Metrics -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-background-dark p-3 rounded-xl border border-white/5 text-center">
-                                <span class="block text-xs text-slate-400 mb-1">Antigüedad</span>
-                                <span id="antiquityOutput" class="block text-lg font-bold text-white">3 años, 7
-                                    meses</span>
-                            </div>
-                            <div class="bg-background-dark p-3 rounded-xl border border-white/5 text-center">
-                                <span class="block text-xs text-slate-400 mb-1">Vacaciones</span>
-                                <span id="totalVacationDaysOutput" class="block text-lg font-bold text-white">15.5
-                                    días</span>
-                            </div>
-                        </div>
-                        <!-- Detailed List -->
-                        <div class="space-y-3">
-                            <div id="yearsRow"
-                                class="flex justify-between items-center text-sm py-2 border-b border-white/5">
-                                <span class="text-slate-400">Años de Servicio</span>
-                                <span id="yearsServiceAmount" class="text-white font-medium">$4.500.000</span>
-                            </div>
-                            <div id="afcRow"
-                                class="flex justify-between items-center text-sm py-2 border-b border-white/5 hidden text-red-400">
-                                <span class="text-slate-400 flex items-center gap-1.5">
-                                    Descuento AFC (Art. 13)
-                                    <a href="/seguro-de-cesantia-chile-como-cobrar" class="text-primary hover:text-white transition-colors flex items-center" title="¿Qué es esto y cómo cobrar tu seguro?">
-                                        <span class="material-icons text-xs">help_outline</span>
-                                    </a>
-                                </span>
-                                <span id="afcAmount" class="font-medium">- $0</span>
-                            </div>
-                            <div id="noticeRow"
-                                class="flex justify-between items-center text-sm py-2 border-b border-white/5">
-                                <span class="text-slate-400">Mes de Aviso</span>
-                                <span id="noticeAmount" class="text-white font-medium">$1.500.000</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm py-2 border-b border-white/5">
-                                <div class="flex flex-col">
-                                    <span class="text-slate-400">Haberes Pendientes</span>
-                                    <span id="daysWorkedOutput" class="text-[10px] text-slate-500">0 días
-                                        trabajados</span>
-                                </div>
-                                <span id="pendingSalaryAmount" class="text-white font-medium">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm py-2 border-b border-white/5">
-                                <span class="text-slate-400">Vacaciones Proporcionales</span>
-                                <span id="vacationPropAmount" class="text-white font-medium">$775.000</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm py-2 border-b border-white/5">
-                                <span class="text-slate-400">Vacaciones Pendientes</span>
-                                <span id="vacationPendingAmount" class="text-white font-medium">$75.250</span>
-                            </div>
-                            <!-- Deductions Example -->
-                            <!-- Deductions Example Removed -->
-                        </div>
-                        <!-- CTA Buttons (PDF Download Enabled) -->
-                        <div class="space-y-3 pt-4">
-                            <button id="download-pdf-btn" type="button"
-                                class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-full shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
-                                <span class="material-icons">picture_as_pdf</span>
-                                Descargar Informe PDF
-                            </button>
-                        </div>
-
-
-                    </div>
-                    <!-- Guías de Ayuda Legal -->
-                    <div class="bg-slate-900/50 p-6 border-t border-white/5 space-y-4">
-                        <h4 class="text-xs font-bold text-primary uppercase tracking-wider mb-2 flex items-center gap-2">
-                            <span class="material-icons text-sm">balance</span> Soporte y Guías Legales
-                        </h4>
-                        <div class="space-y-4">
-                            <a href="/que-hacer-si-no-te-pagan-el-finiquito" class="block group">
-                                <span class="text-xs text-red-400 font-bold uppercase tracking-wider block mb-1">Alerta Trabajador</span>
-                                <span class="text-sm font-semibold text-white group-hover:text-red-400 transition-colors block">
-                                    ¿Qué hacer si no te pagan el finiquito a tiempo?
-                                </span>
-                                <span class="text-xs text-slate-500 mt-1 block">Conoce los plazos legales de 10 días, recargos y multas de la DT.</span>
-                            </a>
-                            <div class="h-px bg-white/5 w-full my-2"></div>
-                            <a href="/despido-necesidades-empresa-articulo-161" class="block group">
-                                <span class="text-xs text-purple-400 font-bold uppercase tracking-wider block mb-1">Causal de Término</span>
-                                <span class="text-sm font-semibold text-white group-hover:text-purple-400 transition-colors block">
-                                    Despido por Necesidades de la Empresa
-                                </span>
-                                <span class="text-xs text-slate-500 mt-1 block">Todo sobre la indemnización del Art. 161 y el descuento de la AFC.</span>
-                            </a>
-                            <div class="h-px bg-white/5 w-full my-2"></div>
-                            <a href="/seguro-de-cesantia-chile-como-cobrar" class="block group">
-                                <span class="text-xs text-blue-400 font-bold uppercase tracking-wider block mb-1">Seguro de Cesantía</span>
-                                <span class="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors block">
-                                    ¿Cómo cobrar el Seguro de Cesantía?
-                                </span>
-                                <span class="text-xs text-slate-500 mt-1 block">Requisitos, montos mensuales de la AFC y cómo cobrarlo paso a paso.</span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Helpful Links (feature latente: descomentar para reactivar Abogados/Carta) -->
-                <!--
-                    <div class="grid grid-cols-2 gap-4">
-                        <div
-                            class="group p-4 rounded-xl bg-card-dark border border-white/5 opacity-60 cursor-not-allowed">
-                            <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center mb-3">
-                                <span class="material-icons text-green-400 text-sm">gavel</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-white mb-1">Abogados Laborales</h4>
-                            <p class="text-xs text-slate-500">Próximamente</p>
-                        </div>
-                        <div
-                            class="group p-4 rounded-xl bg-card-dark border border-white/5 opacity-60 cursor-not-allowed">
-                            <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3">
-                                <span class="material-icons text-purple-400 text-sm">description</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-white mb-1">Modelo de Carta</h4>
-                            <p class="text-xs text-slate-500">Próximamente</p>
-                        </div>
-                        -->
-            </div> <!-- Cierra Columna Derecha -->
-        </div> <!-- Cierra Grid -->
-
-        <div class="max-w-[1200px] mx-auto px-6 mt-16 space-y-8 pb-8">
-
-            <!-- Cómo Calculamos Accordion -->
-            <details
-                class="group glass-panel overflow-hidden transition-all open:border-primary/30">
-                <summary
-                    class="flex items-center justify-between p-4 cursor-pointer list-none select-none hover:bg-white/5 transition-colors">
-                    <div class="flex items-center gap-2">
-                        <span class="material-icons text-primary text-lg">science</span>
-                        <span class="text-sm font-semibold text-white">¿Cómo calculamos tu finiquito?</span>
-                    </div>
-                    <span
-                        class="material-icons text-slate-400 group-open:rotate-180 transition-transform duration-200">expand_more</span>
-                </summary>
-                <div class="px-4 pb-5 pt-1 border-t border-white/5 space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <h4 class="text-xs font-bold text-primary uppercase tracking-wider">Variables utilizadas
-                            </h4>
-                            <ul class="text-xs text-slate-400 space-y-1.5 leading-relaxed">
-                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                    Última remuneración mensual</li>
-                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                    Fecha de inicio y término del contrato</li>
-                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                    Causal de término (Art. 159-161 CT)</li>
-                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span> Días
-                                    de vacaciones tomados</li>
-                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                    Aviso previo (si aplica)</li>
-                                <li class="flex items-start gap-1.5"><span class="text-primary mt-0.5">•</span>
-                                    Haberes pendientes del último mes</li>
-                            </ul>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Topes y
-                                supuestos</h4>
-                            <ul class="text-xs text-slate-400 space-y-1.5 leading-relaxed">
-                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                    Indemnización tope: <strong class="text-white">90 UF/mes</strong></li>
-                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                    Máximo indemnizable: <strong class="text-white">11 años</strong></li>
-                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                    Factor vacaciones: 1,25 (L-V) / 1,67 (L-S)</li>
-                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                    Feriados legales: 15 días hábiles/año</li>
-                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                    Fracción > 6 meses = 1 año completo</li>
-                                <li class="flex items-start gap-1.5"><span class="text-emerald-400 mt-0.5">•</span>
-                                    No incluye deudas a cajas ni pensiones alimenticias</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-slate-500 leading-relaxed border-t border-white/5 pt-3">
-                        📖 Fuentes: <strong class="text-slate-400">Código del Trabajo</strong> (Art. 159-178),
-                        <strong class="text-slate-400">Dirección del Trabajo</strong> (dictámenes), <strong
-                            class="text-slate-400">mindicador.cl</strong> (valor UF para topes).
-                    </p>
-                </div>
-            </details>
-
-            <!-- Trust Badges (E-E-A-T) -->
-            <div class="glass-panel p-4 flex flex-wrap justify-center gap-6 text-[11px] font-semibold text-slate-300">
-                <div class="flex items-center gap-1"><span class="material-icons text-emerald-400 text-sm">verified</span> Código del Trabajo</div>
-                <div class="flex items-center gap-1"><span class="material-icons text-blue-400 text-sm">update</span> Ley 40 Horas (2026)</div>
-                <div class="flex items-center gap-1"><span class="material-icons text-purple-400 text-sm">lock</span> 100% Privado</div>
+        <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
+            <div id="indicators-status" class="flex items-center gap-1">
+                <span class="material-icons text-[12px] animate-spin">sync</span> Cargando indicadores del Banco Central...
             </div>
-
-<!-- Educational Content -->
-            <section class="prose dark:prose-invert max-w-none glass-panel p-8">
-                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">Guía Completa: ¿Cómo utilizar esta calculadora de finiquito en Chile?</h2>
-                <p class="text-slate-600 dark:text-slate-400 mb-8 text-base leading-relaxed">
-                    Nuestra <strong>calculadora de finiquito online</strong> es un simulador exacto y actualizado para el año 2026. Al momento de terminar un contrato laboral en Chile, el finiquito es el documento legal clave que establece el pago por tus servicios. Usar este <strong>simulador de finiquito</strong> te permite verificar que los montos propuestos por tu empleador cumplan estrictamente con las leyes dictadas por la Dirección del Trabajo (DT).
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="material-icons text-primary">account_balance_wallet</span>
-                            <h3 class="text-xl font-bold text-white m-0">1. Indemnización por Años de Servicio</h3>
-                        </div>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Si eres despedido bajo el <strong>Artículo 161</strong> (Necesidades de la Empresa), nuestra calculadora sumará automáticamente un mes de tu última remuneración por cada año trabajado (y fracción superior a seis meses). El tope legal es de 11 años y el límite mensual aplicable es de 90 UF. Esta es habitualmente la indemnización más alta dentro de cualquier finiquito laboral.
-                        </p>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="material-icons text-primary">beach_access</span>
-                            <h3 class="text-xl font-bold text-white m-0">2. Vacaciones Proporcionales</h3>
-                        </div>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Todo contrato que termina te da derecho a recibir el pago del feriado legal (vacaciones) pendiente. Para calcular tu finiquito con exactitud, el simulador contabiliza tus días hábiles restantes sumando fines de semana, convirtiéndolos matemáticamente al valor diario de tu sueldo íntegro. <a href="/guia-vacaciones-proporcionales" class="text-primary hover:underline font-medium">Lee más sobre vacaciones proporcionales.</a>
-                        </p>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="material-icons text-primary">mark_email_read</span>
-                            <h3 class="text-xl font-bold text-white m-0">3. Mes de Aviso Previo</h3>
-                        </div>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Si te aplican la causal de Necesidades de la Empresa (Art. 161) y no te entregan o despachan una carta de despido con al menos <strong>30 días de anticipación</strong>, el simulador de finiquito añade automáticamente una compensación económica ("Mes de aviso") correspondiente a un sueldo líquido completo adicional.
-                        </p>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="material-icons text-primary">rule</span>
-                            <h3 class="text-xl font-bold text-white m-0">4. Distintas Causales de Término</h3>
-                        </div>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Es crucial elegir bien la causal al momento de calcular tu indemnización. Si seleccionas <strong>Renuncia Voluntaria (Art. 159-2)</strong> o Despido Disciplinario (Art. 160), la plataforma eliminará las indemnizaciones por años de servicio y aviso, y el total a pagar consistirá estrictamente en el feriado proporcional de vacaciones y los días efectivamente trabajados antes del despido.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Blog CTA -->
-                <div class="mt-8 p-6 rounded-xl bg-slate-900 border border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg shadow-primary/5">
-                    <div class="text-center sm:text-left">
-                        <h4 class="text-lg font-bold text-white mb-1">Aprende más sobre cálculos y leyes laborales</h4>
-                        <p class="text-slate-400 text-sm">Visita nuestra sección de artículos y ejemplos prácticos sobre indemnizaciones y finiquitos chilenos.</p>
-                    </div>
-                    <a href="/blog" class="px-6 py-3 bg-primary hover:bg-primary-dark text-white text-sm font-bold rounded-xl transition-all shadow-md whitespace-nowrap flex items-center gap-2">
-                        <span class="material-icons text-sm">menu_book</span>
-                        Ver Guías Gratuitas
-                    </a>
-                </div>
-            </section>
-
-            <!-- FAQ Section -->
-            <section class="space-y-6">
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Preguntas
-                    Frecuentes sobre el
-                    Finiquito</h2>
-
-                <div class="space-y-4">
-                    <details
-                        class="group bg-white/5 rounded-xl border border-white/5 open:border-primary/20 transition-all">
-                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
-                            <span class="font-medium text-slate-200 group-hover:text-white transition-colors">¿Cuánto
-                                tiempo tiene el empleador para pagar el finiquito?</span>
-                            <span
-                                class="material-icons text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
-                        </summary>
-                        <div class="px-4 pb-4 text-slate-400 text-sm leading-relaxed">
-                            El empleador tiene un plazo máximo de 10 días hábiles contados desde el
-                            término de la
-                            relación laboral para poner el finiquito y su pago a disposición del
-                            trabajador ante un
-                            ministro de fe.
-                        </div>
-                    </details>
-
-                    <details
-                        class="group bg-white/5 rounded-xl border border-white/5 open:border-primary/20 transition-all">
-                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
-                            <span class="font-medium text-slate-200 group-hover:text-white transition-colors">¿El
-                                finiquito incluye vacaciones proporcionales?</span>
-                            <span
-                                class="material-icons text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
-                        </summary>
-                        <div class="px-4 pb-4 text-slate-400 text-sm leading-relaxed">
-                            Sí. Es un derecho irrenunciable. Se deben pagar todos los días de
-                            vacaciones (feriado legal)
-                            que no hayas utilizado, calculados proporcionalmente al tiempo
-                            trabajado.
-                        </div>
-                    </details>
-
-                    <details
-                        class="group bg-white/5 rounded-xl border border-white/5 open:border-primary/20 transition-all">
-                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
-                            <span class="font-medium text-slate-200 group-hover:text-white transition-colors">¿Se
-                                paga
-                                indemnización si renuncio?</span>
-                            <span
-                                class="material-icons text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
-                        </summary>
-                        <div class="px-4 pb-4 text-slate-400 text-sm leading-relaxed">
-                            No. Si renuncias voluntariamente (Art. 159 N°2), pierdes el derecho a la
-                            indemnización por
-                            años de servicio y aviso previo. Sin embargo, sí te deben pagar las
-                            vacaciones
-                            proporcionales y los días trabajados del mes.
-                        </div>
-                    </details>
-
-                    <details
-                        class="group bg-white/5 rounded-xl border border-white/5 open:border-primary/20 transition-all">
-                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
-                            <span class="font-medium text-slate-200 group-hover:text-white transition-colors">¿Qué
-                                pasa
-                                si no me pagan el finiquito?</span>
-                            <span
-                                class="material-icons text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
-                        </summary>
-                        <div class="px-4 pb-4 text-slate-400 text-sm leading-relaxed">
-                            Debes acudir a la Inspección del Trabajo (DT) para interponer un
-                            reclamo. Si el empleador no
-                            paga, se expone a multas y al pago de reajustes e intereses.
-                        </div>
-                    </details>
-
-                    <details
-                        class="group bg-white/5 rounded-xl border border-white/5 open:border-primary/20 transition-all">
-                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
-                            <span class="font-medium text-slate-200 group-hover:text-white transition-colors">¿El
-                                cálculo es exacto?</span>
-                            <span
-                                class="material-icons text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
-                        </summary>
-                        <div class="px-4 pb-4 text-slate-400 text-sm leading-relaxed">
-                            Nuestro simulador utiliza los parámetros legales vigentes. Sin embargo,
-                            el monto exacto
-                            puede variar dependiendo de si tienes deudas con cajas de compensación,
-                            pensiones de
-                            alimentos, o si tu contrato colectivo establece indemnizaciones
-                            superiores a la ley.
-                        </div>
-                    </details>
-                </div>
-            </section>
-
-            <!-- Privacy & Legal Notes -->
-            <div class="glass-panel p-6 text-xs text-slate-400 leading-relaxed">
-                <strong class="text-slate-300">Privacidad y Aspectos Legales:</strong>
-                Todos los cálculos se ejecutan localmente en tu navegador. No almacenamos ni enviamos los datos ingresados a ningún servidor.
-                <div class="mt-4 text-slate-500">
-                    ⚠️ Este cálculo es estimativo y referencial basado en el Código del Trabajo de Chile. No reemplaza una liquidación o finiquito formal del empleador. Los montos pueden variar según contrato, bonos, deudas a cajas de compensación y pensiones de alimentos.
-                </div>
-            </div>
-
-            <!-- CTA Section -->
-            <div
-                class="mt-16 p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 relative overflow-hidden text-center group">
-                <div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors">
-                </div>
-                <div class="relative z-10 space-y-6">
-                    <div
-                        class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-2">
-                        <span class="material-icons text-3xl">calculate</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-white mb-2">¿Listo para calcular tu
-                            finiquito?</h3>
-                        <p class="text-slate-400 max-w-lg mx-auto">Completa tus datos en el
-                            formulario superior y obtén
-                            el resultado detallado en segundos.</p>
-                    </div>
-                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-                        class="inline-flex items-center gap-2 px-8 py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-lg shadow-primary/25 cursor-pointer">
-                        <span class="material-icons">arrow_upward</span>
-                        Volver al cálculo
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/10 bg-slate-900 pt-16 pb-8 relative z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-1">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div
-                            class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                            <span class="material-icons text-white text-[10px]">calculate</span>
-                        </div>
-                        <span class="font-bold text-lg text-white">Cálculo<span
-                                class="text-blue-400">Laboral</span></span>
-                    </div>
-                    <p class="text-slate-500 text-sm">
-                        Herramientas gratuitas para trabajadores en Chile.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Calculadoras</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/" class="hover:text-blue-400 transition-colors">Inicio</a></li>
-                        <li><a href="/sueldo_liquido" class="hover:text-blue-400 transition-colors">Sueldo
-                                Líquido</a></li>
-                        <li><a href="/finiquito_calculator"
-                                class="hover:text-blue-400 transition-colors">Calcular Finiquito</a></li>
-                        <li><a href="/guia-vacaciones-proporcionales"
-                                class="hover:text-blue-400 transition-colors">Guía Vacaciones</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/privacidad" class="hover:text-blue-400 transition-colors">Privacidad</a></li>
-                        <li><a href="/terminos" class="hover:text-blue-400 transition-colors">Términos de Uso</a>
-                        </li>
-                        <li><a href="/disclaimer" class="hover:text-blue-400 transition-colors">Disclaimer</a></li>
-                        <li><a href="/sobre-nosotros" class="hover:text-blue-400 transition-colors">Sobre
-                                Nosotros</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Contacto</h4>
-                    <p class="text-sm text-slate-400 mb-2">Consultas y sugerencias:</p>
-                    <a href="mailto:contacto@calculolaboral.cl"
-                        class="inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors">
-                        <span class="material-icons text-base">email</span>
-                        contacto@calculolaboral.cl
-                    </a>
-                </div>
-            </div>
-
-            <!-- Disclaimer for Calculator Page -->
-            <div class="border-t border-white/5 pt-8 pb-4 text-center text-slate-500">
-                <p class="text-[10px] leading-relaxed max-w-3xl mx-auto uppercase tracking-wide opacity-60">
-                    ⚠️ <strong>Nota Legal:</strong> Esta calculadora es una herramienta de simulación referencial basada
-                    en el Código del Trabajo de Chile.
-                    Los resultados no constituyen asesoría legal oficial.
-                </p>
-            </div>
-
-            <div
-                class="border-t border-white/5 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
-                <p class="text-slate-600 text-xs">
-                    © 2026 calculolaboral.cl. Todos los derechos reservados.
-                </p>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">Versión 1.0 — Febrero 2026</p>
-        </div>
-    </footer>
-
-    <!-- Mobile Sticky Result Bar (replicado de sueldo_liquido) -->
-    <div id="mobile-result-bar"
-        class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 p-4 transform translate-y-full transition-transform duration-300 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
-        <div class="flex items-center justify-between max-w-7xl mx-auto">
-            <div>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Estimado</p>
-                <div class="flex items-baseline gap-2">
-                    <span id="mobile-result-value" class="text-2xl font-black text-white">$0</span>
-                    <span class="text-xs text-primary font-medium bg-primary/10 px-1.5 py-0.5 rounded">CLP</span>
-                </div>
-            </div>
-            <button
-                onclick="document.getElementById('results-panel').scrollIntoView({behavior: 'smooth', block: 'start'})"
-                class="bg-surface-highlight hover:bg-white/10 text-primary p-2 rounded-full transition-colors border border-white/5">
-                <span class="material-icons text-sm">visibility</span>
-            </button>
+            <a href="#" id="btn-history" class="text-sky-500 hover:text-sky-600 hover:underline flex items-center gap-0.5">
+                <span class="material-icons text-[12px]">history</span> Historial de Valores
+            </a>
         </div>
     </div>
 
-    <!-- Mobile Menu Script -->
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
 
-        if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
-        }
-    </script>
-    <script src="js/constants.js?v=1.0.6"></script>
-    <script src="js/logic.js?v=1.0.6"></script>
-    <script src="js/validation.js?v=1.0.6"></script>
-    <script src="js/ui.js?v=1.0.6"></script>
-    <script src="js/pdf_generator.js?v=1.0.6"></script>
+    <!-- Main Content -->
+    <main class="flex-grow pt-4 pb-16">
+        
+<div class="max-w-[1200px] mx-auto px-6">
+    <!-- Tab Controls for Calculator Selection -->
+    <div class="flex max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-1 mb-8 shadow-sm">
+        <button id="tab-btn-finiquito" onclick="switchCalculatorTab('finiquito')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100">
+            Calculadora de Finiquito
+        </button>
+        <button id="tab-btn-sueldo" onclick="switchCalculatorTab('sueldo')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 active:scale-[0.98] duration-100">
+            Sueldo Líquido
+        </button>
+    </div>
 
-    <!-- Integrity Check -->
-    <script>
-        window.addEventListener('load', function () {
-            if (typeof CONSTANTS === 'undefined' || typeof FiniquitoCalculator === 'undefined') {
-                console.error("Critical Dependencies Missing");
-                alert("Error crítico: No se pudieron cargar los archivos de configuración. Por favor, desactiva el bloqueador de anuncios o recarga la página.");
-            }
-        });
-    </script>
-
-    <!-- Modal Resumen de Simulación y Captura de Lead -->
-    <div id="summary-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-        <div class="w-full max-w-lg rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/5 text-white" style="background: linear-gradient(135deg, rgba(20, 30, 48, 0.95) 0%, rgba(13, 20, 35, 0.98) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 1.25rem; box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 30px 60px rgba(0, 0, 0, 0.7);">
-            <!-- Decorative Top Bar -->
-            <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-blue-600"></div>
-            
-            <!-- Header -->
-            <div class="flex justify-between items-start mb-5 mt-2">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                        <span class="material-icons text-white text-sm">auto_awesome</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white">¡Simulación Completada!</h3>
+    <!-- ---------------------------------------------------- -->
+    <!-- FINIQUITO CALCULATOR CONTAINER                       -->
+    <!-- ---------------------------------------------------- -->
+    <div id="finiquito-calc-container" class="flex flex-col lg:flex-row gap-8 items-start">
+        <!-- Inputs Column (Left, 420px) -->
+        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
+                <h2 class="text-lg font-bold text-slate-900">Datos Finiquito</h2>
+                <div class="flex gap-2">
+                    <button id="btnLoadExample" class="px-2.5 py-1 text-[10px] font-bold text-sky-600 bg-sky-50 hover:bg-sky-100 rounded-md transition-colors active:scale-95 duration-100">Ejemplo</button>
+                    <button id="btnClear" class="px-2.5 py-1 text-[10px] font-bold text-slate-500 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-md transition-colors active:scale-95 duration-100">Limpiar</button>
                 </div>
-                <button id="btn-close-summary-modal" class="p-1 rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-colors cursor-pointer" type="button">
+            </div>
+
+            <!-- Tab bar inner to finiquito script (contrato/ingresos/opciones) -->
+            <div class="flex border border-slate-200 p-1 bg-slate-50 rounded-xl mb-6">
+                <button type="button" id="tabBtn-contrato" class="flex-1 py-2 px-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-sm active:scale-95 duration-100">Contrato</button>
+                <button type="button" id="tabBtn-ingresos" class="flex-1 py-2 px-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-200/50 active:scale-95 duration-100">Ingresos</button>
+                <button type="button" id="tabBtn-avanzado" class="flex-1 py-2 px-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-200/50 active:scale-95 duration-100">Opciones</button>
+            </div>
+
+            <!-- Finiquito Tab: Contrato -->
+            <div id="tabContent-contrato" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Fecha de Inicio</label>
+                    <input id="startDate" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-medium" type="date">
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Fecha de Término</label>
+                    <input id="endDate" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-medium" type="date">
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Causal de Término</label>
+                    <select id="cause" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-medium cursor-pointer">
+                        <option value="161">Art. 161 - Necesidades de la Empresa</option>
+                        <option value="159-1">Art. 159 N°1 - Mutuo Acuerdo</option>
+                        <option value="159-2">Art. 159 N°2 - Renuncia Voluntaria</option>
+                        <option value="160">Art. 160 - Despido Disciplinario (Sin derecho a indemnización)</option>
+                    </select>
+                </div>
+                <div class="pt-2 flex items-center justify-between">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input id="noticeGiven" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer" type="checkbox">
+                        <span class="text-xs font-semibold text-slate-500 group-hover:text-slate-800 transition-colors">¿Se avisó con 30 días de anticipación?</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Finiquito Tab: Ingresos -->
+            <div id="tabContent-ingresos" class="space-y-4 hidden">
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Sueldo Base Mensual</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
+                        <input id="baseSalary" data-type="currency" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" placeholder="0">
+                    </div>
+                </div>
+                
+                <div class="pt-1">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="hasVariableSalary" class="w-4 h-4 text-sky-500 bg-white border-slate-200 rounded focus:ring-sky-500">
+                        <span class="text-xs font-bold text-slate-600">¿Sueldo Variable / Comisiones?</span>
+                    </label>
+                </div>
+
+                <!-- Variable Salary Grid (Inputs for 3 months) -->
+                <div id="variableSalaryContainer" class="hidden space-y-2.5 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                    <p class="text-[10px] text-slate-500 font-semibold leading-relaxed">Últimos 3 meses imponibles variables:</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 ml-1">Mes 1</label>
+                            <input id="varMonth1" data-type="currency" class="block w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" placeholder="0">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 ml-1">Mes 2</label>
+                            <input id="varMonth2" data-type="currency" class="block w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" placeholder="0">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-500 ml-1">Mes 3</label>
+                            <input id="varMonth3" data-type="currency" class="block w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-2 border-t border-slate-200">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">Promedio</span>
+                        <span id="variableAverageOutput" class="text-xs font-bold text-sky-500 font-mono">$0</span>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Gratificación Mensual</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
+                        <input id="gratification" data-type="currency" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Asignaciones Fijas (Colación/Mov)</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
+                        <input id="assignments" data-type="currency" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" placeholder="0">
+                    </div>
+                    <div class="pt-1">
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <input type="checkbox" id="includeAssignmentsInVacation" class="w-4.5 h-4.5 text-sky-500 border-slate-200 rounded focus:ring-sky-500" checked>
+                            <span class="text-[10px] font-semibold text-slate-400">Incluir en Vacaciones (Criterio Judicial)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Vacaciones Pendientes (Días Hábiles)</label>
+                    <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl p-1 w-full justify-between">
+                        <button id="btnVacationMinus" aria-label="Restar día de vacaciones" class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 flex items-center justify-center transition-all hover:bg-slate-100 active:scale-90 duration-100" type="button">
+                            <span class="material-icons text-sm font-bold">remove</span>
+                        </button>
+                        <input id="vacationPending" class="w-16 bg-transparent border-none text-center text-slate-800 focus:ring-0 font-bold text-sm" type="text" value="0">
+                        <button id="btnVacationPlus" aria-label="Sumar día de vacaciones" class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 flex items-center justify-center transition-all hover:bg-slate-100 active:scale-90 duration-100" type="button">
+                            <span class="material-icons text-sm font-bold">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finiquito Tab: Opciones -->
+            <div id="tabContent-avanzado" class="space-y-3 hidden">
+                <p class="text-[10px] text-slate-500 font-bold uppercase mb-2 border-b border-slate-100 pb-1">Conceptos a Incluir</p>
+                <div class="space-y-2.5">
+                    <!-- Opción 1: Años de Servicio -->
+                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
+                        <div class="pt-0.5">
+                            <input id="enableIAS" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
+                        </div>
+                        <div class="flex-grow select-none">
+                            <label for="enableIAS" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Años de Servicio (IAS)</label>
+                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Suma 1 sueldo mensual por cada año trabajado (tope 11). Requiere contrato mayor a 1 año.</span>
+                        </div>
+                    </div>
+
+                    <!-- Opción 2: Aviso Previo -->
+                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
+                        <div class="pt-0.5">
+                            <input id="enableNotice" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
+                        </div>
+                        <div class="flex-grow select-none">
+                            <label for="enableNotice" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Indemnización Aviso Previo</label>
+                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Suma 1 sueldo adicional si el empleador no te avisó del despido por escrito con 30 días de anticipación.</span>
+                        </div>
+                    </div>
+
+                    <!-- Opción 3: Descuento AFC -->
+                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
+                        <div class="pt-0.5">
+                            <input id="simulateAFC" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
+                        </div>
+                        <div class="flex-grow select-none">
+                            <label for="simulateAFC" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Descontar Aporte AFC Empleador</label>
+                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Resta de tu finiquito la parte del seguro de cesantía aportada por el empleador (solo despidos Art. 161).</span>
+                        </div>
+                    </div>
+
+                    <!-- Opción 4: Remuneración Pendiente -->
+                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
+                        <div class="pt-0.5">
+                            <input id="enablePending" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
+                        </div>
+                        <div class="flex-grow select-none">
+                            <label for="enablePending" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Días Trabajados (Mes en Curso)</label>
+                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Calcula e inyecta la remuneración de los días trabajados en el mes en que finaliza la relación laboral.</span>
+                        </div>
+                    </div>
+
+                    <!-- Opción 5: Incluir Asignaciones -->
+                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
+                        <div class="pt-0.5">
+                            <input id="includeAssignmentsInIndemnity" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
+                        </div>
+                        <div class="flex-grow select-none">
+                            <label for="includeAssignmentsInIndemnity" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Incluir Asignaciones (Base Diaria)</label>
+                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Suma asignaciones de colación y movilización a la base diaria de cálculo para la indemnización (criterio judicial).</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Column (Right, Sticky) -->
+        <div class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+            <div class="text-center sm:text-left border-b border-slate-100 pb-5">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Total del Finiquito</h3>
+                <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                    <span id="totalAmount" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$ —</span>
+                    <span class="text-sm font-semibold text-slate-400">CLP</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-400 font-medium flex items-center gap-1 justify-center sm:justify-start">
+                    <span class="material-icons text-[12px] text-sky-500">info_outline</span>
+                    Desglose detallado referencial
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown items -->
+            <div class="space-y-3.5">
+                <!-- IAS Row -->
+                <div id="yearsRow" class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-medium flex items-center gap-1">
+                        Años de Servicio
+                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Un mes de remuneración imponible habitual por cada año trabajado (tope 11 años).">help_outline</span>
+                    </span>
+                    <span id="yearsServiceAmount" class="font-bold text-slate-800 font-mono">$ —</span>
+                </div>
+
+                <!-- Notice Row -->
+                <div id="noticeRow" class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-medium flex items-center gap-1">
+                        Aviso Previo
+                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Equivale a un mes de remuneración si el empleador no dio el aviso con 30 días de anticipación.">help_outline</span>
+                    </span>
+                    <span id="noticeAmount" class="font-bold text-slate-800 font-mono">$ —</span>
+                </div>
+
+                <!-- Vacación Prop Row -->
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-medium flex items-center gap-1">
+                        Vacaciones Proporcionales
+                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Pago por los días hábiles acumulados generados durante la fracción del año laboral en curso.">help_outline</span>
+                    </span>
+                    <span id="vacationPropAmount" class="font-bold text-slate-800 font-mono">$ —</span>
+                </div>
+
+                <!-- Vacación Pendiente Row -->
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-medium flex items-center gap-1">
+                        Vacaciones Pendientes
+                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Pago por días de vacaciones de años anteriores acumulados que no fueron usados por el trabajador.">help_outline</span>
+                    </span>
+                    <span id="vacationPendingAmount" class="font-bold text-slate-800 font-mono">$ —</span>
+                </div>
+
+                <!-- Pending Salary Row -->
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-medium flex items-center gap-1">
+                        Remuneraciones Pendientes
+                        <span id="daysWorkedOutput" class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase font-mono tracking-wider ml-1">— DÍAS</span>
+                    </span>
+                    <span id="pendingSalaryAmount" class="font-bold text-slate-800 font-mono">$ —</span>
+                </div>
+
+                <!-- AFC Deduction Row -->
+                <div id="afcRow" class="flex justify-between items-center text-sm py-1 border-b border-slate-50 text-red-500 hidden">
+                    <span class="font-medium flex items-center gap-1">
+                        Aporte AFC Descontable
+                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Descuento correspondiente al aporte del empleador a la cuenta individual del seguro de cesantía.">help_outline</span>
+                    </span>
+                    <span id="afcAmount" class="font-bold font-mono">-$0</span>
+                </div>
+            </div>
+
+            <!-- Dynamic Non-monetary Data -->
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl grid grid-cols-2 gap-4">
+                <div>
+                    <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Antigüedad</span>
+                    <span id="antiquityOutput" class="text-xs font-bold text-slate-700 font-mono">— años, — meses</span>
+                </div>
+                <div>
+                    <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Vacaciones Totales</span>
+                    <span id="totalVacationDaysOutput" class="text-xs font-bold text-slate-700 font-mono">— días hábiles</span>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between text-[10px] text-slate-400 font-medium gap-2">
+                <span id="lastUpdateDate">Última actualización legal: Febrero 2026</span>
+                <span class="flex items-center gap-0.5">
+                    Tope Legal: 
+                    <span id="ufCapValue" class="font-bold text-slate-600 font-mono">90 UF</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- SUELDO LIQUIDO CALCULATOR CONTAINER                  -->
+    <!-- ---------------------------------------------------- -->
+    <div id="sueldo-calc-container" class="flex flex-col lg:flex-row gap-8 items-start hidden">
+        <!-- Inputs Column (Left, 420px) -->
+        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
+                <h2 class="text-lg font-bold text-slate-900">Datos Remuneración</h2>
+                <span class="px-2.5 py-1 text-[10px] font-bold text-sky-600 bg-sky-50 border border-sky-100 rounded-md">Real-time</span>
+            </div>
+
+            <!-- Base & Overtime -->
+            <div class="space-y-4">
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1" for="salary">Sueldo Base Mensual</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
+                        <input id="salary" name="salary" placeholder="539.000" type="text" value="539.000" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-right font-mono" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Horas Extras</label>
+                        <input id="overtime" type="number" placeholder="0" min="0" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-semibold text-right" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Bonos / Comisiones</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3 text-slate-500 font-bold text-xs">$</span>
+                            <input id="bonuses" type="text" placeholder="0" class="block w-full pl-7 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-semibold text-right font-mono" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gratificación & Contrato -->
+            <div class="space-y-4 pt-4 border-t border-slate-100">
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Gratificación Legal</label>
+                    <select id="gratificationType" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-semibold cursor-pointer">
+                        <option value="legal_tope">Tope Legal (25% / 4.75 IMM)</option>
+                        <option value="manual">Monto Fijo Manual</option>
+                        <option value="none">Sin Gratificación</option>
+                    </select>
+                    <!-- Manual input container (hidden on load) -->
+                    <div id="manualGratInput" class="hidden relative pt-2">
+                        <span class="absolute left-4 top-5 text-slate-400 font-bold">$</span>
+                        <input id="gratificationManual" type="text" placeholder="Monto fijo" class="block w-full pl-8 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" />
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Tipo de Contrato</label>
+                    <div class="flex p-1 bg-slate-100 rounded-xl border border-slate-200">
+                        <button id="btn-indefinido" class="flex-1 py-2 px-3 rounded-lg bg-sky-500 text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-all outline-none">Indefinido</button>
+                        <button id="btn-plazo" class="flex-1 py-2 px-3 rounded-lg text-slate-400 hover:text-slate-700 text-xs font-bold uppercase tracking-wider transition-colors outline-none">Plazo Fijo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AFP & Salud -->
+            <div class="space-y-4 pt-4 border-t border-slate-100">
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">AFP (Administradora)</label>
+                    <select id="afpSelect" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-semibold cursor-pointer">
+                        <option value="Capital">Capital (11,44%)</option>
+                        <option value="Cuprum">Cuprum (11,44%)</option>
+                        <option value="Habitat">Habitat (11,27%)</option>
+                        <option value="Modelo" selected>Modelo (10,58%)</option>
+                        <option value="Planvital">Planvital (11,16%)</option>
+                        <option value="Provida">Provida (11,45%)</option>
+                        <option value="Uno">Uno (10,69%)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Previsión de Salud</label>
+                    <div class="flex items-center gap-6">
+                        <label class="flex items-center cursor-pointer group text-sm text-slate-600 font-semibold select-none">
+                            <input class="form-radio text-sky-500 focus:ring-sky-500/35 border-slate-300 h-4.5 w-4.5 cursor-pointer mr-2" name="salud" type="radio" value="fonasa" checked />
+                            Fonasa (7%)
+                        </label>
+                        <label class="flex items-center cursor-pointer group text-sm text-slate-600 font-semibold select-none">
+                            <input class="form-radio text-sky-500 focus:ring-sky-500/35 border-slate-300 h-4.5 w-4.5 cursor-pointer mr-2" name="salud" type="radio" value="isapre" />
+                            Isapre
+                        </label>
+                    </div>
+                    <!-- Isapre Input (hidden on load) -->
+                    <div id="isapreInput" class="hidden relative pt-2">
+                        <div class="flex border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-sky-500/20 focus-within:border-sky-500 transition-all bg-white">
+                            <input id="isapreValue" class="border-none bg-transparent text-slate-800 w-full pl-4 py-2.5 outline-none text-sm font-semibold text-right" placeholder="Cotización pactada (Ej: 2.5)" />
+                            <div class="bg-slate-100 border-l border-slate-200 px-4 flex items-center justify-center">
+                                <span class="text-xs font-bold text-slate-600">UF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Non-Taxable Incomes -->
+            <div class="space-y-4 pt-4 border-t border-slate-100">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                    <span class="material-icons text-sm text-sky-500">payments</span>
+                    Haberes No Imponibles
+                </h4>
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 ml-1">Colación</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">$</span>
+                            <input id="colacion" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 ml-1">Movilización</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">$</span>
+                            <input id="movilizacion" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 ml-1">Viáticos</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">$</span>
+                            <input id="viaticos" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Discounts -->
+            <details class="p-1 bg-slate-50 border border-slate-200 rounded-2xl transition-colors">
+                <summary class="cursor-pointer p-3.5 font-bold text-xs text-slate-500 hover:text-slate-800 uppercase tracking-widest flex items-center justify-between outline-none list-none [&::-webkit-details-marker]:hidden">
+                    <div class="flex items-center gap-1.5">
+                        <span class="material-icons text-sky-500 text-sm">playlist_add</span>
+                        Descuentos Opcionales
+                    </div>
+                    <span class="material-icons text-sky-500">expand_more</span>
+                </summary>
+                <div class="px-3 pb-3.5 pt-2 border-t border-slate-200 grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 uppercase ml-1">CCAF (Imponible)</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">$</span>
+                            <input id="ccaf" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 uppercase ml-1">APV (Imponible)</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">$</span>
+                            <input id="apv" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 uppercase ml-1">Préstamos</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">$</span>
+                            <input id="prestamos" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 uppercase ml-1">Pensión Alimenticia</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">$</span>
+                            <input id="pension" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 uppercase ml-1">Sindicato</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">$</span>
+                            <input id="sindicato" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[9px] font-bold text-slate-500 uppercase ml-1">Otros Descuentos</label>
+                        <div class="relative">
+                            <span class="absolute left-2.5 top-2 text-slate-500 text-xs">$</span>
+                            <input id="otrosDescuentos" type="text" placeholder="0" class="block w-full pl-5 pr-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" />
+                        </div>
+                    </div>
+                    <div class="col-span-2 pt-2 border-t border-slate-100 flex items-center">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input id="toggleReduceSS" type="checkbox" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer">
+                            <span class="text-[10px] text-slate-500 font-semibold">CCAF/APV reduce base de AFP/Salud</span>
+                        </label>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Results Column (Right, Sticky) -->
+        <div class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+            <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Tu Sueldo Líquido Estimado</h3>
+                    <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                        <span id="headerNetSalary" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$ —</span>
+                        <span id="headerPercentage" class="text-sm font-bold text-slate-400">0%</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Total Descuentos</span>
+                    <span id="headerTotalDiscounts" class="text-lg font-bold text-red-500 font-mono">-$ —</span>
+                </div>
+            </div>
+
+            <!-- Interactive Donut Chart Segment -->
+            <div class="flex flex-col sm:flex-row gap-6 items-center justify-center border-b border-slate-100 pb-6">
+                <!-- Conic styled div chart -->
+                <div id="distribution-chart" class="w-44 h-44 rounded-full border border-slate-100 flex items-center justify-center relative shadow-inner shrink-0" style="background: conic-gradient(#10b981 0% 100%);">
+                    <div class="w-32 h-32 rounded-full bg-white flex flex-col items-center justify-center z-10 shadow-sm">
+                        <span id="chart-liquid-percent" class="text-3xl font-extrabold text-slate-800 font-mono">—</span>
+                        <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Líquido</span>
+                    </div>
+                </div>
+
+                <!-- Custom Dynamic Legend -->
+                <div class="space-y-2.5 flex-grow w-full max-w-[220px]">
+                    <div class="flex items-center justify-between text-xs font-medium">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-emerald-500 shrink-0"></span>
+                            <span class="text-slate-500">Sueldo Líquido</span>
+                        </div>
+                        <span id="legend-liquido-percent" class="font-bold text-slate-800 font-mono">0%</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-medium">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-blue-500 shrink-0"></span>
+                            <span class="text-slate-500">AFP + AFC</span>
+                        </div>
+                        <span id="legend-afp-percent" class="font-bold text-slate-800 font-mono">0%</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-medium">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-rose-500 shrink-0"></span>
+                            <span class="text-slate-500">Previsión Salud</span>
+                        </div>
+                        <span id="legend-health-percent" class="font-bold text-slate-800 font-mono">0%</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-medium">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-purple-500 shrink-0"></span>
+                            <span class="text-slate-500">Impuesto SII</span>
+                        </div>
+                        <span id="legend-tax-percent" class="font-bold text-slate-800 font-mono">0%</span>
+                    </div>
+                    <div id="legend-otros-container" class="flex items-center justify-between text-xs font-medium hidden">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-orange-500 shrink-0"></span>
+                            <span class="text-slate-500">Otros Descuentos</span>
+                        </div>
+                        <span id="legend-otros-percent" class="font-bold text-slate-800 font-mono">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown values -->
+            <div class="space-y-3 pt-2">
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-semibold" id="labelAFP">AFP</span>
+                    <span id="resultAFP" class="font-bold text-slate-800 font-mono">$0</span>
+                </div>
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-semibold" id="labelHealth">Salud</span>
+                    <span id="resultHealth" class="font-bold text-slate-800 font-mono">$0</span>
+                </div>
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-semibold">Seguro Cesantía (AFC)</span>
+                    <span id="resultAFC" class="font-bold text-slate-800 font-mono">$0</span>
+                </div>
+                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
+                    <span class="text-slate-600 font-semibold">Impuesto Único (Segunda Categoría)</span>
+                    <span id="resultTax" class="font-bold text-slate-800 font-mono">$0</span>
+                </div>
+
+                <!-- CCAF / APV Breakdown Container -->
+                <div id="section-imponibles" class="bg-amber-600/5 border border-amber-600/10 rounded-2xl p-3 hidden space-y-2 mt-2">
+                    <div class="flex justify-between items-center text-xs font-semibold text-amber-800">
+                        <span>CCAF Descontado</span>
+                        <span id="resultCCAF" class="font-mono">$0</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs font-semibold text-amber-800">
+                        <span>APV Descontado</span>
+                        <span id="resultAPV" class="font-mono">$0</span>
+                    </div>
+                </div>
+
+                <!-- Non-imponibles and cash deductions container -->
+                <div id="section-no-imponibles" class="bg-slate-50 border border-slate-100 rounded-2xl p-3 hidden space-y-2 mt-2 text-xs font-medium text-slate-600">
+                    <div class="flex justify-between items-center">
+                        <span>Préstamos</span>
+                        <span id="resultPrestamos" class="font-mono">$0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>Pensión Alimenticia</span>
+                        <span id="resultPension" class="font-mono">$0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>Sindicato</span>
+                        <span id="resultSindicato" class="font-mono">$0</span>
+                    </div>
+                    <div class="flex justify-between items-center text-slate-700 font-bold">
+                        <span>Otros</span>
+                        <span id="resultOtros" class="font-mono">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inline Alert Box -->
+            <div id="global-notifications" class="hidden space-y-2 pt-2">
+                <!-- Alerts are injected dynamically by salary_ui.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Result Bar shared at the bottom -->
+    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300">
+        <div>
+            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
+            <div class="flex items-baseline gap-1.5">
+                <span id="mobile-result-value" class="text-2xl font-black text-slate-900 tracking-tight font-mono">$0</span>
+                <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>
+            </div>
+        </div>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- EDUCATIONAL ACCORDIONS (Below the fold)              -->
+    <!-- ---------------------------------------------------- -->
+    <div class="max-w-3xl mx-auto mt-20">
+        <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Información y Preguntas Frecuentes</h2>
+        <div class="space-y-4">
+            <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
+                <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
+                    ¿Cómo se calcula el sueldo líquido en Chile?
+                    <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
+                </summary>
+                <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
+                    El sueldo líquido (o sueldo a pago) se obtiene restando del Sueldo Bruto los descuentos obligatorios fijados por ley: la cotización para tu fondo de pensiones en la AFP (que oscila entre 10.58% y 11.45% según la entidad), la cotización de salud legal (7% para Fonasa o el monto pactado en tu Isapre), y tu parte del seguro de cesantía en AFC (0.6% si tu contrato es de tipo indefinido). De exceder las 13.5 UTM imponibles, se aplica de forma progresiva el impuesto de segunda categoría.
+                </div>
+            </details>
+
+            <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
+                <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
+                    ¿Qué conceptos integra un finiquito laboral?
+                    <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
+                </summary>
+                <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
+                    Un finiquito de trabajo contempla fundamentalmente cuatro haberes a liquidar: las remuneraciones pendientes por los días laborados durante el último mes, la indemnización por vacaciones proporcionales y pendientes no gozadas, la indemnización por años de servicio (un mes de remuneración computable por cada año completo, si la causal es necesidades de la empresa u otra idónea), y la indemnización sustitutiva de aviso previo (un mes adicional, si el despido fue de forma inmediata).
+                </div>
+            </details>
+
+            <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
+                <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
+                    ¿Cómo funciona la indemnización por años de servicio?
+                    <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
+                </summary>
+                <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
+                    Acorde al artículo 163 del Código del Trabajo, si el contrato es indefinido y termina por Necesidades de la Empresa (Art. 161), el empleador debe abonar una indemnización equivalente a un mes de la última remuneración imponible por cada año completo de servicio continuado. Las fracciones iguales o superiores a 6 meses se computan como un año completo adicional. Existe un tope legal de 11 años computables, y una limitación económica mensual máxima de 90 UF.
+                </div>
+            </details>
+
+            <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
+                <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
+                    ¿Cómo se calculan las vacaciones proporcionales en el finiquito?
+                    <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
+                </summary>
+                <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
+                    Todo trabajador acumula por ley 1.25 días hábiles de feriado por cada mes completo trabajado (15 días hábiles anuales). Al desvincularse, el empleador debe compensar monetariamente los días de vacaciones proporcionales generados en el año actual que no alcanzaron a gozarse. Para valorizarlos, se proyectan los días hábiles sobre el calendario corrido incluyendo fines de semana y feriados, multiplicando dichos días calendario por la remuneración diaria del trabajador.
+                </div>
+            </details>
+
+            <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
+                <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
+                    ¿Cuál es el plazo legal de pago de un finiquito?
+                    <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
+                </summary>
+                <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
+                    De conformidad con el artículo 177 del Código del Trabajo, el empleador dispone de un plazo máximo improrrogable de 10 días hábiles (contados de lunes a sábado, sin incluir domingos ni festivos) a partir del término efectivo del contrato de trabajo para confeccionar el documento de finiquito y poner a disposición del trabajador los montos resultantes. El no pago oportuno faculta a demandar con reajustes por IPC y multas de hasta 150%.
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- RELATED GUIDES SECTION (6 Cards)                     -->
+    <!-- ---------------------------------------------------- -->
+    <div class="max-w-[1200px] mx-auto mt-24">
+        <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Guías Prácticas de Utilidad</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-sueldo-liquido-cover.png" alt="Calcular sueldo líquido" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Cómo Calcular Sueldo Líquido Paso a Paso</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Entiende al detalle cómo pasar tu renta bruta mensual a líquida restando las retenciones obligatorias de AFP, Fonasa o Isapre.</p>
+                </div>
+            </a>
+            <!-- Card 2 -->
+            <a href="guia-vacaciones-proporcionales.html" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-vacaciones-proporcionales-cover.png" alt="Vacaciones Proporcionales" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Cálculo de Vacaciones Proporcionales</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Aprende la fórmula del feriado proporcional y comprende por qué a veces aparece valorizado en $0 en tu liquidación de término.</p>
+                </div>
+            </a>
+            <!-- Card 3 -->
+            <a href="como-calcular-finiquito-chile.html" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-calculo-finiquito-chile-2026.png" alt="Cálculo de Finiquito" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Cómo Calcular tu Finiquito en Chile</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Guía didáctica completa con fórmulas, indemnización por años de servicio, aviso previo y un ejemplo práctico resuelto.</p>
+                </div>
+            </a>
+            <!-- Card 4 -->
+            <a href="despido-necesidades-empresa-articulo-161.html" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-despido-necesidades-empresa-161.png" alt="Artículo 161" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Despido por Necesidades de la Empresa</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Conoce qué causales se consideran válidas en el Artículo 161 y qué hacer si consideras que tu despido es injustificado.</p>
+                </div>
+            </a>
+            <!-- Card 5 -->
+            <a href="ley-40-horas-chile-2026.html" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-ley-40-horas-chile-cover.png" alt="Ley 40 Horas" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Implementación de la Ley de 40 Horas</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Infografía detallada y cronograma legal sobre la reducción paulatina de la jornada ordinaria en Chile en 2026.</p>
+                </div>
+            </a>
+            <!-- Card 6 -->
+            <a href="que-hacer-si-no-te-pagan-el-finiquito.html" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-finiquito-no-pago-cover.png" alt="No pago de finiquito" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">¿Qué hacer si no te pagan a tiempo?</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Conoce las multas aplicables a los empleadores que exceden el plazo reglamentario de 10 días para liquidar tu contrato.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-12 mt-auto">
+        <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Brand Column -->
+            <div class="space-y-4">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                            <line x1="9" y1="9" x2="15" y2="9"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                            <line x1="9" y1="17" x2="15" y2="17"></line>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+                </a>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Herramientas y simuladores gratuitos y actualizados conforme a la legislación laboral chilena vigente en 2026.
+                </p>
+                <p class="text-xs text-slate-500 font-mono">Versión 2.0.0 (2026)</p>
+            </div>
+
+            <!-- Calculadoras Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Calculadoras</h4>
+                <ul class="space-y-2">
+                    <li><a href="sueldo_liquido.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
+                    <li><a href="finiquito_calculator.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="index.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
+                </ul>
+            </div>
+
+            <!-- Guías Populares Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Guías Populares</h4>
+                <ul class="space-y-2">
+                    <li><a href="como-calcular-finiquito-chile.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Finiquito</a></li>
+                    <li><a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Sueldo Líquido</a></li>
+                    <li><a href="guia-vacaciones-proporcionales.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Vacaciones Proporcionales</a></li>
+                    <li><a href="ley-40-horas-chile-2026.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Ley de 40 Horas (2026)</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Sobre el Sitio</h4>
+                <ul class="space-y-2">
+                    <li><a href="sobre-nosotros.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Contacto</a></li>
+                    <li><a href="terminos.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Términos de Servicio</a></li>
+                    <li><a href="privacidad.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Política de Privacidad</a></li>
+                    <li><a href="disclaimer.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Disclaimer Legal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="max-w-[1200px] mx-auto px-6 border-t border-slate-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <p class="text-xs text-slate-500">
+                &copy; 2026 Cálculo Laboral Chile. Todos los derechos reservados. Todos los cálculos son estimativos y de carácter ilustrativo.
+            </p>
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-icons text-xs text-emerald-500">verified</span>
+                    DT Chile Conforme
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- History Modal -->
+    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-md shadow-2xl p-6 relative overflow-hidden animate-fade-in">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3.5 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-icons text-sky-500">history</span>
+                    <h3 class="text-base font-bold text-slate-900">Historial de Indicadores</h3>
+                </div>
+                <button id="btn-close-history" aria-label="Cerrar modal" class="text-slate-500 hover:text-slate-700 hover:bg-slate-100 p-1 rounded-full transition-colors active:scale-95 duration-100">
                     <span class="material-icons">close</span>
                 </button>
             </div>
             
-            <!-- Total Panel -->
-            <div class="bg-slate-900/60 rounded-xl p-5 border border-white/5 text-center mb-6">
-                <span class="text-xs text-slate-400 uppercase tracking-wider block mb-1">Total Estimado del Finiquito</span>
-                <span id="modal-total-amount" class="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">$0</span>
-                <span class="text-xs text-slate-400 ml-1">CLP</span>
-            </div>
-            
-            <!-- Breakdown Details -->
-            <div class="space-y-3 mb-6 bg-slate-900/30 p-4 rounded-xl border border-white/5 max-h-[180px] overflow-y-auto">
-                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Desglose de Conceptos</h4>
-                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
-                    <span class="text-slate-400">Indemnización Años de Servicio</span>
-                    <span id="modal-years-amount" class="text-white font-medium">$0</span>
-                </div>
-                <div id="modal-notice-row" class="flex justify-between text-sm py-1.5 border-b border-white/5">
-                    <span class="text-slate-400">Indemnización Falta de Aviso</span>
-                    <span id="modal-notice-amount" class="text-white font-medium">$0</span>
-                </div>
-                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
-                    <span class="text-slate-400">Vacaciones Proporcionales</span>
-                    <span id="modal-vacation-prop-amount" class="text-white font-medium">$0</span>
-                </div>
-                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
-                    <span class="text-slate-400">Vacaciones Pendientes</span>
-                    <span id="modal-vacation-pending-amount" class="text-white font-medium">$0</span>
-                </div>
-                <div class="flex justify-between text-sm py-1.5 border-b border-white/5">
-                    <span class="text-slate-400">Sueldo / Haberes Pendientes</span>
-                    <span id="modal-pending-salary-amount" class="text-white font-medium">$0</span>
-                </div>
-                <div id="modal-afc-row" class="flex justify-between text-sm py-1.5 border-b border-white/5 hidden text-rose-400">
-                    <span class="text-slate-400">Descuento AFC (Art. 13)</span>
-                    <span id="modal-afc-amount" class="font-medium">-$0</span>
-                </div>
-            </div>
-
-            <!-- Lead Form -->
-            <div class="border-t border-white/10 pt-4">
-                <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    Si deseas descargar el **Informe PDF completo** con el sustento legal del Código del Trabajo, ingresa tu correo electrónico:
-                </p>
-                <form id="summary-lead-form" class="space-y-4">
-                    <div>
-                        <input type="email" id="summary-lead-email" required
-                            class="w-full glass-input placeholder-slate-500 text-sm transition-all"
-                            placeholder="tu@correo.com" />
-                        <div id="summary-lead-email-error" class="hidden text-xs text-rose-400 mt-2 ml-2 font-medium"></div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> UF (Últimos 30 días)
+                    </h4>
+                    <div class="max-h-[250px] overflow-y-auto pr-1">
+                        <table class="w-full text-left">
+                            <tbody id="uf-history-body">
+                                <tr><td class="p-2 text-center text-slate-500 text-xs italic font-medium">Cargando...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    
-                    <label class="flex items-start gap-2.5 cursor-pointer group">
-                        <input type="checkbox" id="summary-lead-optin" required
-                            class="w-4 h-4 mt-0.5 rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-emerald-500/50 cursor-pointer" />
-                        <span class="text-[10px] text-slate-400 group-hover:text-slate-300 transition-colors leading-normal select-none">
-                            Acepto recibir guías y novedades laborales de acuerdo con la <a href="/privacidad" target="_blank" class="text-emerald-400 hover:underline font-semibold">Política de Privacidad</a>.
-                        </span>
-                    </label>
-                    
-                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                        <button type="button" id="btn-close-summary-only" class="flex-1 py-3 px-5 btn-secondary-premium text-slate-300 hover:text-white rounded-full text-sm font-semibold transition-all">
-                            Cerrar y Ver Detalle
-                        </button>
-                        <button type="submit" class="flex-1 btn-primary-premium text-white font-bold py-3 px-5 rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer">
-                            <span class="material-icons text-sm">download</span>
-                            Descargar Reporte PDF
-                        </button>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> UTM (Últimos 12 meses)
+                    </h4>
+                    <div class="max-h-[250px] overflow-y-auto pr-1">
+                        <table class="w-full text-left">
+                            <tbody id="utm-history-body">
+                                <tr><td class="p-2 text-center text-slate-500 text-xs italic font-medium">Cargando...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Summary Modal Scripts -->
+
+    <!-- Shared Toggle Mobile Menu Script -->
     <script>
-        function showSimulationSummary() {
-            // Check if calculated
-            const totalEl = document.getElementById('totalAmount');
-            if (!totalEl || totalEl.textContent.trim() === '$ --' || totalEl.textContent.trim() === '$0' || totalEl.textContent.trim() === '') {
-                alert("Por favor, ingresa los datos mínimos requeridos para realizar la simulación.");
-                return;
-            }
-
-            const copyText = (fromId, toId) => {
-                const fromEl = document.getElementById(fromId);
-                const toEl = document.getElementById(toId);
-                if (fromEl && toEl) toEl.textContent = fromEl.textContent;
-            };
-            
-            copyText('totalAmount', 'modal-total-amount');
-            copyText('yearsServiceAmount', 'modal-years-amount');
-            copyText('noticeAmount', 'modal-notice-amount');
-            copyText('vacationPropAmount', 'modal-vacation-prop-amount');
-            copyText('vacationPendingAmount', 'modal-vacation-pending-amount');
-            copyText('pendingSalaryAmount', 'modal-pending-salary-amount');
-            copyText('afcAmount', 'modal-afc-amount');
-            
-            const checkVisibility = (rowId, modalRowId) => {
-                const rowEl = document.getElementById(rowId);
-                const modalRowEl = document.getElementById(modalRowId);
-                if (rowEl && modalRowEl) {
-                    if (rowEl.classList.contains('hidden')) {
-                        modalRowEl.classList.add('hidden');
-                    } else {
-                        modalRowEl.classList.remove('hidden');
-                    }
-                }
-            };
-            
-            checkVisibility('noticeRow', 'modal-notice-row');
-            checkVisibility('afcRow', 'modal-afc-row');
-            
-            const modal = document.getElementById('summary-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        }
-
-        function closeSummaryModal() {
-            const modal = document.getElementById('summary-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-            const resultsPanel = document.getElementById('results-panel');
-            if (resultsPanel) {
-                resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const closeBtn = document.getElementById('btn-close-summary-modal');
-            const closeOnlyBtn = document.getElementById('btn-close-summary-only');
-            const modal = document.getElementById('summary-modal');
-            
-            if (closeBtn) closeBtn.addEventListener('click', closeSummaryModal);
-            if (closeOnlyBtn) closeOnlyBtn.addEventListener('click', closeSummaryModal);
-            
-            if (modal) {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeSummaryModal();
-                    }
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
                 });
-            }
-
-            const leadForm = document.getElementById('summary-lead-form');
-            if (leadForm) {
-                leadForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const emailInput = document.getElementById('summary-lead-email');
-                    const email = emailInput ? emailInput.value.trim() : '';
-                    const optin = document.getElementById('summary-lead-optin').checked;
-                    
-                    if (email && optin) {
-                        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                        if (!emailRegex.test(email)) {
-                            const errEl = document.getElementById('summary-lead-email-error');
-                            if (errEl) {
-                                errEl.textContent = "Por favor, ingresa una dirección de correo válida.";
-                                errEl.classList.remove('hidden');
-                            }
-                            if (emailInput) {
-                                emailInput.classList.add('border-rose-500', 'focus:ring-rose-500');
-                                emailInput.focus();
-                            }
-                            return;
-                        }
-                        
-                        const origEmail = document.getElementById('pdf-email');
-                        const origOptin = document.getElementById('pdf-marketing-optin');
-                        const origForm = document.getElementById('pdf-email-form');
-                        
-                        if (origEmail && origOptin && origForm) {
-                            origEmail.value = email;
-                            origOptin.checked = true;
-                            
-                            // Close the summary modal
-                            if (modal) {
-                                modal.classList.add('hidden');
-                                modal.classList.remove('flex');
-                            }
-                            
-                            // Trigger submit of original pdf form
-                            origForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-                        } else {
-                            console.error("Original PDF form dependencies missing.");
-                        }
-                    }
-                });
-
-                const emailInput = document.getElementById('summary-lead-email');
-                if (emailInput) {
-                    emailInput.addEventListener('input', () => {
-                        const errEl = document.getElementById('summary-lead-email-error');
-                        if (errEl) errEl.classList.add('hidden');
-                        emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
-                    });
-                }
             }
         });
     </script>
-</body>
+    
+    <!-- Load shared indicators script -->
+    <script src="/js/constants.js"></script>
+    <script src="/js/indicators.js"></script>
+    
+    <!-- Calculator Scripts -->
+    <script src="/js/salary_logic.js"></script>
+    <script src="/js/salary_ui.js"></script>
+    <script src="/js/logic.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/validation.js"></script>
+    <script>
+        // High-end tab system switching between both calculators
+        function switchCalculatorTab(tab) {
+            const btnFiniquito = document.getElementById('tab-btn-finiquito');
+            const btnSueldo = document.getElementById('tab-btn-sueldo');
+            const containerFiniquito = document.getElementById('finiquito-calc-container');
+            const containerSueldo = document.getElementById('sueldo-calc-container');
 
+            if (tab === 'finiquito') {
+                containerFiniquito.classList.remove('hidden');
+                containerSueldo.classList.add('hidden');
+                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
+                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                
+                // Hide sueldo mobile bar and trigger calculations for finiquito
+                document.getElementById('mobile-result-bar').classList.add('translate-y-full');
+                if (typeof updateCalculations === 'function') updateCalculations();
+            } else {
+                containerFiniquito.classList.add('hidden');
+                containerSueldo.classList.remove('hidden');
+                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
+                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                
+                // Trigger sueldo calculations
+                const salaryInput = document.getElementById('salary');
+                if (salaryInput) salaryInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        }
+        
+        // Tab routing support
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash || '';
+            const path = window.location.pathname || '';
+            
+            if (hash === '#sueldo' || path.includes('sueldo_liquido')) {
+                switchCalculatorTab('sueldo');
+            } else {
+                switchCalculatorTab('finiquito');
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            switchCalculatorTab('finiquito');
+        });
+    </script>
+    
+</body>
 </html>

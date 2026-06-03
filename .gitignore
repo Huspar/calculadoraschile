@@ -1,3 +1,8 @@
 node_modules/
 build_step.py
 credentials.json
+calculolaboral-v2/
+scratch/
+rediseño-premium/
+.agents/
+__pycache__/

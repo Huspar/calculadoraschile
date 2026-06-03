@@ -1,31 +1,207 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
-
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="application-version" content="1.0.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guía práctica y legal sobre el Seguro de Cesantía (AFC) en Chile: requisitos para cobrar, paso a paso en línea y por qué se descuenta en tu finiquito por necesidades de la empresa.">
     <title>Seguro de Cesantía en Chile: Requisitos, Cómo Cobrar y Relación con el Finiquito</title>
-    <meta name="description"
-        content="Guía práctica y legal sobre el Seguro de Cesantía (AFC) en Chile: requisitos para cobrar, paso a paso en línea y por qué se descuenta en tu finiquito por necesidades de la empresa.">
-    <meta name="keywords"
-        content="seguro de cesantía chile, cómo cobrar seguro cesantía, requisitos seguro cesantía afc, descuento afc finiquito, fondos de cesantía chile, afc clave única">
-    <link rel="canonical" href="https://calculolaboral.cl/seguro-de-cesantia-chile-como-cobrar">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
-    <link rel="icon" href="/favicon.ico?v=3">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Seguro de Cesantía en Chile: Requisitos, Cómo Cobrar y Finiquito">
-    <meta property="og:description"
-        content="Todo sobre el Seguro de Cesantía de la AFC: cómo cobrarlo paso a paso, requisitos y por qué tu empleador puede descontarlo de tu indemnización por años de servicio.">
-    <meta property="og:url" content="https://calculolaboral.cl/seguro-de-cesantia-chile-como-cobrar">
-    <meta property="og:type" content="article">
-    <meta property="og:site_name" content="Cálculo Laboral">
-    <meta property="og:image" content="https://calculolaboral.cl/assets/guia-seguro-cesantia-chile.png">
-
-    <!-- Schema: Article -->
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'sans-serif'],
+                        mono: ['Geist Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .prose-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .prose-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+        .prose-content p {
+            margin-bottom: 1.25rem;
+            line-height: 1.75;
+        }
+        .prose-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .prose-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .prose-content li {
+            margin-bottom: 0.5rem;
+        }
+        .prose-content strong {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .prose-content a {
+            color: #0ea5e9;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .prose-content a:hover {
+            color: #0284c7;
+        }
+        .prose-content a.cta-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+        }
+        .prose-content a.cta-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .prose-content .callout {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .prose-content .callout-amber {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .prose-content .formula-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .rubro-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+        }
+        .rubro-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .rubro-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .rubro-imponible {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border: 1px solid #e0f2fe;
+        }
+        .rubro-no-imponible {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #dcfce7;
+        }
+        .rubro-descuento {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fee2e2;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 1.75rem;
+            border-left: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: #cbd5e1;
+            border: 2px solid #ffffff;
+            transition: all 0.2s ease;
+        }
+        .timeline-item.active {
+            border-left-color: #0ea5e9;
+        }
+        .timeline-item.active::before {
+            background-color: #0ea5e9;
+            left: -7px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 0 4px rgb(14 165 233 / 0.15);
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .step-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+        }
+        .step-number {
+            width: 2.25rem;
+            height: 2.25rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .field-error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+    </style>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -51,9 +227,7 @@
       "mainEntityOfPage": "https://calculolaboral.cl/seguro-de-cesantia-chile-como-cobrar"
     }
     </script>
-
-    <!-- Schema: BreadcrumbList -->
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -73,9 +247,7 @@
       ]
     }
     </script>
-
-    <!-- Schema: FAQPage -->
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -108,212 +280,216 @@
     }
     </script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
-        rel="stylesheet" />
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <!-- Local Stylesheet (will be compiled/linked dynamically) -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    
-        <style>
-        :root {
-            --font-display: 'Outfit', sans-serif;
-            --font-body: 'Plus Jakarta Sans', 'Inter', sans-serif;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: #070a13;
-            color: #F8FAFC;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
-            background-attachment: fixed;
-        }
-
-        h1, h2, h3, h4, h5, h6, .font-display {
-            font-family: var(--font-display);
-            letter-spacing: -0.02em;
-        }
-
-        /* True Refractive Glassmorphism */
-        .glass {
-            background: rgba(13, 20, 35, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .glass-card {
-            background: linear-gradient(135deg, rgba(20, 30, 48, 0.45) 0%, rgba(13, 20, 35, 0.65) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-                0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 20px 40px -15px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(14, 165, 233, 0.25);
-            box-shadow: 
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
-                0 30px 60px -15px rgba(14, 165, 233, 0.12),
-                0 20px 40px -15px rgba(0, 0, 0, 0.7);
-        }
-
-        .glass-input {
-            background: rgba(10, 15, 26, 0.85) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 0.75rem !important;
-            padding: 0.875rem 1rem !important;
-            color: #ffffff !important;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4) !important;
-        }
-
-        .glass-input:focus {
-            border-color: #0ea5e9 !important;
-            box-shadow: 
-                inset 0 2px 4px 0 rgba(0, 0, 0, 0.4), 
-                0 0 0 3px rgba(14, 165, 233, 0.15) !important;
-            outline: none !important;
-            transform: translateY(-1px);
-        }
-
-        /* Ambient Glows */
-        .bg-glow-1 {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
-            top: -100px;
-            left: -100px;
-            z-index: -1;
-            filter: blur(50px);
-        }
-
-        .bg-glow-2 {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-            bottom: 0;
-            right: -100px;
-            z-index: -1;
-            filter: blur(60px);
-        }
-
-        /* Hide Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #070a13;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #334155;
-        }
-    </style>
 </head>
+<body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
-<body class="min-h-screen flex flex-col text-slate-100">
-    <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-        <div class="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="/"
-                class="flex-shrink-0 flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-                <div
-                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <span class="material-icons text-white text-sm">calculate</span>
+    
+    <!-- Header -->
+    <header class="sticky top-0 w-full z-50 bg-white border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                            <line x1="9" y1="9" x2="15" y2="9"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                            <line x1="9" y1="17" x2="15" y2="17"></line>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex gap-6 items-center">
+                    <!-- Dropdown Calculadoras -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors py-2 outline-none">
+                            Calculadoras
+                            <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
+                        </button>
+                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1">
+                                <a href="sueldo_liquido.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
+                                <a href="finiquito_calculator.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Guías -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors py-2 outline-none">
+                            Guías
+                            <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
+                        </button>
+                        <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1 max-h-[300px] overflow-y-auto">
+                                <a href="como-calcular-finiquito-chile.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Finiquito</a>
+                                <a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Sueldo Líquido</a>
+                                <a href="como-leer-liquidacion-de-sueldo.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Leer Liquidación</a>
+                                <a href="despido-necesidades-empresa-articulo-161.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Art. 161 Necesidades Empresa</a>
+                                <a href="ley-40-horas-chile-2026.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Ley 40 Horas 2026</a>
+                                <a href="guia-vacaciones-proporcionales.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Vacaciones Proporcionales</a>
+                                <a href="seguro-de-cesantia-chile-como-cobrar.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cobrar Seguro Cesantía</a>
+                                <a href="que-hacer-si-no-te-pagan-el-finiquito.html" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Si no te Pagan el Finiquito</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="blog.html" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Blog</a>
+                    <a href="contacto.html" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-4">
+                    <button id="mobile-menu-btn" aria-label="Abrir menú de navegación" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100">
+                        <span class="material-icons">menu</span>
+                    </button>
                 </div>
-                <span class="font-bold text-xl tracking-tight text-white">Cálculo<span
-                        class="text-blue-400">Laboral</span></span>
-            </a>
-            <nav class="hidden md:flex items-center gap-6">
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/finiquito_calculator">Calculadoras</a>
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/blog">Blog</a>
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/preguntas">Preguntas</a>
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/contacto">Contacto</a>
-            </nav>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200 absolute w-full left-0 z-40 shadow-lg">
+            <div class="px-4 py-4 space-y-2">
+                <a href="sueldo_liquido.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="finiquito_calculator.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <a href="como-calcular-finiquito-chile.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
+                <a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
+                <a href="como-leer-liquidacion-de-sueldo.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
+                <a href="despido-necesidades-empresa-articulo-161.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Art. 161 Necesidades Empresa</a>
+                <a href="ley-40-horas-chile-2026.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Ley 40 Horas 2026</a>
+                <a href="guia-vacaciones-proporcionales.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
+                <a href="seguro-de-cesantia-chile-como-cobrar.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
+                <a href="que-hacer-si-no-te-pagan-el-finiquito.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <a href="blog.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
+                <a href="contacto.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
+            </div>
         </div>
     </header>
 
-    <main class="flex-grow pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <article class="max-w-4xl mx-auto">
+    
+    <!-- Indicators Grid (5 Cards) -->
+    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <!-- UF Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">UF (Unidad de Fomento)</span>
+                <span class="uf-value text-lg font-extrabold text-slate-900 font-mono">$39.682,99</span>
+            </div>
+            <!-- UTM Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">UTM Mensual</span>
+                <span class="utm-value text-lg font-extrabold text-slate-900 font-mono">$69.611</span>
+            </div>
+            <!-- Sueldo Mínimo Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Sueldo Mínimo</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">$539.000</span>
+            </div>
+            <!-- Tope AFP Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Imponible AFP</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF</span>
+            </div>
+            <!-- Tope Finiquito Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Finiquito</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">90 UF</span>
+            </div>
+        </div>
+        <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
+            <div id="indicators-status" class="flex items-center gap-1">
+                <span class="material-icons text-[12px] animate-spin">sync</span> Cargando indicadores del Banco Central...
+            </div>
+            <a href="#" id="btn-history" class="text-sky-500 hover:text-sky-600 hover:underline flex items-center gap-0.5">
+                <span class="material-icons text-[12px]">history</span> Historial de Valores
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-4 pb-16">
+        
+    <div class="max-w-4xl mx-auto px-6 pt-6">
+        
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
+        <a href="index.html" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <a href="blog.html" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <span class="text-slate-600 font-semibold">Seguro de Cesantía en Chile: Requisitos, Cómo Cobrar y Relación con el Finiquito</span>
+    </nav>
+    
+        
+        <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+            <div class="prose-content max-w-none">
+                
             <!-- Article Header -->
             <div class="mb-10 text-center sm:text-left">
                 <span class="px-3 py-1 text-xs font-semibold tracking-widest text-primary bg-primary/10 rounded-full uppercase">Guía Práctica Laboral</span>
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mt-4 leading-tight">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-800 tracking-tight mt-4 leading-tight">
                     Seguro de Cesantía en Chile: Requisitos, Cómo Cobrar y Relación con el Finiquito
                 </h1>
-                <p class="text-slate-400 text-lg mt-4 leading-relaxed max-w-3xl">
+                <p class="text-slate-500 text-lg mt-4 leading-relaxed max-w-3xl">
                     Aprende los requisitos actuales de cotizaciones de la AFC, el paso a paso en línea para solicitar tu dinero y cómo funciona la deducción patronal en tu liquidación de despido.
                 </p>
                 
-                <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500 justify-center sm:justify-start border-b border-white/5 pb-6">
+                <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500 justify-center sm:justify-start border-b border-slate-100 pb-6">
                     <div class="flex items-center gap-1.5">
                         <span class="material-icons text-sm">schedule</span> Actualizado a Mayo 2026
                     </div>
                     <div class="flex items-center gap-1.5">
                         <span class="material-icons text-sm">gavel</span> Normativa Ley 19.728
                     </div>
-                    <div class="flex items-center gap-1.5 text-emerald-400">
+                    <div class="flex items-center gap-1.5 text-emerald-600">
                         <span class="material-icons text-sm">verified</span> Revisado por Abogados
                     </div>
                 </div>
             </div>
 
             <!-- Infographic Banner (CSS-based) -->
-            <div class="mb-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); padding: 40px 30px;">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 0; position: relative;">
+            <div class="mb-10 rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 shadow-sm" style="padding: 40px 30px;">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-2 relative">
                     <!-- Connecting line -->
-                    <div style="position: absolute; top: 50%; left: 15%; right: 15%; height: 2px; background: linear-gradient(90deg, #10b981, #0ea5e9, #10b981); opacity: 0.3; transform: translateY(-50%); z-index: 0;"></div>
+                    <div class="hidden md:block absolute top-[36px] left-[15%] right-[15%] h-[2px] bg-slate-200 z-0"></div>
                     
                     <!-- Pillar 1: Protection -->
-                    <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
-                        <div style="width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; background: rgba(16,185,129,0.12); border: 2px solid rgba(16,185,129,0.25); display: flex; align-items: center; justify-content: center;">
-                            <span class="material-icons" style="font-size: 36px; color: #10b981;">shield</span>
+                    <div class="flex-1 text-center relative z-10">
+                        <div class="w-18 h-18 mx-auto rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center mb-3 shadow-sm" style="width: 72px; height: 72px;">
+                            <span class="material-icons text-3xl text-emerald-600">shield</span>
                         </div>
-                        <h4 style="color: #f1f5f9; font-size: 13px; font-weight: 700; margin: 0 0 4px;">Protección Laboral</h4>
-                        <p style="color: #64748b; font-size: 11px; margin: 0; line-height: 1.4; max-width: 160px; margin: 0 auto;">Derecho de seguridad social para todo trabajador en Chile</p>
+                        <h4 class="text-slate-800 text-sm font-bold mb-1">Protección Laboral</h4>
+                        <p class="text-slate-500 text-xs max-w-[160px] mx-auto leading-relaxed">Derecho de seguridad social para todo trabajador en Chile</p>
                     </div>
 
                     <!-- Arrow 1 -->
-                    <div style="color: #334155; font-size: 24px; z-index: 1; margin: 0 -8px;">→</div>
+                    <div class="hidden md:block text-slate-600 text-2xl z-10 font-bold">→</div>
 
                     <!-- Pillar 2: CIC Account -->
-                    <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
-                        <div style="width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; background: rgba(14,165,233,0.12); border: 2px solid rgba(14,165,233,0.25); display: flex; align-items: center; justify-content: center;">
-                            <span class="material-icons" style="font-size: 36px; color: #0ea5e9;">savings</span>
+                    <div class="flex-1 text-center relative z-10">
+                        <div class="w-18 h-18 mx-auto rounded-full bg-sky-50 border-2 border-sky-200 flex items-center justify-center mb-3 shadow-sm" style="width: 72px; height: 72px;">
+                            <span class="material-icons text-3xl text-sky-500">savings</span>
                         </div>
-                        <h4 style="color: #f1f5f9; font-size: 13px; font-weight: 700; margin: 0 0 4px;">Cuenta Individual (CIC)</h4>
-                        <p style="color: #64748b; font-size: 11px; margin: 0; line-height: 1.4; max-width: 160px; margin: 0 auto;">Aportes de trabajador (0,6%) y empleador (2,4%)</p>
+                        <h4 class="text-slate-800 text-sm font-bold mb-1">Cuenta Individual (CIC)</h4>
+                        <p class="text-slate-500 text-xs max-w-[160px] mx-auto leading-relaxed">Aportes de trabajador (0,6%) y empleador (2,4%)</p>
                     </div>
 
                     <!-- Arrow 2 -->
-                    <div style="color: #334155; font-size: 24px; z-index: 1; margin: 0 -8px;">→</div>
+                    <div class="hidden md:block text-slate-600 text-2xl z-10 font-bold">→</div>
 
                     <!-- Pillar 3: Benefits -->
-                    <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
-                        <div style="width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; background: rgba(16,185,129,0.12); border: 2px solid rgba(16,185,129,0.25); display: flex; align-items: center; justify-content: center;">
-                            <span class="material-icons" style="font-size: 36px; color: #10b981;">payments</span>
+                    <div class="flex-1 text-center relative z-10">
+                        <div class="w-18 h-18 mx-auto rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center mb-3 shadow-sm" style="width: 72px; height: 72px;">
+                            <span class="material-icons text-3xl text-emerald-600">payments</span>
                         </div>
-                        <h4 style="color: #f1f5f9; font-size: 13px; font-weight: 700; margin: 0 0 4px;">Beneficio de Cesantía</h4>
-                        <p style="color: #64748b; font-size: 11px; margin: 0; line-height: 1.4; max-width: 160px; margin: 0 auto;">Pagos mensuales del 70% al 35% del sueldo</p>
+                        <h4 class="text-slate-800 text-sm font-bold mb-1">Beneficio de Cesantía</h4>
+                        <p class="text-slate-500 text-xs max-w-[160px] mx-auto leading-relaxed">Pagos mensuales del 70% al 35% del sueldo</p>
                     </div>
                 </div>
             </div>
@@ -322,7 +498,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 items-start">
                 
                 <!-- ARTICLE CONTENT -->
-                <div class="prose-dark">
+                <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900">
                     <p>
                         El **Seguro de Cesantía** es un derecho de seguridad social que protege a todos los trabajadores regidos por el Código del Trabajo en Chile. Este seguro es administrado de manera exclusiva por la **AFC (Administradora de Fondos de Cesantía)** y provee ingresos monetarios periódicos en caso de desempleo.
                     </p>
@@ -361,12 +537,12 @@
                         Bajo el <strong>Artículo 13 de la Ley 19.728</strong>, si un trabajador es despedido por la causal de <strong>Necesidades de la Empresa (Artículo 161 del Código del Trabajo)</strong>, el empleador está facultado legalmente para <strong>descontar de la indemnización por años de servicio</strong> la suma total de los aportes del 1,6% que él mismo ingresó en la cuenta individual (CIC) del trabajador durante la vigencia del contrato.
                     </p>
                     
-                    <div class="my-6 p-5 rounded-xl bg-red-500/10 border border-red-500/20">
-                        <h4 class="text-sm font-bold text-white mb-2 flex items-center gap-1.5">
-                            <span class="material-icons text-red-400 text-sm">warning</span>
+<div class="my-6 p-5 rounded-xl bg-red-50 border border-red-200 shadow-sm">
+                        <h4 class="text-sm font-bold text-red-800 mb-2 flex items-center gap-1.5">
+                            <span class="material-icons text-red-600 text-sm">warning</span>
                             ¡Importante sobre el Descuento AFC!
                         </h4>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-0">
+                        <p class="text-xs text-slate-650 leading-relaxed mb-0">
                             Este descuento solo es legal si la causal aplicada es <strong>Art. 161 (Necesidades de la empresa)</strong>. No aplica en casos de renuncia voluntaria, mutuo acuerdo, vencimiento de plazo o despidos disciplinarios. Además, el descuento solo resta sobre el monto final de la <strong>indemnización por años de servicio</strong>, nunca sobre las vacaciones proporcionales ni sobre las remuneraciones pendientes.
                         </p>
                     </div>
@@ -389,34 +565,34 @@
                         Los pagos que se realizan con cargo a tu Cuenta Individual disminuyen mensualmente bajo los siguientes porcentajes promedio de tus últimos sueldos imponibles:
                     </p>
                     
-                    <div class="overflow-x-auto my-6 border border-white/10 rounded-xl">
-                        <table class="w-full text-sm text-left text-slate-400">
-                            <thead class="bg-slate-900 text-white text-xs uppercase font-bold border-b border-white/10">
+<div class="overflow-x-auto my-6 border border-slate-200 rounded-xl shadow-sm">
+                        <table class="w-full text-sm text-left text-slate-650 bg-white">
+                            <thead class="bg-slate-50 text-slate-700 text-xs uppercase font-bold border-b border-slate-200">
                                 <tr>
                                     <th class="px-4 py-3">Giro Mensual</th>
                                     <th class="px-4 py-3 text-right">Porcentaje del Sueldo</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-white/5">
+                            <tbody class="divide-y divide-slate-100">
                                 <tr>
-                                    <td class="px-4 py-3 font-semibold text-white">1° Mes</td>
-                                    <td class="px-4 py-3 text-right text-emerald-400 font-mono">70%</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-700">1° Mes</td>
+                                    <td class="px-4 py-3 text-right text-emerald-600 font-mono font-bold">70%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-semibold text-white">2° Mes</td>
-                                    <td class="px-4 py-3 text-right text-emerald-400 font-mono">55%</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-700">2° Mes</td>
+                                    <td class="px-4 py-3 text-right text-emerald-600 font-mono font-bold">55%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-semibold text-white">3° Mes</td>
-                                    <td class="px-4 py-3 text-right text-emerald-400 font-mono">45%</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-700">3° Mes</td>
+                                    <td class="px-4 py-3 text-right text-emerald-600 font-mono font-bold">45%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-semibold text-white">4° Mes</td>
-                                    <td class="px-4 py-3 text-right text-emerald-400 font-mono">40%</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-700">4° Mes</td>
+                                    <td class="px-4 py-3 text-right text-emerald-600 font-mono font-bold">40%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-semibold text-white">5° Mes</td>
-                                    <td class="px-4 py-3 text-right text-emerald-400 font-mono">35%</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-700">5° Mes</td>
+                                    <td class="px-4 py-3 text-right text-emerald-600 font-mono font-bold">35%</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -426,106 +602,177 @@
                 <!-- SIDEBAR CARD: CTA & REFERENCE -->
                 <aside class="space-y-6 lg:sticky lg:top-28">
                     <!-- Calculator Promo Card -->
-                    <div class="glass-panel p-6 rounded-2xl border border-primary/20 shadow-2xl relative overflow-hidden bg-slate-900/60 backdrop-blur-md">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-xl -mr-8 -mt-8 pointer-events-none"></div>
-                        <h4 class="text-sm font-bold text-primary uppercase tracking-widest mb-2">Simulador de Finiquito</h4>
-                        <h3 class="text-lg font-bold text-white mb-3">Revisa tu descuento de la AFC</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-5">
+<div class="p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden bg-white">
+                        <h4 class="text-sm font-bold text-sky-600 uppercase tracking-widest mb-2">Simulador de Finiquito</h4>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3">Revisa tu descuento de la AFC</h3>
+                        <p class="text-xs text-slate-655 leading-relaxed mb-5">
                             ¿Te despidieron por necesidades de la empresa? Usa nuestra calculadora gratuita con el descuento legal AFC actualizado a la normativa 2026.
                         </p>
-                        <a href="/finiquito_calculator"
-                            class="block w-full text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-full text-xs transition-all shadow-lg shadow-primary/20 hover:scale-[1.02]">
+                        <a href="finiquito_calculator.html"
+                            class="block w-full text-center bg-sky-500 hover:bg-sky-600 text-slate-900 font-bold py-3 px-4 rounded-xl text-xs transition-all shadow-sm">
                             Ir a la Calculadora
                         </a>
                     </div>
 
                     <!-- AFC Direct Info -->
-                    <div class="glass-panel p-6 rounded-2xl border border-white/5 bg-slate-950/30 space-y-4">
-                        <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-white/5 pb-2">Datos AFC Chile</h3>
-                        <ul class="space-y-2.5 text-xs text-slate-400 leading-relaxed">
+<div class="p-6 rounded-2xl border border-slate-200 bg-slate-50 space-y-4 shadow-sm">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">Datos AFC Chile</h3>
+                        <ul class="space-y-2.5 text-xs text-slate-650 leading-relaxed">
                             <li class="flex items-start gap-2">
-                                <span class="material-icons text-emerald-400 text-sm mt-0.5">location_on</span>
-                                <div><strong>Administradora:</strong> AFC Chile S.A.</div>
+                                <span class="material-icons text-emerald-600 text-sm mt-0.5">location_on</span>
+                                <div class="text-slate-700"><strong>Administradora:</strong> AFC Chile S.A.</div>
                             </li>
                             <li class="flex items-start gap-2">
-                                <span class="material-icons text-emerald-400 text-sm mt-0.5">link</span>
-                                <div><strong>Sitio oficial:</strong> <a href="https://www.afc.cl" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">www.afc.cl</a></div>
+                                <span class="material-icons text-emerald-600 text-sm mt-0.5">link</span>
+                                <div class="text-slate-700"><strong>Sitio oficial:</strong> <a href="https://www.afc.cl" class="text-sky-600 hover:underline" target="_blank" rel="noopener noreferrer">www.afc.cl</a></div>
                             </li>
                             <li class="flex items-start gap-2">
-                                <span class="material-icons text-emerald-400 text-sm mt-0.5">phone</span>
-                                <div><strong>Call Center:</strong> 600 584 3000</div>
+                                <span class="material-icons text-emerald-600 text-sm mt-0.5">phone</span>
+                                <div class="text-slate-700"><strong>Call Center:</strong> 600 584 3000</div>
                             </li>
                         </ul>
                     </div>
                 </aside>
                 
             </div>
+        
+            </div>
         </article>
+    </div>
+    
     </main>
 
+    
     <!-- Footer -->
-    <footer class="border-t border-white/10 bg-slate-900 pt-16 pb-8 relative z-50 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-1">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div
-                            class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                            <span class="material-icons text-white text-[10px]">calculate</span>
-                        </div>
-                        <span class="font-bold text-lg text-white">Cálculo<span
-                                class="text-blue-400">Laboral</span></span>
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-12 mt-auto">
+        <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Brand Column -->
+            <div class="space-y-4">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                            <line x1="9" y1="9" x2="15" y2="9"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                            <line x1="9" y1="17" x2="15" y2="17"></line>
+                        </svg>
                     </div>
-                    <p class="text-slate-500 text-sm">
-                        Herramientas gratuitas para trabajadores en Chile.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Calculadoras</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/" class="hover:text-blue-400 transition-colors">Inicio</a></li>
-                        <li><a href="/sueldo_liquido" class="hover:text-blue-400 transition-colors">Sueldo
-                                Líquido</a></li>
-                        <li><a href="/finiquito_calculator"
-                                class="hover:text-blue-400 transition-colors">Calcular Finiquito</a></li>
-                        <li><a href="/guia-vacaciones-proporcionales"
-                                class="hover:text-blue-400 transition-colors">Guía Vacaciones</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li><a href="/privacidad" class="hover:text-blue-400 transition-colors">Privacidad</a></li>
-                        <li><a href="/terminos" class="hover:text-blue-400 transition-colors">Términos de Uso</a>
-                        </li>
-                        <li><a href="/disclaimer" class="hover:text-blue-400 transition-colors">Disclaimer</a></li>
-                        <li><a href="/sobre-nosotros" class="hover:text-blue-400 transition-colors">Sobre
-                                Nosotros</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Contacto</h4>
-                    <p class="text-sm text-slate-400 mb-2">Consultas y sugerencias:</p>
-                    <a href="mailto:contacto@calculolaboral.cl"
-                        class="inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors">
-                        <span class="material-icons text-base">email</span>
-                        contacto@calculolaboral.cl
-                    </a>
-                </div>
-            </div>
-
-            <div
-                class="border-t border-white/5 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
-                <p class="text-slate-600 text-xs">
-                    © 2026 calculolaboral.cl. Todos los derechos reservados.
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+                </a>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Herramientas y simuladores gratuitos y actualizados conforme a la legislación laboral chilena vigente en 2026.
                 </p>
+                <p class="text-xs text-slate-500 font-mono">Versión 2.0.0 (2026)</p>
             </div>
-            <p class="text-xs text-slate-500 mt-4">Versión 1.0 — Febrero 2026</p>
+
+            <!-- Calculadoras Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Calculadoras</h4>
+                <ul class="space-y-2">
+                    <li><a href="sueldo_liquido.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
+                    <li><a href="finiquito_calculator.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="index.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
+                </ul>
+            </div>
+
+            <!-- Guías Populares Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Guías Populares</h4>
+                <ul class="space-y-2">
+                    <li><a href="como-calcular-finiquito-chile.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Finiquito</a></li>
+                    <li><a href="como-calcular-sueldo-liquido-paso-a-paso.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Sueldo Líquido</a></li>
+                    <li><a href="guia-vacaciones-proporcionales.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Vacaciones Proporcionales</a></li>
+                    <li><a href="ley-40-horas-chile-2026.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Ley de 40 Horas (2026)</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Sobre el Sitio</h4>
+                <ul class="space-y-2">
+                    <li><a href="sobre-nosotros.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Contacto</a></li>
+                    <li><a href="terminos.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Términos de Servicio</a></li>
+                    <li><a href="privacidad.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Política de Privacidad</a></li>
+                    <li><a href="disclaimer.html" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Disclaimer Legal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="max-w-[1200px] mx-auto px-6 border-t border-slate-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <p class="text-xs text-slate-500">
+                &copy; 2026 Cálculo Laboral Chile. Todos los derechos reservados. Todos los cálculos son estimativos y de carácter ilustrativo.
+            </p>
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-icons text-xs text-emerald-500">verified</span>
+                    DT Chile Conforme
+                </span>
+            </div>
         </div>
     </footer>
-</body>
 
+    
+    <!-- History Modal -->
+    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-md shadow-2xl p-6 relative overflow-hidden animate-fade-in">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3.5 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-icons text-sky-500">history</span>
+                    <h3 class="text-base font-bold text-slate-900">Historial de Indicadores</h3>
+                </div>
+                <button id="btn-close-history" aria-label="Cerrar modal" class="text-slate-500 hover:text-slate-700 hover:bg-slate-100 p-1 rounded-full transition-colors active:scale-95 duration-100">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> UF (Últimos 30 días)
+                    </h4>
+                    <div class="max-h-[250px] overflow-y-auto pr-1">
+                        <table class="w-full text-left">
+                            <tbody id="uf-history-body">
+                                <tr><td class="p-2 text-center text-slate-500 text-xs italic font-medium">Cargando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> UTM (Últimos 12 meses)
+                    </h4>
+                    <div class="max-h-[250px] overflow-y-auto pr-1">
+                        <table class="w-full text-left">
+                            <tbody id="utm-history-body">
+                                <tr><td class="p-2 text-center text-slate-500 text-xs italic font-medium">Cargando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Shared Toggle Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    
+    <!-- Load shared indicators script -->
+    <script src="/js/constants.js"></script>
+    <script src="/js/indicators.js"></script>
+    
+</body>
 </html>
