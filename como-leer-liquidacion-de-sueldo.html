@@ -378,7 +378,7 @@
                     <img src="assets/guia-liquidacion-sueldo-cover.png"
                         alt="Ilustración 3D de lupa analizando una liquidación de sueldo"
                         
-                        class="max-w-full h-auto w-full h-auto max-h-[35vh] object-contain bg-slate-100/50" loading="lazy" width="1024"
+                        class="w-full h-auto max-h-[35vh] object-contain bg-slate-100/50" loading="lazy" width="1024"
                         height="640" />
                 </div>
                 <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
@@ -386,6 +386,23 @@
                 </figcaption>
             </figure>
             </div>
+        </div>
+        <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
+            <div id="indicators-status" class="flex items-center gap-1">
+                <span class="material-icons text-[12px] animate-spin">sync</span> Cargando indicadores del Banco Central...
+            </div>
+            <a href="#" id="btn-history" class="text-sky-500 hover:text-sky-600 hover:underline flex items-center gap-0.5">
+                <span class="material-icons text-[12px]">history</span> Historial de Valores
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-4 pb-16">
+        <div class="max-w-4xl mx-auto px-6">
+            <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+                <div class="prose-content max-w-none">
+
 
             <div class="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900 text-sm sm:text-base">
 
@@ -615,6 +632,8 @@
                         <strong>Aviso legal:</strong> Esta guía es de carácter informativo. Los porcentajes y topes indicados están actualizados a abril 2026. Para consultas específicas sobre tu situación, contacta al departamento de recursos humanos de tu empresa o a la Dirección del Trabajo.
                     </p>
                 </div>
+            </div>
+        
             </div>
         </article>
     </div>
