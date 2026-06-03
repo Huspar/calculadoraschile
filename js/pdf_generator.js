@@ -8,73 +8,13 @@
     // CONFIGURACIÓN DE LEADS: Reemplaza con la URL de tu Google Apps Script desplegado
     const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby81-BL0hip010mshIYnpCwTMHKJYEcyNVrZyKZeoRJDi3_MQ4UWEC7gf2HxhcJ4iL1Ug/exec';
 
-    // 1. INJECT MODAL HTML AND CSS ON PAGE LOAD
+    // 1. INJECT PRINT STYLES AND EVENT LISTENERS ON PAGE LOAD
     window.addEventListener('DOMContentLoaded', () => {
-        injectModalHTML();
         injectPrintStyles();
         setupEventListeners();
     });
 
-    // 2. MODAL HTML TEMPLATE
-    function injectModalHTML() {
-        if (document.getElementById('pdf-email-modal')) return;
-
-        const modalDiv = document.createElement('div');
-        modalDiv.id = 'pdf-email-modal';
-        modalDiv.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4';
-        modalDiv.innerHTML = `
-            <div class="w-full max-w-md rounded-2xl p-6 shadow-2xl relative overflow-hidden border border-white/10 bg-[#1e293b] text-white" style="background: #1e293b; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
-                <!-- Decorative Top Bar -->
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-blue-600"></div>
-                
-                <!-- Header -->
-                <div class="flex justify-between items-start mb-4 mt-2">
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                            <span class="material-icons text-white text-sm">picture_as_pdf</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-white">Descargar Reporte PDF</h3>
-                    </div>
-                    <button id="close-pdf-modal-btn" class="p-1 rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-colors cursor-pointer" type="button">
-                        <span class="material-icons">close</span>
-                    </button>
-                </div>
-                
-                <!-- Description -->
-                <p class="text-sm text-slate-300 mb-5 leading-relaxed">
-                    Ingresa tu correo electrónico para descargar al instante un informe estructurado con todo el desglose matemático y legal de tu simulación.
-                </p>
-                
-                <!-- Form -->
-                <form id="pdf-email-form" class="space-y-4">
-                    <div>
-                        <label for="pdf-email" class="block text-xs font-semibold text-slate-400 mb-2 ml-1">Correo Electrónico</label>
-                        <input type="email" id="pdf-email" required
-                            class="w-full px-4 py-3 bg-[#0f172a] border border-white/10 rounded-full text-white placeholder-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition-all"
-                            placeholder="tu@correo.com" style="background-color: #0f172a; color: #ffffff;" />
-                        <div id="pdf-email-error" class="hidden text-xs text-rose-400 mt-2 ml-2 font-medium"></div>
-                    </div>
-                    
-                    <!-- Opt-in Checkbox -->
-                    <label class="flex items-start gap-3 cursor-pointer group mt-4">
-                        <input type="checkbox" id="pdf-marketing-optin" required
-                            class="w-4 h-4 mt-0.5 rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-emerald-500/50 cursor-pointer" />
-                        <span class="text-xs text-slate-400 group-hover:text-slate-300 transition-colors leading-relaxed select-none">
-                            Acepto recibir guías, ebooks y novedades sobre derechos laborales en Chile de acuerdo con la <a href="/privacidad" target="_blank" class="text-emerald-400 hover:underline font-semibold">Política de Privacidad</a>.
-                        </span>
-                    </label>
-                    
-                    <!-- Submit Button -->
-                    <button type="submit"
-                        class="w-full bg-gradient-to-r from-emerald-500 to-blue-600 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-full shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer mt-6">
-                        <span class="material-icons text-sm">download</span>
-                        Generar y Descargar PDF
-                    </button>
-                </form>
-            </div>
-        `;
-        document.body.appendChild(modalDiv);
-    }
+    // 2. MODAL HTML TEMPLATE (REMOVED: PDF is downloaded directly without asking for email)
 
     // 3. INJECT PRINT STYLES (Premium A4 single-page design)
     function injectPrintStyles() {
@@ -233,160 +173,25 @@
     function setupEventListeners() {
         const downloadBtnFini = document.getElementById('download-pdf-btn');
         const downloadBtnSueldo = document.getElementById('download-pdf-btn-sueldo');
-        const closeBtn = document.getElementById('close-pdf-modal-btn');
-        const modal = document.getElementById('pdf-email-modal');
-        const form = document.getElementById('pdf-email-form');
-        const emailInput = document.getElementById('pdf-email');
-        const emailError = document.getElementById('pdf-email-error');
 
-        const openModalHandler = () => {
+        const downloadHandler = () => {
             // Verify that calculator is calculated
             if (!isCalculated()) {
                 alert("Por favor, realiza una simulación primero ingresando tus datos para generar el reporte.");
                 return;
             }
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
+            generatePDFReport();
         };
 
         if (downloadBtnFini) {
-            downloadBtnFini.addEventListener('click', openModalHandler);
+            downloadBtnFini.addEventListener('click', downloadHandler);
         }
         if (downloadBtnSueldo) {
-            downloadBtnSueldo.addEventListener('click', openModalHandler);
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                if (emailError) emailError.classList.add('hidden');
-                if (emailInput) {
-                    emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
-                    emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
-                }
-            });
-        }
-
-        // Clear errors as soon as user types
-        if (emailInput && emailError) {
-            emailInput.addEventListener('input', () => {
-                emailError.classList.add('hidden');
-                emailError.textContent = '';
-                emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
-                emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
-            });
-        }
-
-        // Close when clicking outside content card
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                    if (emailError) emailError.classList.add('hidden');
-                    if (emailInput) {
-                        emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
-                        emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
-                    }
-                }
-            });
-        }
-
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = emailInput ? emailInput.value.trim() : '';
-                const optin = document.getElementById('pdf-marketing-optin').checked;
-
-                if (email) {
-                    const validation = isValidRealEmail(email);
-                    if (!validation.valid) {
-                        if (emailError && emailInput) {
-                            emailError.textContent = validation.message;
-                            emailError.classList.remove('hidden');
-                            emailInput.classList.remove('border-white/10', 'focus:ring-emerald-500');
-                            emailInput.classList.add('border-rose-500', 'focus:ring-rose-500');
-                            emailInput.focus();
-                        }
-                        return;
-                    }
-
-                    if (optin) {
-                        // Save lead to local database (localStorage)
-                        saveLead(email);
-                        
-                        // Generate report print
-                        generatePDFReport();
-
-                        // Close modal and reset form
-                        modal.classList.add('hidden');
-                        modal.classList.remove('flex');
-                        form.reset();
-                        if (emailError) emailError.classList.add('hidden');
-                        if (emailInput) {
-                            emailInput.classList.remove('border-rose-500', 'focus:ring-rose-500');
-                            emailInput.classList.add('border-white/10', 'focus:ring-emerald-500');
-                        }
-                    }
-                }
-            });
+            downloadBtnSueldo.addEventListener('click', downloadHandler);
         }
     }
 
-    // 5. HELPER: STRICT EMAIL VALIDATION (Blocks fake, temp, and test emails)
-    function isValidRealEmail(email) {
-        email = email.trim().toLowerCase();
-        
-        // 5.1 Basic Syntax Check with a strict regex
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(email)) {
-            return { valid: false, message: "Por favor, ingresa una dirección de correo válida." };
-        }
-
-        const [localPart, domain] = email.split('@');
-
-        // 5.2 Block obvious test/fake local parts or domains
-        const blockedLocalParts = [
-            'test', 'testing', 'prueba', 'pruebas', 'correo', 'email', 'asdf', 'qwer', 'zxcv', 
-            'abc', 'admin', 'soporte', 'support', 'info', 'no-reply', 'noreply', 'asd', '123',
-            '1234', '12345', 'ninguno', 'dummy', 'fake', 'user', 'usuario', 'a', 'b', 'c', 'x'
-        ];
-        
-        const blockedDomains = [
-            'test.com', 'test.cl', 'example.com', 'example.org', 'example.net', 
-            'correo.com', 'correo.cl', 'prueba.com', 'prueba.cl', 'email.com', 'email.cl',
-            'asd.com', 'asdf.com', 'xyz.com', 'abc.com', '123.com', '123.cl', 
-            'none.com', 'no.com', 'domain.com', 'domain.cl', 'mail.com'
-        ];
-
-        if (blockedLocalParts.includes(localPart) || localPart.length < 3) {
-            return { valid: false, message: "Por favor, ingresa un correo personal o laboral real." };
-        }
-
-        if (blockedDomains.includes(domain)) {
-            return { valid: false, message: "Este dominio de correo no parece ser válido o real." };
-        }
-
-        // 5.3 Block disposable/temporary email domains
-        const disposableDomains = [
-            'yopmail.com', 'yopmail.fr', 'yopmail.net', 'tempmail.com', 'tempmailo.com', 
-            '10minutemail.com', 'guerrillamail.com', 'trashmail.com', 'sharklasers.com', 
-            'mailinator.com', 'getairmail.com', 'dispostable.com', 'burnermail.io', 
-            'maildrop.cc', 'temp-mail.org', 'fakemailgenerator.com', 'throwawaymail.com', 
-            'emailondeck.com', 'crazymailing.com', 'boun.cr', 'jetable.org', 'tempail.com',
-            'mohmal.com', 'guerrillamailblock.com', 'guerrillamail.net', 'guerrillamail.org',
-            'guerrillamail.biz', 'grr.la', 'pokemail.net', 'torbox.com'
-        ];
-
-        if (disposableDomains.some(disposable => domain === disposable || domain.endsWith('.' + disposable))) {
-            return { valid: false, message: "No se permiten correos electrónicos temporales o desechables." };
-        }
-
-        return { valid: true };
-    }
+    // 5. HELPER: STRICT EMAIL VALIDATION (REMOVED)
 
     // 6. HELPER: CHECK IF CALCULATOR IS GENUINELY CALCULATED WITH REAL INPUTS
     function isCalculated() {
@@ -429,48 +234,7 @@
         return false;
     }
 
-    // 6. HELPER: SAVE EMAIL LEAD TO LOCAL STORAGE DATABASE
-    function saveLead(email) {
-        try {
-            const leads = JSON.parse(localStorage.getItem('pdf_leads') || '[]');
-            const isSueldoActive = document.getElementById('sueldo-calc-container') && !document.getElementById('sueldo-calc-container').classList.contains('hidden');
-            const pageType = isSueldoActive ? 'sueldo_liquido' : 'finiquito';
-            const leadData = {
-                email: email,
-                date: new Date().toISOString(),
-                type: pageType,
-                userAgent: navigator.userAgent
-            };
-            
-            // Avoid duplicates
-            if (!leads.some(l => l.email === email && l.type === pageType)) {
-                leads.push(leadData);
-                localStorage.setItem('pdf_leads', JSON.stringify(leads));
-                console.log("Lead guardado localmente:", email);
-            }
-            
-            // Envío asíncrono al Webhook de Google Sheets si está configurado
-            if (WEBHOOK_URL && WEBHOOK_URL.trim() !== '') {
-                fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
-                    body: JSON.stringify(leadData),
-                    redirect: 'follow'
-                })
-                .then(response => response.text())
-                .then(result => {
-                    console.log("Lead sincronizado con Google Sheets:", result);
-                })
-                .catch(err => {
-                    console.warn("No se pudo sincronizar el lead con Google Sheets:", err);
-                });
-            }
-        } catch (e) {
-            console.error("Error al guardar lead:", e);
-        }
-    }
+    // 6. HELPER: SAVE EMAIL LEAD TO LOCAL STORAGE DATABASE (REMOVED)
 
     // 7. MAIN FUNCTION: GENERATE PRINT REPORT AND TRIGGER WINDOW.PRINT
     function generatePDFReport() {
