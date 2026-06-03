@@ -348,6 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateCalculations() {
     if (!elements.baseSalary) return;
 
+    // Reset PDF and Lead section visibility on every update
+    document.querySelector('#finiquito-calc-container #pdf-section')?.classList.add('hidden');
+    document.getElementById('lead-section')?.classList.add('hidden');
+
     const V = window.Validation;
 
     // Helper for formatting currency (safe — never NaN)
@@ -618,6 +622,11 @@ function updateCalculations() {
         // ============================================
 
         trackCalculation(results);
+
+        // PDF and Lead capture activation
+        window.resultadoActualMonto = format(results.total);
+        document.querySelector('#finiquito-calc-container #pdf-section')?.classList.remove('hidden');
+        document.getElementById('lead-section')?.classList.remove('hidden');
 
     } catch (error) {
         console.error('Error en cálculo de finiquito:', error);

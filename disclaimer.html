@@ -230,7 +230,12 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
+        @media print {
+            header, footer, nav, button, .no-print { display: none !important; }
+            body { background: white; padding: 20px; }
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
@@ -326,7 +331,7 @@
 
     
     <!-- Indicators Grid (5 Cards) -->
-    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8">
+    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8 no-print">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             <!-- UF Card -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
@@ -370,6 +375,12 @@
         
         <div class="max-w-3xl mx-auto px-6 pt-6">
             <h1 class="text-3xl font-extrabold text-slate-900 mb-6 text-center">Disclaimer Legal</h1>
+            <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+                <div class="prose-content max-w-none">
+                    
+        
+        <div class="max-w-3xl mx-auto px-6 pt-6">
+            
             <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
                 <div class="prose-content max-w-none">
                     
@@ -441,6 +452,11 @@
                 </section>
             </div>
         
+                </div>
+            </div>
+        </div>
+        
+    
                 </div>
             </div>
         </div>
@@ -583,6 +599,42 @@
     <!-- Load shared indicators script -->
     <script src="/js/constants.js"></script>
     <script src="/js/indicators.js"></script>
+    <!-- EmailJS & PDF print functions -->
+    <script>
+        (function() {
+            emailjs.init("{{EMAILJS_PUBLIC_KEY}}");
+        })();
+
+        function descargarPDF() {
+            window.print();
+        }
+
+        function enviarLead() {
+            var nombre = document.getElementById('lead-nombre').value.trim();
+            var correo = document.getElementById('lead-correo').value.trim();
+            var telefono = document.getElementById('lead-telefono').value.trim();
+            var monto = window.resultadoActualMonto || '0';
+
+            if (!nombre || !correo) {
+                alert('Por favor completa nombre y correo.');
+                return;
+            }
+
+            emailjs.send("{{EMAILJS_SERVICE_ID}}", "{{EMAILJS_TEMPLATE_ID}}", {
+                nombre: nombre,
+                correo: correo,
+                telefono: telefono,
+                monto_calculado: monto,
+                tipo: 'Finiquito',
+                fecha: new Date().toLocaleDateString('es-CL')
+            }).then(function() {
+                document.getElementById('lead-form').classList.add('hidden');
+                document.getElementById('lead-confirmacion').classList.remove('hidden');
+            }).catch(function() {
+                alert('Error al enviar. Intenta de nuevo.');
+            });
+        }
+    </script>
     
 </body>
 </html>

@@ -243,7 +243,7 @@ FOOTER_HTML = """
 
 INDICATOR_BAR_HTML = """
     <!-- Indicators Grid (5 Cards) -->
-    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8">
+    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8 no-print">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             <!-- UF Card -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
@@ -544,7 +544,12 @@ HTML_LAYOUT = """<!DOCTYPE html>
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }}
+        @media print {{
+            header, footer, nav, button, .no-print {{ display: none !important; }}
+            body {{ background: white; padding: 20px; }}
+        }}
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     {custom_head}
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
@@ -576,6 +581,42 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <!-- Load shared indicators script -->
     <script src="/js/constants.js"></script>
     <script src="/js/indicators.js"></script>
+    <!-- EmailJS & PDF print functions -->
+    <script>
+        (function() {{
+            emailjs.init("{{{{EMAILJS_PUBLIC_KEY}}}}");
+        }})();
+
+        function descargarPDF() {{
+            window.print();
+        }}
+
+        function enviarLead() {{
+            var nombre = document.getElementById('lead-nombre').value.trim();
+            var correo = document.getElementById('lead-correo').value.trim();
+            var telefono = document.getElementById('lead-telefono').value.trim();
+            var monto = window.resultadoActualMonto || '0';
+
+            if (!nombre || !correo) {{
+                alert('Por favor completa nombre y correo.');
+                return;
+            }}
+
+            emailjs.send("{{{{EMAILJS_SERVICE_ID}}}}", "{{{{EMAILJS_TEMPLATE_ID}}}}", {{
+                nombre: nombre,
+                correo: correo,
+                telefono: telefono,
+                monto_calculado: monto,
+                tipo: 'Finiquito',
+                fecha: new Date().toLocaleDateString('es-CL')
+            }}).then(function() {{
+                document.getElementById('lead-form').classList.add('hidden');
+                document.getElementById('lead-confirmacion').classList.remove('hidden');
+            }}).catch(function() {{
+                alert('Error al enviar. Intenta de nuevo.');
+            }});
+        }}
+    </script>
     {custom_scripts}
 </body>
 </html>
@@ -2303,7 +2344,7 @@ print("Contact page complete.")
 INDEX_CONTENT = """
 <div class="max-w-[1200px] mx-auto px-6">
     <!-- H1 Header Section for SEO -->
-    <div class="text-center sm:text-left my-8 max-w-xl mx-auto">
+    <div class="text-center sm:text-left my-8 max-w-xl mx-auto no-print">
         <h1 class="text-2xl font-bold text-slate-900">
             Calculadoras Laborales Chile 2026
         </h1>
@@ -2313,7 +2354,7 @@ INDEX_CONTENT = """
     </div>
 
     <!-- Tab Controls for Calculator Selection -->
-    <div class="flex max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-1 mb-8 shadow-sm">
+    <div class="flex max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-1 mb-8 shadow-sm no-print">
         <button id="tab-btn-finiquito" onclick="switchCalculatorTab('finiquito')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100">
             Calculadora de Finiquito
         </button>
@@ -2327,7 +2368,7 @@ INDEX_CONTENT = """
     <!-- ---------------------------------------------------- -->
     <div id="finiquito-calc-container" class="flex flex-col lg:flex-row gap-8 items-start">
         <!-- Inputs Column (Left, 420px) -->
-        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm no-print">
             <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
                 <h2 class="text-lg font-bold text-slate-900">Datos Finiquito</h2>
                 <div class="flex gap-2">
@@ -2598,6 +2639,43 @@ INDEX_CONTENT = """
                     <span id="ufCapValue" class="font-bold text-slate-600 font-mono">90 UF</span>
                 </span>
             </div>
+
+            <!-- PDF and Lead Capture section -->
+            <div id="pdf-section" class="mt-4 hidden">
+              <button onclick="descargarPDF()" 
+                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors">
+                📥 Descargar Desglose PDF
+              </button>
+              <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
+            </div>
+
+            <!-- Lead Capture Section (SOLO EN FINIQUITO) -->
+            <div id="lead-section" class="mt-3 p-4 bg-amber-50 border border-amber-200 rounded-xl no-print hidden">
+              <p class="text-sm font-semibold text-amber-900 mb-2">
+                ⚖️ ¿Crees que tu despido fue injustificado?
+              </p>
+              <p class="text-xs text-amber-700 mb-3">
+                Déjanos tu caso y te contactamos.
+              </p>
+              <form id="lead-form" class="space-y-2">
+                <input type="text" id="lead-nombre" placeholder="Tu nombre" required
+                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
+                <input type="email" id="lead-correo" placeholder="tu@correo.com" required
+                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
+                <input type="tel" id="lead-telefono" placeholder="+56 9 XXXX XXXX"
+                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
+                <button type="button" onclick="enviarLead()"
+                  class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg transition-colors">
+                  Quiero que revisen mi caso →
+                </button>
+              </form>
+              <div id="lead-confirmacion" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 text-center">
+                ✅ Recibimos tu caso. Te contactaremos pronto.
+              </div>
+              <p class="text-xs text-amber-600 mt-2 text-center">
+                Sin costo. Solo para determinar si tu despido califica.
+              </p>
+            </div>
         </div>
     </div>
 
@@ -2606,7 +2684,7 @@ INDEX_CONTENT = """
     <!-- ---------------------------------------------------- -->
     <div id="sueldo-calc-container" class="flex flex-col lg:flex-row gap-8 items-start hidden">
         <!-- Inputs Column (Left, 420px) -->
-        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 no-print">
             <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
                 <h2 class="text-lg font-bold text-slate-900">Datos Remuneración</h2>
                 <span class="px-2.5 py-1 text-[10px] font-bold text-sky-600 bg-sky-50 border border-sky-100 rounded-md">Real-time</span>
@@ -2916,11 +2994,20 @@ INDEX_CONTENT = """
             <div id="global-notifications" class="hidden space-y-2 pt-2">
                 <!-- Alerts are injected dynamically by salary_ui.js -->
             </div>
+
+            <!-- PDF section -->
+            <div id="pdf-section" class="mt-4 hidden">
+              <button onclick="descargarPDF()" 
+                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors">
+                📥 Descargar Desglose PDF
+              </button>
+              <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
+            </div>
         </div>
     </div>
 
     <!-- Mobile Result Bar shared at the bottom -->
-    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300">
+    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
         <div>
             <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
             <div class="flex items-baseline gap-1.5">
@@ -3181,5 +3268,34 @@ finiquito_html_out = HTML_LAYOUT.format(
 )
 with open(os.path.join(DEST_DIR, "finiquito_calculator.html"), "w", encoding="utf-8") as f:
     f.write(finiquito_html_out)
+
+# Generate vercel.json in DEST_DIR and in root directory
+print("Generating: vercel.json...")
+vercel_json_content = """{
+  "redirects": [
+    { "source": "/finiquito_calculator", "destination": "/finiquito_calculator.html", "permanent": true },
+    { "source": "/sueldo_liquido", "destination": "/sueldo_liquido.html", "permanent": true },
+    { "source": "/guia-vacaciones-proporcionales", "destination": "/guia-vacaciones-proporcionales.html", "permanent": true },
+    { "source": "/como-calcular-finiquito-chile", "destination": "/como-calcular-finiquito-chile.html", "permanent": true },
+    { "source": "/como-calcular-sueldo-liquido-paso-a-paso", "destination": "/como-calcular-sueldo-liquido-paso-a-paso.html", "permanent": true },
+    { "source": "/como-leer-liquidacion-de-sueldo", "destination": "/como-leer-liquidacion-de-sueldo.html", "permanent": true },
+    { "source": "/despido-necesidades-empresa-articulo-161", "destination": "/despido-necesidades-empresa-articulo-161.html", "permanent": true },
+    { "source": "/ley-40-horas-chile-2026", "destination": "/ley-40-horas-chile-2026.html", "permanent": true },
+    { "source": "/que-hacer-si-no-te-pagan-el-finiquito", "destination": "/que-hacer-si-no-te-pagan-el-finiquito.html", "permanent": true },
+    { "source": "/seguro-de-cesantia-chile-como-cobrar", "destination": "/seguro-de-cesantia-chile-como-cobrar.html", "permanent": true },
+    { "source": "/contacto", "destination": "/contacto.html", "permanent": true },
+    { "source": "/blog", "destination": "/blog.html", "permanent": true },
+    { "source": "/privacidad", "destination": "/privacidad.html", "permanent": true },
+    { "source": "/terminos", "destination": "/terminos.html", "permanent": true },
+    { "source": "/disclaimer", "destination": "/disclaimer.html", "permanent": true },
+    { "source": "/sobre-nosotros", "destination": "/sobre-nosotros.html", "permanent": true }
+  ]
+}"""
+
+with open(os.path.join(DEST_DIR, "vercel.json"), "w", encoding="utf-8") as f:
+    f.write(vercel_json_content)
+
+with open(os.path.join(os.path.dirname(DEST_DIR), "vercel.json"), "w", encoding="utf-8") as f:
+    f.write(vercel_json_content)
 
 print("Redesign complete! All 17 HTML files have been beautifully generated under calculolaboral-v2.")

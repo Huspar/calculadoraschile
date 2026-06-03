@@ -284,6 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const calculate = () => {
+        // Reset PDF section visibility
+        document.querySelector('#sueldo-calc-container #pdf-section')?.classList.add('hidden');
+
         // Gate: validate first
         if (!validateSalaryForm()) return;
 
@@ -511,6 +514,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+
+        // Show PDF section
+        document.querySelector('#sueldo-calc-container #pdf-section')?.classList.remove('hidden');
     };
 
     init();
