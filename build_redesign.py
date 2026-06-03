@@ -592,7 +592,7 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <!-- EmailJS & PDF print functions -->
     <script>
         (function() {{
-            emailjs.init("{{{{EMAILJS_PUBLIC_KEY}}}}");
+            emailjs.init("{{HIi9_S1hAf7mWQU_W}}");
         }})();
 
         function descargarPDF() {{
@@ -610,7 +610,7 @@ HTML_LAYOUT = """<!DOCTYPE html>
                 return;
             }}
 
-            emailjs.send("{{{{EMAILJS_SERVICE_ID}}}}", "{{{{EMAILJS_TEMPLATE_ID}}}}", {{
+            emailjs.send("{{service_plsair4}}", "{{template_u1juvx1}}", {{
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,
