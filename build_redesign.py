@@ -3091,7 +3091,7 @@ INDEX_CONTENT = """
                 <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>
             </div>
         </div>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
+        <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
     </div>
 
     <!-- ---------------------------------------------------- -->

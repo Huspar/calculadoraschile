@@ -660,7 +660,7 @@
         </div>
 
         <!-- Results Column (Right, Sticky) -->
-        <div class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+        <div id="resultados-finiquito" class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
             <div class="text-center sm:text-left border-b border-slate-100 pb-5">
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Total del Finiquito</h3>
                 <div class="flex items-baseline gap-2 justify-center sm:justify-start">
@@ -983,7 +983,7 @@
         </div>
 
         <!-- Results Column (Right, Sticky) -->
-        <div class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+        <div id="resultados-sueldo" class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
             <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Tu Sueldo Líquido Estimado</h3>
@@ -1125,7 +1125,7 @@
                 <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>
             </div>
         </div>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
+        <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
     </div>
 
     <!-- ---------------------------------------------------- -->
