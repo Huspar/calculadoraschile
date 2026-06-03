@@ -410,6 +410,7 @@
                 
                 
                 
+                
                 <!-- Article Header -->
                 <header class="mb-12">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 border border-sky-200 text-xs font-semibold tracking-wider uppercase mb-4">
@@ -692,6 +693,7 @@
             
             
             
+            
             </div>
         </article>
     </div>
@@ -832,7 +834,7 @@
     <script src="/js/pdf_generator.js?v=2.0.2"></script>
     <script>
         (function() {
-            emailjs.init("{HIi9_S1hAf7mWQU_W}");
+            emailjs.init("HIi9_S1hAf7mWQU_W");
         })();
 
         function enviarLead() {
@@ -846,7 +848,7 @@
                 return;
             }
 
-            emailjs.send("{service_plsair4}", "{template_u1juvx1}", {
+            emailjs.send("service_plsair4", "template_u1juvx1", {
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,

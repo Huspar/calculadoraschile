@@ -598,7 +598,7 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <script src="/js/pdf_generator.js?v=2.0.2"></script>
     <script>
         (function() {{
-            emailjs.init("{{HIi9_S1hAf7mWQU_W}}");
+            emailjs.init("HIi9_S1hAf7mWQU_W");
         }})();
 
         function enviarLead() {{
@@ -612,7 +612,7 @@ HTML_LAYOUT = """<!DOCTYPE html>
                 return;
             }}
 
-            emailjs.send("{{service_plsair4}}", "{{template_u1juvx1}}", {{
+            emailjs.send("service_plsair4", "template_u1juvx1", {{
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,

@@ -426,6 +426,8 @@
                 
             <div class="prose-content max-w-none">
                 
+            <div class="prose-content max-w-none">
+                
 
             <!-- Breadcrumb -->
             <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
@@ -706,6 +708,8 @@
             </div>
         
             </div>
+        
+            </div>
         </article>
     </div>
     
@@ -845,7 +849,7 @@
     <script src="/js/pdf_generator.js?v=2.0.2"></script>
     <script>
         (function() {
-            emailjs.init("{HIi9_S1hAf7mWQU_W}");
+            emailjs.init("HIi9_S1hAf7mWQU_W");
         })();
 
         function enviarLead() {
@@ -859,7 +863,7 @@
                 return;
             }
 
-            emailjs.send("{service_plsair4}", "{template_u1juvx1}", {
+            emailjs.send("service_plsair4", "template_u1juvx1", {
                 nombre: nombre,
                 correo: correo,
                 telefono: telefono,
