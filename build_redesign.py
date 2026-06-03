@@ -3582,6 +3582,7 @@ vercel_json_content = """{
     { "source": "/ley-40-horas-chile-2026", "destination": "/ley-40-horas-chile-2026.html", "permanent": true },
     { "source": "/que-hacer-si-no-te-pagan-el-finiquito", "destination": "/que-hacer-si-no-te-pagan-el-finiquito.html", "permanent": true },
     { "source": "/seguro-de-cesantia-chile-como-cobrar", "destination": "/seguro-de-cesantia-chile-como-cobrar.html", "permanent": true },
+    { "source": "/reclamar-despido-injustificado-chile", "destination": "/reclamar-despido-injustificado-chile.html", "permanent": true },
     { "source": "/contacto", "destination": "/contacto.html", "permanent": true },
     { "source": "/blog", "destination": "/blog.html", "permanent": true },
     { "source": "/privacidad", "destination": "/privacidad.html", "permanent": true },
