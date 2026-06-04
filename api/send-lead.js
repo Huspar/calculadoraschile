@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
         const serviceId = process.env.EMAILJS_SERVICE_ID || 'service_plsair4';
         const templateId = process.env.EMAILJS_TEMPLATE_ID || 'template_u1juvx1';
         const publicKey = process.env.EMAILJS_PUBLIC_KEY || 'HIi9_S1hAf7mWQU_W';
-        const privateKey = process.env.EMAILJS_PRIVATE_KEY; // Set in Vercel env vars
+        const privateKey = process.env.EMAILJS_PRIVATE_KEY || '55CBUdg6BhHmMpEP_OgWM'; // Set EMAILJS_PRIVATE_KEY in Vercel env vars
 
         // EmailJS REST API payload format
         const payload = {
