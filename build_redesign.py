@@ -1848,7 +1848,7 @@ def clean_article_body(body, filename):
                             ¿Te despidieron por necesidades de la empresa? Usa nuestra calculadora gratuita con el descuento legal AFC actualizado a la normativa 2026.
                         </p>
                         <a href="finiquito_calculator"
-                            class="block w-full text-center bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all shadow-sm">
+                            class="cta-btn block w-full text-center bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all shadow-sm">
                             Ir a la Calculadora
                         </a>
                     </div>"""
