@@ -434,9 +434,11 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Min Wage Warning
-            if (d.baseSalary < 539000 && d.baseSalary > 0) {
+            const immVal = (typeof CONSTANTS !== 'undefined') ? CONSTANTS.IMM : 539000;
+            if (d.baseSalary < immVal && d.baseSalary > 0) {
+                const formattedImm = formatCLP(immVal);
                 display.notifications.appendChild(
-                    createAlert('bg-yellow-500/10', 'border border-yellow-500/20', 'text-yellow-500', 'warning', 'text-yellow-200', 'Sueldo base menor al mínimo legal ($539.000)')
+                    createAlert('bg-yellow-500/10', 'border border-yellow-500/20', 'text-yellow-500', 'warning', 'text-yellow-200', `Sueldo base menor al mínimo legal (${formattedImm})`)
                 );
             }
 

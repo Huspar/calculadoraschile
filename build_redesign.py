@@ -582,7 +582,6 @@ HTML_LAYOUT = """<!DOCTYPE html>
             }}
         }}
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     {custom_head}
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
@@ -604,10 +603,6 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <script src="/js/indicators.js?v=2.0.3"></script>
     <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
-        (function() {{
-            emailjs.init("HIi9_S1hAf7mWQU_W");
-        }})();
-
         function enviarLead() {{
             var nombre = document.getElementById('lead-nombre').value.trim();
             var correo = document.getElementById('lead-correo').value.trim();
@@ -619,18 +614,31 @@ HTML_LAYOUT = """<!DOCTYPE html>
                 return;
             }}
 
-            emailjs.send("service_plsair4", "template_u1juvx1", {{
-                nombre: nombre,
-                correo: correo,
-                telefono: telefono,
-                monto_calculado: monto,
-                tipo: 'Finiquito',
-                fecha: new Date().toLocaleDateString('es-CL')
-            }}).then(function() {{
-                document.getElementById('lead-form').classList.add('hidden');
-                document.getElementById('lead-confirmacion').classList.remove('hidden');
+            var btn = document.querySelector('#lead-form button');
+            if (btn) btn.disabled = true;
+
+            fetch('/api/send-lead', {{
+                method: 'POST',
+                headers: {{
+                    'Content-Type': 'application/json'
+                }},
+                body: JSON.stringify({{
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    monto_calculado: monto,
+                    tipo: 'Finiquito'
+                }})
+            }}).then(function(response) {{
+                if (response.ok) {{
+                    document.getElementById('lead-form').classList.add('hidden');
+                    document.getElementById('lead-confirmacion').classList.remove('hidden');
+                }} else {{
+                    throw new Error('Error al enviar');
+                }}
             }}).catch(function() {{
                 alert('Error al enviar. Intenta de nuevo.');
+                if (btn) btn.disabled = false;
             }});
         }}
     </script>
