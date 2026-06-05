@@ -3588,31 +3588,18 @@ with open(os.path.join(DEST_DIR, "finiquito_calculator.html"), "w", encoding="ut
 # Generate vercel.json in DEST_DIR and in root directory
 print("Generating: vercel.json...")
 vercel_json_content = """{
+  "cleanUrls": true,
   "redirects": [
-    { "source": "/finiquito_calculator", "destination": "/finiquito_calculator.html", "permanent": true },
-    { "source": "/sueldo_liquido", "destination": "/sueldo_liquido.html", "permanent": true },
-    { "source": "/guia-vacaciones-proporcionales", "destination": "/guia-vacaciones-proporcionales.html", "permanent": true },
-    { "source": "/como-calcular-finiquito-chile", "destination": "/como-calcular-finiquito-chile.html", "permanent": true },
-    { "source": "/como-calcular-sueldo-liquido-paso-a-paso", "destination": "/como-calcular-sueldo-liquido-paso-a-paso.html", "permanent": true },
-    { "source": "/como-leer-liquidacion-de-sueldo", "destination": "/como-leer-liquidacion-de-sueldo.html", "permanent": true },
-    { "source": "/despido-necesidades-empresa-articulo-161", "destination": "/despido-necesidades-empresa-articulo-161.html", "permanent": true },
-    { "source": "/ley-40-horas-chile-2026", "destination": "/ley-40-horas-chile-2026.html", "permanent": true },
-    { "source": "/que-hacer-si-no-te-pagan-el-finiquito", "destination": "/que-hacer-si-no-te-pagan-el-finiquito.html", "permanent": true },
-    { "source": "/seguro-de-cesantia-chile-como-cobrar", "destination": "/seguro-de-cesantia-chile-como-cobrar.html", "permanent": true },
-    { "source": "/reclamar-despido-injustificado-chile", "destination": "/reclamar-despido-injustificado-chile.html", "permanent": true },
-    { "source": "/contacto", "destination": "/contacto.html", "permanent": true },
-    { "source": "/blog", "destination": "/blog.html", "permanent": true },
-    { "source": "/privacidad", "destination": "/privacidad.html", "permanent": true },
-    { "source": "/terminos", "destination": "/terminos.html", "permanent": true },
-    { "source": "/disclaimer", "destination": "/disclaimer.html", "permanent": true },
-    { "source": "/sobre-nosotros", "destination": "/sobre-nosotros.html", "permanent": true }
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/:page.html", "destination": "/:page", "permanent": true }
   ]
 }"""
 
 with open(os.path.join(DEST_DIR, "vercel.json"), "w", encoding="utf-8") as f:
     f.write(vercel_json_content)
 
-with open(os.path.join(os.path.dirname(DEST_DIR), "vercel.json"), "w", encoding="utf-8") as f:
-    f.write(vercel_json_content)
+# NOTE: Do NOT write vercel.json to parent dir — would overwrite production config
+# with open(os.path.join(os.path.dirname(DEST_DIR), "vercel.json"), "w", encoding="utf-8") as f:
+#     f.write(vercel_json_content)
 
 print("Redesign complete! All 17 HTML files have been beautifully generated under calculolaboral-v2.")

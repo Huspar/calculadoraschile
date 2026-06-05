@@ -770,3 +770,10 @@ function showNotification(message, type = 'info') {
     console.log(`[${type.toUpperCase()}] ${message}`);
     // TODO: Implement visual notification
 }
+
+// Recalcular finiquito cuando los indicadores económicos se actualizan
+document.addEventListener('indicatorsUpdated', () => {
+    if (typeof updateCalculations === 'function') {
+        updateCalculations();
+    }
+});
