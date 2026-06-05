@@ -429,6 +429,15 @@ HTML_LAYOUT = """<!DOCTYPE html>
             color: #ffffff !important;
             text-decoration: none !important;
         }}
+        .prose-content a.cta-lead-btn {{
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }}
+        .prose-content a.cta-lead-btn:hover {{
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }}
         .prose-content .callout {{
             background-color: #f0fdf4;
             border-left: 4px solid #22c55e;

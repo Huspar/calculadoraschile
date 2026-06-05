@@ -158,6 +158,15 @@
             color: #ffffff !important;
             text-decoration: none !important;
         }
+        .prose-content a.cta-lead-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        .prose-content a.cta-lead-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
         .prose-content .callout {
             background-color: #f0fdf4;
             border-left: 4px solid #22c55e;
@@ -514,17 +523,20 @@
                 </p>
 
                 <!-- CTA Lead — ¿Fue injustificado tu despido? -->
-                <div class="my-8 p-6 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 shadow-sm">
-                    <div class="flex flex-col sm:flex-row items-start gap-4">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-bold text-slate-800 mb-2">¿Crees que tu despido por Art. 161 fue injustificado?</h3>
-                            <p class="text-sm text-slate-600 mb-0">Muchas empresas usan el Artículo 161 para despidos que en realidad son injustificados. Si tu empleador contrató a alguien para tu mismo puesto, o la empresa no acreditó realmente las "necesidades", podrías tener derecho al <strong>recargo del 30%</strong> sobre tu indemnización. Un abogado laboral puede revisar tu caso sin costo.</p>
+                <div class="my-8 p-6 rounded-2xl bg-amber-50/40 border-l-4 border-amber-500 border border-amber-200/60 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 no-print">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0 text-amber-600">
+                            <span class="material-icons text-[24px]">gavel</span>
                         </div>
-                        <a href="#lead-form" class="shrink-0 inline-flex items-center gap-2 px-5 py-3 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-md shadow-amber-500/20 transition-all active:scale-95 whitespace-nowrap">
-                            Quiero que revisen mi caso
-                            <span class="material-icons text-sm">arrow_forward</span>
-                        </a>
+                        <div class="space-y-1">
+                            <h3 class="text-base font-bold text-slate-800 m-0 !mt-0 !mb-1">¿Crees que tu despido por Art. 161 fue injustificado?</h3>
+                            <p class="text-xs sm:text-sm text-slate-600 m-0 !mb-0 leading-relaxed">Muchas empresas usan el Artículo 161 para despidos que en realidad son injustificados. Si tu empleador contrató a alguien para tu mismo puesto, o la empresa no acreditó realmente las "necesidades", podrías tener derecho al <strong>recargo del 30%</strong> sobre tu indemnización. Un abogado laboral puede revisar tu caso sin costo.</p>
+                        </div>
                     </div>
+                    <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/15 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap">
+                        Quiero que revisen mi caso
+                        <span class="material-icons text-sm">arrow_forward</span>
+                    </a>
                 </div>
 
 <!-- =============== 2. ¿QUÉ DICE EL ARTÍCULO 161? =============== -->
