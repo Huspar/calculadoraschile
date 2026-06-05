@@ -813,7 +813,7 @@
                         Si ya verificaste las consideraciones del Artículo 161, utiliza nuestra herramienta automatizada para obtener tu desglose completo.
                     </p>
                     <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                         <span class="material-icons">calculate</span>
                         Usar Calculadora de Finiquito
                     </a>
@@ -1057,7 +1057,7 @@
                 })
             }).then(function(response) {
                 if (response.ok) {
-                    document.getElementById('lead-form').classList.add('hidden');
+                    document.querySelector('#lead-form form').classList.add('hidden');
                     document.getElementById('lead-confirmacion').classList.remove('hidden');
                 } else {
                     throw new Error('Error al enviar');
