@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.">
+    <meta name="description" content="Calculadora de sueldo líquido Chile 2026 gratuita. Convierte sueldo bruto a neto con descuentos AFP, Fonasa, Isapre y Seguro de Cesantía. Resultado al instante.">
     <title>Calculadora Sueldo Líquido Chile 2026 | Bruto a Neto</title>
     
     <!-- Favicon -->
@@ -17,27 +17,67 @@
     
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Calculadora Sueldo Líquido Chile 2026 | Bruto a Neto">
-    <meta property="og:description" content="Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.">
+    <meta property="og:description" content="Calculadora de sueldo líquido Chile 2026 gratuita. Convierte sueldo bruto a neto con descuentos AFP, Fonasa, Isapre y Seguro de Cesantía. Resultado al instante.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://calculolaboral.cl/sueldo_liquido">
     <meta property="og:image" content="https://calculolaboral.cl/assets/og-image.png">
     <meta property="og:locale" content="es_CL">
     <meta property="og:site_name" content="Cálculo Laboral">
     
-    <!-- Structured Data -->
+    <!-- Structured Data — SoftwareApplication + FAQPage -->
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Calculadora de Sueldo Líquido",
+    "name": "Calculadora de Sueldo Líquido Chile 2026",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
-    "description": "Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.",
+    "description": "Calculadora de sueldo líquido Chile 2026 gratuita. Convierte sueldo bruto a neto con descuentos AFP, Fonasa, Isapre y Seguro de Cesantía.",
     "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "CLP"
     }
+}
+</script>
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "¿Qué descuentos legales se aplican al sueldo bruto en Chile?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AFP (aprox. 12,84%), salud (7% Fonasa/Isapre) y Seguro de Cesantía (0,6% contrato indefinido). La calculadora aplica automáticamente todos según los porcentajes vigentes en 2026."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cuál es la diferencia entre sueldo bruto y sueldo líquido?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El sueldo bruto es el monto antes de descuentos. El líquido es lo que recibes en tu cuenta después de AFP, salud y Seguro de Cesantía. La diferencia suele ser del 20-25%."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo se calcula el descuento de AFP en 2026?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cotización obligatoria (10%) + comisión AFP (0,41%-1,44%) + SIS (aprox. 1,5%). Total aproximado: 12-13% del sueldo imponible."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Qué es el tope imponible y cómo afecta mi sueldo líquido?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El tope imponible es 84,3 UF mensuales (aprox. $3.344.000 en 2026). Las cotizaciones solo se calculan hasta ese monto, beneficiando a sueldos altos con un menor porcentaje efectivo de descuento."
+            }
+        }
+    ]
 }
 </script>
     
@@ -462,336 +502,30 @@
     <!-- H1 Header Section for SEO -->
     <div class="text-center sm:text-left my-8 max-w-xl mx-auto no-print">
         <h1 class="text-2xl font-bold text-slate-900">
-            Calculadoras Laborales Chile 2026
+            Calculadora de Sueldo Líquido Chile 2026
         </h1>
         <p class="text-slate-500 text-sm mt-1">
-            Sueldo líquido y finiquito con todas las deducciones legales vigentes.
+            Convierte tu sueldo bruto a líquido con todos los descuentos legales AFP, Salud y Seguro de Cesantía.
         </p>
-    </div>
-
-    <!-- Tab Controls for Calculator Selection -->
-    <div class="flex max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-1 mb-8 shadow-sm no-print">
-        <button id="tab-btn-finiquito" onclick="switchCalculatorTab('finiquito')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100">
-            Calculadora de Finiquito
-        </button>
-        <button id="tab-btn-sueldo" onclick="switchCalculatorTab('sueldo')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 active:scale-[0.98] duration-100">
-            Sueldo Líquido
-        </button>
-    </div>
-
-    <!-- ---------------------------------------------------- -->
-    <!-- FINIQUITO CALCULATOR CONTAINER                       -->
-    <!-- ---------------------------------------------------- -->
-    <div id="finiquito-calc-container" class="flex flex-col lg:flex-row gap-8 items-start">
-        <!-- Inputs Column (Left, 420px) -->
-        <div class="w-full lg:w-[420px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm no-print">
-            <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
-                <h2 class="text-lg font-bold text-slate-900">Datos Finiquito</h2>
-                <div class="flex gap-2">
-                    <button id="btnLoadExample" class="px-2.5 py-1 text-[10px] font-bold text-sky-600 bg-sky-50 hover:bg-sky-100 rounded-md transition-colors active:scale-95 duration-100">Ejemplo</button>
-                    <button id="btnClear" class="px-2.5 py-1 text-[10px] font-bold text-slate-500 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-md transition-colors active:scale-95 duration-100">Limpiar</button>
-                </div>
-            </div>
-
-            <!-- Tab bar inner to finiquito script (contrato/ingresos/opciones) -->
-            <div class="flex border border-slate-200 p-1 bg-slate-50 rounded-xl mb-6">
-                <button type="button" id="tabBtn-contrato" class="flex-1 py-2 px-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-sm active:scale-95 duration-100">Contrato</button>
-                <button type="button" id="tabBtn-ingresos" class="flex-1 py-2 px-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-200/50 active:scale-95 duration-100">Ingresos</button>
-                <button type="button" id="tabBtn-avanzado" class="flex-1 py-2 px-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-200/50 active:scale-95 duration-100">Opciones</button>
-            </div>
-
-            <!-- Finiquito Tab: Contrato -->
-            <div id="tabContent-contrato" class="space-y-4">
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Fecha de Inicio</label>
-                    <input id="startDate" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-medium" type="date">
-                </div>
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Fecha de Término</label>
-                    <input id="endDate" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-medium" type="date">
-                </div>
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Causal de Término</label>
-                    <select id="cause" class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-medium cursor-pointer">
-                        <option value="161">Art. 161 - Necesidades de la Empresa</option>
-                        <option value="159-1">Art. 159 N°1 - Mutuo Acuerdo</option>
-                        <option value="159-2">Art. 159 N°2 - Renuncia Voluntaria</option>
-                        <option value="160">Art. 160 - Despido Disciplinario (Sin derecho a indemnización)</option>
-                    </select>
-                </div>
-                <div class="pt-2 flex items-center justify-between">
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input id="noticeGiven" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer" type="checkbox">
-                        <span class="text-xs font-semibold text-slate-500 group-hover:text-slate-800 transition-colors">¿Se avisó con 30 días de anticipación?</span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Finiquito Tab: Ingresos -->
-            <div id="tabContent-ingresos" class="space-y-4 hidden">
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Sueldo Base Mensual</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
-                        <input id="baseSalary" data-type="currency" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" placeholder="0">
-                    </div>
-                </div>
-                
-                <div class="pt-1">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" id="hasVariableSalary" class="w-4 h-4 text-sky-500 bg-white border-slate-200 rounded focus:ring-sky-500">
-                        <span class="text-xs font-bold text-slate-600">¿Sueldo Variable / Comisiones?</span>
-                    </label>
-                </div>
-
-                <!-- Variable Salary Grid (Inputs for 3 months) -->
-                <div id="variableSalaryContainer" class="hidden space-y-2.5 p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                    <p class="text-[10px] text-slate-500 font-semibold leading-relaxed">Últimos 3 meses imponibles variables:</p>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-500 ml-1">Mes 1</label>
-                            <input id="varMonth1" data-type="currency" class="block w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" placeholder="0">
-                        </div>
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-500 ml-1">Mes 2</label>
-                            <input id="varMonth2" data-type="currency" class="block w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" placeholder="0">
-                        </div>
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-500 ml-1">Mes 3</label>
-                            <input id="varMonth3" data-type="currency" class="block w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-mono text-right" placeholder="0">
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center pt-2 border-t border-slate-200">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase">Promedio</span>
-                        <span id="variableAverageOutput" class="text-xs font-bold text-sky-500 font-mono">$0</span>
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Gratificación Mensual</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
-                        <input id="gratification" data-type="currency" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" placeholder="0">
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Asignaciones Fijas (Colación/Mov)</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
-                        <input id="assignments" data-type="currency" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-sm font-mono text-right" placeholder="0">
-                    </div>
-                    <div class="pt-1">
-                        <label class="flex items-center gap-2 cursor-pointer select-none">
-                            <input type="checkbox" id="includeAssignmentsInVacation" class="w-4.5 h-4.5 text-sky-500 border-slate-200 rounded focus:ring-sky-500" checked>
-                            <span class="text-[10px] font-semibold text-slate-400">Incluir en Vacaciones (Criterio Judicial)</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="block text-xs font-bold text-slate-600 uppercase ml-1">Vacaciones Pendientes (Días Hábiles)</label>
-                    <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl p-1 w-full justify-between">
-                        <button id="btnVacationMinus" aria-label="Restar día de vacaciones" class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 flex items-center justify-center transition-all hover:bg-slate-100 active:scale-90 duration-100" type="button">
-                            <span class="material-icons text-sm font-bold">remove</span>
-                        </button>
-                        <input id="vacationPending" class="w-16 bg-transparent border-none text-center text-slate-800 focus:ring-0 font-bold text-sm" type="text" value="0">
-                        <button id="btnVacationPlus" aria-label="Sumar día de vacaciones" class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 flex items-center justify-center transition-all hover:bg-slate-100 active:scale-90 duration-100" type="button">
-                            <span class="material-icons text-sm font-bold">add</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Finiquito Tab: Opciones -->
-            <div id="tabContent-avanzado" class="space-y-3 hidden">
-                <p class="text-[10px] text-slate-500 font-bold uppercase mb-2 border-b border-slate-100 pb-1">Conceptos a Incluir</p>
-                <div class="space-y-2.5">
-                    <!-- Opción 1: Años de Servicio -->
-                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
-                        <div class="pt-0.5">
-                            <input id="enableIAS" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
-                        </div>
-                        <div class="flex-grow select-none">
-                            <label for="enableIAS" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Años de Servicio (IAS)</label>
-                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Suma 1 sueldo mensual por cada año trabajado (tope 11). Requiere contrato mayor a 1 año.</span>
-                        </div>
-                    </div>
-
-                    <!-- Opción 2: Aviso Previo -->
-                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
-                        <div class="pt-0.5">
-                            <input id="enableNotice" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
-                        </div>
-                        <div class="flex-grow select-none">
-                            <label for="enableNotice" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Indemnización Aviso Previo</label>
-                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Suma 1 sueldo adicional si el empleador no te avisó del despido por escrito con 30 días de anticipación.</span>
-                        </div>
-                    </div>
-
-                    <!-- Opción 3: Descuento AFC -->
-                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
-                        <div class="pt-0.5">
-                            <input id="simulateAFC" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
-                        </div>
-                        <div class="flex-grow select-none">
-                            <label for="simulateAFC" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Descontar Aporte AFC Empleador</label>
-                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Resta de tu finiquito la parte del seguro de cesantía aportada por el empleador (solo despidos Art. 161).</span>
-                        </div>
-                    </div>
-
-                    <!-- Opción 4: Remuneración Pendiente -->
-                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
-                        <div class="pt-0.5">
-                            <input id="enablePending" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
-                        </div>
-                        <div class="flex-grow select-none">
-                            <label for="enablePending" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Días Trabajados (Mes en Curso)</label>
-                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Calcula e inyecta la remuneración de los días trabajados en el mes en que finaliza la relación laboral.</span>
-                        </div>
-                    </div>
-
-                    <!-- Opción 5: Incluir Asignaciones -->
-                    <div class="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-200/60 rounded-xl transition-all duration-200 flex items-start gap-3">
-                        <div class="pt-0.5">
-                            <input id="includeAssignmentsInIndemnity" class="w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/35 cursor-pointer transition-transform duration-100 active:scale-90" type="checkbox" checked />
-                        </div>
-                        <div class="flex-grow select-none">
-                            <label for="includeAssignmentsInIndemnity" class="block text-xs font-bold text-slate-800 cursor-pointer hover:text-sky-500 transition-colors">Incluir Asignaciones (Base Diaria)</label>
-                            <span class="block text-[10px] text-slate-500 font-medium mt-0.5 leading-relaxed">Suma asignaciones de colación y movilización a la base diaria de cálculo para la indemnización (criterio judicial).</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Column (Right, Sticky) -->
-        <div id="resultados-finiquito" class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
-            <div class="text-center sm:text-left border-b border-slate-100 pb-5">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Total del Finiquito</h3>
-                <div class="flex items-baseline gap-2 justify-center sm:justify-start">
-                    <span id="totalAmount" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$ —</span>
-                    <span class="text-sm font-semibold text-slate-400">CLP</span>
-                </div>
-                <div class="mt-2 text-xs text-slate-400 font-medium flex items-center gap-1 justify-center sm:justify-start">
-                    <span class="material-icons text-[12px] text-sky-500">info_outline</span>
-                    Desglose detallado referencial
-                </div>
-            </div>
-
-            <!-- Detailed Breakdown items -->
-            <div class="space-y-3.5">
-                <!-- IAS Row -->
-                <div id="yearsRow" class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
-                    <span class="text-slate-600 font-medium flex items-center gap-1">
-                        Años de Servicio
-                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Un mes de remuneración imponible habitual por cada año trabajado (tope 11 años).">help_outline</span>
-                    </span>
-                    <span id="yearsServiceAmount" class="font-bold text-slate-800 font-mono">$ —</span>
-                </div>
-
-                <!-- Notice Row -->
-                <div id="noticeRow" class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
-                    <span class="text-slate-600 font-medium flex items-center gap-1">
-                        Aviso Previo
-                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Equivale a un mes de remuneración si el empleador no dio el aviso con 30 días de anticipación.">help_outline</span>
-                    </span>
-                    <span id="noticeAmount" class="font-bold text-slate-800 font-mono">$ —</span>
-                </div>
-
-                <!-- Vacación Prop Row -->
-                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
-                    <span class="text-slate-600 font-medium flex items-center gap-1">
-                        Vacaciones Proporcionales
-                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Pago por los días hábiles acumulados generados durante la fracción del año laboral en curso.">help_outline</span>
-                    </span>
-                    <span id="vacationPropAmount" class="font-bold text-slate-800 font-mono">$ —</span>
-                </div>
-
-                <!-- Vacación Pendiente Row -->
-                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
-                    <span class="text-slate-600 font-medium flex items-center gap-1">
-                        Vacaciones Pendientes
-                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Pago por días de vacaciones de años anteriores acumulados que no fueron usados por el trabajador.">help_outline</span>
-                    </span>
-                    <span id="vacationPendingAmount" class="font-bold text-slate-800 font-mono">$ —</span>
-                </div>
-
-                <!-- Pending Salary Row -->
-                <div class="flex justify-between items-center text-sm py-1 border-b border-slate-50">
-                    <span class="text-slate-600 font-medium flex items-center gap-1">
-                        Remuneraciones Pendientes
-                        <span id="daysWorkedOutput" class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase font-mono tracking-wider ml-1">— DÍAS</span>
-                    </span>
-                    <span id="pendingSalaryAmount" class="font-bold text-slate-800 font-mono">$ —</span>
-                </div>
-
-                <!-- AFC Deduction Row -->
-                <div id="afcRow" class="flex justify-between items-center text-sm py-1 border-b border-slate-50 text-red-500 hidden">
-                    <span class="font-medium flex items-center gap-1">
-                        Aporte AFC Descontable
-                        <span class="material-icons text-[12px] text-slate-400 cursor-help" title="Descuento correspondiente al aporte del empleador a la cuenta individual del seguro de cesantía.">help_outline</span>
-                    </span>
-                    <span id="afcAmount" class="font-bold font-mono">-$0</span>
-                </div>
-            </div>
-
-            <!-- Dynamic Non-monetary Data -->
-            <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl grid grid-cols-2 gap-4">
-                <div>
-                    <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Antigüedad</span>
-                    <span id="antiquityOutput" class="text-xs font-bold text-slate-700 font-mono">— años, — meses</span>
-                </div>
-                <div>
-                    <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Vacaciones Totales</span>
-                    <span id="totalVacationDaysOutput" class="text-xs font-bold text-slate-700 font-mono">— días hábiles</span>
-                </div>
-            </div>
-
-            <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between text-[10px] text-slate-400 font-medium gap-2">
-                <span id="lastUpdateDate">Última actualización legal: Febrero 2026</span>
-                <span class="flex items-center gap-0.5">
-                    Tope Legal: 
-                    <span id="ufCapValue" class="font-bold text-slate-600 font-mono">90 UF</span>
-                </span>
-            </div>
-
-            <!-- PDF and Lead Capture section -->
-            <div id="pdf-section" class="mt-4 hidden no-print">
-              <button id="download-pdf-btn" 
-                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
-                📥 Descargar Desglose PDF
-              </button>
-              <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
-            </div>
-
-            <!-- Lead Capture Section (SOLO EN FINIQUITO) -->
-            <div id="lead-section" class="mt-3 p-4 bg-amber-50 border border-amber-200 rounded-xl no-print hidden">
-              <p class="text-sm font-semibold text-amber-900 mb-2">
-                ⚖️ ¿Crees que tu despido fue injustificado?
-              </p>
-              <p class="text-xs text-amber-700 mb-3">
-                Déjanos tu caso y te contactamos.
-              </p>
-              <form id="lead-form" class="space-y-2">
-                <input type="text" id="lead-nombre" placeholder="Tu nombre" required
-                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
-                <input type="email" id="lead-correo" placeholder="tu@correo.com" required
-                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
-                <input type="tel" id="lead-telefono" placeholder="+56 9 XXXX XXXX"
-                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
-                <button type="button" onclick="enviarLead()"
-                  class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg transition-colors">
-                  Quiero que revisen mi caso →
-                </button>
-              </form>
-              <div id="lead-confirmacion" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 text-center">
-                ✅ Recibimos tu caso. Te contactaremos pronto.
-              </div>
-              <p class="text-xs text-amber-600 mt-2 text-center">
-                Sin costo. Solo para determinar si tu despido califica.
-              </p>
-            </div>
+        <div class="intro-sueldo text-slate-600 text-sm space-y-3 mt-4 text-left leading-relaxed">
+          <p>
+            Esta <strong>calculadora de sueldo líquido</strong> te permite transformar tu remuneración bruta
+            en el monto exacto que recibirás en tu cuenta bancaria cada mes. Aplicamos automáticamente
+            todos los descuentos obligatorios vigentes en Chile para 2026: cotización de AFP
+            (Administradoras de Fondos de Pensiones), salud (Fonasa o Isapre) y Seguro de Cesantía,
+            según los porcentajes oficiales de la Superintendencia de Pensiones.
+          </p>
+          <p>
+            El simulador considera el <strong>tope imponible mensual</strong> (84,3 UF para AFP y salud
+            en 2026) y el tope anual del Seguro de Cesantía (126,6 UF). También incluye la
+            gratificación legal cuando corresponde y permite ajustar descuentos adicionales como
+            ahorro APV o cuotas sindicales. Los valores de UF y Sueldo Mínimo se actualizan en
+            tiempo real desde el Banco Central.
+          </p>
+          <p>
+            Si quieres entender cada descuento antes de usar el simulador, revisa nuestra
+            <a href="/como-calcular-sueldo-liquido-paso-a-paso" class="text-sky-600 hover:underline">guía paso a paso para calcular tu sueldo líquido en Chile</a>.
+          </p>
         </div>
     </div>
 
@@ -1510,6 +1244,131 @@
     </div>
 </div>
 
+    <!-- FAQ Section — Sueldo Líquido -->
+    <section class="faq-section max-w-[1200px] mx-auto px-6 mt-16 mb-12" aria-label="Preguntas frecuentes sobre la calculadora de sueldo líquido">
+      <h2 class="text-xl font-bold text-slate-900 mb-6">Preguntas frecuentes sobre el cálculo de sueldo líquido</h2>
+
+      <div class="space-y-3">
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿Qué descuentos legales se aplican al sueldo bruto en Chile?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            En Chile, todo trabajador dependiente tiene descuentos obligatorios sobre su sueldo bruto:
+            <strong>AFP</strong> (aproximadamente 12,84% incluyendo comisión de la administradora y
+            Seguro de Invalidez y Sobrevivencia), <strong>salud</strong> (7% mínimo para Fonasa o el
+            plan pactado con Isapre) y <strong>Seguro de Cesantía</strong> (0,6% para contrato
+            indefinido o 3% a plazo fijo, con cargo al trabajador). Nuestra calculadora aplica
+            automáticamente todos estos descuentos según los porcentajes vigentes en 2026.
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿Cuál es la diferencia entre sueldo bruto y sueldo líquido?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            El <strong>sueldo bruto</strong> (o sueldo imponible) es el monto total acordado en tu
+            contrato antes de cualquier descuento legal. El <strong>sueldo líquido</strong> es el
+            dinero que efectivamente recibes en tu cuenta bancaria después de aplicar las cotizaciones
+            previsionales (AFP), el descuento de salud (Fonasa/Isapre), el Seguro de Cesantía y el
+            impuesto único de segunda categoría si tu renta supera las 13,5 UTM mensuales. La
+            diferencia entre ambos puede ser de un 20% a 25% de tu sueldo bruto.
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿Cómo se calcula el descuento de AFP en 2026?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            El descuento total de AFP se compone de tres partes: la <strong>cotización obligatoria</strong>
+            (10% de tu sueldo imponible), la <strong>comisión de la administradora</strong> (variable
+            según la AFP, entre 0,41% y 1,44% en 2026) y el <strong>Seguro de Invalidez y Sobrevivencia
+            (SIS)</strong> (aproximadamente 1,5% según licitación vigente). El total ronda el 12% al
+            13% de tu sueldo bruto. Nuestra calculadora usa el porcentaje AFP que tú selecciones.
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿Cuánto se descuenta por salud: Fonasa vs Isapre?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            La cotización legal mínima para salud es del <strong>7%</strong> de tu sueldo imponible,
+            tanto para Fonasa como para Isapre. Si estás en <strong>Fonasa</strong>, se descuenta
+            exactamente ese 7%. Si tienes <strong>Isapre</strong>, el descuento puede ser mayor si
+            tu plan de salud es más caro que la cotización legal; la diferencia se paga como un
+            adicional por sobre el 7%. En ambos casos, el descuento tiene el mismo tope imponible
+            de 84,3 UF mensuales.
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿El Seguro de Cesantía lo paga el trabajador o el empleador?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            Ambos. Para <strong>contrato indefinido</strong>: el trabajador aporta el 0,6% de su
+            sueldo imponible y el empleador el 2,4% (total 3%). Para <strong>contrato a plazo fijo
+            o por obra</strong>: el trabajador no aporta nada y el empleador aporta el 3% completo.
+            Nuestra calculadora aplica automáticamente el 0,6% de cargo del trabajador para contrato
+            indefinido, con el tope anual de 126,6 UF (aproximadamente $5.020.000 en 2026).
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿Qué es el tope imponible y cómo afecta mi sueldo líquido?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            El tope imponible es el <strong>límite máximo de sueldo sobre el cual se calculan las
+            cotizaciones</strong>. En 2026 es de 84,3 UF mensuales (aproximadamente $3.344.000).
+            Si ganas más que eso, las cotizaciones de AFP y salud solo se calculan sobre 84,3 UF,
+            no sobre tu sueldo real. Esto significa que el porcentaje efectivo de descuento es menor
+            para sueldos altos. El Seguro de Cesantía tiene su propio tope anual de 126,6 UF.
+            Nuestra calculadora respeta automáticamente ambos topes.
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿Cómo afecta la gratificación legal a mi sueldo líquido?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            La gratificación legal es un beneficio obligatorio para empresas que obtienen utilidades.
+            El empleador puede pagarla de dos formas: <strong>25% del sueldo con tope de 4,75 IMM</strong>
+            (aproximadamente $2.405.000 mensuales en 2026) o el <strong>30% de las utilidades líquidas</strong>
+            repartido entre todos los trabajadores, con tope individual de 4,75 IMM. La gratificación
+            es imponible y tributable, por lo que se aplican los mismos descuentos que al sueldo base.
+          </p>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-xl p-5 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none marker:content-none flex justify-between items-center">
+            ¿El monto de esta calculadora de sueldo líquido es exacto?
+            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            La calculadora entrega una <strong>estimación referencial</strong> basada en los porcentajes
+            legales vigentes y los datos que ingresas. Los montos definitivos de tu liquidación pueden
+            variar ligeramente según la comisión exacta de tu AFP, el plan de Isapre que tengas
+            contratado, bonos imponibles variables u horas extra del período. Para verificar tu
+            liquidación real, compárala con los descuentos que aparecen en tu
+            <a href="/como-leer-liquidacion-de-sueldo" class="text-sky-600 hover:underline">guía para leer tu liquidación de sueldo</a>.
+          </p>
+        </details>
+      </div>
+    </section>
+
+
     </main>
 
     
@@ -1681,62 +1540,17 @@
     <script src="/js/ui.js?v=2.0.3"></script>
     <script src="/js/validation.js?v=2.0.3"></script>
     <script>
-        // High-end tab system switching between both calculators
-        function switchCalculatorTab(tab) {
-            const btnFiniquito = document.getElementById('tab-btn-finiquito');
-            const btnSueldo = document.getElementById('tab-btn-sueldo');
-            const containerFiniquito = document.getElementById('finiquito-calc-container');
-            const containerSueldo = document.getElementById('sueldo-calc-container');
-
-            if (tab === 'finiquito') {
-                containerFiniquito.classList.remove('hidden');
-                containerSueldo.classList.add('hidden');
-                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
-                
-                // Hide sueldo mobile bar and trigger calculations for finiquito
-                document.getElementById('mobile-result-bar').classList.add('translate-y-full');
-                var label = document.getElementById('mobile-result-label');
-                if (label) label.textContent = 'Total Finiquito';
-                var val = document.getElementById('mobile-result-value');
-                if (val) val.textContent = '$0';
-                var pct = document.getElementById('mobile-result-percentage');
-                if (pct) pct.textContent = '—';
-                if (typeof updateCalculations === 'function') updateCalculations();
-            } else {
-                containerFiniquito.classList.add('hidden');
-                containerSueldo.classList.remove('hidden');
-                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
-                
-                // Trigger sueldo calculations
-                var label = document.getElementById('mobile-result-label');
-                if (label) label.textContent = 'Líquido a pago';
-                var val = document.getElementById('mobile-result-value');
-                if (val) val.textContent = '$0';
-                var pct = document.getElementById('mobile-result-percentage');
-                if (pct) pct.textContent = '—';
-                const salaryInput = document.getElementById('salary');
-                if (salaryInput) salaryInput.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-        }
-        
-        // Tab routing support
+        // Initialize sueldo líquido calculator on page load
         document.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash || '';
-            const path = window.location.pathname || '';
-            
-            if (hash === '#sueldo' || path.includes('sueldo_liquido')) {
-                switchCalculatorTab('sueldo');
-            } else {
-                switchCalculatorTab('finiquito');
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            switchCalculatorTab('sueldo');
+            document.getElementById('mobile-result-bar').classList.add('translate-y-full');
+            var label = document.getElementById('mobile-result-label');
+            if (label) label.textContent = 'Líquido a pago';
+            var val = document.getElementById('mobile-result-value');
+            if (val) val.textContent = '$0';
+            var pct = document.getElementById('mobile-result-percentage');
+            if (pct) pct.textContent = '—';
+            const salaryInput = document.getElementById('salary');
+            if (salaryInput) salaryInput.dispatchEvent(new Event('input', { bubbles: true }));
         });
     </script>
     
