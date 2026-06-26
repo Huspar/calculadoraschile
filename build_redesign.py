@@ -3494,19 +3494,20 @@ INDEX_SCRIPTS = """
             const containerSueldo = document.getElementById('sueldo-calc-container');
 
             if (tab === 'finiquito') {
-                containerFiniquito.classList.remove('hidden');
-                containerSueldo.classList.add('hidden');
-                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                if (containerFiniquito) containerFiniquito.classList.remove('hidden');
+                if (containerSueldo) containerSueldo.classList.add('hidden');
+                if (btnFiniquito) btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
+                if (btnSueldo) btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
                 
                 // Hide sueldo mobile bar and trigger calculations for finiquito
-                document.getElementById('mobile-result-bar').classList.add('translate-y-full');
+                var mobileBar = document.getElementById('mobile-result-bar');
+                if (mobileBar) mobileBar.classList.add('translate-y-full');
                 if (typeof updateCalculations === 'function') updateCalculations();
             } else {
-                containerFiniquito.classList.add('hidden');
-                containerSueldo.classList.remove('hidden');
-                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                if (containerFiniquito) containerFiniquito.classList.add('hidden');
+                if (containerSueldo) containerSueldo.classList.remove('hidden');
+                if (btnSueldo) btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
+                if (btnFiniquito) btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
                 
                 // Trigger sueldo calculations
                 const salaryInput = document.getElementById('salary');
