@@ -511,26 +511,6 @@
         <p class="text-slate-500 text-sm mt-1">
             Convierte tu sueldo bruto a líquido con todos los descuentos legales AFP, Salud y Seguro de Cesantía.
         </p>
-        <div class="intro-sueldo text-slate-600 text-sm space-y-3 mt-4 text-left leading-relaxed">
-          <p>
-            Esta <strong>calculadora de sueldo líquido</strong> te permite transformar tu remuneración bruta
-            en el monto exacto que recibirás en tu cuenta bancaria cada mes. Aplicamos automáticamente
-            todos los descuentos obligatorios vigentes en Chile para 2026: cotización de AFP
-            (Administradoras de Fondos de Pensiones), salud (Fonasa o Isapre) y Seguro de Cesantía,
-            según los porcentajes oficiales de la Superintendencia de Pensiones.
-          </p>
-          <p>
-            El simulador considera el <strong>tope imponible mensual</strong> (84,3 UF para AFP y salud
-            en 2026) y el tope anual del Seguro de Cesantía (126,6 UF). También incluye la
-            gratificación legal cuando corresponde y permite ajustar descuentos adicionales como
-            ahorro APV o cuotas sindicales. Los valores de UF y Sueldo Mínimo se actualizan en
-            tiempo real desde el Banco Central.
-          </p>
-          <p>
-            Si quieres entender cada descuento antes de usar el simulador, revisa nuestra
-            <a href="/como-calcular-sueldo-liquido-paso-a-paso" class="text-sky-600 hover:underline">guía paso a paso para calcular tu sueldo líquido en Chile</a>.
-          </p>
-        </div>
     </div>
 
     <!-- ---------------------------------------------------- -->
@@ -871,6 +851,32 @@
         </div>
         <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
     </div>
+
+    <details class="mt-8 max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-5">
+      <summary class="font-bold text-slate-800 cursor-pointer text-sm">
+        ¿Cómo funciona esta calculadora?
+      </summary>
+      <div class="intro-sueldo text-slate-600 text-sm space-y-3 mt-4 text-left leading-relaxed">
+        <p>
+          Esta <strong>calculadora de sueldo líquido</strong> te permite transformar tu remuneración bruta
+          en el monto exacto que recibirás en tu cuenta bancaria cada mes. Aplicamos automáticamente
+          todos los descuentos obligatorios vigentes en Chile para 2026: cotización de AFP
+          (Administradoras de Fondos de Pensiones), salud (Fonasa o Isapre) y Seguro de Cesantía,
+          según los porcentajes oficiales de la Superintendencia de Pensiones.
+        </p>
+        <p>
+          El simulador considera el <strong>tope imponible mensual</strong> (84,3 UF para AFP y salud
+          en 2026) y el tope anual del Seguro de Cesantía (126,6 UF). También incluye la
+          gratificación legal cuando corresponde y permite ajustar descuentos adicionales como
+          ahorro APV o cuotas sindicales. Los valores de UF y Sueldo Mínimo se actualizan en
+          tiempo real desde el Banco Central.
+        </p>
+        <p>
+          Si quieres entender cada descuento antes de usar el simulador, revisa nuestra
+          <a href="/como-calcular-sueldo-liquido-paso-a-paso" class="text-sky-600 hover:underline">guía paso a paso para calcular tu sueldo líquido en Chile</a>.
+        </p>
+      </div>
+    </details>
 
     <!-- ---------------------------------------------------- -->
     <!-- EDUCATIONAL ACCORDIONS (Below the fold)              -->
