@@ -24,3 +24,11 @@ Este documento registra todas las intervenciones SEO realizadas en la plataforma
 | 2026-04-05 | `/sitemap.xml` | Actualizado `lastmod` de homepage y blog a `2026-04-05`. Añadido `changefreq` y `priority` a todas las URLs. | Señal a Google de contenido fresco. Priorizar rastreo de calculadoras vs páginas legales. |
 | 2026-04-05 | `/assets/og-image.png` | Creada imagen OG para compartir en redes sociales. | Mejorar apariencia al compartir en WhatsApp/Facebook/Twitter. |
 
+## Junio 2026 - Optimización de CTR en Guías Principales
+
+| Fecha | URL Modificada | Cambio Específico | Hipótesis / Métrica Esperada a Mover |
+| :--- | :--- | :--- | :--- |
+| 2026-06-30 | `/como-calcular-sueldo-liquido-paso-a-paso` | Optimizado `<title>` y `<meta description>` con gancho de resultado concreto ("Con $1.500.000..."). | Elevar el CTR en GSC de 0.00% al ofrecer simulación directa en el snippet. |
+| 2026-06-30 | `/como-calcular-finiquito-chile` | Optimizado `<title>` e inyectado ejemplo numérico concreto en la meta descripción. | Resolver canibalización con `/finiquito_calculator` y subir CTR de 0.24%. |
+| 2026-06-30 | `/guia-vacaciones-proporcionales` | Optimizado `<title>` y agregado gancho específico de 7 meses de antigüedad en la meta. | Aumentar clics respondiendo directamente la intención de búsqueda usual. |
+| 2026-06-30 | `/despido-necesidades-empresa-articulo-161` | Optimizado `<title>` y descripción enfocado en derechos y plazos legales. | Incrementar el CTR de 0.53% en resultados orgánicos de página 1. |
