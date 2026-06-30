@@ -803,7 +803,7 @@
                 </span>
             </div>
 
-            <!-- Lead Magnet: Strategic Guide (NEW) -->
+            <!-- Lead Magnet: Strategic Guide -->
             <div id="lead-magnet-section" class="mt-4 p-5 rounded-2xl bg-gradient-to-br from-sky-50 to-emerald-50 border border-sky-200 no-print">
               <div class="flex items-start gap-3">
                 <div class="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center flex-shrink-0">
@@ -816,18 +816,72 @@
                   <p class="text-xs text-slate-600 leading-relaxed mb-3">
                     Ya sabes cuánto te toca. Ahora aprende qué hacer con esa plata: 3 escenarios de inversión comparados, plan de 90 días y dónde poner cada peso. 6 páginas, lectura de 6 min.
                   </p>
-                  <a href="/Articulos/lead-magnet-finiquito.pdf"
-                     download="guia-finiquito-calculolaboral.pdf"
-                     onclick="trackLeadMagnetDownload()"
+                  <button type="button"
+                     onclick="openLeadMagnetModal()"
                      class="inline-flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">
                     <span class="material-icons text-base">download</span>
                     Descargar la guía completa (PDF)
-                  </a>
+                  </button>
                   <p class="text-[10px] text-slate-500 mt-2">
-                    Sin registro. Compartir libremente.
+                    Te pedimos tu email para enviarte la guía. Sin spam, puedes darte de baja cuando quieras.
                   </p>
                 </div>
               </div>
+            </div>
+
+            <!-- Lead Magnet Modal (email capture) -->
+            <div id="lead-magnet-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden no-print">
+                <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-md shadow-2xl p-6 relative overflow-hidden animate-fade-in">
+                    <button type="button" onclick="closeLeadMagnetModal()" aria-label="Cerrar modal" class="absolute top-3 right-3 text-slate-500 hover:text-slate-700 hover:bg-slate-100 p-1 rounded-full transition-colors">
+                        <span class="material-icons">close</span>
+                    </button>
+
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500 text-white flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-2xl">menu_book</span>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900">Descarga la guía gratis</h3>
+                            <p class="text-xs text-slate-500">6 páginas · 6 min de lectura</p>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                        Déjanos tu email y te enviamos la guía <strong>"Qué hago con mi finiquito"</strong> con 3 escenarios de inversión, plan de 90 días y un bonus con afiliados.
+                    </p>
+
+                    <form id="lead-magnet-form" class="space-y-3" onsubmit="return submitLeadMagnetForm(event)">
+                        <input type="text" name="nombre" id="lm-nombre" placeholder="Tu nombre" required
+                            class="w-full px-3 py-2.5 text-sm border border-slate-300 rounded-lg bg-white outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+                        <input type="email" name="correo" id="lm-correo" placeholder="tu@correo.com" required
+                            class="w-full px-3 py-2.5 text-sm border border-slate-300 rounded-lg bg-white outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+                        <label class="flex items-start gap-2 text-xs text-slate-500 leading-relaxed">
+                            <input type="checkbox" id="lm-consent" required
+                                class="mt-0.5 rounded border-slate-300 text-sky-500 focus:ring-sky-500">
+                            <span>Acepto recibir la guía y emails relacionados con finanzas laborales chilenas. Puedo darme de baja en cualquier momento.</span>
+                        </label>
+                        <button type="submit" id="lm-submit"
+                            class="w-full py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-bold rounded-lg transition-colors">
+                            Enviarme la guía →
+                        </button>
+                    </form>
+
+                    <div id="lm-success" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                        <p class="text-sm font-semibold text-emerald-900 mb-1">¡Listo! Tu guía está en camino.</p>
+                        <p class="text-xs text-emerald-700 mb-3">Te enviamos el PDF a tu email. La descarga también empieza automáticamente.</p>
+                        <button type="button" onclick="closeLeadMagnetModal(true)" class="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg">
+                            Cerrar
+                        </button>
+                    </div>
+
+                    <div id="lm-error" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+                        No pudimos enviar la guía. Intenta de nuevo.
+                    </div>
+
+                    <p class="text-[10px] text-slate-400 mt-4 text-center">
+                        Tu email se guarda de forma segura. No lo compartimos con terceros.
+                    </p>
+                </div>
             </div>
 
             <!-- PDF and Lead Capture section -->
@@ -1212,6 +1266,97 @@
                     'lead_magnet_name': 'guia_finiquito'
                 });
             }
+        }
+
+        // Lead Magnet: modal control + form submit
+        var LM_DOWNLOAD_URL = '/Articulos/lead-magnet-finiquito.pdf';
+        var LM_FILENAME = 'guia-finiquito-calculolaboral.pdf';
+
+        function openLeadMagnetModal() {
+            var modal = document.getElementById('lead-magnet-modal');
+            var form = document.getElementById('lead-magnet-form');
+            var success = document.getElementById('lm-success');
+            var error = document.getElementById('lm-error');
+            var btn = document.getElementById('lm-submit');
+            if (success) success.classList.add('hidden');
+            if (error) error.classList.add('hidden');
+            if (form) form.classList.remove('hidden');
+            if (btn) { btn.disabled = false; btn.textContent = 'Enviarme la guía →'; }
+            if (modal) modal.classList.remove('hidden');
+            // Track open in GA4
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'lead_magnet_open', { event_category: 'lead_magnet' });
+            }
+        }
+
+        function closeLeadMagnetModal(triggerDownload) {
+            var modal = document.getElementById('lead-magnet-modal');
+            if (modal) modal.classList.add('hidden');
+            if (triggerDownload) {
+                triggerLeadMagnetDownload();
+            }
+        }
+
+        function triggerLeadMagnetDownload() {
+            // Create temporary link and click it to trigger download
+            var a = document.createElement('a');
+            a.href = LM_DOWNLOAD_URL;
+            a.download = LM_FILENAME;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            trackLeadMagnetDownload();
+        }
+
+        function submitLeadMagnetForm(event) {
+            event.preventDefault();
+            var nombre = document.getElementById('lm-nombre').value.trim();
+            var correo = document.getElementById('lm-correo').value.trim();
+            var consent = document.getElementById('lm-consent').checked;
+            var btn = document.getElementById('lm-submit');
+            var form = document.getElementById('lead-magnet-form');
+            var success = document.getElementById('lm-success');
+            var error = document.getElementById('lm-error');
+
+            if (!nombre || !correo || !consent) {
+                if (error) {
+                    error.textContent = 'Completa todos los campos y acepta el envío de emails.';
+                    error.classList.remove('hidden');
+                }
+                return false;
+            }
+
+            if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
+            if (error) error.classList.add('hidden');
+
+            fetch('/api/send-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    tipo: 'LeadMagnet',
+                    fuente: 'guia_finiquito',
+                    monto_calculado: window.resultadoActualMonto || '0'
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    if (form) form.classList.add('hidden');
+                    if (success) success.classList.remove('hidden');
+                    // Auto-download after short delay so user sees the success
+                    setTimeout(function() { triggerLeadMagnetDownload(); }, 1500);
+                    return null;
+                }
+                throw new Error('Error ' + response.status);
+            }).catch(function() {
+                if (btn) { btn.disabled = false; btn.textContent = 'Enviarme la guía →'; }
+                if (error) {
+                    error.textContent = 'No pudimos enviar la guía. Intenta de nuevo en unos segundos.';
+                    error.classList.remove('hidden');
+                }
+            });
+            return false;
         }
     </script>
     
