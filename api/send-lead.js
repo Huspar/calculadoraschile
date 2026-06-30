@@ -1,7 +1,7 @@
 /**
  * Vercel Serverless Function: send-lead
- * Intermediates between Cálculo Laboral client forms and EmailJS API.
- * Keeps EmailJS credentials secure and supports server-side private tokens.
+ * Intermediates between Cálculo Laboral client forms and Resend (transactional email).
+ * Sends the lead notification to JHON (CC) and the requested guide/resource to the USER.
  *
  * Hardened (2026-06):
  *  - Strict CORS allowlist (no wildcard)
@@ -9,9 +9,10 @@
  *  - Honeypot field to catch bots
  *  - Input validation: name (1-80), email RFC-lite, phone digits-only (<=20), tipo enum, monto numeric (<=20 chars)
  *  - Body size limit (1KB)
- *  - No hardcoded credential fallbacks: EmailJS_* must be set in Vercel env or the request fails fast.
+ *  - No hardcoded credential fallbacks: RESEND_API_KEY must be set in Vercel env or the request fails fast.
  *  - Generic error responses (no internal details leaked)
- *  - HTML-escaped template params before forwarding to EmailJS
+ *  - HTML-escaped email content
+ *  - LeadMagnet tipo: also sends a welcome email with the guide link to the user
  */
 
 const ALLOWED_ORIGINS = new Set([
@@ -28,6 +29,11 @@ const RATE_LIMIT_MAX = 10; // max requests per IP per window
 const ipBuckets = new Map(); // ip -> { count, resetAt }
 
 const MAX_BODY_BYTES = 1024;
+
+const FROM_ADDRESS = 'onboarding@resend.dev'; // Switch to 'contacto@calculolaboral.cl' after domain verification in Resend dashboard
+const FROM_NAME = 'Cálculo Laboral';
+const NOTIFY_JHON = 'jhonfcj@gmail.com';
+const GUIDE_URL = 'https://calculolaboral.cl/Articulos/lead-magnet-finiquito.pdf';
 
 function getClientIp(req) {
     const xff = req.headers['x-forwarded-for'];
@@ -62,6 +68,7 @@ function escapeHtml(value) {
 }
 
 function isValidEmail(email) {
+    // RFC 5322 lite — good enough to reject obvious garbage, server still does the real validation.
     return typeof email === 'string'
         && email.length <= 254
         && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(email);
@@ -114,11 +121,13 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    // Block cross-origin POSTs that did not pass the allowlist (CSRF mitigation).
     const origin = req.headers.origin;
     if (typeof origin === 'string' && !ALLOWED_ORIGINS.has(origin)) {
         return res.status(403).json({ error: 'Origin not allowed' });
     }
 
+    // Body size guard
     const contentLength = parseInt(req.headers['content-length'] || '0', 10);
     if (contentLength > MAX_BODY_BYTES) {
         return res.status(413).json({ error: 'Payload too large' });
@@ -132,6 +141,7 @@ module.exports = async (req, res) => {
     }
 
     try {
+        // Vercel parses JSON automatically when Content-Type is application/json.
         const body = req.body && typeof req.body === 'object' ? req.body : {};
         const {
             nombre,
@@ -139,11 +149,14 @@ module.exports = async (req, res) => {
             telefono,
             monto_calculado,
             tipo,
+            // Honeypot: must be empty for real users; bots fill it.
             website,
+            // Minimum time the form has been on screen (ms). If too short, treat as bot.
             form_rendered_at
         } = body;
 
         if (typeof website === 'string' && website.trim().length > 0) {
+            // Silently accept to look like a success without sending anything.
             return res.status(200).json({ success: true });
         }
 
@@ -165,47 +178,131 @@ module.exports = async (req, res) => {
         const cleanMonto = sanitizeMonto(monto_calculado);
         const cleanTipo = sanitizeTipo(tipo);
 
-        const serviceId = process.env.EMAILJS_SERVICE_ID;
-        const templateId = process.env.EMAILJS_TEMPLATE_ID;
-        const publicKey = process.env.EMAILJS_PUBLIC_KEY;
-        const privateKey = process.env.EMAILJS_PRIVATE_KEY;
+        // Resend API key must come from Vercel env. No hardcoded fallbacks.
+        const resendApiKey = process.env.RESEND_API_KEY;
 
-        if (!serviceId || !templateId || !publicKey) {
-            console.error('send-lead: missing EmailJS env vars');
+        if (!resendApiKey) {
+            console.error('send-lead: missing RESEND_API_KEY env var');
             return res.status(500).json({ error: 'Service not configured' });
         }
 
-        const payload = {
-            service_id: serviceId,
-            template_id: templateId,
-            user_id: publicKey,
-            template_params: {
-                nombre: escapeHtml(cleanName),
-                correo: cleanEmail,
-                telefono: escapeHtml(cleanPhone || 'No proporcionado'),
-                monto_calculado: escapeHtml(cleanMonto),
-                tipo: escapeHtml(cleanTipo),
-                fecha: new Date().toLocaleDateString('es-CL')
+        const fechaLocal = new Date().toLocaleDateString('es-CL');
+
+        // Email body builder: small helper, escapes HTML, returns safe HTML and text versions
+        function buildEmailHtml({ title, intro, body }) {
+            return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"></head>
+<body style="font-family: -apple-system, system-ui, sans-serif; color: #0f172a; line-height: 1.5; max-width: 560px; margin: 0 auto; padding: 24px;">
+<h1 style="color: #0ea5e9; font-size: 22px; margin: 0 0 16px;">${title}</h1>
+<p style="margin: 0 0 16px;">${intro}</p>
+<div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 14px 18px; margin: 0 0 16px; font-size: 14px;">${body}</div>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;">
+<p style="font-size: 12px; color: #64748b; margin: 0;">Cálculo Laboral · calculolaboral.cl</p>
+</body>
+</html>`;
+        }
+
+        function buildEmailText({ intro, body }) {
+            return `${intro}\n\n${body.replace(/<[^>]+>/g, '')}\n\n--\nCálculo Laboral · calculolaboral.cl`;
+        }
+
+        let userSubject, userHtml, userText;
+
+        if (cleanTipo === 'LeadMagnet') {
+            // LeadMagnet: send a welcome email to the user with the guide link
+            userSubject = 'Tu guía "Qué hago con mi finiquito" está lista';
+            const userIntro = `Hola ${cleanName}, gracias por descargar la guía. Te la adjuntamos a continuación.`;
+            const userBody = `
+                <p style="margin: 0 0 12px;"><strong>📘 Guía: Qué hago con mi finiquito</strong></p>
+                <p style="margin: 0 0 12px;">6 páginas · lectura de 6 minutos · 3 escenarios de inversión + plan de 90 días.</p>
+                <p style="margin: 16px 0; text-align: center;">
+                    <a href="${GUIDE_URL}" style="background: #0ea5e9; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Descargar la guía (PDF)</a>
+                </p>
+                <p style="margin: 16px 0 0; font-size: 13px; color: #64748b;">El link de descarga funciona en cualquier dispositivo. Puedes compartirla con quien quieras.</p>
+            `;
+            userHtml = buildEmailHtml({ title: 'Tu guía está lista 📘', intro: userIntro, body: userBody });
+            userText = buildEmailText({ intro: userIntro, body: userBody });
+        } else {
+            // Other tipos: only the user gets a confirmation, no resource attached
+            userSubject = 'Recibimos tu consulta en Cálculo Laboral';
+            const userIntro = `Hola ${cleanName}, recibimos tu mensaje. Te contactaremos pronto.`;
+            const userBody = `<p>Nuestro equipo revisará tu caso y te responderá a la brevedad al correo ${cleanEmail}.</p>`;
+            userHtml = buildEmailHtml({ title: 'Recibimos tu consulta', intro: userIntro, body: userBody });
+            userText = buildEmailText({ intro: userIntro, body: userBody });
+        }
+
+        // Notification email to JHON (with all the lead details)
+        const jhonSubject = `[${cleanTipo}] Nuevo lead: ${cleanName}`;
+        const jhonIntro = `Nuevo lead capturado en calculolaboral.cl.`;
+        const jhonBody = `
+            <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
+                <tr><td style="padding: 4px 0; color: #64748b;">Nombre:</td><td style="padding: 4px 0; font-weight: bold;">${cleanName}</td></tr>
+                <tr><td style="padding: 4px 0; color: #64748b;">Correo:</td><td style="padding: 4px 0;"><a href="mailto:${cleanEmail}">${cleanEmail}</a></td></tr>
+                <tr><td style="padding: 4px 0; color: #64748b;">Teléfono:</td><td style="padding: 4px 0;">${cleanPhone || '—'}</td></tr>
+                <tr><td style="padding: 4px 0; color: #64748b;">Tipo:</td><td style="padding: 4px 0;">${cleanTipo}</td></tr>
+                <tr><td style="padding: 4px 0; color: #64748b;">Monto:</td><td style="padding: 4px 0;">$${cleanMonto} CLP</td></tr>
+                <tr><td style="padding: 4px 0; color: #64748b;">Fuente:</td><td style="padding: 4px 0;">${escapeHtml(typeof body === 'object' && body && body.fuente ? body.fuente : 'web')}</td></tr>
+                <tr><td style="padding: 4px 0; color: #64748b;">Fecha:</td><td style="padding: 4px 0;">${fechaLocal}</td></tr>
+            </table>
+        `;
+        const jhonHtml = buildEmailHtml({ title: `Nuevo lead: ${cleanName}`, intro: jhonIntro, body: jhonBody });
+        const jhonText = buildEmailText({ intro: jhonIntro, body: jhonBody });
+
+        // Send BOTH emails via Resend (user first, then jhon)
+        async function sendResendEmail(to, subject, html, text, replyTo) {
+            const payload = {
+                from: `${FROM_NAME} <${FROM_ADDRESS}>`,
+                to: Array.isArray(to) ? to : [to],
+                subject,
+                html,
+                text,
+            };
+            if (replyTo) {
+                payload.reply_to = replyTo;
             }
-        };
-
-        if (privateKey) {
-            payload.accessToken = privateKey;
+            const resp = await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${resendApiKey}`,
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'calculolaboral-cl/1.0',
+                },
+                body: JSON.stringify(payload),
+            });
+            return resp;
         }
 
-        const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (emailResponse.ok) {
-            return res.status(200).json({ success: true });
+        // Send to user (CC jhon for context, so he sees the user email too)
+        const userResp = await sendResendEmail(
+            cleanEmail,
+            userSubject,
+            userHtml,
+            userText,
+            NOTIFY_JHON
+        );
+        if (!userResp.ok) {
+            const errText = await userResp.text();
+            console.error('Resend error (user email):', errText);
+            return res.status(502).json({ error: 'No se pudo procesar la solicitud.' });
         }
 
-        const errorText = await emailResponse.text();
-        console.error('EmailJS REST error:', errorText);
-        return res.status(502).json({ error: 'No se pudo procesar la solicitud.' });
+        // Send to jhon with user details (Reply-To set to user email for easy reply)
+        const jhonResp = await sendResendEmail(
+            NOTIFY_JHON,
+            jhonSubject,
+            jhonHtml,
+            jhonText,
+            cleanEmail
+        );
+        if (!jhonResp.ok) {
+            const errText = await jhonResp.text();
+            console.error('Resend error (jhon email):', errText);
+            // Don't fail the user request if jhon notification fails — the lead is still captured
+            console.warn('User email was sent but jhon notification failed. Lead:', cleanEmail);
+        }
+
+        return res.status(200).json({ success: true });
 
     } catch (error) {
         console.error('Exception inside send-lead api route:', error);
