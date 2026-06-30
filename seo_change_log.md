@@ -24,11 +24,8 @@ Este documento registra todas las intervenciones SEO realizadas en la plataforma
 | 2026-04-05 | `/sitemap.xml` | Actualizado `lastmod` de homepage y blog a `2026-04-05`. Añadido `changefreq` y `priority` a todas las URLs. | Señal a Google de contenido fresco. Priorizar rastreo de calculadoras vs páginas legales. |
 | 2026-04-05 | `/assets/og-image.png` | Creada imagen OG para compartir en redes sociales. | Mejorar apariencia al compartir en WhatsApp/Facebook/Twitter. |
 
-## Junio 2026 - Optimización de CTR en Guías Principales
+## Junio 2026 - Pivote a Guía Financiera del Trabajador + Lead Magnet
 
 | Fecha | URL Modificada | Cambio Específico | Hipótesis / Métrica Esperada a Mover |
 | :--- | :--- | :--- | :--- |
-| 2026-06-30 | `/como-calcular-sueldo-liquido-paso-a-paso` | Optimizado `<title>` y `<meta description>` con gancho de resultado concreto ("Con $1.500.000..."). | Elevar el CTR en GSC de 0.00% al ofrecer simulación directa en el snippet. |
-| 2026-06-30 | `/como-calcular-finiquito-chile` | Optimizado `<title>` e inyectado ejemplo numérico concreto en la meta descripción. | Resolver canibalización con `/finiquito_calculator` y subir CTR de 0.24%. |
-| 2026-06-30 | `/guia-vacaciones-proporcionales` | Optimizado `<title>` y agregado gancho específico de 7 meses de antigüedad en la meta. | Aumentar clics respondiendo directamente la intención de búsqueda usual. |
-| 2026-06-30 | `/despido-necesidades-empresa-articulo-161` | Optimizado `<title>` y descripción enfocado en derechos y plazos legales. | Incrementar el CTR de 0.53% en resultados orgánicos de página 1. |
+| 2026-06-29 | `/como-calcular-sueldo-liquido-paso-a-paso`, `/como-calcular-finiquito-chile`, `/guia-vacaciones-proporcionales`, `/despido-necesidades-empresa-articulo-161`, `/que-hacer-si-no-te-pagan-el-finiquito` | Optimización de `<title>` y `<meta description>` con números concretos (ej: "\$1.500.000 bruto → \$1.187.000 líquido", "\$2.880.000 con 3 años", "plazo 10 días + recargo 30%"). | +50-100% CTR en GSC para queries long-tail de finiquito, sueldo líquido, vacaciones, art. 161 y no me pagaron. Detalle en `AUDITORIA-SEO-2026-06-29.md`. |
