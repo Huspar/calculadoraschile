@@ -803,13 +803,40 @@
                 </span>
             </div>
 
+            <!-- Lead Magnet: Strategic Guide (NEW) -->
+            <div id="lead-magnet-section" class="mt-4 p-5 rounded-2xl bg-gradient-to-br from-sky-50 to-emerald-50 border border-sky-200 no-print">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center flex-shrink-0">
+                  <span class="material-icons text-xl">menu_book</span>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-bold text-slate-900 mb-1">
+                    📘 Guía gratis: Qué hago con mi finiquito
+                  </p>
+                  <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                    Ya sabes cuánto te toca. Ahora aprende qué hacer con esa plata: 3 escenarios de inversión comparados, plan de 90 días y dónde poner cada peso. 6 páginas, lectura de 6 min.
+                  </p>
+                  <a href="/Articulos/lead-magnet-finiquito.pdf"
+                     download="guia-finiquito-calculolaboral.pdf"
+                     onclick="trackLeadMagnetDownload()"
+                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-bold rounded-lg transition-colors shadow-sm">
+                    <span class="material-icons text-base">download</span>
+                    Descargar la guía completa (PDF)
+                  </a>
+                  <p class="text-[10px] text-slate-500 mt-2">
+                    Sin registro. Compartir libremente.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <!-- PDF and Lead Capture section -->
             <div id="pdf-section" class="mt-4 hidden no-print">
-              <button id="download-pdf-btn" 
-                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
-                📥 Descargar Desglose PDF
+              <button id="download-pdf-btn"
+                class="flex items-center gap-2 px-4 py-2.5 bg-slate-700 hover:bg-slate-800 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
+                📄 Descargar desglose técnico
               </button>
-              <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
+              <p class="text-xs text-slate-400 mt-1">Detalle línea por línea. Sin registro.</p>
             </div>
 
             <!-- Lead Capture Section (SOLO EN FINIQUITO) -->
@@ -1166,6 +1193,25 @@
                 alert('Error al enviar. Intenta de nuevo.');
                 if (btn) btn.disabled = false;
             });
+        }
+
+        // Track lead magnet download in GA4
+        function trackLeadMagnetDownload() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'download', {
+                    'event_category': 'lead_magnet',
+                    'event_label': 'guia_finiquito_pdf',
+                    'file_name': 'lead-magnet-finiquito.pdf',
+                    'value': 1
+                });
+            }
+            // Fallback for dataLayer (in case gtag isn't fully loaded)
+            if (typeof dataLayer !== 'undefined' && typeof dataLayer.push === 'function') {
+                dataLayer.push({
+                    'event': 'lead_magnet_download',
+                    'lead_magnet_name': 'guia_finiquito'
+                });
+            }
         }
     </script>
     

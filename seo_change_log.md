@@ -26,6 +26,7 @@ Este documento registra todas las intervenciones SEO realizadas en la plataforma
 
 ## Junio 2026 - Pivote a Guía Financiera del Trabajador + Lead Magnet
 
-| Fecha | URL Modificada | Cambio Específico | Hipótesis / Métrica Esperada a Mover |
+| Fecha | URL/Recurso | Cambio Específico | Hipótesis / Métrica Esperada a Mover |
 | :--- | :--- | :--- | :--- |
+| 2026-06-29 | `/Articulos/lead-magnet-finiquito.pdf` | Creación del lead magnet "Qué hago con mi finiquito" (6 páginas A4, simulaciones con $2.880.000). NO se indexa en sitemap (recurso descargable, no compite en SERPs). | Crecimiento de lista de emails + tráfico referido desde WhatsApp/social. Métrica a trackear: descargas desde `/finiquito_calculator`. |
 | 2026-06-29 | `/como-calcular-sueldo-liquido-paso-a-paso`, `/como-calcular-finiquito-chile`, `/guia-vacaciones-proporcionales`, `/despido-necesidades-empresa-articulo-161`, `/que-hacer-si-no-te-pagan-el-finiquito` | Optimización de `<title>` y `<meta description>` con números concretos (ej: "\$1.500.000 bruto → \$1.187.000 líquido", "\$2.880.000 con 3 años", "plazo 10 días + recargo 30%"). | +50-100% CTR en GSC para queries long-tail de finiquito, sueldo líquido, vacaciones, art. 161 y no me pagaron. Detalle en `AUDITORIA-SEO-2026-06-29.md`. |
