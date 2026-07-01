@@ -6,3 +6,5 @@ scratch/
 rediseño-premium/
 .agents/
 __pycache__/
+.vercel
+.env*
