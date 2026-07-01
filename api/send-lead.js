@@ -30,7 +30,7 @@ const ipBuckets = new Map(); // ip -> { count, resetAt }
 
 const MAX_BODY_BYTES = 1024;
 
-const FROM_ADDRESS = 'onboarding@resend.dev'; // Switch to 'contacto@calculolaboral.cl' after domain verification in Resend dashboard
+const FROM_ADDRESS = 'contacto@calculolaboral.cl'; // Verified in Resend on 2026-07-01 (Cloudflare DNS)
 const FROM_NAME = 'Cálculo Laboral';
 const NOTIFY_JHON = 'jhonfcj@gmail.com';
 const GUIDE_URL = 'https://calculolaboral.cl/Articulos/lead-magnet-finiquito.pdf';
