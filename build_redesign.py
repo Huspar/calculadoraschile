@@ -3670,15 +3670,21 @@ vercel_json_content = """{
 with open(os.path.join(DEST_DIR, "vercel.json"), "w", encoding="utf-8") as f:
     f.write(vercel_json_content)
 
-# Copy Articulos folder to DEST_DIR
+# Copy Articulos, js, and assets folders to DEST_DIR
 import shutil
-print("Copying Articulos directory...")
-src_articulos = os.path.join(SOURCE_DIR, "Articulos")
-dest_articulos = os.path.join(DEST_DIR, "Articulos")
-if os.path.exists(src_articulos):
-    if os.path.exists(dest_articulos):
-        shutil.rmtree(dest_articulos)
-    shutil.copytree(src_articulos, dest_articulos)
+
+def copy_dir_clean(src_name):
+    src_path = os.path.join(SOURCE_DIR, src_name)
+    dest_path = os.path.join(DEST_DIR, src_name)
+    if os.path.exists(src_path):
+        print(f"Copying {src_name} directory...")
+        if os.path.exists(dest_path):
+            shutil.rmtree(dest_path)
+        shutil.copytree(src_path, dest_path)
+
+copy_dir_clean("Articulos")
+copy_dir_clean("js")
+copy_dir_clean("assets")
 
 # NOTE: Do NOT write vercel.json to parent dir — would overwrite production config
 # with open(os.path.join(os.path.dirname(DEST_DIR), "vercel.json"), "w", encoding="utf-8") as f:

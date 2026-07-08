@@ -26,20 +26,29 @@
         const downloadBtnFini = document.getElementById('download-pdf-btn');
         const downloadBtnSueldo = document.getElementById('download-pdf-btn-sueldo');
 
-        const downloadHandler = () => {
+        const downloadHandler = (calculatorType) => {
             // Verify that calculator is calculated
             if (!isCalculated()) {
                 alert("Por favor, realiza una simulación primero ingresando tus datos para generar el reporte.");
                 return;
             }
+
+            // Track event in GA4
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click_download_pdf_report', {
+                    'event_category': 'PDF_Report',
+                    'event_label': calculatorType + '_report'
+                });
+            }
+
             generatePDFReport();
         };
 
         if (downloadBtnFini) {
-            downloadBtnFini.addEventListener('click', downloadHandler);
+            downloadBtnFini.addEventListener('click', () => downloadHandler('finiquito'));
         }
         if (downloadBtnSueldo) {
-            downloadBtnSueldo.addEventListener('click', downloadHandler);
+            downloadBtnSueldo.addEventListener('click', () => downloadHandler('sueldo_liquido'));
         }
     }
 
