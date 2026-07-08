@@ -88,7 +88,7 @@ const IndicatorsService = {
 
             // Apply and cache
             this._applyValues(uf, utm, null, 'API');
-            this._saveToCache(uf, utm, typeof CONSTANTS !== 'undefined' ? CONSTANTS.IMM : 539000);
+            this._saveToCache(uf, utm, typeof CONSTANTS !== 'undefined' ? CONSTANTS.IMM : 553553);
 
             // Update DOM
             this.updateDOM(data);

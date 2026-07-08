@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Calculate Cap Dynamically: (TOPE_GRATIFICACION * IMM) / 12
             const topeGrat = typeof CONSTANTS !== 'undefined' ? CONSTANTS.TOPE_GRATIFICACION : 4.75;
-            const imm = typeof CONSTANTS !== 'undefined' ? CONSTANTS.IMM : 539000;
+            const imm = typeof CONSTANTS !== 'undefined' ? CONSTANTS.IMM : 553553;
             const legalCap = Math.round((topeGrat * imm) / 12);
 
             // Formula: 25% of Base, capped
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Calculate Cap Dynamically
             const topeGrat = typeof CONSTANTS !== 'undefined' ? CONSTANTS.TOPE_GRATIFICACION : 4.75;
-            const imm = typeof CONSTANTS !== 'undefined' ? CONSTANTS.IMM : 539000;
+            const imm = typeof CONSTANTS !== 'undefined' ? CONSTANTS.IMM : 553553;
             const legalCap = Math.round((topeGrat * imm) / 12);
 
             if (val > legalCap) {

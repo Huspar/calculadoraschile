@@ -288,7 +288,7 @@ INDICATOR_BAR_HTML = """
             <!-- Sueldo Mínimo Card -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Sueldo Mínimo</span>
-                <span class="text-lg font-extrabold text-slate-900 font-mono">$539.000</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">$553.553</span>
             </div>
             <!-- Tope AFP Card -->
             <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
@@ -1286,7 +1286,7 @@ def clean_article_body(body, filename):
         body = flexible_replace(body, old_timeline_list, new_timeline_list)
 
         # Minimum wage update
-        body = body.replace("el sueldo mínimo es de <strong>$510.000</strong>", "el sueldo mínimo es de <strong>$539.000</strong>")
+        body = body.replace("el sueldo mínimo es de <strong>$539.000</strong>", "el sueldo mínimo es de <strong>$553.553</strong>")
 
     elif filename == "que-hacer-si-no-te-pagan-el-finiquito.html":
         # EEAT badge
@@ -2807,7 +2807,7 @@ INDEX_CONTENT = """
                     <label class="block text-xs font-bold text-slate-600 uppercase ml-1" for="salary">Sueldo Base Mensual</label>
                     <div class="relative">
                         <span class="absolute left-4 top-3 text-slate-500 font-bold">$</span>
-                        <input id="salary" name="salary" placeholder="539.000" type="text" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-right font-mono" />
+                        <input id="salary" name="salary" placeholder="553.553" type="text" class="block w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none text-right font-mono" />
                     </div>
                 </div>
 

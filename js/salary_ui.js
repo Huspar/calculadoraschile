@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Min Wage Warning
-            const immVal = (typeof CONSTANTS !== 'undefined') ? CONSTANTS.IMM : 539000;
+            const immVal = (typeof CONSTANTS !== 'undefined') ? CONSTANTS.IMM : 553553;
             if (d.baseSalary < immVal && d.baseSalary > 0) {
                 const formattedImm = formatCLP(immVal);
                 display.notifications.appendChild(

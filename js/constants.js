@@ -13,7 +13,7 @@ const CONSTANTS = {
     // Economic Indicators
     UF: 39682.99,
     UTM: 69611,
-    IMM: 539000,
+    IMM: 553553,
 
     // Legal Caps (Topes Imponibles)
     TOPE_IMPONIBLE_AFP: 89.9,      // UF
