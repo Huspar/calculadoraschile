@@ -24,12 +24,954 @@
     <meta property="og:locale" content="es_CL">
     <meta property="og:site_name" content="Cálculo Laboral">
     
-    <!-- Google Fonts & Tailwind -->
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "SoftwareApplication",
+            "name": "Calculadora de Sueldo Part-Time Chile 2026",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "description": "Calcula tu sueldo líquido part-time en Chile 2026 (30h, 20h o personalizado). Incluye comisiones, semana corrida, descuentos y protección de Gratuidad para estudiantes (Art. 40 bis).",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "CLP"
+            }
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "¿Cuál es el sueldo mínimo para un contrato part-time en Chile?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "El sueldo mínimo es proporcional a la jornada semanal respecto a las 42 horas legales. Con el ingreso mínimo de $553.553, el piso para 30 horas es de $395.395 CLP y para 20 horas es de $263.596 CLP."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Los estudiantes pierden la Gratuidad por trabajar part-time?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No. Según la Ley 21.155 (Art. 40 bis E), los estudiantes entre 18 y 24 años pueden percibir remuneraciones de hasta 2 Ingresos Mínimos Mensuales ($1.107.106) sin perder la Gratuidad, becas estatales ni su condición de carga médica de sus padres."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Cómo se calcula la semana corrida si gano comisiones en un part-time?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Se divide el total de comisiones devengadas en la semana por los días efectivamente trabajados, y ese promedio diario se multiplica por los días domingos y festivos del mes."
+                    }
+                }
+            ]
+        }
+    ]
+}
+</script>
+    
+    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'sans-serif'],
+                        mono: ['Geist Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .prose-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .prose-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+        .prose-content p {
+            margin-bottom: 1.25rem;
+            line-height: 1.75;
+        }
+        .prose-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .prose-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .prose-content li {
+            margin-bottom: 0.5rem;
+        }
+        .prose-content strong {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .prose-content a {
+            color: #0ea5e9;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .prose-content a:hover {
+            color: #0284c7;
+        }
+        .prose-content a.cta-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+        }
+        .prose-content a.cta-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .prose-content a.cta-lead-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        .prose-content a.cta-lead-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .prose-content .callout {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .prose-content .callout-amber {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .prose-content .formula-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .rubro-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+        }
+        .rubro-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .rubro-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .rubro-imponible {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border: 1px solid #e0f2fe;
+        }
+        .rubro-no-imponible {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #dcfce7;
+        }
+        .rubro-descuento {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fee2e2;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 1.75rem;
+            border-left: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: #cbd5e1;
+            border: 2px solid #ffffff;
+            transition: all 0.2s ease;
+        }
+        .timeline-item.active {
+            border-left-color: #0ea5e9;
+        }
+        .timeline-item.active::before {
+            background-color: #0ea5e9;
+            left: -7px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 0 4px rgb(14 165 233 / 0.15);
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .step-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+        }
+        .step-number {
+            width: 2.25rem;
+            height: 2.25rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .field-error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .print-only { display: none !important; }
+        
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }
+            body > *:not(#print-section) {
+                display: none !important;
+            }
+            #print-section {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
+            }
+            html, body {
+                background: #ffffff !important;
+                color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+    
+</head>
+<body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
+
+    
+    <!-- Header -->
+    <header class="sticky top-0 w-full z-50 bg-white border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="./" class="flex-shrink-0 flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Pedestal Base -->
+                            <path d="M30 84h40M38 79h24"></path>
+                            <!-- Vertical Pillar -->
+                            <path d="M50 22v57"></path>
+                            <!-- Center pointer tip -->
+                            <path d="M50 14l-2 4h4l-2-4v8"></path>
+                            <!-- Balance Beam -->
+                            <path d="M18 36c10-9 22-12 32-12s22 3 32 12"></path>
+                            <!-- Left Pan strings and dish -->
+                            <path d="M18 36l-8 18h16Z"></path>
+                            <path d="M10 54c0 3 3.5 5 8 5s8-2 8-5"></path>
+                            <!-- Right Pan strings and dish -->
+                            <path d="M82 36l-8 18h16Z"></path>
+                            <path d="M74 54c0 3 3.5 5 8 5s8-2 8-5"></path>
+                            <!-- Monogram C wrapping left side -->
+                            <path d="M41 43.5a10 10 0 1 0 0 20h6"></path>
+                            <!-- Monogram L wrapping right side -->
+                            <path d="M58 43.5v20h10"></path>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex gap-6 items-center">
+                    <!-- Dropdown Calculadoras -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors py-2 outline-none">
+                            Calculadoras
+                            <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
+                        </button>
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1">
+                                <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Guías -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors py-2 outline-none">
+                            Guías
+                            <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
+                        </button>
+                        <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1 max-h-[300px] overflow-y-auto">
+                                <a href="como-calcular-finiquito-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Finiquito</a>
+                                <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Sueldo Líquido</a>
+                                <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Leer Liquidación</a>
+                                <a href="despido-necesidades-empresa-articulo-161" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Art. 161 Necesidades Empresa</a>
+                                <a href="ley-40-horas-chile-2026" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Ley 40 Horas 2026</a>
+                                <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Vacaciones Proporcionales</a>
+                                <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cobrar Seguro Cesantía</a>
+                                <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Si no te Pagan el Finiquito</a>
+                                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Despido Injustificado</a>
+                                <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Renuncia Voluntaria</a>
+                                <a href="carta-de-despido-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Carta de Despido Ejemplo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="blog" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Blog</a>
+                    <a href="contacto" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Mobile Menu -->
+                <details class="md:hidden">
+                    <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
+                        <span class="material-icons">menu</span>
+                    </summary>
+                    <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
+                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
+                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
+                <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
+                <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
+                <a href="despido-necesidades-empresa-articulo-161" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Art. 161 Necesidades Empresa</a>
+                <a href="ley-40-horas-chile-2026" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Ley 40 Horas 2026</a>
+                <a href="guia-vacaciones-proporcionales" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Vacaciones Proporcionales</a>
+                <a href="seguro-de-cesantia-chile-como-cobrar" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cobrar Seguro Cesantía</a>
+                <a href="que-hacer-si-no-te-pagan-el-finiquito" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Si no te Pagan el Finiquito</a>
+                <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Despido Injustificado</a>
+                <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Finiquito Renuncia Voluntaria</a>
+                <a href="carta-de-despido-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Carta de Despido Ejemplo</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
+                <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
+                        </div>
+                    </div>
+                </details>
+    </header>
+
+    
+    <!-- Indicators Grid (5 Cards) -->
+    <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8 no-print">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <!-- UF Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">UF (Unidad de Fomento)</span>
+                <span class="uf-value text-lg font-extrabold text-slate-900 font-mono">$39.682,99</span>
+            </div>
+            <!-- UTM Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">UTM Mensual</span>
+                <span class="utm-value text-lg font-extrabold text-slate-900 font-mono">$69.611</span>
+            </div>
+            <!-- Sueldo Mínimo Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Sueldo Mínimo</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">$553.553</span>
+            </div>
+            <!-- Tope AFP Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Imponible AFP</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF</span>
+            </div>
+            <!-- Tope Finiquito Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Finiquito</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">90 UF</span>
+            </div>
+        </div>
+        <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
+            <div id="indicators-status" class="flex items-center gap-1">
+                <span class="material-icons text-[12px] animate-spin">sync</span> Cargando indicadores del Banco Central...
+            </div>
+            <a href="#" id="btn-history" class="text-sky-500 hover:text-sky-600 hover:underline flex items-center gap-0.5">
+                <span class="material-icons text-[12px]">history</span> Historial de Valores
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-4 pb-16">
+        <div class="w-full">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
+            <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+            <span class="material-icons text-xs">chevron_right</span>
+            <span class="text-slate-600 font-semibold">Calculadora de Sueldo Part-Time</span>
+        </nav>
+
+        <!-- Hero Title Header -->
+        <div class="mb-8 text-center max-w-3xl mx-auto">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 mb-3">
+                <span class="material-icons text-xs text-emerald-600">verified</span> Art. 40 bis Código del Trabajo · Sueldo Mínimo $553.553
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Calculadora de Sueldo Part-Time Chile 2026
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base mt-2">
+                Simula tu sueldo líquido para jornadas de <strong>30h, 20h o fines de semana</strong>. Incluye comisiones variables, semana corrida y verificación de beneficios para estudiantes (Gratuidad y Carga Familiar).
+            </p>
+        </div>
+
+        <!-- Calculator Interactive Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+            
+            <!-- Left Column: Form Controls (7 cols) -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                <h2 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+                    <span class="material-icons text-sky-500">tune</span> Parámetros del Contrato Part-Time
+                </h2>
+
+                <!-- 1. Jornada Semanal -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        Jornada Semanal (Máximo 30 Horas)
+                    </label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="pt-jornada" value="30" checked onchange="setPTJornada(30)" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                30 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Tope Part-Time</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="pt-jornada" value="20" onchange="setPTJornada(20)" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                20 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Media Jornada</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="pt-jornada" value="15" onchange="setPTJornada(15)" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                15 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Fin de Semana</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. Sueldo Base Mensual -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="pt-sueldo-base" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                            Sueldo Base Ofrecido / Pactado ($ CLP)
+                        </label>
+                        <button type="button" onclick="setPTMinimoLegal()" class="text-[11px] font-bold text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer active:scale-95">
+                            Usar Mínimo Legal (<span id="pt-minimo-btn-val">$395.395</span>)
+                        </button>
+                    </div>
+                    <div class="relative rounded-2xl shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
+                        <input type="text" id="pt-sueldo-base" value="395.395" oninput="formatPTInput(this); calculatePartTime();" class="w-full pl-8 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-1" id="pt-legal-hint">Mínimo legal proporcional para 30 horas: <strong>$395.395</strong>.</p>
+                </div>
+
+                <!-- 3. Comisiones Variables y Semana Corrida -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label for="pt-comisiones" class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <span class="material-icons text-amber-500 text-sm">trending_up</span> Comisiones / Bonos del Mes ($)
+                        </label>
+                        <span class="text-[10px] text-slate-400">Opcional</span>
+                    </div>
+                    <div class="relative rounded-xl shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
+                        <input type="text" id="pt-comisiones" value="0" oninput="formatPTInput(this); calculatePartTime();" placeholder="Ej: 150.000" class="w-full pl-8 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 font-mono font-bold text-base focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    </div>
+                    
+                    <label class="flex items-center gap-2 cursor-pointer pt-1">
+                        <input type="checkbox" id="pt-semana-corrida" checked onchange="calculatePartTime()" class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
+                        <span class="text-xs text-slate-600 select-none">Calcular <strong>Semana Corrida</strong> automática sobre comisiones (~18% adicional de domingos)</span>
+                    </label>
+                </div>
+
+                <!-- 4. Parámetros Previsionales -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="pt-afp" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">AFP</label>
+                        <select id="pt-afp" onchange="calculatePartTime()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="0.1058">AFP Modelo (10,58%)</option>
+                            <option value="0.1069">AFP Uno (10,69%)</option>
+                            <option value="0.1127">AFP Habitat (11,27%)</option>
+                            <option value="0.1116">AFP Planvital (11,16%)</option>
+                            <option value="0.1144">AFP Capital (11,44%)</option>
+                            <option value="0.1144">AFP Cuprum (11,44%)</option>
+                            <option value="0.1145">AFP Provida (11,45%)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="pt-salud" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Salud</label>
+                        <select id="pt-salud" onchange="calculatePartTime()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="0.07">Fonasa (7%)</option>
+                            <option value="0.07">Isapre (7% Legal)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 5. Toggle Estudiante Trabajador (Art. 40 bis E) -->
+                <div class="p-4 bg-sky-50/60 border border-sky-100 rounded-2xl flex items-center justify-between gap-4">
+                    <div class="space-y-0.5">
+                        <span class="text-xs font-bold text-sky-900 flex items-center gap-1.5">
+                            <span class="material-icons text-sky-600 text-base">school</span> ¿Eres Estudiante de 18 a 24 años?
+                        </span>
+                        <p class="text-[11px] text-sky-700">Verifica que tus ingresos no superen el tope de 2 IMM ($1.107.106) para proteger tu Gratuidad y Carga Familiar.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input type="checkbox" id="pt-is-student" checked onchange="calculatePartTime()" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-500"></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Right Column: Results Summary (5 cols) -->
+            <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+                
+                <!-- Main Value Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-7 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Sueldo Líquido Estimado</span>
+                        <span class="text-[10px] bg-slate-700/80 px-2 py-0.5 rounded text-slate-300 font-mono" id="pt-jornada-badge">30 Horas/Sem</span>
+                    </div>
+
+                    <div class="mb-5">
+                        <span class="block text-xs text-slate-400 mb-1">Líquido a Pago en Cuenta</span>
+                        <div class="text-3xl sm:text-4xl font-black text-white font-mono tracking-tight" id="pt-sueldo-liquido">
+                            $323.512
+                        </div>
+                        <p class="text-xs text-slate-300 mt-1 font-mono">
+                            Total Imponible: <strong id="pt-total-imponible" class="text-sky-300">$395.395</strong>
+                        </p>
+                    </div>
+
+                    <!-- Minimum Wage Compliance Alert -->
+                    <div id="pt-compliance-box" class="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+                        <span class="material-icons text-emerald-400 text-sm">check_circle</span>
+                        <span id="pt-compliance-text">Cumple con el mínimo legal ($395.395).</span>
+                    </div>
+
+                    <!-- Student Status Gauge -->
+                    <div id="pt-student-box" class="mt-4 pt-4 border-t border-slate-700/60 space-y-2">
+                        <div class="flex justify-between text-[11px]">
+                            <span class="text-sky-300 font-semibold flex items-center gap-1">
+                                <span class="material-icons text-xs">school</span> Tope Gratuidad (2 IMM):
+                            </span>
+                            <span class="font-mono text-white" id="pt-student-percent">35.7%</span>
+                        </div>
+                        <div class="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
+                            <div id="pt-student-bar" class="bg-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 35.7%"></div>
+                        </div>
+                        <p class="text-[10px] text-emerald-300" id="pt-student-status">
+                            ✅ Gratuidad y Carga Familiar Médica 100% protegidas (Menor a $1.107.106).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Breakdown Card -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Desglose de Liquidación</h3>
+                    <div class="space-y-2 text-xs divide-y divide-slate-100">
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-slate-600">Sueldo Base:</span>
+                            <span class="font-mono font-semibold text-slate-900" id="pt-desc-base">$395.395</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-600">Comisiones + Semana Corrida:</span>
+                            <span class="font-mono font-semibold text-slate-900" id="pt-desc-comisiones">$0</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 text-rose-700">
+                            <span id="pt-afp-label">Descuento AFP (10,58%):</span>
+                            <span class="font-mono font-semibold" id="pt-desc-afp">-$41.833</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 text-rose-700">
+                            <span>Descuento Salud (7%):</span>
+                            <span class="font-mono font-semibold" id="pt-desc-salud">-$27.678</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 text-rose-700">
+                            <span>Seguro de Cesantía (0,6%):</span>
+                            <span class="font-mono font-semibold" id="pt-desc-afc">-$2.372</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                            <span class="text-slate-900">Líquido Final:</span>
+                            <span class="font-mono text-emerald-600" id="pt-desc-liquido">$323.512</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="pt-3 flex gap-2">
+                        <button type="button" onclick="copyPTResults()" id="pt-copy-btn" class="flex-1 py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95">
+                            <span class="material-icons text-xs">content_copy</span> <span id="pt-copy-text">Copiar Resumen</span>
+                        </button>
+                        <a href="sueldo_liquido" class="flex-1 py-2.5 px-3 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1 text-center shadow-md shadow-sky-500/10 active:scale-95">
+                            <span class="material-icons text-xs">receipt_long</span> Sueldo Completo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explanatory SEO Content Section -->
+        <article class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8 max-w-4xl mx-auto">
+            
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">¿Cómo funciona el Contrato de Trabajo Part-Time en Chile?</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                    En la legislación laboral chilena (<strong>Artículo 40 bis del Código del Trabajo</strong>), se define como <em>jornada parcial</em> o <em>part-time</em> a todo contrato de trabajo cuya duración semanal <strong>no exceda las 30 horas</strong>.
+                </p>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    A diferencia de mitos comunes, los trabajadores part-time gozan de los **mismos derechos fundamentales** que un trabajador de jornada completa: descanso dominical, gratificación legal proporcional, derecho a licencias médicas y <strong>15 días hábiles de vacaciones anuales completas</strong> (no proporcionales a las horas).
+                </p>
+            </div>
+
+            <!-- Minimum Wage Table -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Tabla de Sueldo Mínimo Proporcional Part-Time 2026</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mb-3">Con base en el Sueldo Mínimo mensual de $553.553 y jornada ordinaria de 42 horas:</p>
+                <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3.5">Jornada Semanal</th>
+                                <th class="p-3.5 text-sky-600">Sueldo Base Mínimo Bruto</th>
+                                <th class="p-3.5 text-emerald-600">Líquido Estimado (Fonasa+Modelo)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-mono">
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">30 Horas (Tope Part-Time)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$395.395</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$323.512</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">20 Horas (Media Jornada)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$263.596</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$215.675</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">15 Horas (Fin de Semana)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$197.697</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$161.756</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">10 Horas (Turno Reducido)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$131.798</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$107.837</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Worker Law -->
+            <div class="bg-sky-50/70 border border-sky-200 rounded-2xl p-6">
+                <h3 class="text-lg font-bold text-sky-900 mb-2 flex items-center gap-2">
+                    <span class="material-icons text-sky-600">school</span> Ley del Estudiante Trabajador (Ley 21.155 - Art. 40 bis E)
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3">
+                    Si eres estudiante de educación superior (Universidad, Instituto Profesional o CFT) entre <strong>18 y 24 años</strong>, la ley te protege especialmente para que puedas trabajar sin perder tus beneficios socioeconómicos:
+                </p>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside">
+                    <li><strong>Tope de 2 Ingresos Mínimos ($1.107.106):</strong> Mientras tus ingresos mensuales (sueldo base + comisiones) no superen este monto, <strong>no pierdes la Gratuidad, Beca Bicentenario ni otros beneficios estatales</strong>.</li>
+                    <li><strong>Carga Familiar Médica:</strong> Puedes continuar como beneficiario de salud (carga) en el plan de Fonasa o Isapre de tus padres.</li>
+                    <li><strong>Exención Tributaria:</strong> No se aplica retención de impuesto a la renta.</li>
+                </ul>
+            </div>
+
+            <!-- FAQs -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Preguntas Frecuentes sobre Trabajo Part-Time</h3>
+                <div class="space-y-3">
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Cómo se calcula la semana corrida si gano comisiones en un part-time?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Si tu remuneración incluye un sueldo base más comisiones diarias o por hora, tienes derecho al pago de la <strong>Semana Corrida</strong> (Art. 45 del Código del Trabajo). Se calcula dividiendo el total de comisiones ganadas en la semana por los días efectivamente trabajados en ella, y ese valor promedio diario se multiplica por los domingos y festivos del mes.
+                        </p>
+                    </details>
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Los trabajadores part-time pueden hacer horas extras?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Sí, pero con un límite muy estricto: la suma de la jornada pactada más las horas extraordinarias <strong>nunca puede exceder las 12 horas diarias ni sobrepasar el límite de la jornada ordinaria máxima legal</strong>. Las horas extras se pagan con el recargo legal mínimo del 50%.
+                        </p>
+                    </details>
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Cuántos días de vacaciones le corresponden a un contrato part-time?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Le corresponden exactamente los mismos <strong>15 días hábiles al año</strong> que a un trabajador de jornada completa. Durante su feriado anual, el trabajador part-time recibirá la remuneración íntegra equivalente al promedio de lo que percibía habitualmente.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </article>
+    </div>
+    </main>
+
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-12 mt-auto">
+        <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Brand Column -->
+            <div class="space-y-4">
+                <a href="./" class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-md shadow-sky-500/20 active:scale-95 transition-transform">
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Pedestal Base -->
+                            <path d="M30 84h40M38 79h24"></path>
+                            <!-- Vertical Pillar -->
+                            <path d="M50 22v57"></path>
+                            <!-- Center pointer tip -->
+                            <path d="M50 14l-2 4h4l-2-4v8"></path>
+                            <!-- Balance Beam -->
+                            <path d="M18 36c10-9 22-12 32-12s22 3 32 12"></path>
+                            <!-- Left Pan strings and dish -->
+                            <path d="M18 36l-8 18h16Z"></path>
+                            <path d="M10 54c0 3 3.5 5 8 5s8-2 8-5"></path>
+                            <!-- Right Pan strings and dish -->
+                            <path d="M82 36l-8 18h16Z"></path>
+                            <path d="M74 54c0 3 3.5 5 8 5s8-2 8-5"></path>
+                            <!-- Monogram C wrapping left side -->
+                            <path d="M41 43.5a10 10 0 1 0 0 20h6"></path>
+                            <!-- Monogram L wrapping right side -->
+                            <path d="M58 43.5v20h10"></path>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Cálculo<span class="text-sky-500">Laboral</span></span>
+                </a>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Herramientas y simuladores gratuitos y actualizados conforme a la legislación laboral chilena vigente en 2026.
+                </p>
+                <p class="text-xs text-slate-500 font-mono">Versión 2.0.0 (2026)</p>
+            </div>
+
+            <!-- Calculadoras Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Calculadoras</h4>
+                <ul class="space-y-2">
+                    <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
+                    <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
+                    <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
+                </ul>
+            </div>
+
+            <!-- Guías Populares Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Guías Populares</h4>
+                <ul class="space-y-2">
+                    <li><a href="como-calcular-finiquito-chile" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Finiquito</a></li>
+                    <li><a href="como-calcular-sueldo-liquido-paso-a-paso" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Sueldo Líquido</a></li>
+                    <li><a href="guia-vacaciones-proporcionales" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Vacaciones Proporcionales</a></li>
+                    <li><a href="ley-40-horas-chile-2026" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Ley de 40 Horas (2026)</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal Column -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Sobre el Sitio</h4>
+                <ul class="space-y-2">
+                    <li><a href="sobre-nosotros" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sobre Nosotros</a></li>
+                    <li><a href="contacto" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Contacto</a></li>
+                    <li><a href="terminos" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Términos de Servicio</a></li>
+                    <li><a href="privacidad" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Política de Privacidad</a></li>
+                    <li><a href="disclaimer" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Disclaimer Legal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="max-w-[1200px] mx-auto px-6 border-t border-slate-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <p class="text-xs text-slate-500">
+                &copy; 2026 Cálculo Laboral Chile. Todos los derechos reservados. Todos los cálculos son estimativos y de carácter ilustrativo.
+            </p>
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-icons text-xs text-emerald-500">verified</span>
+                    DT Chile Conforme
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- History Modal -->
+    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-md shadow-2xl p-6 relative overflow-hidden animate-fade-in">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3.5 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-icons text-sky-500">history</span>
+                    <h3 class="text-base font-bold text-slate-900">Historial de Indicadores</h3>
+                </div>
+                <button id="btn-close-history" aria-label="Cerrar modal" class="text-slate-500 hover:text-slate-700 hover:bg-slate-100 p-1 rounded-full transition-colors active:scale-95 duration-100">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> UF (Últimos 30 días)
+                    </h4>
+                    <div class="max-h-[250px] overflow-y-auto pr-1">
+                        <table class="w-full text-left">
+                            <tbody id="uf-history-body">
+                                <tr><td class="p-2 text-center text-slate-500 text-xs italic font-medium">Cargando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> UTM (Últimos 12 meses)
+                    </h4>
+                    <div class="max-h-[250px] overflow-y-auto pr-1">
+                        <table class="w-full text-left">
+                            <tbody id="utm-history-body">
+                                <tr><td class="p-2 text-center text-slate-500 text-xs italic font-medium">Cargando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <!-- Load shared indicators script -->
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
+    <script>
+        function enviarLead() {
+            var nombre = document.getElementById('lead-nombre').value.trim();
+            var correo = document.getElementById('lead-correo').value.trim();
+            var telefono = document.getElementById('lead-telefono').value.trim();
+            var monto = window.resultadoActualMonto || '0';
+
+            if (!nombre || !correo) {
+                alert('Por favor completa nombre y correo.');
+                return;
+            }
+
+            var btn = document.querySelector('#lead-form button');
+            if (btn) btn.disabled = true;
+
+            fetch('/api/send-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    monto_calculado: monto,
+                    tipo: 'Finiquito'
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    document.getElementById('lead-form').classList.add('hidden');
+                    document.getElementById('lead-confirmacion').classList.remove('hidden');
+                } else {
+                    throw new Error('Error al enviar');
+                }
+            }).catch(function() {
+                alert('Error al enviar. Intenta de nuevo.');
+                if (btn) btn.disabled = false;
+            });
+        }
+    </script>
     <script>
         tailwind.config = {
             theme: {
