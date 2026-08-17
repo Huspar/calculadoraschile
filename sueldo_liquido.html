@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pasa de sueldo bruto a líquido en Chile 2026. Incluye AFP, Fonasa/Isapre, seguro cesantía e impuesto único. Resultado exacto en 30 segundos.">
-    <title>Calculadora Sueldo Líquido Chile 2026 | Bruto a Neto 30s</title>
+    <meta name="description" content="Calcula tu sueldo líquido exacto en Chile 2026. Pasa de sueldo bruto a líquido neto con descuentos de AFP, Salud Fonasa/Isapre, AFC e Impuestos. 100% gratis.">
+    <title>Calculadora de Sueldo Líquido Chile 2026 | De Bruto a Neto [AFP y Fonasa]</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -16,8 +16,8 @@
     <link rel="canonical" href="https://calculolaboral.cl/sueldo_liquido">
     
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Calculadora Sueldo Líquido Chile 2026 | Bruto a Neto 30s">
-    <meta property="og:description" content="Pasa de sueldo bruto a líquido en Chile 2026. Incluye AFP, Fonasa/Isapre, seguro cesantía e impuesto único. Resultado exacto en 30 segundos.">
+    <meta property="og:title" content="Calculadora de Sueldo Líquido Chile 2026 | De Bruto a Neto [AFP y Fonasa]">
+    <meta property="og:description" content="Calcula tu sueldo líquido exacto en Chile 2026. Pasa de sueldo bruto a líquido neto con descuentos de AFP, Salud Fonasa/Isapre, AFC e Impuestos. 100% gratis.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://calculolaboral.cl/sueldo_liquido">
     <meta property="og:image" content="https://calculolaboral.cl/assets/og-image.png">
@@ -855,15 +855,20 @@
     </div>
 
     <!-- Mobile Result Bar shared at the bottom -->
-    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
+    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-4 py-3 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
         <div>
             <span id="mobile-result-label" class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
             <div class="flex items-baseline gap-1.5">
-                <span id="mobile-result-value" class="text-2xl font-black text-slate-900 tracking-tight font-mono">$0</span>
+                <span id="mobile-result-value" class="text-xl font-black text-slate-900 tracking-tight font-mono">$0</span>
                 <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>
             </div>
         </div>
-        <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
+        <div class="flex items-center gap-2">
+            <button id="mobile-pdf-btn" onclick="var fini=document.getElementById('finiquito-calc-container');if(fini&&!fini.classList.contains('hidden')){var b=document.getElementById('download-pdf-btn');if(b)b.click();}else{var s=document.getElementById('download-pdf-btn-sueldo');if(s)s.click();}" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm flex items-center gap-1 cursor-pointer active:scale-95 transition-all">
+                <span class="material-icons text-sm">picture_as_pdf</span> PDF
+            </button>
+            <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10 cursor-pointer active:scale-95 transition-all">Ver desglose</button>
+        </div>
     </div>
 
     <details class="mt-8 max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-5">

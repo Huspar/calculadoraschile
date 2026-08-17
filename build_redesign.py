@@ -3118,15 +3118,20 @@ INDEX_CONTENT = """
     </div>
 
     <!-- Mobile Result Bar shared at the bottom -->
-    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
+    <div id="mobile-result-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-4 py-3 flex items-center justify-between shadow-2xl translate-y-full transition-transform duration-300 no-print">
         <div>
             <span id="mobile-result-label" class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Líquido a pago</span>
             <div class="flex items-baseline gap-1.5">
-                <span id="mobile-result-value" class="text-2xl font-black text-slate-900 tracking-tight font-mono">$0</span>
+                <span id="mobile-result-value" class="text-xl font-black text-slate-900 tracking-tight font-mono">$0</span>
                 <span id="mobile-result-percentage" class="text-xs font-bold text-slate-400">0%</span>
             </div>
         </div>
-        <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10">Ver desglose</button>
+        <div class="flex items-center gap-2">
+            <button id="mobile-pdf-btn" onclick="var fini=document.getElementById('finiquito-calc-container');if(fini&&!fini.classList.contains('hidden')){var b=document.getElementById('download-pdf-btn');if(b)b.click();}else{var s=document.getElementById('download-pdf-btn-sueldo');if(s)s.click();}" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm flex items-center gap-1 cursor-pointer active:scale-95 transition-all">
+                <span class="material-icons text-sm">picture_as_pdf</span> PDF
+            </button>
+            <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10 cursor-pointer active:scale-95 transition-all">Ver desglose</button>
+        </div>
     </div>
 
     <!-- ---------------------------------------------------- -->
@@ -3587,10 +3592,10 @@ INDEX_SCRIPTS = """
 
 # Generate index.html
 print("Generating: index.html...")
-canonical_url, og_tags, json_ld = generate_seo_tags("index.html", "Cálculo Laboral Chile 2026 | Finiquito y Sueldo Líquido", "Calcula gratis tu sueldo líquido y finiquito en Chile. Herramientas oficiales actualizadas a 2026 con las leyes de la Dirección del Trabajo. Sin registro.", page_type="website")
+canonical_url, og_tags, json_ld = generate_seo_tags("index.html", "Calculadoras Laborales Chile 2026 | Finiquito y Sueldo Líquido [Gratis]", "Calcula gratis tu finiquito y sueldo líquido en Chile. Simuladores oficiales actualizados a 2026 con leyes de la Dirección del Trabajo (DT). Sin registro.", page_type="website")
 index_html_out = HTML_LAYOUT.format(
-    title="Cálculo Laboral Chile 2026 | Finiquito y Sueldo Líquido",
-    description="Calcula gratis tu sueldo líquido y finiquito en Chile. Herramientas oficiales actualizadas a 2026 con las leyes de la Dirección del Trabajo. Sin registro.",
+    title="Calculadoras Laborales Chile 2026 | Finiquito y Sueldo Líquido [Gratis]",
+    description="Calcula gratis tu finiquito y sueldo líquido en Chile. Simuladores oficiales actualizados a 2026 con leyes de la Dirección del Trabajo (DT). Sin registro.",
     canonical_url=canonical_url,
     og_tags=og_tags,
     json_ld=json_ld,
@@ -3605,19 +3610,26 @@ index_html_out = HTML_LAYOUT.format(
 with open(os.path.join(DEST_DIR, "index.html"), "w", encoding="utf-8") as f:
     f.write(index_html_out)
 
-# Generate sueldo_liquido.html (Redirects tab on load)
+# Generate sueldo_liquido.html (Specialized H1, SEO metadata and redirects tab on load)
 print("Generating: sueldo_liquido.html...")
-canonical_url, og_tags, json_ld = generate_seo_tags("sueldo_liquido.html", "Calculadora de Sueldo Líquido Chile 2026 | Pasar de Bruto a Neto Exacto", "Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.", page_type="website")
+canonical_url, og_tags, json_ld = generate_seo_tags("sueldo_liquido.html", "Calculadora de Sueldo Líquido Chile 2026 | De Bruto a Neto [AFP y Fonasa]", "Calcula tu sueldo líquido exacto en Chile 2026. Pasa de sueldo bruto a líquido neto con descuentos de AFP, Salud Fonasa/Isapre, AFC e Impuestos. 100% gratis.", page_type="website")
+sueldo_content = INDEX_CONTENT.replace(
+    '<h1 class="text-2xl font-bold text-slate-900">\n            Calculadoras Laborales Chile 2026\n        </h1>\n        <p class="text-slate-500 text-sm mt-1">\n            Sueldo líquido y finiquito con todas las deducciones legales vigentes.\n        </p>',
+    '<h1 class="text-2xl font-bold text-slate-900">\n            Calculadora de Sueldo Líquido Chile 2026\n        </h1>\n        <p class="text-slate-500 text-sm mt-1">\n            Pasa de sueldo bruto a líquido exacto con retenciones oficiales de AFP, Fonasa/Isapre, AFC e Impuesto de 2ª Categoría.\n        </p>'
+).replace(
+    '<h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Información y Preguntas Frecuentes</h2>',
+    '<h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Preguntas Frecuentes sobre el Sueldo Líquido y Descuentos Legales</h2>'
+)
 sueldo_html_out = HTML_LAYOUT.format(
-    title="Calculadora de Sueldo Líquido Chile 2026 | Pasar de Bruto a Neto Exacto",
-    description="Pasa tu sueldo bruto a líquido exacto. Incluye descuentos vigentes de AFP, Salud (Fonasa/Isapre) e Impuestos. Herramienta 100% gratis.",
+    title="Calculadora de Sueldo Líquido Chile 2026 | De Bruto a Neto [AFP y Fonasa]",
+    description="Calcula tu sueldo líquido exacto en Chile 2026. Pasa de sueldo bruto a líquido neto con descuentos de AFP, Salud Fonasa/Isapre, AFC e Impuestos. 100% gratis.",
     canonical_url=canonical_url,
     og_tags=og_tags,
     json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
-    content=INDEX_CONTENT,
+    content=sueldo_content,
     footer=FOOTER_HTML,
     history_modal=HISTORY_MODAL_HTML,
     custom_scripts=INDEX_SCRIPTS + """
@@ -3631,19 +3643,26 @@ sueldo_html_out = HTML_LAYOUT.format(
 with open(os.path.join(DEST_DIR, "sueldo_liquido.html"), "w", encoding="utf-8") as f:
     f.write(sueldo_html_out)
 
-# Generate finiquito_calculator.html (Redirects tab on load)
+# Generate finiquito_calculator.html (Specialized H1, SEO metadata and redirects tab on load)
 print("Generating: finiquito_calculator.html...")
-canonical_url, og_tags, json_ld = generate_seo_tags("finiquito_calculator.html", "Calculadora de Finiquito Chile 2026 (Formato Oficial) | Simulador Exacto", "Calcula tu finiquito online en segundos con el formato oficial de la DT. Incluye indemnización por años de servicio, vacaciones y aviso previo.", page_type="website")
+canonical_url, og_tags, json_ld = generate_seo_tags("finiquito_calculator.html", "Calculadora de Finiquito Chile 2026 | Simulador Oficial DT [Descarga PDF]", "Calcula tu finiquito laboral online en segundos según la normativa de la Dirección del Trabajo (DT). Años de servicio, vacaciones y aviso previo con descarga en PDF.", page_type="website")
+finiquito_content = INDEX_CONTENT.replace(
+    '<h1 class="text-2xl font-bold text-slate-900">\n            Calculadoras Laborales Chile 2026\n        </h1>\n        <p class="text-slate-500 text-sm mt-1">\n            Sueldo líquido y finiquito con todas las deducciones legales vigentes.\n        </p>',
+    '<h1 class="text-2xl font-bold text-slate-900">\n            Calculadora de Finiquito Chile 2026\n        </h1>\n        <p class="text-slate-500 text-sm mt-1">\n            Simula tu finiquito con formato oficial de la Dirección del Trabajo (DT). Indemnización por años de servicio, vacaciones y aviso previo.\n        </p>'
+).replace(
+    '<h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Información y Preguntas Frecuentes</h2>',
+    '<h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Preguntas Frecuentes sobre el Finiquito Laboral e Indemnizaciones</h2>'
+)
 finiquito_html_out = HTML_LAYOUT.format(
-    title="Calculadora de Finiquito Chile 2026 (Formato Oficial) | Simulador Exacto",
-    description="Calcula tu finiquito online en segundos con el formato oficial de la DT. Incluye indemnización por años de servicio, vacaciones y aviso previo.",
+    title="Calculadora de Finiquito Chile 2026 | Simulador Oficial DT [Descarga PDF]",
+    description="Calcula tu finiquito laboral online en segundos según la normativa de la Dirección del Trabajo (DT). Años de servicio, vacaciones y aviso previo con descarga en PDF.",
     canonical_url=canonical_url,
     og_tags=og_tags,
     json_ld=json_ld,
     custom_head="",
     header=HEADER_HTML,
     indicator_bar=INDICATOR_BAR_HTML,
-    content=INDEX_CONTENT,
+    content=finiquito_content,
     footer=FOOTER_HTML,
     history_modal=HISTORY_MODAL_HTML,
     custom_scripts=INDEX_SCRIPTS + """
