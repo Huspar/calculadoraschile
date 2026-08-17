@@ -3928,24 +3928,903 @@ finiquito_html_out = HTML_LAYOUT.format(
 with open(os.path.join(DEST_DIR, "finiquito_calculator.html"), "w", encoding="utf-8") as f:
     f.write(finiquito_html_out)
 
+HORAS_EXTRAS_CONTENT = """
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
+            <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+            <span class="material-icons text-xs">chevron_right</span>
+            <span class="text-slate-600 font-semibold">Calculadora de Horas Extras</span>
+        </nav>
+
+        <!-- Hero Header Section -->
+        <div class="text-center my-8 max-w-2xl mx-auto no-print">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200 mb-3">
+                <span class="material-icons text-xs text-sky-600">schedule</span> Actualizado Ley 40 Horas (Jornada 42h)
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                Calculadora de Horas Extras Chile 2026
+            </h1>
+            <p class="text-slate-500 text-sm mt-1">
+                Calcula el valor exacto de tu hora ordinaria y horas extraordinarias con recargo legal del <strong>50%</strong> y <strong>100%</strong> según las fórmulas oficiales de la Dirección del Trabajo.
+            </p>
+        </div>
+
+        <!-- Two Column Interactive Layout (440px Inputs Left, Flexible Results Right) -->
+        <div class="flex flex-col lg:flex-row gap-8 items-start mb-16">
+            
+            <!-- Left Column: Form Controls (440px Fixed) -->
+            <div class="w-full lg:w-[440px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="material-icons text-sky-500">tune</span> Datos para el cálculo
+                    </h2>
+                    <span class="text-[11px] font-mono text-slate-400 font-semibold" id="he-divisor-badge">Divisor: 181.86h</span>
+                </div>
+
+                <!-- 1. Sueldo Base -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="he-sueldo-base" class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Sueldo Base Mensual
+                        </label>
+                        <button type="button" onclick="setHEMinimo()" class="text-[11px] font-bold text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer active:scale-95">
+                            Usar Mínimo ($553.553)
+                        </button>
+                    </div>
+                    <div class="relative rounded-2xl shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
+                        <input type="text" id="he-sueldo-base" value="553.553" oninput="formatHEInput(this); calculateHorasExtras();" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-1">Sueldo fijo pactado en tu contrato de trabajo.</p>
+                </div>
+
+                <!-- 2. Jornada Semanal Pactada -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                        Jornada Semanal Pactada
+                    </label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="he-jornada" value="42" checked onchange="calculateHorasExtras()" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                42 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Legal 2026</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="he-jornada" value="40" onchange="calculateHorasExtras()" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                40 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Sello 40h</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="he-jornada" value="44" onchange="calculateHorasExtras()" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                44 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Etapa 2024</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="he-jornada" value="45" onchange="calculateHorasExtras()" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                45 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Histórica</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 3. Horas Extras Realizadas -->
+                <div class="space-y-3 pt-2 border-t border-slate-100">
+                    <!-- Horas al 50% -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="he-cant-50" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Horas Extras al 50%
+                            </label>
+                            <span class="text-[10px] font-semibold text-sky-600 font-mono" id="he-live-unit-50">$3.954 c/u</span>
+                        </div>
+                        <span class="block text-[10px] text-slate-400 mb-2">Días hábiles normales (lunes a sábado)</span>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="adjustHE('he-cant-50', -1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">-</button>
+                            <input type="number" id="he-cant-50" value="10" min="0" max="100" step="0.5" oninput="calculateHorasExtras()" class="w-full text-center py-2 bg-white border border-slate-200 rounded-xl font-mono font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <button type="button" onclick="adjustHE('he-cant-50', 1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Horas al 100% -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="he-cant-100" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Horas Extras al 100%
+                            </label>
+                            <span class="text-[10px] font-semibold text-emerald-600 font-mono" id="he-live-unit-100">$5.272 c/u</span>
+                        </div>
+                        <span class="block text-[10px] text-slate-400 mb-2">Domingos, festivos o pacto especial</span>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="adjustHE('he-cant-100', -1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">-</button>
+                            <input type="number" id="he-cant-100" value="0" min="0" max="100" step="0.5" oninput="calculateHorasExtras()" class="w-full text-center py-2 bg-white border border-slate-200 rounded-xl font-mono font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <button type="button" onclick="adjustHE('he-cant-100', 1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Results Summary (Light Theme matching index.html) -->
+            <div class="w-full flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+                
+                <!-- Main Header / Totals Section -->
+                <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Bruto a Pago</h3>
+                        <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                            <span id="he-total-bruto" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$39.540</span>
+                        </div>
+                        <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center justify-center sm:justify-start gap-1">
+                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-slate-800">$31.632</strong>
+                        </p>
+                    </div>
+                    <div class="text-center sm:text-right bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Total Horas</span>
+                        <span id="he-total-horas" class="text-lg font-bold text-sky-600 font-mono">10.0 hrs</span>
+                    </div>
+                </div>
+
+                <!-- Unit Values Grid (Light Theme) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <span class="text-slate-500 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Ordinaria</span>
+                        <span class="font-mono font-bold text-base text-slate-900" id="he-unit-ordinaria">$2.636</span>
+                    </div>
+                    <div class="bg-sky-50/60 border border-sky-200 rounded-2xl p-4">
+                        <span class="text-sky-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 50%</span>
+                        <span class="font-mono font-bold text-base text-sky-700" id="he-unit-50">$3.954</span>
+                    </div>
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4">
+                        <span class="text-emerald-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 100%</span>
+                        <span class="font-mono font-bold text-base text-emerald-700" id="he-unit-100">$5.272</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown List -->
+                <div class="space-y-3 pt-2">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Desglose de Liquidación</h4>
+                    <div class="space-y-2 text-xs divide-y divide-slate-100">
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-slate-600">Subtotal 50% (<span id="he-desc-cant-50">10</span> hrs):</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-50">$39.540</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-600">Subtotal 100% (<span id="he-desc-cant-100">0</span> hrs):</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-100">$0</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                            <span class="text-slate-900">Total Imponible Horas Extras:</span>
+                            <span class="font-mono text-sky-600" id="he-breakdown-total">$39.540</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-3 border-t border-slate-100">
+                    <button type="button" onclick="copyHEResults()" id="he-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
+                        <span class="material-icons text-sm">content_copy</span> <span id="he-copy-text">Copiar Resumen</span>
+                    </button>
+                    <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
+                        <span class="material-icons text-sm">payments</span> Ver en Calculadora de Sueldo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explanatory SEO Content Section -->
+        <article class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8 max-w-4xl mx-auto">
+            
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">¿Cómo se calculan las horas extras en Chile en 2026?</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                    Con la entrada en vigencia de la segunda etapa de la <strong>Ley 40 Horas (Ley 21.561)</strong>, la jornada laboral ordinaria máxima en Chile se redujo a <strong>42 horas semanales</strong>. Esto modificó favorablemente el valor de la hora de trabajo para todos los trabajadores dependientes, incrementando el monto pagado por cada hora extraordinaria.
+                </p>
+                
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 my-6">
+                    <h3 class="font-bold text-slate-800 text-sm mb-2 flex items-center gap-2">
+                        <span class="material-icons text-sky-500 text-base">functions</span> Fórmula Oficial de la Dirección del Trabajo (DT)
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-600 font-mono bg-white p-3 rounded-xl border border-slate-200 mb-3">
+                        Valor Hora = (Sueldo Base / 30) × (28 / Jornada Semanal)
+                    </p>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                        <li><strong>Para jornada de 42 horas:</strong> Factor DT = <strong>0,0055555</strong> (Divisor mensual: 181,86 horas).</li>
+                        <li><strong>Para jornada de 40 horas:</strong> Factor DT = <strong>0,0057777</strong> (Divisor mensual: 173,33 horas).</li>
+                        <li><strong>Para jornada de 45 horas (antigua):</strong> Factor DT = <strong>0,0051851</strong> (Divisor mensual: 195 horas).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Tabla de valores de horas extras 2026 (Jornada 42 Horas)</h3>
+                <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3.5">Sueldo Base</th>
+                                <th class="p-3.5">Hora Ordinaria</th>
+                                <th class="p-3.5 text-sky-600">Hora Extra 50%</th>
+                                <th class="p-3.5 text-emerald-600">Hora Extra 100%</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-mono">
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$553.553 (Mínimo)</td>
+                                <td class="p-3.5 text-slate-600">$2.636</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$3.954</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$5.272</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$750.000</td>
+                                <td class="p-3.5 text-slate-600">$3.571</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$5.357</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$7.143</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$1.000.000</td>
+                                <td class="p-3.5 text-slate-600">$4.762</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$7.143</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$9.524</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$1.500.000</td>
+                                <td class="p-3.5 text-slate-600">$7.143</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$10.714</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$14.286</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Legal Limits -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">Límites y requisitos legales según el Código del Trabajo</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm">
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <strong class="block text-slate-900 mb-1">⏱️ Máximo 2 horas al día</strong>
+                        <p class="text-slate-600 text-xs">La ley prohíbe realizar más de 2 horas extraordinarias diarias para proteger la salud del trabajador (Art. 31).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <strong class="block text-slate-900 mb-1">📝 Pacto escrito obligatorio</strong>
+                        <p class="text-slate-600 text-xs">Debe existir un acuerdo firmado por escrito con vigencia máxima de 3 meses, renovable si persisten las faenas temporales.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <strong class="block text-slate-900 mb-1">💵 Pago en la liquidación</strong>
+                        <p class="text-slate-600 text-xs">Deben liquidarse y pagarse conjuntamente con las remuneraciones ordinarias del respectivo período mensual.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQs -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Preguntas Frecuentes sobre Horas Extras</h3>
+                <div class="space-y-3">
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Las horas extras pagan impuestos y cotizaciones previsionales?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Sí. Las horas extraordinarias son consideradas <strong>remuneración imponible y tributable</strong>. Por tanto, se les descuenta AFP (10,58% a 11,45%), Salud (7%) y Seguro de Cesantía (0,6%). Si tu total imponible supera las 13,5 UTM mensuales, también tributan impuesto único.
+                        </p>
+                    </details>
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Cuándo corresponde pagar horas extras al 100%?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            El recargo legal mínimo del Código del Trabajo es del 50%. Sin embargo, se paga el 100% (o más) cuando las horas extras se realizan en días domingos o festivos en empresas que no tienen turnos continuos, o cuando se pactó contractualmente un recargo superior mediante convenio individual o colectivo.
+                        </p>
+                    </details>
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Puedo compensar las horas extras con días de descanso?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Con la Ley 21.561 (40 Horas), las partes pueden acordar por escrito que las horas extraordinarias se compensen con hasta 5 días hábiles de feriado adicional al año, debiendo otorgarse 1,5 horas de descanso por cada hora extra trabajada.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </article>
+"""
+
+HORAS_EXTRAS_SCRIPTS = """
+    <script>
+        function parseCleanNumber(val) {
+            if (!val) return 0;
+            return parseFloat(val.toString().replace(/\\./g, '').replace(/,/g, '.')) || 0;
+        }
+
+        function formatCurrency(num) {
+            return '$' + Math.round(num).toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.');
+        }
+
+        function formatHEInput(input) {
+            var val = input.value.replace(/\\D/g, '');
+            if (!val) { input.value = '0'; return; }
+            input.value = parseInt(val, 10).toLocaleString('es-CL');
+        }
+
+        function setHEMinimo() {
+            var input = document.getElementById('he-sueldo-base');
+            input.value = '553.553';
+            calculateHorasExtras();
+        }
+
+        function adjustHE(id, delta) {
+            var input = document.getElementById(id);
+            var val = Math.max(0, (parseFloat(input.value) || 0) + delta);
+            input.value = val;
+            calculateHorasExtras();
+        }
+
+        function calculateHorasExtras() {
+            var sueldoBase = parseCleanNumber(document.getElementById('he-sueldo-base').value);
+            var jornadaEl = document.querySelector('input[name="he-jornada"]:checked');
+            var jornada = jornadaEl ? parseFloat(jornadaEl.value) : 42;
+            
+            var cant50 = parseFloat(document.getElementById('he-cant-50').value) || 0;
+            var cant100 = parseFloat(document.getElementById('he-cant-100').value) || 0;
+
+            // DT Formula: Valor Hora Ordinaria = (Sueldo / 30) * (28 / Jornada)
+            var valorOrdinaria = (sueldoBase / 30) * (28 / jornada);
+            var valor50 = valorOrdinaria * 1.50;
+            var valor100 = valorOrdinaria * 2.00;
+
+            var subtotal50 = cant50 * valor50;
+            var subtotal100 = cant100 * valor100;
+            var totalBruto = subtotal50 + subtotal100;
+            var totalNeto = totalBruto * 0.80; // Aprox after AFP & Salud (~20%)
+
+            // Divisor descriptor
+            var divisor = (30 / 28) * jornada;
+            var badge = document.getElementById('he-divisor-badge');
+            if (badge) badge.innerText = 'Divisor DT: ' + divisor.toFixed(2) + 'h';
+
+            // Render unit values
+            var uOrd = document.getElementById('he-unit-ordinaria'); if (uOrd) uOrd.innerText = formatCurrency(valorOrdinaria);
+            var u50 = document.getElementById('he-unit-50'); if (u50) u50.innerText = formatCurrency(valor50);
+            var u100 = document.getElementById('he-unit-100'); if (u100) u100.innerText = formatCurrency(valor100);
+            var lu50 = document.getElementById('he-live-unit-50'); if (lu50) lu50.innerText = formatCurrency(valor50) + ' c/u';
+            var lu100 = document.getElementById('he-live-unit-100'); if (lu100) lu100.innerText = formatCurrency(valor100) + ' c/u';
+            var tHoras = document.getElementById('he-total-horas'); if (tHoras) tHoras.innerText = (cant50 + cant100).toFixed(1) + ' hrs';
+
+            // Render totals
+            var tBruto = document.getElementById('he-total-bruto'); if (tBruto) tBruto.innerText = formatCurrency(totalBruto);
+            var tNeto = document.getElementById('he-total-neto'); if (tNeto) tNeto.innerText = formatCurrency(totalNeto);
+
+            // Render breakdown
+            var dc50 = document.getElementById('he-desc-cant-50'); if (dc50) dc50.innerText = cant50;
+            var dc100 = document.getElementById('he-desc-cant-100'); if (dc100) dc100.innerText = cant100;
+            var st50 = document.getElementById('he-subtotal-50'); if (st50) st50.innerText = formatCurrency(subtotal50);
+            var st100 = document.getElementById('he-subtotal-100'); if (st100) st100.innerText = formatCurrency(subtotal100);
+            var bTotal = document.getElementById('he-breakdown-total'); if (bTotal) bTotal.innerText = formatCurrency(totalBruto);
+        }
+
+        function copyHEResults() {
+            var sueldoBase = document.getElementById('he-sueldo-base').value;
+            var total = document.getElementById('he-total-bruto').innerText;
+            var unit50 = document.getElementById('he-unit-50').innerText;
+            var horas = document.getElementById('he-total-horas').innerText;
+
+            var text = "Calculo de Horas Extras (calculolaboral.cl):\\n" +
+                       "Sueldo Base: $" + sueldoBase + "\\n" +
+                       "Horas Extras Realizadas: " + horas + "\\n" +
+                       "Valor Unitario 50%: " + unit50 + "\\n" +
+                       "Total Bruto a Pago: " + total;
+
+            navigator.clipboard.writeText(text).then(function() {
+                var btnText = document.getElementById('he-copy-text');
+                if (btnText) {
+                    btnText.innerText = '¡Copiado!';
+                    setTimeout(function() { btnText.innerText = 'Copiar Resumen'; }, 2000);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', calculateHorasExtras);
+    </script>
+"""
+
+PART_TIME_CONTENT = """
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
+            <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+            <span class="material-icons text-xs">chevron_right</span>
+            <span class="text-slate-600 font-semibold">Calculadora de Sueldo Part-Time</span>
+        </nav>
+
+        <!-- Hero Header Section -->
+        <div class="text-center my-8 max-w-2xl mx-auto no-print">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 mb-3">
+                <span class="material-icons text-xs text-emerald-600">verified</span> Art. 40 bis Código del Trabajo · Sueldo Mínimo $553.553
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                Calculadora de Sueldo Part-Time Chile 2026
+            </h1>
+            <p class="text-slate-500 text-sm mt-1">
+                Simula tu sueldo líquido para jornadas de <strong>30h, 20h o fines de semana</strong>. Incluye comisiones variables, semana corrida y verificación de beneficios para estudiantes (Gratuidad y Carga Familiar).
+            </p>
+        </div>
+
+        <!-- Two Column Interactive Layout (440px Inputs Left, Flexible Results Right) -->
+        <div class="flex flex-col lg:flex-row gap-8 items-start mb-16">
+            
+            <!-- Left Column: Form Controls (440px Fixed) -->
+            <div class="w-full lg:w-[440px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                <h2 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+                    <span class="material-icons text-sky-500">tune</span> Parámetros del Contrato
+                </h2>
+
+                <!-- 1. Jornada Semanal -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                        Jornada Semanal (Máximo 30 Horas)
+                    </label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="pt-jornada" value="30" checked onchange="setPTJornada(30)" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                30 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Tope Legal</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="pt-jornada" value="20" onchange="setPTJornada(20)" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                20 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Media Jornada</span>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="pt-jornada" value="15" onchange="setPTJornada(15)" class="peer sr-only">
+                            <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
+                                15 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Fin de Semana</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. Sueldo Base Mensual -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="pt-sueldo-base" class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Sueldo Base Ofrecido / Pactado
+                        </label>
+                        <button type="button" onclick="setPTMinimoLegal()" class="text-[11px] font-bold text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer active:scale-95">
+                            Usar Mínimo (<span id="pt-minimo-btn-val">$395.395</span>)
+                        </button>
+                    </div>
+                    <div class="relative rounded-2xl shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
+                        <input type="text" id="pt-sueldo-base" value="395.395" oninput="formatPTInput(this); calculatePartTime();" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-1" id="pt-legal-hint">Mínimo legal proporcional para 30 horas: <strong>$395.395</strong>.</p>
+                </div>
+
+                <!-- 3. Comisiones Variables y Semana Corrida -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label for="pt-comisiones" class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <span class="material-icons text-amber-500 text-sm">trending_up</span> Comisiones / Bonos del Mes
+                        </label>
+                        <span class="text-[10px] text-slate-400 font-medium">Opcional</span>
+                    </div>
+                    <div class="relative rounded-xl shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
+                        <input type="text" id="pt-comisiones" value="0" oninput="formatPTInput(this); calculatePartTime();" placeholder="0" class="w-full pl-8 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 font-mono font-bold text-base focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    </div>
+                    
+                    <label class="flex items-center gap-2 cursor-pointer pt-1">
+                        <input type="checkbox" id="pt-semana-corrida" checked onchange="calculatePartTime()" class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
+                        <span class="text-xs text-slate-600 select-none">Calcular <strong>Semana Corrida</strong> automática (~18% sobre comisiones)</span>
+                    </label>
+                </div>
+
+                <!-- 4. Parámetros Previsionales -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="pt-afp" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">AFP</label>
+                        <select id="pt-afp" onchange="calculatePartTime()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="0.1058">AFP Modelo (10,58%)</option>
+                            <option value="0.1069">AFP Uno (10,69%)</option>
+                            <option value="0.1127">AFP Habitat (11,27%)</option>
+                            <option value="0.1116">AFP Planvital (11,16%)</option>
+                            <option value="0.1144">AFP Capital (11,44%)</option>
+                            <option value="0.1144">AFP Cuprum (11,44%)</option>
+                            <option value="0.1145">AFP Provida (11,45%)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="pt-salud" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Salud</label>
+                        <select id="pt-salud" onchange="calculatePartTime()" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="0.07">Fonasa (7%)</option>
+                            <option value="0.07">Isapre (7% Legal)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 5. Toggle Estudiante Trabajador (Art. 40 bis E) -->
+                <div class="p-4 bg-sky-50/60 border border-sky-100 rounded-2xl flex items-center justify-between gap-4">
+                    <div class="space-y-0.5">
+                        <span class="text-xs font-bold text-sky-900 flex items-center gap-1.5">
+                            <span class="material-icons text-sky-600 text-base">school</span> ¿Eres Estudiante de 18 a 24 años?
+                        </span>
+                        <p class="text-[11px] text-sky-700">Verifica que tus ingresos no superen 2 IMM ($1.107.106) para proteger Gratuidad y Carga Familiar.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input type="checkbox" id="pt-is-student" checked onchange="calculatePartTime()" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-500"></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Right Column: Results Summary (Light Theme matching index.html) -->
+            <div class="w-full flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+                
+                <!-- Main Header / Totals Section -->
+                <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Sueldo Líquido Estimado</h3>
+                        <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                            <span id="pt-sueldo-liquido" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$323.512</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1 font-mono">
+                            Total Imponible: <strong id="pt-total-imponible" class="text-sky-600">$395.395</strong>
+                        </p>
+                    </div>
+                    <div class="text-center sm:text-right bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Jornada</span>
+                        <span id="pt-jornada-badge" class="text-lg font-bold text-slate-800 font-mono">30 Horas/Sem</span>
+                    </div>
+                </div>
+
+                <!-- Minimum Wage Compliance Alert -->
+                <div id="pt-compliance-box" class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
+                    <span class="material-icons text-emerald-600 text-base">check_circle</span>
+                    <span id="pt-compliance-text">Cumple con el mínimo legal proporcional ($395.395).</span>
+                </div>
+
+                <!-- Student Status Gauge (Light Theme) -->
+                <div id="pt-student-box" class="p-4 rounded-2xl bg-sky-50/60 border border-sky-200 space-y-2">
+                    <div class="flex justify-between text-xs font-semibold">
+                        <span class="text-sky-900 flex items-center gap-1">
+                            <span class="material-icons text-sky-600 text-sm">school</span> Tope Gratuidad (2 IMM):
+                        </span>
+                        <span class="font-mono text-sky-900" id="pt-student-percent">35.7%</span>
+                    </div>
+                    <div class="w-full bg-sky-200/60 rounded-full h-2.5 overflow-hidden">
+                        <div id="pt-student-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-300" style="width: 35.7%"></div>
+                    </div>
+                    <p class="text-[11px] text-emerald-800 font-medium" id="pt-student-status">
+                        ✅ Gratuidad y Carga Familiar Médica 100% protegidas (Menor a $1.107.106).
+                    </p>
+                </div>
+
+                <!-- Detailed Breakdown List -->
+                <div class="space-y-3 pt-2">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Desglose de Liquidación</h4>
+                    <div class="space-y-2 text-xs divide-y divide-slate-100">
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-slate-600">Sueldo Base:</span>
+                            <span class="font-mono font-semibold text-slate-900" id="pt-desc-base">$395.395</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-600">Comisiones + Semana Corrida:</span>
+                            <span class="font-mono font-semibold text-slate-900" id="pt-desc-comisiones">$0</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 text-rose-700">
+                            <span id="pt-afp-label">Descuento AFP (10,58%):</span>
+                            <span class="font-mono font-semibold" id="pt-desc-afp">-$41.833</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 text-rose-700">
+                            <span>Descuento Salud (7%):</span>
+                            <span class="font-mono font-semibold" id="pt-desc-salud">-$27.678</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 text-rose-700">
+                            <span>Seguro de Cesantía (0,6%):</span>
+                            <span class="font-mono font-semibold" id="pt-desc-afc">-$2.372</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                            <span class="text-slate-900">Sueldo Líquido Final:</span>
+                            <span class="font-mono text-emerald-600" id="pt-desc-liquido">$323.512</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-3 border-t border-slate-100">
+                    <button type="button" onclick="copyPTResults()" id="pt-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
+                        <span class="material-icons text-sm">content_copy</span> <span id="pt-copy-text">Copiar Resumen</span>
+                    </button>
+                    <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
+                        <span class="material-icons text-sm">receipt_long</span> Sueldo Completo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explanatory SEO Content Section -->
+        <article class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8 max-w-4xl mx-auto">
+            
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">¿Cómo funciona el Contrato de Trabajo Part-Time en Chile?</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                    En la legislación laboral chilena (<strong>Artículo 40 bis del Código del Trabajo</strong>), se define como <em>jornada parcial</em> o <em>part-time</em> a todo contrato de trabajo cuya duración semanal <strong>no exceda las 30 horas</strong>.
+                </p>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    A diferencia de mitos comunes, los trabajadores part-time gozan de los <strong>mismos derechos fundamentales</strong> que un trabajador de jornada completa: descanso dominical, gratificación legal proporcional, derecho a licencias médicas y <strong>15 días hábiles de vacaciones anuales completas</strong> (no proporcionales a las horas).
+                </p>
+            </div>
+
+            <!-- Minimum Wage Table -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Tabla de Sueldo Mínimo Proporcional Part-Time 2026</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mb-3">Con base en el Sueldo Mínimo mensual de $553.553 y jornada ordinaria de 42 horas:</p>
+                <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3.5">Jornada Semanal</th>
+                                <th class="p-3.5 text-sky-600">Sueldo Base Mínimo Bruto</th>
+                                <th class="p-3.5 text-emerald-600">Líquido Estimado (Fonasa+Modelo)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-mono">
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">30 Horas (Tope Part-Time)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$395.395</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$323.512</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">20 Horas (Media Jornada)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$263.596</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$215.675</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">15 Horas (Fin de Semana)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$197.697</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$161.756</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">10 Horas (Turno Reducido)</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$131.798</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">~$107.837</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Worker Law -->
+            <div class="bg-sky-50/70 border border-sky-200 rounded-2xl p-6">
+                <h3 class="text-lg font-bold text-sky-900 mb-2 flex items-center gap-2">
+                    <span class="material-icons text-sky-600">school</span> Ley del Estudiante Trabajador (Ley 21.155 - Art. 40 bis E)
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3">
+                    Si eres estudiante de educación superior (Universidad, Instituto Profesional o CFT) entre <strong>18 y 24 años</strong>, la ley te protege especialmente para que puedas trabajar sin perder tus beneficios socioeconómicos:
+                </p>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside">
+                    <li><strong>Tope de 2 Ingresos Mínimos ($1.107.106):</strong> Mientras tus ingresos mensuales (sueldo base + comisiones) no superen este monto, <strong>no pierdes la Gratuidad, Beca Bicentenario ni otros beneficios estatales</strong>.</li>
+                    <li><strong>Carga Familiar Médica:</strong> Puedes continuar como beneficiario de salud (carga) en el plan de Fonasa o Isapre de tus padres.</li>
+                    <li><strong>Exención Tributaria:</strong> No se aplica retención de impuesto a la renta.</li>
+                </ul>
+            </div>
+
+            <!-- FAQs -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Preguntas Frecuentes sobre Trabajo Part-Time</h3>
+                <div class="space-y-3">
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Cómo se calcula la semana corrida si gano comisiones en un part-time?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Si tu remuneración incluye un sueldo base más comisiones diarias o por hora, tienes derecho al pago de la <strong>Semana Corrida</strong> (Art. 45 del Código del Trabajo). Se calcula dividiendo el total de comisiones ganadas en la semana por los días efectivamente trabajados en ella, y ese valor promedio diario se multiplica por los domingos y festivos del mes.
+                        </p>
+                    </details>
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Los trabajadores part-time pueden hacer horas extras?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Sí, pero con un límite muy estricto: la suma de la jornada pactada más las horas extraordinarias <strong>nunca puede exceder las 12 horas diarias ni sobrepasar el límite de la jornada ordinaria máxima legal</strong>. Las horas extras se pagan con el recargo legal mínimo del 50%.
+                        </p>
+                    </details>
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 group">
+                        <summary class="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center text-sm">
+                            ¿Cuántos días de vacaciones le corresponden a un contrato part-time?
+                            <span class="material-icons text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Le corresponden exactamente los mismos <strong>15 días hábiles al año</strong> que a un trabajador de jornada completa. Durante su feriado anual, el trabajador part-time recibirá la remuneración íntegra equivalente al promedio de lo que percibía habitualmente.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </article>
+"""
+
+PART_TIME_SCRIPTS = """
+    <script>
+        var SUELDO_MINIMO_NACIONAL = 553553;
+        var JORNADA_ORDINARIA_LEGAL = 42;
+        var TOPE_ESTUDIANTE_2_IMM = 1107106;
+
+        function parseCleanNumber(val) {
+            if (!val) return 0;
+            return parseFloat(val.toString().replace(/\\./g, '').replace(/,/g, '.')) || 0;
+        }
+
+        function formatCurrency(num) {
+            return '$' + Math.round(num).toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.');
+        }
+
+        function formatPTInput(input) {
+            var val = input.value.replace(/\\D/g, '');
+            if (!val) { input.value = '0'; return; }
+            input.value = parseInt(val, 10).toLocaleString('es-CL');
+        }
+
+        function getSelectedJornada() {
+            var el = document.querySelector('input[name="pt-jornada"]:checked');
+            return el ? parseFloat(el.value) : 30;
+        }
+
+        function getMinimoProporcional(horas) {
+            return Math.round((SUELDO_MINIMO_NACIONAL / JORNADA_ORDINARIA_LEGAL) * horas);
+        }
+
+        function setPTJornada(horas) {
+            var minProp = getMinimoProporcional(horas);
+            var btnVal = document.getElementById('pt-minimo-btn-val');
+            if (btnVal) btnVal.innerText = formatCurrency(minProp);
+            var hint = document.getElementById('pt-legal-hint');
+            if (hint) hint.innerHTML = 'Mínimo legal proporcional para ' + horas + ' horas: <strong>' + formatCurrency(minProp) + '</strong>.';
+            var jBadge = document.getElementById('pt-jornada-badge');
+            if (jBadge) jBadge.innerText = horas + ' Horas/Sem';
+            
+            // Auto-update base if it was set to old minimum
+            var currentBase = parseCleanNumber(document.getElementById('pt-sueldo-base').value);
+            if (currentBase === 395395 || currentBase === 263596 || currentBase === 197697 || currentBase === 0) {
+                document.getElementById('pt-sueldo-base').value = minProp.toLocaleString('es-CL');
+            }
+
+            calculatePartTime();
+        }
+
+        function setPTMinimoLegal() {
+            var horas = getSelectedJornada();
+            var minProp = getMinimoProporcional(horas);
+            document.getElementById('pt-sueldo-base').value = minProp.toLocaleString('es-CL');
+            calculatePartTime();
+        }
+
+        function calculatePartTime() {
+            var horas = getSelectedJornada();
+            var minLegal = getMinimoProporcional(horas);
+            var sueldoBase = parseCleanNumber(document.getElementById('pt-sueldo-base').value);
+            var comisiones = parseCleanNumber(document.getElementById('pt-comisiones').value);
+            var semCorridaEl = document.getElementById('pt-semana-corrida');
+            var hasSemanaCorrida = semCorridaEl ? semCorridaEl.checked : true;
+
+            // Semana Corrida estimation (~18% over commissions based on 4 domingos/month)
+            var semanaCorrida = (hasSemanaCorrida && comisiones > 0) ? (comisiones * 0.18) : 0;
+            var totalComisiones = comisiones + semanaCorrida;
+
+            var totalImponible = sueldoBase + totalComisiones;
+
+            // Previsional deductions
+            var afpSelect = document.getElementById('pt-afp');
+            var afpRate = afpSelect ? parseFloat(afpSelect.value) : 0.1058;
+            var saludSelect = document.getElementById('pt-salud');
+            var saludRate = saludSelect ? parseFloat(saludSelect.value) : 0.07;
+            var afcRate = 0.006; // 0.6% standard
+
+            var descAFP = totalImponible * afpRate;
+            var descSalud = totalImponible * saludRate;
+            var descAFC = totalImponible * afcRate;
+
+            var totalDescuentos = descAFP + descSalud + descAFC;
+            var sueldoLiquido = Math.max(0, totalImponible - totalDescuentos);
+
+            // Minimum wage compliance check
+            var compBox = document.getElementById('pt-compliance-box');
+            var compText = document.getElementById('pt-compliance-text');
+            if (compBox && compText) {
+                if (sueldoBase >= minLegal) {
+                    compBox.className = "p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2";
+                    compText.innerText = "Cumple con el mínimo legal proporcional (" + formatCurrency(minLegal) + ").";
+                } else {
+                    compBox.className = "p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2";
+                    compText.innerText = "⚠️ Sueldo base bajo el mínimo legal (" + formatCurrency(minLegal) + ").";
+                }
+            }
+
+            // Student Status calculation
+            var studentEl = document.getElementById('pt-is-student');
+            var isStudent = studentEl ? studentEl.checked : false;
+            var studentBox = document.getElementById('pt-student-box');
+            if (studentBox) {
+                if (isStudent) {
+                    studentBox.classList.remove('hidden');
+                    var studentPercent = Math.min(100, (totalImponible / TOPE_ESTUDIANTE_2_IMM) * 100);
+                    var pPercent = document.getElementById('pt-student-percent');
+                    if (pPercent) pPercent.innerText = studentPercent.toFixed(1) + '%';
+                    var bar = document.getElementById('pt-student-bar');
+                    if (bar) bar.style.width = studentPercent + '%';
+
+                    var statusText = document.getElementById('pt-student-status');
+                    if (statusText && bar) {
+                        if (totalImponible <= TOPE_ESTUDIANTE_2_IMM) {
+                            bar.className = "bg-emerald-500 h-2.5 rounded-full transition-all duration-300";
+                            statusText.className = "text-[11px] text-emerald-800 font-medium";
+                            statusText.innerText = "✅ Gratuidad y Carga Familiar Médica 100% protegidas (Menor a " + formatCurrency(TOPE_ESTUDIANTE_2_IMM) + ").";
+                        } else {
+                            bar.className = "bg-rose-500 h-2.5 rounded-full transition-all duration-300";
+                            statusText.className = "text-[11px] text-rose-800 font-medium";
+                            statusText.innerText = "⚠️ Supera el tope de 2 IMM. Este mes el ingreso tributa y computa normalmente.";
+                        }
+                    }
+                } else {
+                    studentBox.classList.add('hidden');
+                }
+            }
+
+            // Render Output values
+            var outLiq = document.getElementById('pt-sueldo-liquido'); if (outLiq) outLiq.innerText = formatCurrency(sueldoLiquido);
+            var outImp = document.getElementById('pt-total-imponible'); if (outImp) outImp.innerText = formatCurrency(totalImponible);
+
+            // Render Breakdown
+            var dBase = document.getElementById('pt-desc-base'); if (dBase) dBase.innerText = formatCurrency(sueldoBase);
+            var dCom = document.getElementById('pt-desc-comisiones'); if (dCom) dCom.innerText = formatCurrency(totalComisiones);
+            var dAFP = document.getElementById('pt-desc-afp'); if (dAFP) dAFP.innerText = '-' + formatCurrency(descAFP);
+            var dSal = document.getElementById('pt-desc-salud'); if (dSal) dSal.innerText = '-' + formatCurrency(descSalud);
+            var dAFC = document.getElementById('pt-desc-afc'); if (dAFC) dAFC.innerText = '-' + formatCurrency(descAFC);
+            var dLiq = document.getElementById('pt-desc-liquido'); if (dLiq) dLiq.innerText = formatCurrency(sueldoLiquido);
+
+            if (afpSelect) {
+                var afpLbl = document.getElementById('pt-afp-label');
+                if (afpLbl) afpLbl.innerText = 'Descuento ' + afpSelect.options[afpSelect.selectedIndex].text + ':';
+            }
+        }
+
+        function copyPTResults() {
+            var horas = getSelectedJornada();
+            var base = document.getElementById('pt-sueldo-base').value;
+            var imponible = document.getElementById('pt-total-imponible').innerText;
+            var liquido = document.getElementById('pt-sueldo-liquido').innerText;
+
+            var text = "Calculo de Sueldo Part-Time (" + horas + "h) - calculolaboral.cl:\\n" +
+                       "Sueldo Base: $" + base + "\\n" +
+                       "Total Imponible: " + imponible + "\\n" +
+                       "Sueldo Líquido a Pago: " + liquido;
+
+            navigator.clipboard.writeText(text).then(function() {
+                var btnText = document.getElementById('pt-copy-text');
+                if (btnText) {
+                    btnText.innerText = '¡Copiado!';
+                    setTimeout(function() { btnText.innerText = 'Copiar Resumen'; }, 2000);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', calculatePartTime);
+    </script>
+"""
+
 # Generate standalone custom calculators (Horas Extras & Part-Time)
-def build_custom_calculator(filename, title, description):
+def build_custom_calculator(filename, title, description, content_html, scripts_html):
     print(f"Generating: {filename}...")
-    source_path = os.path.join(SOURCE_DIR, filename)
-    if not os.path.exists(source_path):
-        print(f"ERROR: {source_path} not found")
-        return
-    with open(source_path, "r", encoding="utf-8") as f:
-        src_html = f.read()
-    
-    # Extract <main> content
-    main_match = re.search(r'<main[^>]*>(.*?)</main>', src_html, re.DOTALL | re.IGNORECASE)
-    main_content = main_match.group(1) if main_match else ""
-    
-    # Extract <script> content at bottom
-    script_match = re.search(r'<script>(.*?)</script>\s*</body>', src_html, re.DOTALL | re.IGNORECASE)
-    custom_scripts = f"<script>{script_match.group(1)}</script>" if script_match else ""
-    
     canonical_url, og_tags, json_ld = generate_seo_tags(filename, title, description, page_type="website")
     
     html_out = HTML_LAYOUT.format(
@@ -3957,10 +4836,10 @@ def build_custom_calculator(filename, title, description):
         custom_head="",
         header=HEADER_HTML,
         indicator_bar=INDICATOR_BAR_HTML,
-        content=f'<div class="max-w-[1200px] mx-auto px-6">{main_content}</div>',
+        content=f'<div class="max-w-[1200px] mx-auto px-6">{content_html}</div>',
         footer=FOOTER_HTML,
         history_modal=HISTORY_MODAL_HTML,
-        custom_scripts=custom_scripts
+        custom_scripts=scripts_html
     )
     
     dest_file = os.path.join(DEST_DIR, filename)
@@ -3975,13 +4854,17 @@ def build_custom_calculator(filename, title, description):
 build_custom_calculator(
     "calculadora-horas-extras.html",
     "Calculadora de Horas Extras Chile 2026 | Fórmulas Oficiales DT 42h",
-    "Calcula el valor de tus horas extras en Chile 2026 con la jornada legal de 42 horas. Recargo del 50% y 100% festivo según fórmulas de la Dirección del Trabajo (DT)."
+    "Calcula el valor de tus horas extras en Chile 2026 con la jornada legal de 42 horas. Recargo del 50% y 100% festivo según fórmulas de la Dirección del Trabajo (DT).",
+    HORAS_EXTRAS_CONTENT,
+    HORAS_EXTRAS_SCRIPTS
 )
 
 build_custom_calculator(
     "calculadora-sueldo-part-time.html",
     "Calculadora de Sueldo Part-Time Chile 2026 | 30h, 20h y Comisiones",
-    "Calcula tu sueldo líquido part-time en Chile 2026 (30h, 20h o personalizado). Incluye comisiones, semana corrida, descuentos y protección de Gratuidad para estudiantes (Art. 40 bis)."
+    "Calcula tu sueldo líquido part-time en Chile 2026 (30h, 20h o personalizado). Incluye comisiones, semana corrida, descuentos y protección de Gratuidad para estudiantes (Art. 40 bis).",
+    PART_TIME_CONTENT,
+    PART_TIME_SCRIPTS
 )
 
 # Generate vercel.json in DEST_DIR and in root directory
