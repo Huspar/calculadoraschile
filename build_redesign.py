@@ -135,6 +135,60 @@ def generate_seo_tags(filename, title, description, page_type="website"):
         }
     ]
 
+    faqs_horas_extras = [
+        {
+            "@type": "Question",
+            "name": "¿Cómo se calcula el valor de una hora extra en Chile en 2026?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Con la jornada legal de 42 horas, se multiplica el Sueldo Base por el factor DT 0,0055555 para obtener la hora ordinaria, y luego se multiplica por 1,50 para el recargo del 50% legal o por 2,00 para el recargo del 100%."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Las horas extras pagan impuestos y cotizaciones?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Las horas extraordinarias son remuneración imponible y tributable, sujetas a descuentos de AFP, Salud y Seguro de Cesantía."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cuál es el límite legal máximo de horas extras por día?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El Código del Trabajo (Art. 31) limita las horas extraordinarias a un máximo de 2 horas diarias, previo pacto escrito por necesidades temporales."
+            }
+        }
+    ]
+
+    faqs_part_time = [
+        {
+            "@type": "Question",
+            "name": "¿Cuál es el sueldo mínimo para un contrato part-time en Chile?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El sueldo mínimo es proporcional a la jornada semanal respecto a las 42 horas legales. Con el ingreso mínimo de $553.553, el piso para 30 horas es de $395.395 CLP y para 20 horas es de $263.596 CLP."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Los estudiantes pierden la Gratuidad por trabajar part-time?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Según la Ley 21.155 (Art. 40 bis E), los estudiantes entre 18 y 24 años pueden percibir remuneraciones de hasta 2 Ingresos Mínimos Mensuales ($1.107.106) sin perder la Gratuidad, becas estatales ni su condición de carga médica de sus padres."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo se calcula la semana corrida si gano comisiones en un part-time?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Se divide el total de comisiones devengadas en la semana por los días efectivamente trabajados, y ese promedio diario se multiplica por los días domingos y festivos del mes."
+            }
+        }
+    ]
+
     if filename == "index.html":
         json_ld_data = {
             "@context": "https://schema.org",
@@ -189,6 +243,42 @@ def generate_seo_tags(filename, title, description, page_type="website"):
                 {
                     "@type": "FAQPage",
                     "mainEntity": faqs_finiquito
+                }
+            ]
+        }
+    elif filename == "calculadora-horas-extras.html":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "Calculadora de Horas Extras Chile 2026",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "description": description,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_horas_extras
+                }
+            ]
+        }
+    elif filename == "calculadora-sueldo-part-time.html":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "Calculadora de Sueldo Part-Time Chile 2026",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "description": description,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_part_time
                 }
             ]
         }
@@ -275,10 +365,12 @@ HEADER_HTML = """
                             Calculadoras
                             <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
                         </button>
-                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1">
                                 <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
-                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
                             </div>
                         </div>
                     </div>
@@ -319,6 +411,8 @@ HEADER_HTML = """
                         <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
                 <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
                 <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
@@ -384,6 +478,8 @@ FOOTER_HTML = """
                 <ul class="space-y-2">
                     <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
                     <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
                     <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
                 </ul>
             </div>
@@ -3831,6 +3927,56 @@ finiquito_html_out = HTML_LAYOUT.format(
 )
 with open(os.path.join(DEST_DIR, "finiquito_calculator.html"), "w", encoding="utf-8") as f:
     f.write(finiquito_html_out)
+
+# Generate standalone custom calculators (Horas Extras & Part-Time)
+def build_custom_calculator(filename, title, description):
+    print(f"Generating: {filename}...")
+    source_path = os.path.join(SOURCE_DIR, filename)
+    if not os.path.exists(source_path):
+        print(f"ERROR: {source_path} not found")
+        return
+    with open(source_path, "r", encoding="utf-8") as f:
+        src_html = f.read()
+    
+    # Extract <main> content
+    main_match = re.search(r'<main[^>]*>(.*?)</main>', src_html, re.DOTALL | re.IGNORECASE)
+    main_content = main_match.group(1) if main_match else ""
+    
+    # Extract <script> content at bottom
+    script_match = re.search(r'<script>(.*?)</script>\s*</body>', src_html, re.DOTALL | re.IGNORECASE)
+    custom_scripts = f"<script>{script_match.group(1)}</script>" if script_match else ""
+    
+    canonical_url, og_tags, json_ld = generate_seo_tags(filename, title, description, page_type="website")
+    
+    html_out = HTML_LAYOUT.format(
+        title=title,
+        description=description,
+        canonical_url=canonical_url,
+        og_tags=og_tags,
+        json_ld=json_ld,
+        custom_head="",
+        header=HEADER_HTML,
+        indicator_bar=INDICATOR_BAR_HTML,
+        content=f'<div class="w-full">{main_content}</div>',
+        footer=FOOTER_HTML,
+        history_modal=HISTORY_MODAL_HTML,
+        custom_scripts=custom_scripts
+    )
+    
+    with open(os.path.join(DEST_DIR, filename), "w", encoding="utf-8") as f:
+        f.write(html_out)
+
+build_custom_calculator(
+    "calculadora-horas-extras.html",
+    "Calculadora de Horas Extras Chile 2026 | Fórmulas Oficiales DT 42h",
+    "Calcula el valor de tus horas extras en Chile 2026 con la jornada legal de 42 horas. Recargo del 50% y 100% festivo según fórmulas de la Dirección del Trabajo (DT)."
+)
+
+build_custom_calculator(
+    "calculadora-sueldo-part-time.html",
+    "Calculadora de Sueldo Part-Time Chile 2026 | 30h, 20h y Comisiones",
+    "Calcula tu sueldo líquido part-time en Chile 2026 (30h, 20h o personalizado). Incluye comisiones, semana corrida, descuentos y protección de Gratuidad para estudiantes (Art. 40 bis)."
+)
 
 # Generate vercel.json in DEST_DIR and in root directory
 print("Generating: vercel.json...")
