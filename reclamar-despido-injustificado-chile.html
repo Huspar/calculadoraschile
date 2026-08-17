@@ -246,6 +246,22 @@
         }
         .print-only { display: none !important; }
         
+        /* High-contrast CTA and button link enforcement */
+        .cta-btn, .cta-btn *,
+        .prose a.cta-btn, .prose a.cta-btn *,
+        .prose a[class*="bg-sky-500"], .prose a[class*="bg-sky-500"] *,
+        .prose a[class*="bg-emerald-600"], .prose a[class*="bg-emerald-600"] *,
+        .prose a[class*="bg-blue-600"], .prose a[class*="bg-blue-600"] * {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .cta-lead-btn, .cta-lead-btn *,
+        .prose a.cta-lead-btn, .prose a.cta-lead-btn * {
+            color: #0f172a !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        
         @media print {
             @page {
                 size: A4 portrait;
@@ -454,6 +470,7 @@
         
         <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
             <div class="prose-content max-w-none">
+                
                 
                 
                 
@@ -698,7 +715,7 @@
                         Antes de firmar o iniciar cualquier reclamo, verifica los montos de tu indemnización por años de servicio, aviso previo y feriado proporcional de manera automática. Nuestra herramienta gratuita está actualizada a la normativa de 2026.
                     </p>
                     <a href="finiquito_calculator" title="Calculadora de Finiquito en Chile"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-[1.01] active:scale-95 !no-underline cursor-pointer">
                         <span class="material-icons">calculate</span>
                         Ir a la Calculadora de Finiquito
                     </a>
@@ -740,6 +757,7 @@
                         Esta información es de carácter general. Ante una desvinculación laboral, te sugerimos asesorarte con abogados especialistas para el análisis de tu caso particular.
                     </p>
                 </div>
+            
             
             
             
@@ -923,8 +941,8 @@
                 } else {
                     throw new Error('Error al enviar');
                 }
-            }).catch(function() {
-                alert('Error al enviar. Intenta de nuevo.');
+            }).catch(function(err) {
+                alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
         }

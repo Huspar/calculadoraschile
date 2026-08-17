@@ -246,6 +246,22 @@
         }
         .print-only { display: none !important; }
         
+        /* High-contrast CTA and button link enforcement */
+        .cta-btn, .cta-btn *,
+        .prose a.cta-btn, .prose a.cta-btn *,
+        .prose a[class*="bg-sky-500"], .prose a[class*="bg-sky-500"] *,
+        .prose a[class*="bg-emerald-600"], .prose a[class*="bg-emerald-600"] *,
+        .prose a[class*="bg-blue-600"], .prose a[class*="bg-blue-600"] * {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .cta-lead-btn, .cta-lead-btn *,
+        .prose a.cta-lead-btn, .prose a.cta-lead-btn * {
+            color: #0f172a !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        
         @media print {
             @page {
                 size: A4 portrait;
@@ -457,6 +473,8 @@
                 
             <div class="prose-content max-w-none">
                 
+            <div class="prose-content max-w-none">
+                
                 <div class="prose-content max-w-none"><!-- Article Header -->
             <header class="mb-12">
                 <div
@@ -487,11 +505,11 @@
             <!-- Hero Image -->
             <figure class="mb-10 max-w-[900px] mx-auto">
                 <div class="rounded-2xl overflow-hidden border border-slate-100">
-                    <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-calculo-finiquito-chile-2026.png"
+                    <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-calculo-finiquito-chile-2026.png"
                         alt="Ejemplo visual de cálculo de finiquito en Chile 2026 con indemnización y vacaciones proporcionales"
                         title="Simulación de finiquito en Chile: desglose de indemnización, vacaciones y aviso previo"
                         class="w-full h-auto max-h-[35vh] object-contain bg-slate-50/20" loading="lazy" width="1024"
-                        height="640" /></div></div>
+                        height="640" /></div></div></div>
                 </div>
                 <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
                     Ejemplo de simulación de finiquito con indemnización por años de servicio y vacaciones
@@ -886,7 +904,7 @@
                         Si quieres evitar el cálculo manual, utiliza nuestra herramienta automatizada. Nuestra <strong>calculadora de finiquito</strong> está actualizada a 2026 e incluye todos los topes legales de la Dirección del Trabajo.
                     </p>
                     <a href="finiquito_calculator" title="Calculadora de Finiquito en Chile"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-[1.01] active:scale-95 !no-underline cursor-pointer">
                         <span class="material-icons">calculate</span>
                         Ir a la Calculadora de Finiquito
                     </a>
@@ -898,7 +916,7 @@
                 <!-- Cross-links -->
                 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <a href="sueldo_liquido"
-                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-green-400 hover:bg-green-50/30 transition-colors group block">
+                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-emerald-400 hover:bg-emerald-50/30 hover:shadow-md transition-all group block">
                         <div class="flex items-center gap-3">
                             <span
                                 class="material-icons text-emerald-600 group-hover:text-green-300 transition-colors">payments</span>
@@ -910,7 +928,7 @@
                         </div>
                     </a>
                     <a href="guia-vacaciones-proporcionales"
-                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-sky-200 transition-colors group block">
+                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-sky-400 hover:bg-sky-50/30 hover:shadow-md transition-all group block">
                         <div class="flex items-center gap-3">
                             <span
                                 class="material-icons text-sky-600 group-hover:text-sky-600 transition-colors">beach_access</span>
@@ -947,6 +965,8 @@
                         <a href="https://www.dt.gob.cl/" target="_blank" rel="noopener noreferrer">Inspección del Trabajo</a>.
                     </p>
                 </div>
+            </div>
+        
             </div>
         
             </div>
@@ -1127,8 +1147,8 @@
                 } else {
                     throw new Error('Error al enviar');
                 }
-            }).catch(function() {
-                alert('Error al enviar. Intenta de nuevo.');
+            }).catch(function(err) {
+                alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
         }

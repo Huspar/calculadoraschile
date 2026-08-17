@@ -837,6 +837,22 @@ HTML_LAYOUT = """<!DOCTYPE html>
         }}
         .print-only {{ display: none !important; }}
         
+        /* High-contrast CTA and button link enforcement */
+        .cta-btn, .cta-btn *,
+        .prose a.cta-btn, .prose a.cta-btn *,
+        .prose a[class*="bg-sky-500"], .prose a[class*="bg-sky-500"] *,
+        .prose a[class*="bg-emerald-600"], .prose a[class*="bg-emerald-600"] *,
+        .prose a[class*="bg-blue-600"], .prose a[class*="bg-blue-600"] * {{
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }}
+        .cta-lead-btn, .cta-lead-btn *,
+        .prose a.cta-lead-btn, .prose a.cta-lead-btn * {{
+            color: #0f172a !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }}
+        
         @media print {{
             @page {{
                 size: A4 portrait;
@@ -929,8 +945,8 @@ HTML_LAYOUT = """<!DOCTYPE html>
                 }} else {{
                     throw new Error('Error al enviar');
                 }}
-            }}).catch(function() {{
-                alert('Error al enviar. Intenta de nuevo.');
+            }}).catch(function(err) {{
+                alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             }});
         }}
@@ -940,28 +956,21 @@ HTML_LAYOUT = """<!DOCTYPE html>
 </html>
 """
 
-
 def flexible_replace(text, old_block, new_block):
-    # Normalize line endings to \n
     text_norm = text.replace('\r\n', '\n')
     old_norm = old_block.replace('\r\n', '\n')
     
-    # Split into lines and strip
     old_lines = [line.strip() for line in old_norm.split('\n') if line.strip()]
     if not old_lines:
         return text
     
-    # Escape each line to form regex pattern
     escaped_lines = [re.escape(line) for line in old_lines]
-    # Match any leading/trailing horizontal whitespace on lines, and any newlines/indentation between lines
     pattern = r'[ \t]*' + r'[ \t]*\n+[ \t]*'.join(escaped_lines) + r'[ \t]*'
     
-    # Perform regex replacement
     new_text, count = re.subn(pattern, lambda m: new_block, text_norm)
     if count > 0:
         return new_text
     else:
-        # Fallback to standard replace
         return text.replace(old_block, new_block)
 
 def wrap_images(content):
@@ -1011,27 +1020,66 @@ def strip_outer_divs(body):
         break
     return body
 
+def fix_all_article_buttons(body):
+    # 1. Clean up CTA buttons (guaranteeing text-white and high contrast)
+    body = re.sub(
+        r'<a([^>]*?)class="[^"]*cta-btn[^"]*"([^>]*?)>',
+        r'<a\1class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-[1.01] active:scale-95 !no-underline cursor-pointer"\2>',
+        body
+    )
+    
+    # 2. Clean up Lead CTA buttons (amber with dark text)
+    body = re.sub(
+        r'<a([^>]*?)class="[^"]*cta-lead-btn[^"]*"([^>]*?)>',
+        r'<a\1class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 !text-slate-900 font-bold text-sm rounded-xl shadow-md shadow-amber-500/20 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap !no-underline cursor-pointer"\2>',
+        body
+    )
+    
+    # 3. Clean up mini calculator redirect buttons (e.g. Comprobar mi Liquidación, Simular mi Finiquito)
+    body = re.sub(
+        r'<a([^>]*?href="sueldo_liquido"[^>]*?)class="[^"]*shrink-0[^"]*"([^>]*?)>',
+        r'<a\1class="inline-flex items-center justify-center shrink-0 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap !no-underline cursor-pointer"\2>',
+        body
+    )
+    body = re.sub(
+        r'<a([^>]*?href="finiquito_calculator"[^>]*?)class="[^"]*shrink-0[^"]*"([^>]*?)>',
+        r'<a\1class="inline-flex items-center justify-center shrink-0 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 !text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap !no-underline cursor-pointer"\2>',
+        body
+    )
+    
+    # 4. Remove any residual text-slate-800 or text-slate-900 inside bg-sky-500 / bg-emerald-600 / bg-blue-600 buttons
+    body = body.replace('bg-sky-500 text-slate-800', 'bg-sky-500 !text-white')
+    body = body.replace('bg-sky-500 text-slate-900', 'bg-sky-500 !text-white')
+    body = body.replace('bg-sky-500 hover:bg-sky-600 text-slate-800', 'bg-sky-500 hover:bg-sky-600 !text-white')
+    body = body.replace('bg-sky-500 hover:bg-sky-600 text-slate-900', 'bg-sky-500 hover:bg-sky-600 !text-white')
+    body = body.replace('bg-emerald-600 text-slate-800', 'bg-emerald-600 !text-white')
+    body = body.replace('bg-emerald-600 text-slate-900', 'bg-emerald-600 !text-white')
+    body = body.replace('bg-emerald-600 hover:bg-emerald-700 text-slate-800', 'bg-emerald-600 hover:bg-emerald-700 !text-white')
+    body = body.replace('bg-emerald-600 hover:bg-emerald-700 text-slate-900', 'bg-emerald-600 hover:bg-emerald-700 !text-white')
+    
+    # 5. Fix related guide cards
+    body = body.replace('hover:border-sky-200 transition-colors group block', 'hover:border-sky-400 hover:bg-sky-50/30 hover:shadow-md transition-all group block')
+    body = body.replace('hover:border-green-400 hover:bg-green-50/30 transition-colors group block', 'hover:border-emerald-400 hover:bg-emerald-50/30 hover:shadow-md transition-all group block')
+    
+    return body
+
 def extract_article_info(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         html = f.read()
     
-    # 1. Title
     title_match = re.search(r'<title>(.*?)</title>', html, re.DOTALL)
     title = title_match.group(1).strip() if title_match else "Artículo | Cálculo Laboral Chile"
     
-    # 2. Description
     desc_match = re.search(r'<meta[^>]*name="description"[^>]*content="(.*?)"', html, re.IGNORECASE | re.DOTALL)
     if not desc_match:
         desc_match = re.search(r'<meta[^>]*content="(.*?)"[^>]*name="description"', html, re.IGNORECASE | re.DOTALL)
     description = desc_match.group(1).strip() if desc_match else "Guía sobre legislación y cálculos laborales chilenos."
     
-    # 3. Scripts / JSON-LD
     ld_scripts = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.DOTALL)
     custom_head = ""
     for ld in ld_scripts:
         custom_head += f'<script type="application/ld+json">{ld}</script>\n'
         
-    # 4. Article content
     article_match = re.search(r'<article[^>]*>(.*?)</article>', html, re.DOTALL)
     if article_match:
         body = article_match.group(1)
@@ -1039,21 +1087,14 @@ def extract_article_info(file_path):
         body = re.sub(r'<nav[^>]*class="[^"]*breadcrumb[^"]*"[^>]*>.*?</nav>', '', body, re.DOTALL | re.IGNORECASE)
         body = re.sub(r'<header[^>]*>.*?</header>', '', body, re.DOTALL | re.IGNORECASE)
         
-        # Strip any pre-existing nested outer wrappers before performing adjustments
         body = strip_outer_divs(body)
-        
-        # Call clean_article_body first to let file-specific replacements match original HTML!
         body = clean_article_body(body, os.path.basename(file_path))
         
         body = body.replace('prose-dark', 'prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed prose-headings:text-slate-900 font-sans prose-headings:font-bold prose-a:text-sky-500 hover:prose-a:text-sky-600 prose-strong:text-slate-900')
-        # 1. Capture and style specific CTA buttons FIRST (before generic text-white replacements)
-        body = body.replace('class="inline-flex items-center gap-2 px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:scale-105"', 'class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]"')
-        body = body.replace('bg-blue-600 hover:bg-blue-500 text-white font-bold', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline font-bold shadow-sm')
-        body = body.replace('bg-blue-600 hover:bg-blue-500 text-white', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline shadow-sm')
-        body = body.replace('bg-blue-600 hover:bg-blue-500 text-slate-800 font-bold', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline font-bold shadow-sm')
-        body = body.replace('bg-blue-600 hover:bg-blue-500 text-slate-800', 'bg-sky-500 hover:bg-sky-600 !text-[#ffffff] !no-underline shadow-sm')
+        body = body.replace('class="inline-flex items-center gap-2 px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:scale-105"', 'class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-500 !text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-[1.01] !no-underline"')
+        body = body.replace('bg-blue-600 hover:bg-blue-500 text-white font-bold', 'bg-sky-500 hover:bg-sky-600 !text-white !no-underline font-bold shadow-sm')
+        body = body.replace('bg-blue-600 hover:bg-blue-500 text-white', 'bg-sky-500 hover:bg-sky-600 !text-white !no-underline shadow-sm')
         
-        # 2. Deep scrub of dark-themed container boxes and low-contrast text for premium light theme
         body = body.replace('bg-slate-800/40', 'bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all')
         body = body.replace('bg-slate-800/50', 'bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all')
         body = body.replace('bg-slate-800/60', 'bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all')
@@ -1062,10 +1103,8 @@ def extract_article_info(file_path):
         body = body.replace('bg-slate-800/10', 'bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all')
         body = body.replace('bg-slate-800', 'bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all')
         
-        # Gradients
         body = body.replace('bg-gradient-to-r from-blue-900/50 to-purple-900/50', 'bg-gradient-to-br from-sky-50 to-blue-50 border border-sky-100 rounded-2xl p-8 my-6 text-center')
         
-        # Borders
         body = body.replace('border-white/10', 'border-slate-200')
         body = body.replace('border-white/5', 'border-slate-100')
         body = body.replace('border-white/20', 'border-slate-200')
@@ -1075,7 +1114,6 @@ def extract_article_info(file_path):
         body = body.replace('border-emerald-500/20', 'border-emerald-200 bg-emerald-50/40 rounded-2xl p-5 shadow-sm my-6')
         body = body.replace('border-blue-500/20', 'border-sky-200 bg-sky-50/40 rounded-2xl p-5 shadow-sm my-6')
         
-        # Text colors
         body = body.replace('text-slate-300', 'text-slate-600')
         body = body.replace('text-slate-400', 'text-slate-500')
         body = body.replace('text-slate-200', 'text-slate-700')
@@ -1089,7 +1127,6 @@ def extract_article_info(file_path):
         body = body.replace('text-amber-300', 'text-amber-700')
         body = body.replace('text-indigo-300', 'text-indigo-700')
         
-        # Badges and metrics
         body = body.replace('bg-blue-500/20', 'bg-sky-100 text-sky-700')
         body = body.replace('bg-blue-500/10', 'bg-sky-50 text-sky-600')
         body = body.replace('bg-blue-500/15', 'bg-sky-100/60 text-sky-600')
@@ -1105,23 +1142,23 @@ def extract_article_info(file_path):
         body = body.replace('shadow-black/40', 'shadow-sm')
         body = body.replace('border-white/5', 'border-slate-100')
         
-        # 3. Finally do generic text-white cleanup
-        body = body.replace('!text-white', 'text-slate-800 font-semibold')
+        # Generic text-white cleanup protecting !text-white
+        body = body.replace('!text-white', 'TEMP_WHITE_HOLDER')
         body = body.replace('text-white font-bold', 'text-slate-900 font-bold')
         body = body.replace('text-white', 'text-slate-800')
+        body = body.replace('TEMP_WHITE_HOLDER', '!text-white')
         body = body.replace('hover:text-white', 'hover:text-slate-900')
         body = body.replace('hover:bg-white/5', 'hover:bg-slate-100')
         
-        # 4. Cross-link card fixes
         body = body.replace('text-slate-800 hover:text-red-400 font-semibold underline', 'text-sky-600 hover:text-sky-700 font-semibold !no-underline')
         body = body.replace('text-slate-800 font-bold text-lg', 'text-slate-900 font-bold text-lg')
         body = body.replace('hover:border-green-500/30', 'hover:border-green-400 hover:bg-green-50/30')
         body = body.replace('hover:border-blue-500/30', 'hover:border-sky-400 hover:bg-sky-50/30')
         
-        # Fix button containers keeping original styles
         body = body.replace('class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all', 'class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-200 hover:shadow-md transition-all')
         
         body = wrap_images(body)
+        body = fix_all_article_buttons(body)
     else:
         body = "<p>Contenido del artículo no encontrado en el archivo de origen.</p>"
         

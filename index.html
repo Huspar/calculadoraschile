@@ -287,6 +287,22 @@
         }
         .print-only { display: none !important; }
         
+        /* High-contrast CTA and button link enforcement */
+        .cta-btn, .cta-btn *,
+        .prose a.cta-btn, .prose a.cta-btn *,
+        .prose a[class*="bg-sky-500"], .prose a[class*="bg-sky-500"] *,
+        .prose a[class*="bg-emerald-600"], .prose a[class*="bg-emerald-600"] *,
+        .prose a[class*="bg-blue-600"], .prose a[class*="bg-blue-600"] * {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .cta-lead-btn, .cta-lead-btn *,
+        .prose a.cta-lead-btn, .prose a.cta-lead-btn * {
+            color: #0f172a !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        
         @media print {
             @page {
                 size: A4 portrait;
@@ -1739,8 +1755,8 @@
                 } else {
                     throw new Error('Error al enviar');
                 }
-            }).catch(function() {
-                alert('Error al enviar. Intenta de nuevo.');
+            }).catch(function(err) {
+                alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
         }

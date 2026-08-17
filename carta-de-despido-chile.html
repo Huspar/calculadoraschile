@@ -246,6 +246,22 @@
         }
         .print-only { display: none !important; }
         
+        /* High-contrast CTA and button link enforcement */
+        .cta-btn, .cta-btn *,
+        .prose a.cta-btn, .prose a.cta-btn *,
+        .prose a[class*="bg-sky-500"], .prose a[class*="bg-sky-500"] *,
+        .prose a[class*="bg-emerald-600"], .prose a[class*="bg-emerald-600"] *,
+        .prose a[class*="bg-blue-600"], .prose a[class*="bg-blue-600"] * {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .cta-lead-btn, .cta-lead-btn *,
+        .prose a.cta-lead-btn, .prose a.cta-lead-btn * {
+            color: #0f172a !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        
         @media print {
             @page {
                 size: A4 portrait;
@@ -456,6 +472,7 @@
             <div class="prose-content max-w-none">
                 
                 
+                
                     <!-- Article Header -->
                     <header class="mb-12">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-600 text-xs font-semibold tracking-wider uppercase mb-4">
@@ -521,7 +538,7 @@
                                 <p class="text-xs sm:text-sm text-slate-600 m-0 !mb-0 leading-relaxed">La falta de detalles en los hechos, invocar la causal de necesidades de la empresa de forma genérica, o no adjuntar el comprobante de pago de cotizaciones previsionales son vicios graves. Si tu empleador cometió estos errores, podrías demandar un despido injustificado y obtener un <strong>recargo del 30% al 50%</strong>. Permítenos conectar tu caso con un especialista de forma gratuita.</p>
                             </div>
                         </div>
-                        <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-800 text-sm font-bold rounded-xl shadow-lg shadow-amber-500/15 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap">
+                        <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 !text-slate-900 font-bold text-sm rounded-xl shadow-md shadow-amber-500/20 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap !no-underline cursor-pointer">
                             Consultar Caso
                             <span class="material-icons text-sm">arrow_forward</span>
                         </a>
@@ -674,7 +691,7 @@ R.U.T.: [TU RUT]
                         <p class="!text-slate-600 !text-base !mb-6">
                             Si ya cuentas con tu carta de despido y deseas simular el monto final exacto de tu finiquito (incluyendo años de servicio y aviso previo si aplica), utiliza nuestra herramienta interactiva.
                         </p>
-                        <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-[1.01] active:scale-95 !no-underline cursor-pointer">
                             <span class="material-icons">calculate</span>
                             Usar Calculadora de Finiquito
                         </a>
@@ -719,6 +736,7 @@ R.U.T.: [TU RUT]
                         </p>
                     </div>
                 
+            
             
             </div>
         </article>
@@ -896,8 +914,8 @@ R.U.T.: [TU RUT]
                 } else {
                     throw new Error('Error al enviar');
                 }
-            }).catch(function() {
-                alert('Error al enviar. Intenta de nuevo.');
+            }).catch(function(err) {
+                alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
         }

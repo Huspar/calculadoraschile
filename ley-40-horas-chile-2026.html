@@ -279,6 +279,22 @@
         }
         .print-only { display: none !important; }
         
+        /* High-contrast CTA and button link enforcement */
+        .cta-btn, .cta-btn *,
+        .prose a.cta-btn, .prose a.cta-btn *,
+        .prose a[class*="bg-sky-500"], .prose a[class*="bg-sky-500"] *,
+        .prose a[class*="bg-emerald-600"], .prose a[class*="bg-emerald-600"] *,
+        .prose a[class*="bg-blue-600"], .prose a[class*="bg-blue-600"] * {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .cta-lead-btn, .cta-lead-btn *,
+        .prose a.cta-lead-btn, .prose a.cta-lead-btn * {
+            color: #0f172a !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        
         @media print {
             @page {
                 size: A4 portrait;
@@ -495,6 +511,7 @@
                 
                 
                 
+                
 
             <!-- Article Header -->
             <header class="mb-12">
@@ -651,7 +668,7 @@
                         </div>
                         <p class="text-slate-600 text-xs sm:text-sm m-0">¿Quieres conocer exactamente cuánto recibirás a fin de mes con la jornada de 42 horas y los descuentos de AFP y Salud?</p>
                     </div>
-                    <a href="sueldo_liquido" class="shrink-0 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-slate-900 font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/20 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap">
+                    <a href="sueldo_liquido" class="inline-flex items-center justify-center shrink-0 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap !no-underline cursor-pointer">
                         Calcular Sueldo Líquido →
                     </a>
                 </div>
@@ -725,7 +742,7 @@
                         </div>
                         <p class="text-slate-600 text-xs sm:text-sm m-0">¿Te despidieron o estás pensando en renunciar? Calcula tu indemnización, vacaciones proporcionales y aviso previo con formato legal y descarga en PDF.</p>
                     </div>
-                    <a href="finiquito_calculator" class="shrink-0 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-slate-900 font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap">
+                    <a href="finiquito_calculator" class="inline-flex items-center justify-center shrink-0 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 !text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap !no-underline cursor-pointer">
                         Simular mi Finiquito →
                     </a>
                 </div>
@@ -762,7 +779,7 @@
                         Con la nueva jornada de 42 horas, tu valor por hora cambió. Calcula tu sueldo líquido actualizado y conoce el desglose completo.
                     </p>
                     <a href="sueldo_liquido"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-500 hover:bg-sky-600 !text-white font-bold rounded-xl shadow-md shadow-sky-500/15 transition-all hover:scale-[1.01] active:scale-95 !no-underline cursor-pointer">
                         <span class="material-icons">account_balance_wallet</span>
                         Calcular mi Sueldo Líquido
                     </a>
@@ -786,6 +803,7 @@
                 </div>
             </div>
         
+            
             
             
             
@@ -969,8 +987,8 @@
                 } else {
                     throw new Error('Error al enviar');
                 }
-            }).catch(function() {
-                alert('Error al enviar. Intenta de nuevo.');
+            }).catch(function(err) {
+                alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
         }
