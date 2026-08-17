@@ -474,7 +474,8 @@
 
     <!-- Main Content -->
     <main class="flex-grow pt-4 pb-16">
-        <div class="w-full">
+        <div class="max-w-[1200px] mx-auto px-6">
+        
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
             <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
@@ -482,33 +483,36 @@
             <span class="text-slate-600 font-semibold">Calculadora de Horas Extras</span>
         </nav>
 
-        <!-- Hero Title Header -->
-        <div class="mb-8 text-center max-w-3xl mx-auto">
+        <!-- Hero Header Section -->
+        <div class="text-center my-8 max-w-2xl mx-auto no-print">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200 mb-3">
                 <span class="material-icons text-xs text-sky-600">schedule</span> Actualizado Ley 40 Horas (Jornada 42h)
             </span>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
                 Calculadora de Horas Extras Chile 2026
             </h1>
-            <p class="text-slate-600 text-sm sm:text-base mt-2">
-                Calcula el valor exacto de tu hora ordinaria y horas extraordinarias con recargo legal del <strong>50%</strong> y <strong>100%</strong> según las fórmulas vigentes de la Dirección del Trabajo.
+            <p class="text-slate-500 text-sm mt-1">
+                Calcula el valor exacto de tu hora ordinaria y horas extraordinarias con recargo legal del <strong>50%</strong> y <strong>100%</strong> según las fórmulas oficiales de la Dirección del Trabajo.
             </p>
         </div>
 
-        <!-- Calculator Interactive Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+        <!-- Two Column Interactive Layout (440px Inputs Left, Flexible Results Right) -->
+        <div class="flex flex-col lg:flex-row gap-8 items-start mb-16">
             
-            <!-- Left Column: Form Controls (7 cols) -->
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-                <h2 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                    <span class="material-icons text-sky-500">tune</span> Datos para el cálculo
-                </h2>
+            <!-- Left Column: Form Controls (440px Fixed) -->
+            <div class="w-full lg:w-[440px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="material-icons text-sky-500">tune</span> Datos para el cálculo
+                    </h2>
+                    <span class="text-[11px] font-mono text-slate-400 font-semibold" id="he-divisor-badge">Divisor: 181.86h</span>
+                </div>
 
                 <!-- 1. Sueldo Base -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label for="he-sueldo-base" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                            Sueldo Base Mensual ($ CLP)
+                        <label for="he-sueldo-base" class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Sueldo Base Mensual
                         </label>
                         <button type="button" onclick="setHEMinimo()" class="text-[11px] font-bold text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer active:scale-95">
                             Usar Mínimo ($553.553)
@@ -516,17 +520,17 @@
                     </div>
                     <div class="relative rounded-2xl shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
-                        <input type="text" id="he-sueldo-base" value="553.553" oninput="formatHEInput(this); calculateHorasExtras();" class="w-full pl-8 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
+                        <input type="text" id="he-sueldo-base" value="553.553" oninput="formatHEInput(this); calculateHorasExtras();" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
                     </div>
                     <p class="text-[11px] text-slate-400 mt-1">Sueldo fijo pactado en tu contrato de trabajo.</p>
                 </div>
 
                 <!-- 2. Jornada Semanal Pactada -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
                         Jornada Semanal Pactada
                     </label>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div class="grid grid-cols-2 gap-2">
                         <label class="cursor-pointer">
                             <input type="radio" name="he-jornada" value="42" checked onchange="calculateHorasExtras()" class="peer sr-only">
                             <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
@@ -555,12 +559,15 @@
                 </div>
 
                 <!-- 3. Horas Extras Realizadas -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                <div class="space-y-3 pt-2 border-t border-slate-100">
                     <!-- Horas al 50% -->
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                        <label for="he-cant-50" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Horas Extras al 50%
-                        </label>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="he-cant-50" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Horas Extras al 50%
+                            </label>
+                            <span class="text-[10px] font-semibold text-sky-600 font-mono" id="he-live-unit-50">$3.954 c/u</span>
+                        </div>
                         <span class="block text-[10px] text-slate-400 mb-2">Días hábiles normales (lunes a sábado)</span>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="adjustHE('he-cant-50', -1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">-</button>
@@ -571,9 +578,12 @@
 
                     <!-- Horas al 100% -->
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                        <label for="he-cant-100" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Horas Extras al 100%
-                        </label>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="he-cant-100" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Horas Extras al 100%
+                            </label>
+                            <span class="text-[10px] font-semibold text-emerald-600 font-mono" id="he-live-unit-100">$5.272 c/u</span>
+                        </div>
                         <span class="block text-[10px] text-slate-400 mb-2">Domingos, festivos o pacto especial</span>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="adjustHE('he-cant-100', -1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">-</button>
@@ -584,74 +594,69 @@
                 </div>
             </div>
 
-            <!-- Right Column: Results Summary (5 cols) -->
-            <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+            <!-- Right Column: Results Summary (Light Theme matching index.html) -->
+            <div class="w-full flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
                 
-                <!-- Main Value Card -->
-                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-7 shadow-xl">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Total Horas Extras</span>
-                        <span class="text-[10px] bg-slate-700/80 px-2 py-0.5 rounded text-slate-300 font-mono" id="he-divisor-badge">Divisor DT: 181.86h</span>
-                    </div>
-
-                    <div class="mb-6">
-                        <span class="block text-xs text-slate-400 mb-1">Monto Bruto a Pago</span>
-                        <div class="text-3xl sm:text-4xl font-black text-white font-mono tracking-tight" id="he-total-bruto">
-                            $39.540
+                <!-- Main Header / Totals Section -->
+                <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Bruto a Pago</h3>
+                        <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                            <span id="he-total-bruto" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$39.540</span>
                         </div>
-                        <p class="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1">
-                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-white">$31.632</strong>
+                        <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center justify-center sm:justify-start gap-1">
+                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-slate-800">$31.632</strong>
                         </p>
                     </div>
+                    <div class="text-center sm:text-right bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Total Horas</span>
+                        <span id="he-total-horas" class="text-lg font-bold text-sky-600 font-mono">10.0 hrs</span>
+                    </div>
+                </div>
 
-                    <!-- Unit Values Grid -->
-                    <div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-700/60 text-xs">
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-slate-400 block text-[10px]">Hora Ordinaria</span>
-                            <span class="font-mono font-bold text-sm text-white" id="he-unit-ordinaria">$2.636</span>
+                <!-- Unit Values Grid (Light Theme) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <span class="text-slate-500 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Ordinaria</span>
+                        <span class="font-mono font-bold text-base text-slate-900" id="he-unit-ordinaria">$2.636</span>
+                    </div>
+                    <div class="bg-sky-50/60 border border-sky-200 rounded-2xl p-4">
+                        <span class="text-sky-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 50%</span>
+                        <span class="font-mono font-bold text-base text-sky-700" id="he-unit-50">$3.954</span>
+                    </div>
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4">
+                        <span class="text-emerald-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 100%</span>
+                        <span class="font-mono font-bold text-base text-emerald-700" id="he-unit-100">$5.272</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown List -->
+                <div class="space-y-3 pt-2">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Desglose de Liquidación</h4>
+                    <div class="space-y-2 text-xs divide-y divide-slate-100">
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-slate-600">Subtotal 50% (<span id="he-desc-cant-50">10</span> hrs):</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-50">$39.540</span>
                         </div>
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-sky-400 block text-[10px] font-semibold">Hora Extra 50%</span>
-                            <span class="font-mono font-bold text-sm text-sky-300" id="he-unit-50">$3.954</span>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-600">Subtotal 100% (<span id="he-desc-cant-100">0</span> hrs):</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-100">$0</span>
                         </div>
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-emerald-400 block text-[10px] font-semibold">Hora Extra 100%</span>
-                            <span class="font-mono font-bold text-sm text-emerald-300" id="he-unit-100">$5.272</span>
-                        </div>
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-slate-400 block text-[10px]">Total Horas Hechas</span>
-                            <span class="font-mono font-bold text-sm text-white" id="he-total-horas">10.0 hrs</span>
+                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                            <span class="text-slate-900">Total Imponible Horas Extras:</span>
+                            <span class="font-mono text-sky-600" id="he-breakdown-total">$39.540</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Breakdown Card -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
-                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Desglose de Pago</h3>
-                    <div class="space-y-2 text-xs divide-y divide-slate-100">
-                        <div class="flex justify-between items-center pt-1">
-                            <span class="text-slate-600">Subtotal 50% (<span id="he-desc-cant-50">10</span> hrs):</span>
-                            <span class="font-mono font-bold text-slate-900" id="he-subtotal-50">$39.540</span>
-                        </div>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-slate-600">Subtotal 100% (<span id="he-desc-cant-100">0</span> hrs):</span>
-                            <span class="font-mono font-bold text-slate-900" id="he-subtotal-100">$0</span>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
-                            <span class="text-slate-900">Total Imponible:</span>
-                            <span class="font-mono text-sky-600" id="he-breakdown-total">$39.540</span>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="pt-3 flex gap-2">
-                        <button type="button" onclick="copyHEResults()" id="he-copy-btn" class="flex-1 py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95">
-                            <span class="material-icons text-xs">content_copy</span> <span id="he-copy-text">Copiar Resumen</span>
-                        </button>
-                        <a href="sueldo_liquido" class="flex-1 py-2.5 px-3 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1 text-center shadow-md shadow-sky-500/10 active:scale-95">
-                            <span class="material-icons text-xs">payments</span> Ver en Liquidación
-                        </a>
-                    </div>
+                <!-- Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-3 border-t border-slate-100">
+                    <button type="button" onclick="copyHEResults()" id="he-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
+                        <span class="material-icons text-sm">content_copy</span> <span id="he-copy-text">Copiar Resumen</span>
+                    </button>
+                    <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
+                        <span class="material-icons text-sm">payments</span> Ver en Calculadora de Sueldo
+                    </a>
                 </div>
             </div>
         </div>
@@ -977,12 +982,13 @@
         }
     </script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-700 font-sans antialiased min-h-screen flex flex-col">
 
     <!-- Header will be injected by build_redesign.py -->
 
-    <!-- Main Content Container -->
-    <main class="flex-grow max-w-[1200px] mx-auto px-4 sm:px-6 py-8 w-full">
+    <!-- Main Content Container with Standard Max-Width & Padding -->
+    <main class="flex-grow max-w-[1200px] mx-auto px-6 pt-4 pb-16 w-full">
+        
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6" aria-label="Breadcrumb">
             <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
@@ -990,33 +996,36 @@
             <span class="text-slate-600 font-semibold">Calculadora de Horas Extras</span>
         </nav>
 
-        <!-- Hero Title Header -->
-        <div class="mb-8 text-center max-w-3xl mx-auto">
+        <!-- Hero Header Section -->
+        <div class="text-center my-8 max-w-2xl mx-auto no-print">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200 mb-3">
                 <span class="material-icons text-xs text-sky-600">schedule</span> Actualizado Ley 40 Horas (Jornada 42h)
             </span>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
                 Calculadora de Horas Extras Chile 2026
             </h1>
-            <p class="text-slate-600 text-sm sm:text-base mt-2">
-                Calcula el valor exacto de tu hora ordinaria y horas extraordinarias con recargo legal del <strong>50%</strong> y <strong>100%</strong> según las fórmulas vigentes de la Dirección del Trabajo.
+            <p class="text-slate-500 text-sm mt-1">
+                Calcula el valor exacto de tu hora ordinaria y horas extraordinarias con recargo legal del <strong>50%</strong> y <strong>100%</strong> según las fórmulas oficiales de la Dirección del Trabajo.
             </p>
         </div>
 
-        <!-- Calculator Interactive Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+        <!-- Two Column Interactive Layout (440px Inputs Left, Flexible Results Right) -->
+        <div class="flex flex-col lg:flex-row gap-8 items-start mb-16">
             
-            <!-- Left Column: Form Controls (7 cols) -->
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-                <h2 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                    <span class="material-icons text-sky-500">tune</span> Datos para el cálculo
-                </h2>
+            <!-- Left Column: Form Controls (440px Fixed) -->
+            <div class="w-full lg:w-[440px] shrink-0 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="material-icons text-sky-500">tune</span> Datos para el cálculo
+                    </h2>
+                    <span class="text-[11px] font-mono text-slate-400 font-semibold" id="he-divisor-badge">Divisor: 181.86h</span>
+                </div>
 
                 <!-- 1. Sueldo Base -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label for="he-sueldo-base" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                            Sueldo Base Mensual ($ CLP)
+                        <label for="he-sueldo-base" class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Sueldo Base Mensual
                         </label>
                         <button type="button" onclick="setHEMinimo()" class="text-[11px] font-bold text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer active:scale-95">
                             Usar Mínimo ($553.553)
@@ -1024,17 +1033,17 @@
                     </div>
                     <div class="relative rounded-2xl shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 font-bold">$</div>
-                        <input type="text" id="he-sueldo-base" value="553.553" oninput="formatHEInput(this); calculateHorasExtras();" class="w-full pl-8 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
+                        <input type="text" id="he-sueldo-base" value="553.553" oninput="formatHEInput(this); calculateHorasExtras();" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-mono font-bold text-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all">
                     </div>
                     <p class="text-[11px] text-slate-400 mt-1">Sueldo fijo pactado en tu contrato de trabajo.</p>
                 </div>
 
                 <!-- 2. Jornada Semanal Pactada -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
                         Jornada Semanal Pactada
                     </label>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div class="grid grid-cols-2 gap-2">
                         <label class="cursor-pointer">
                             <input type="radio" name="he-jornada" value="42" checked onchange="calculateHorasExtras()" class="peer sr-only">
                             <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
@@ -1063,12 +1072,15 @@
                 </div>
 
                 <!-- 3. Horas Extras Realizadas -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                <div class="space-y-3 pt-2 border-t border-slate-100">
                     <!-- Horas al 50% -->
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                        <label for="he-cant-50" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Horas Extras al 50%
-                        </label>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="he-cant-50" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Horas Extras al 50%
+                            </label>
+                            <span class="text-[10px] font-semibold text-sky-600 font-mono" id="he-live-unit-50">$3.954 c/u</span>
+                        </div>
                         <span class="block text-[10px] text-slate-400 mb-2">Días hábiles normales (lunes a sábado)</span>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="adjustHE('he-cant-50', -1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">-</button>
@@ -1079,9 +1091,12 @@
 
                     <!-- Horas al 100% -->
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                        <label for="he-cant-100" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Horas Extras al 100%
-                        </label>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="he-cant-100" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Horas Extras al 100%
+                            </label>
+                            <span class="text-[10px] font-semibold text-emerald-600 font-mono" id="he-live-unit-100">$5.272 c/u</span>
+                        </div>
                         <span class="block text-[10px] text-slate-400 mb-2">Domingos, festivos o pacto especial</span>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="adjustHE('he-cant-100', -1)" class="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all">-</button>
@@ -1092,74 +1107,69 @@
                 </div>
             </div>
 
-            <!-- Right Column: Results Summary (5 cols) -->
-            <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+            <!-- Right Column: Results Summary (Light Theme matching index.html) -->
+            <div class="w-full flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
                 
-                <!-- Main Value Card -->
-                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-7 shadow-xl">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Total Horas Extras</span>
-                        <span class="text-[10px] bg-slate-700/80 px-2 py-0.5 rounded text-slate-300 font-mono" id="he-divisor-badge">Divisor DT: 181.86h</span>
-                    </div>
-
-                    <div class="mb-6">
-                        <span class="block text-xs text-slate-400 mb-1">Monto Bruto a Pago</span>
-                        <div class="text-3xl sm:text-4xl font-black text-white font-mono tracking-tight" id="he-total-bruto">
-                            $39.540
+                <!-- Main Header / Totals Section -->
+                <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Bruto a Pago</h3>
+                        <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                            <span id="he-total-bruto" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$39.540</span>
                         </div>
-                        <p class="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1">
-                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-white">$31.632</strong>
+                        <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center justify-center sm:justify-start gap-1">
+                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-slate-800">$31.632</strong>
                         </p>
                     </div>
+                    <div class="text-center sm:text-right bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Total Horas</span>
+                        <span id="he-total-horas" class="text-lg font-bold text-sky-600 font-mono">10.0 hrs</span>
+                    </div>
+                </div>
 
-                    <!-- Unit Values Grid -->
-                    <div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-700/60 text-xs">
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-slate-400 block text-[10px]">Hora Ordinaria</span>
-                            <span class="font-mono font-bold text-sm text-white" id="he-unit-ordinaria">$2.636</span>
+                <!-- Unit Values Grid (Light Theme) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <span class="text-slate-500 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Ordinaria</span>
+                        <span class="font-mono font-bold text-base text-slate-900" id="he-unit-ordinaria">$2.636</span>
+                    </div>
+                    <div class="bg-sky-50/60 border border-sky-200 rounded-2xl p-4">
+                        <span class="text-sky-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 50%</span>
+                        <span class="font-mono font-bold text-base text-sky-700" id="he-unit-50">$3.954</span>
+                    </div>
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4">
+                        <span class="text-emerald-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 100%</span>
+                        <span class="font-mono font-bold text-base text-emerald-700" id="he-unit-100">$5.272</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown List -->
+                <div class="space-y-3 pt-2">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Desglose de Liquidación</h4>
+                    <div class="space-y-2 text-xs divide-y divide-slate-100">
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-slate-600">Subtotal 50% (<span id="he-desc-cant-50">10</span> hrs):</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-50">$39.540</span>
                         </div>
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-sky-400 block text-[10px] font-semibold">Hora Extra 50%</span>
-                            <span class="font-mono font-bold text-sm text-sky-300" id="he-unit-50">$3.954</span>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-600">Subtotal 100% (<span id="he-desc-cant-100">0</span> hrs):</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-100">$0</span>
                         </div>
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-emerald-400 block text-[10px] font-semibold">Hora Extra 100%</span>
-                            <span class="font-mono font-bold text-sm text-emerald-300" id="he-unit-100">$5.272</span>
-                        </div>
-                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-                            <span class="text-slate-400 block text-[10px]">Total Horas Hechas</span>
-                            <span class="font-mono font-bold text-sm text-white" id="he-total-horas">10.0 hrs</span>
+                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                            <span class="text-slate-900">Total Imponible Horas Extras:</span>
+                            <span class="font-mono text-sky-600" id="he-breakdown-total">$39.540</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Breakdown Card -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
-                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Desglose de Pago</h3>
-                    <div class="space-y-2 text-xs divide-y divide-slate-100">
-                        <div class="flex justify-between items-center pt-1">
-                            <span class="text-slate-600">Subtotal 50% (<span id="he-desc-cant-50">10</span> hrs):</span>
-                            <span class="font-mono font-bold text-slate-900" id="he-subtotal-50">$39.540</span>
-                        </div>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-slate-600">Subtotal 100% (<span id="he-desc-cant-100">0</span> hrs):</span>
-                            <span class="font-mono font-bold text-slate-900" id="he-subtotal-100">$0</span>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 font-bold text-sm">
-                            <span class="text-slate-900">Total Imponible:</span>
-                            <span class="font-mono text-sky-600" id="he-breakdown-total">$39.540</span>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="pt-3 flex gap-2">
-                        <button type="button" onclick="copyHEResults()" id="he-copy-btn" class="flex-1 py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95">
-                            <span class="material-icons text-xs">content_copy</span> <span id="he-copy-text">Copiar Resumen</span>
-                        </button>
-                        <a href="sueldo_liquido" class="flex-1 py-2.5 px-3 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1 text-center shadow-md shadow-sky-500/10 active:scale-95">
-                            <span class="material-icons text-xs">payments</span> Ver en Liquidación
-                        </a>
-                    </div>
+                <!-- Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-3 border-t border-slate-100">
+                    <button type="button" onclick="copyHEResults()" id="he-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
+                        <span class="material-icons text-sm">content_copy</span> <span id="he-copy-text">Copiar Resumen</span>
+                    </button>
+                    <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
+                        <span class="material-icons text-sm">payments</span> Ver en Calculadora de Sueldo
+                    </a>
                 </div>
             </div>
         </div>
@@ -1344,6 +1354,8 @@
             document.getElementById('he-unit-ordinaria').innerText = formatCurrency(valorOrdinaria);
             document.getElementById('he-unit-50').innerText = formatCurrency(valor50);
             document.getElementById('he-unit-100').innerText = formatCurrency(valor100);
+            document.getElementById('he-live-unit-50').innerText = formatCurrency(valor50) + ' c/u';
+            document.getElementById('he-live-unit-100').innerText = formatCurrency(valor100) + ' c/u';
             document.getElementById('he-total-horas').innerText = (cant50 + cant100).toFixed(1) + ' hrs';
 
             // Render totals

@@ -3957,13 +3957,19 @@ def build_custom_calculator(filename, title, description):
         custom_head="",
         header=HEADER_HTML,
         indicator_bar=INDICATOR_BAR_HTML,
-        content=f'<div class="w-full">{main_content}</div>',
+        content=f'<div class="max-w-[1200px] mx-auto px-6">{main_content}</div>',
         footer=FOOTER_HTML,
         history_modal=HISTORY_MODAL_HTML,
         custom_scripts=custom_scripts
     )
     
-    with open(os.path.join(DEST_DIR, filename), "w", encoding="utf-8") as f:
+    dest_file = os.path.join(DEST_DIR, filename)
+    with open(dest_file, "w", encoding="utf-8") as f:
+        f.write(html_out)
+    
+    # Also sync compiled version to root directory
+    root_file = os.path.join(SOURCE_DIR, filename)
+    with open(root_file, "w", encoding="utf-8") as f:
         f.write(html_out)
 
 build_custom_calculator(
