@@ -29,30 +29,186 @@ def generate_seo_tags(filename, title, description, page_type="website"):
     ]
     og_tags = "\n    ".join(og_tags_list)
     
-    # 3. JSON-LD Structured Data
+    # 3. Structured Data with FAQPage Schema
+    faqs_sueldo = [
+        {
+            "@type": "Question",
+            "name": "¿Cómo se calcula el sueldo líquido en Chile?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El sueldo líquido se obtiene restando del Sueldo Bruto Imponible los descuentos obligatorios: AFP (10,58% a 11,45%), Salud (7% Fonasa o pactado en Isapre), Seguro de Cesantía (0,6% en contrato indefinido) y el Impuesto Único de Segunda Categoría si la renta imponible supera las 13,5 UTM."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cuáles son las comisiones de las AFP vigentes en 2026?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Las tasas totales obligatorias de AFP en 2026 son: AFP Modelo 10,58%, AFP Uno 10,69%, Planvital 11,16%, Habitat 11,27%, Capital 11,44%, Cuprum 11,44% y Provida 11,45%."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo funciona el tope de gratificación legal (Art. 50)?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El empleador abona el 25% de las remuneraciones devengadas con un tope anual legal de 4,75 Ingresos Mínimos Mensuales (IMM), equivalentes a $219.114 mensuales con el sueldo mínimo vigente de 2026."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Qué haberes no pagan impuestos ni cotizaciones previsionales?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Las asignaciones de colación, movilización y viáticos no son imponibles ni tributables, siempre que sus montos sean razonables y correspondan a gastos efectivos del trabajador."
+            }
+        }
+    ]
+
+    faqs_finiquito = [
+        {
+            "@type": "Question",
+            "name": "¿Qué conceptos integra un finiquito laboral en Chile?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Un finiquito legal contempla: remuneraciones pendientes de los días trabajados en el mes, indemnización por vacaciones proporcionales y pendientes, indemnización por años de servicio (1 mes por año en despidos por Art. 161) e indemnización sustitutiva de aviso previo (1 mes si no se avisó con 30 días de anticipación)."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo se calcula la indemnización por años de servicio?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Conforme al artículo 163 del Código del Trabajo, si el despido es por Necesidades de la Empresa (Art. 161), corresponde 1 mes de la última remuneración mensual por cada año trabajado (y fracción superior a 6 meses), con un tope legal máximo de 11 años y 90 UF por mes."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo se pagan las vacaciones proporcionales en el finiquito?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Se acumulan 1,25 días hábiles por cada mes trabajado. Al terminar la relación laboral, los días hábiles acumulados se proyectan sobre días corridos y se multiplican por la remuneración diaria del trabajador."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cuál es el plazo legal para el pago del finiquito?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "De acuerdo con el artículo 177 del Código del Trabajo, el empleador tiene un plazo máximo legal de 10 días hábiles desde el término del contrato para poner a disposición del trabajador el finiquito y el pago total."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cuándo puede el empleador descontar el aporte de la AFC?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Solo en despidos por el Artículo 161 (Necesidades de la Empresa), el empleador tiene derecho a descontar de la indemnización por años de servicio el monto histórico que aportó a la cuenta individual de cesantía del trabajador (Art. 13 Ley 19.728)."
+            }
+        }
+    ]
+
+    faqs_40h = [
+        {
+            "@type": "Question",
+            "name": "¿La reducción a 42 horas puede disminuir mi sueldo?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. La Ley 21.561 prohíbe expresamente que la reducción de jornada laboral disminuya las remuneraciones de los trabajadores."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cuánto vale la hora ordinaria de trabajo en Chile en 2026?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Con la jornada de 42 horas y el sueldo mínimo de $553.553, el valor de la hora ordinaria mínima es de aproximadamente $2.636 CLP y la hora extraordinaria al 50% es de $3.954 CLP."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Qué pasa si mi empleador no aplica la reducción a 42 horas?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Puedes ingresar una denuncia confidencial ante la Dirección del Trabajo (DT). El empleador se expone a multas que van desde 1 a 60 UTM por cada trabajador afectado."
+            }
+        }
+    ]
+
     if filename == "index.html":
         json_ld_data = {
             "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Cálculo Laboral Chile",
-            "url": "https://calculolaboral.cl/",
-            "description": "Calcula gratis tu sueldo líquido y finiquito en Chile.",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://calculolaboral.cl/?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-            }
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "name": "Cálculo Laboral Chile",
+                    "url": "https://calculolaboral.cl/",
+                    "description": "Calcula gratis tu sueldo líquido y finiquito en Chile con las leyes oficiales de la Dirección del Trabajo.",
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "target": "https://calculolaboral.cl/?q={search_term_string}",
+                        "query-input": "required name=search_term_string"
+                    }
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_sueldo[:2] + faqs_finiquito[:2]
+                }
+            ]
         }
-    elif filename in ["sueldo_liquido.html", "finiquito_calculator.html"]:
-        calc_name = "Calculadora de Sueldo Líquido" if filename == "sueldo_liquido.html" else "Calculadora de Finiquito"
+    elif filename == "sueldo_liquido.html":
         json_ld_data = {
             "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": calc_name,
-            "applicationCategory": "FinanceApplication",
-            "operatingSystem": "Web",
-            "description": description,
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+            "@graph": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "Calculadora de Sueldo Líquido Chile 2026",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "description": description,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_sueldo
+                }
+            ]
+        }
+    elif filename == "finiquito_calculator.html":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "Calculadora de Finiquito Chile 2026",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "description": description,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_finiquito
+                }
+            ]
+        }
+    elif filename == "ley-40-horas-chile-2026.html":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "headline": title.split("|")[0].strip(),
+                    "description": description,
+                    "author": { "@type": "Organization", "name": "Cálculo Laboral" },
+                    "datePublished": "2026-01-01",
+                    "dateModified": "2026-07-08"
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_40h
+                }
+            ]
         }
     elif page_type == "article":
         json_ld_data = {
@@ -62,7 +218,7 @@ def generate_seo_tags(filename, title, description, page_type="website"):
             "description": description,
             "author": { "@type": "Organization", "name": "Cálculo Laboral" },
             "datePublished": "2026-01-01",
-            "dateModified": "2026-06-01"
+            "dateModified": "2026-07-08"
         }
     else:
         json_ld_data = {
@@ -3705,8 +3861,12 @@ copy_dir_clean("Articulos")
 copy_dir_clean("js")
 copy_dir_clean("assets")
 
-# NOTE: Do NOT write vercel.json to parent dir — would overwrite production config
-# with open(os.path.join(os.path.dirname(DEST_DIR), "vercel.json"), "w", encoding="utf-8") as f:
-#     f.write(vercel_json_content)
+# Copy sitemap.xml and robots.txt
+for static_file in ["sitemap.xml", "robots.txt"]:
+    src_f = os.path.join(SOURCE_DIR, static_file)
+    dst_f = os.path.join(DEST_DIR, static_file)
+    if os.path.exists(src_f):
+        shutil.copy2(src_f, dst_f)
+        print(f"Copied {static_file} to output directory.")
 
 print("Redesign complete! All 17 HTML files have been beautifully generated under calculolaboral-v2.")
