@@ -504,7 +504,7 @@
                     <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                         <span class="material-icons text-sky-500">tune</span> Datos para el cálculo
                     </h2>
-                    <span class="text-[11px] font-mono text-slate-400 font-semibold" id="he-divisor-badge">Divisor: 181.86h</span>
+                    <span class="text-[11px] font-mono text-slate-400 font-semibold" id="he-divisor-badge">Divisor DT: 180 hrs</span>
                 </div>
 
                 <!-- 1. Sueldo Base -->
@@ -533,25 +533,25 @@
                         <label class="cursor-pointer">
                             <input type="radio" name="he-jornada" value="42" checked onchange="calculateHorasExtras()" class="peer sr-only">
                             <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
-                                42 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Legal 2026</span>
+                                42 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Legal 2026 (÷180)</span>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="he-jornada" value="40" onchange="calculateHorasExtras()" class="peer sr-only">
                             <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
-                                40 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Sello 40h</span>
+                                40 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Sello 40h (÷171.4)</span>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="he-jornada" value="44" onchange="calculateHorasExtras()" class="peer sr-only">
                             <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
-                                44 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Etapa 2024</span>
+                                44 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Etapa 2024 (÷188.6)</span>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" name="he-jornada" value="45" onchange="calculateHorasExtras()" class="peer sr-only">
                             <div class="p-3 text-center border border-slate-200 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 font-bold text-xs hover:bg-slate-50 transition-all">
-                                45 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Histórica</span>
+                                45 horas <span class="block text-[10px] font-normal text-slate-400 peer-checked:text-sky-600">Histórica (÷192.9)</span>
                             </div>
                         </label>
                     </div>
@@ -565,7 +565,7 @@
                             <label for="he-cant-50" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
                                 Horas Extras al 50%
                             </label>
-                            <span class="text-[10px] font-semibold text-sky-600 font-mono" id="he-live-unit-50">$3.954 c/u</span>
+                            <span class="text-[10px] font-semibold text-sky-600 font-mono" id="he-live-unit-50">$4.613 c/u</span>
                         </div>
                         <span class="block text-[10px] text-slate-400 mb-2">Días hábiles normales (lunes a sábado)</span>
                         <div class="flex items-center gap-2">
@@ -581,7 +581,7 @@
                             <label for="he-cant-100" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
                                 Horas Extras al 100%
                             </label>
-                            <span class="text-[10px] font-semibold text-emerald-600 font-mono" id="he-live-unit-100">$5.272 c/u</span>
+                            <span class="text-[10px] font-semibold text-emerald-600 font-mono" id="he-live-unit-100">$6.151 c/u</span>
                         </div>
                         <span class="block text-[10px] text-slate-400 mb-2">Domingos, festivos o pacto especial</span>
                         <div class="flex items-center gap-2">
@@ -601,10 +601,10 @@
                     <div>
                         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Bruto a Pago</h3>
                         <div class="flex items-baseline gap-2 justify-center sm:justify-start">
-                            <span id="he-total-bruto" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$39.540</span>
+                            <span id="he-total-bruto" class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-mono">$46.130</span>
                         </div>
                         <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center justify-center sm:justify-start gap-1">
-                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-slate-800">$31.632</strong>
+                            <span class="material-icons text-xs">payments</span> Líquido adicional aprox: <strong id="he-total-neto" class="font-mono text-slate-800">$36.904</strong>
                         </p>
                     </div>
                     <div class="text-center sm:text-right bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3">
@@ -617,15 +617,15 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
                         <span class="text-slate-500 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Ordinaria</span>
-                        <span class="font-mono font-bold text-base text-slate-900" id="he-unit-ordinaria">$2.636</span>
+                        <span class="font-mono font-bold text-base text-slate-900" id="he-unit-ordinaria">$3.075</span>
                     </div>
                     <div class="bg-sky-50/60 border border-sky-200 rounded-2xl p-4">
                         <span class="text-sky-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 50%</span>
-                        <span class="font-mono font-bold text-base text-sky-700" id="he-unit-50">$3.954</span>
+                        <span class="font-mono font-bold text-base text-sky-700" id="he-unit-50">$4.613</span>
                     </div>
                     <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4">
                         <span class="text-emerald-700 block text-[10px] font-bold uppercase tracking-wider mb-1">Hora Extra 100%</span>
-                        <span class="font-mono font-bold text-base text-emerald-700" id="he-unit-100">$5.272</span>
+                        <span class="font-mono font-bold text-base text-emerald-700" id="he-unit-100">$6.151</span>
                     </div>
                 </div>
 
@@ -635,7 +635,7 @@
                     <div class="space-y-2 text-xs divide-y divide-slate-100">
                         <div class="flex justify-between items-center pt-1">
                             <span class="text-slate-600">Subtotal 50% (<span id="he-desc-cant-50">10</span> hrs):</span>
-                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-50">$39.540</span>
+                            <span class="font-mono font-semibold text-slate-900" id="he-subtotal-50">$46.130</span>
                         </div>
                         <div class="flex justify-between items-center pt-2">
                             <span class="text-slate-600">Subtotal 100% (<span id="he-desc-cant-100">0</span> hrs):</span>
@@ -643,7 +643,7 @@
                         </div>
                         <div class="flex justify-between items-center pt-2 font-bold text-sm">
                             <span class="text-slate-900">Total Imponible Horas Extras:</span>
-                            <span class="font-mono text-sky-600" id="he-breakdown-total">$39.540</span>
+                            <span class="font-mono text-sky-600" id="he-breakdown-total">$46.130</span>
                         </div>
                     </div>
                 </div>
@@ -666,7 +666,7 @@
             <div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-4">¿Cómo se calculan las horas extras en Chile en 2026?</h2>
                 <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
-                    Con la entrada en vigencia de la segunda etapa de la <strong>Ley 40 Horas (Ley 21.561)</strong>, la jornada laboral ordinaria máxima en Chile se redujo a <strong>42 horas semanales</strong>. Esto modificó favorablemente el valor de la hora de trabajo para todos los trabajadores dependientes, incrementando el monto pagado por cada hora extraordinaria.
+                    Con la entrada en vigencia de la segunda etapa de la <strong>Ley 40 Horas (Ley 21.561)</strong>, la jornada laboral ordinaria máxima en Chile se redujo a <strong>42 horas semanales</strong>. Esto incrementó automáticamente el valor de la hora de trabajo para todos los trabajadores dependientes.
                 </p>
                 
                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 my-6">
@@ -674,53 +674,54 @@
                         <span class="material-icons text-sky-500 text-base">functions</span> Fórmula Oficial de la Dirección del Trabajo (DT)
                     </h3>
                     <p class="text-xs sm:text-sm text-slate-600 font-mono bg-white p-3 rounded-xl border border-slate-200 mb-3">
-                        Valor Hora = (Sueldo Base / 30) × (28 / Jornada Semanal)
+                        Valor Hora Ordinaria = (Sueldo Base / 30) × (7 / Jornada Semanal) = Sueldo Base / Divisor Mensual
                     </p>
                     <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                        <li><strong>Para jornada de 42 horas:</strong> Factor DT = <strong>0,0055555</strong> (Divisor mensual: 181,86 horas).</li>
-                        <li><strong>Para jornada de 40 horas:</strong> Factor DT = <strong>0,0057777</strong> (Divisor mensual: 173,33 horas).</li>
-                        <li><strong>Para jornada de 45 horas (antigua):</strong> Factor DT = <strong>0,0051851</strong> (Divisor mensual: 195 horas).</li>
+                        <li><strong>Para jornada de 42 horas:</strong> Factor DT = <strong>0,0055555...</strong> (Divisor mensual exacto: <strong>180 horas</strong>).</li>
+                        <li><strong>Para jornada de 40 horas:</strong> Factor DT = <strong>0,0058333...</strong> (Divisor mensual: <strong>171,43 horas</strong>).</li>
+                        <li><strong>Para jornada de 44 horas:</strong> Factor DT = <strong>0,0053030...</strong> (Divisor mensual: <strong>188,57 horas</strong>).</li>
+                        <li><strong>Para jornada de 45 horas (antigua):</strong> Factor DT = <strong>0,0051851...</strong> (Divisor mensual: <strong>192,86 horas</strong>).</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Comparison Table -->
             <div>
-                <h3 class="text-xl font-bold text-slate-900 mb-4">Tabla de valores de horas extras 2026 (Jornada 42 Horas)</h3>
+                <h3 class="text-xl font-bold text-slate-900 mb-4">Tabla oficial de horas extras 2026 (Jornada Legal 42 Horas)</h3>
                 <div class="overflow-x-auto border border-slate-200 rounded-2xl">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm">
                         <thead>
                             <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
                                 <th class="p-3.5">Sueldo Base</th>
-                                <th class="p-3.5">Hora Ordinaria</th>
-                                <th class="p-3.5 text-sky-600">Hora Extra 50%</th>
-                                <th class="p-3.5 text-emerald-600">Hora Extra 100%</th>
+                                <th class="p-3.5">Hora Ordinaria (÷180)</th>
+                                <th class="p-3.5 text-sky-600">Hora Extra 50% (×1.5)</th>
+                                <th class="p-3.5 text-emerald-600">Hora Extra 100% (×2.0)</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 font-mono">
                             <tr>
                                 <td class="p-3.5 font-bold text-slate-800">$553.553 (Mínimo)</td>
-                                <td class="p-3.5 text-slate-600">$2.636</td>
-                                <td class="p-3.5 text-sky-600 font-bold">$3.954</td>
-                                <td class="p-3.5 text-emerald-600 font-bold">$5.272</td>
+                                <td class="p-3.5 text-slate-600">$3.075</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$4.613</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$6.151</td>
                             </tr>
                             <tr>
                                 <td class="p-3.5 font-bold text-slate-800">$750.000</td>
-                                <td class="p-3.5 text-slate-600">$3.571</td>
-                                <td class="p-3.5 text-sky-600 font-bold">$5.357</td>
-                                <td class="p-3.5 text-emerald-600 font-bold">$7.143</td>
+                                <td class="p-3.5 text-slate-600">$4.167</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$6.250</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$8.333</td>
                             </tr>
                             <tr>
                                 <td class="p-3.5 font-bold text-slate-800">$1.000.000</td>
-                                <td class="p-3.5 text-slate-600">$4.762</td>
-                                <td class="p-3.5 text-sky-600 font-bold">$7.143</td>
-                                <td class="p-3.5 text-emerald-600 font-bold">$9.524</td>
+                                <td class="p-3.5 text-slate-600">$5.556</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$8.333</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$11.111</td>
                             </tr>
                             <tr>
                                 <td class="p-3.5 font-bold text-slate-800">$1.500.000</td>
-                                <td class="p-3.5 text-slate-600">$7.143</td>
-                                <td class="p-3.5 text-sky-600 font-bold">$10.714</td>
-                                <td class="p-3.5 text-emerald-600 font-bold">$14.286</td>
+                                <td class="p-3.5 text-slate-600">$8.333</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$12.500</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$16.667</td>
                             </tr>
                         </tbody>
                     </table>
@@ -997,8 +998,8 @@
             var cant50 = parseFloat(document.getElementById('he-cant-50').value) || 0;
             var cant100 = parseFloat(document.getElementById('he-cant-100').value) || 0;
 
-            // DT Formula: Valor Hora Ordinaria = (Sueldo / 30) * (28 / Jornada)
-            var valorOrdinaria = (sueldoBase / 30) * (28 / jornada);
+            // Official DT Formula: Valor Hora Ordinaria = (Sueldo / 30) * (7 / Jornada)
+            var valorOrdinaria = (sueldoBase / 30) * (7 / jornada);
             var valor50 = valorOrdinaria * 1.50;
             var valor100 = valorOrdinaria * 2.00;
 
@@ -1008,9 +1009,9 @@
             var totalNeto = totalBruto * 0.80; // Aprox after AFP & Salud (~20%)
 
             // Divisor descriptor
-            var divisor = (30 / 28) * jornada;
+            var divisor = (30 / 7) * jornada;
             var badge = document.getElementById('he-divisor-badge');
-            if (badge) badge.innerText = 'Divisor DT: ' + divisor.toFixed(2) + 'h';
+            if (badge) badge.innerText = 'Divisor DT: ' + (divisor % 1 === 0 ? divisor.toFixed(0) : divisor.toFixed(1)) + ' hrs';
 
             // Render unit values
             var uOrd = document.getElementById('he-unit-ordinaria'); if (uOrd) uOrd.innerText = formatCurrency(valorOrdinaria);
