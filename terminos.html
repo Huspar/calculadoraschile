@@ -113,6 +113,15 @@
             color: #ffffff !important;
             text-decoration: none !important;
         }
+        .prose-content a.cta-lead-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        .prose-content a.cta-lead-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
         .prose-content .callout {
             background-color: #f0fdf4;
             border-left: 4px solid #22c55e;
@@ -233,30 +242,44 @@
         .print-only { display: none !important; }
         
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }
             body > *:not(#print-section) {
                 display: none !important;
             }
             #print-section {
                 display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
             }
             html, body {
                 background: #ffffff !important;
                 color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
-        
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y03F1WB8J"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9Y03F1WB8J');
-  </script>
-
+    
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
@@ -300,10 +323,12 @@
                             Calculadoras
                             <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
                         </button>
-                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1">
                                 <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
-                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
                             </div>
                         </div>
                     </div>
@@ -327,7 +352,7 @@
                                 <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Despido Injustificado</a>
                                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Renuncia Voluntaria</a>
                                 <a href="carta-de-despido-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Carta de Despido Ejemplo</a>
-</div>
+                            </div>
                         </div>
                     </div>
 
@@ -335,17 +360,19 @@
                     <a href="contacto" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
                 </nav>
 
-                                <!-- Mobile Menu -->
+                <!-- Mobile Menu -->
                 <details class="md:hidden">
                     <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
                         <span class="material-icons">menu</span>
                     </summary>
                     <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
                         <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
-<a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
                 <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
                 <div class="border-t border-slate-100 my-2"></div>
-                                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
@@ -363,7 +390,6 @@
                         </div>
                     </div>
                 </details>
-
     </header>
 
     
@@ -412,6 +438,12 @@
         
         <div class="max-w-3xl mx-auto px-6 pt-6">
             <h1 class="text-3xl font-extrabold text-slate-900 mb-6 text-center">Términos de Servicio</h1>
+            <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+                <div class="prose-content max-w-none">
+                    
+        
+        <div class="max-w-3xl mx-auto px-6 pt-6">
+            
             <div class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
                 <div class="prose-content max-w-none">
                     
@@ -594,6 +626,11 @@
         </div>
         
     
+    
+                </div>
+            </div>
+        </div>
+        
     </main>
 
     
@@ -639,6 +676,8 @@
                 <ul class="space-y-2">
                     <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
                     <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
                     <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
                 </ul>
             </div>
@@ -725,12 +764,11 @@
     </div>
 
 
-
     
     <!-- Load shared indicators script -->
-    <script src="/js/constants.js?v=2.0.2"></script>
-    <script src="/js/indicators.js?v=2.0.2"></script>
-    <script src="/js/pdf_generator.js?v=2.0.2"></script>
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
         function enviarLead() {
             var nombre = document.getElementById('lead-nombre').value.trim();

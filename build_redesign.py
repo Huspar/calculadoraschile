@@ -4905,4 +4905,13 @@ for static_file in ["sitemap.xml", "robots.txt"]:
         shutil.copy2(src_f, dst_f)
         print(f"Copied {static_file} to output directory.")
 
-print("Redesign complete! All 17 HTML files have been beautifully generated under calculolaboral-v2.")
+# Sync all generated HTML files to root repository for Vercel production deployment
+print("Syncing all generated HTML files to root repository...")
+for item in os.listdir(DEST_DIR):
+    if item.endswith(".html"):
+        src_item = os.path.join(DEST_DIR, item)
+        dst_item = os.path.join(SOURCE_DIR, item)
+        shutil.copy2(src_item, dst_item)
+        print(f"Synced {item} to root directory.")
+
+print("Redesign complete! All HTML files have been compiled and synchronized to root and calculolaboral-v2.")

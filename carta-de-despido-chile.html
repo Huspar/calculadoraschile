@@ -29,54 +29,14 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Carta de Despido en Chile: Requisitos, Plazos y Ejemplos de Modelos",
+    "headline": "Carta de Despido Chile",
     "description": "¿Cómo redactar o evaluar una carta de despido en Chile? Ejemplos prácticos por causal (Art. 161, 160) y carta de renuncia. Requisitos obligatorios Art. 162.",
     "author": {
         "@type": "Organization",
         "name": "Cálculo Laboral"
     },
-    "datePublished": "2026-06-05",
-    "dateModified": "2026-06-05"
-}
-</script>
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "¿Es obligatoria la carta de despido en Chile?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sí. Según el Artículo 162 del Código del Trabajo, el empleador está obligado a comunicar el término del contrato por escrito, ya sea de forma personal o por carta certificada."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Qué plazo tiene el empleador para enviar la carta de despido?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Depende de la causal. Para necesidades de la empresa (Art. 161), debe enviarse con 30 días de anticipación, a menos que se pague el mes sustitutivo de aviso previo. Para causales de culpabilidad (Art. 160) o caso fortuito, el plazo es de 3 días hábiles desde el despido."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Qué pasa si la carta de despido no tiene los hechos bien detallados?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Si los hechos no son precisos y específicos, el despido puede ser considerado injustificado por los tribunales de justicia, obligando al empleador a pagar los recargos legales correspondientes."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Se puede despedir a un trabajador por WhatsApp o correo electrónico?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No de forma válida legalmente. La ley exige que la comunicación conste por escrito firmado y sea entregada personalmente o mediante carta certificada enviada al domicilio registrado en el contrato de trabajo."
-            }
-        }
-    ]
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-07-08"
 }
 </script>
     
@@ -181,65 +141,154 @@
             border-radius: 0.5rem;
             margin: 1.5rem 0;
         }
-        .copy-box {
+        .prose-content .formula-box {
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 0.75rem;
             padding: 1.25rem;
             margin: 1.5rem 0;
-            font-family: monospace;
-            font-size: 0.825rem;
-            white-space: pre-wrap;
-            color: #334155;
+            text-align: center;
+        }
+        .rubro-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+        }
+        .rubro-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .rubro-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .rubro-imponible {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border: 1px solid #e0f2fe;
+        }
+        .rubro-no-imponible {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #dcfce7;
+        }
+        .rubro-descuento {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fee2e2;
+        }
+        .timeline-item {
             position: relative;
+            padding-left: 1.75rem;
+            border-left: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
         }
-        .copy-btn {
+        .timeline-item::before {
+            content: "";
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: #ffffff;
-            border: 1px solid #cbd5e1;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
-            font-size: 0.75rem;
-            font-family: sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.1s ease;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: #cbd5e1;
+            border: 2px solid #ffffff;
+            transition: all 0.2s ease;
         }
-        .copy-btn:hover {
-            background-color: #f1f5f9;
-            border-color: #94a3b8;
+        .timeline-item.active {
+            border-left-color: #0ea5e9;
+        }
+        .timeline-item.active::before {
+            background-color: #0ea5e9;
+            left: -7px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 0 4px rgb(14 165 233 / 0.15);
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .step-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+        }
+        .step-number {
+            width: 2.25rem;
+            height: 2.25rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .field-error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
         }
         .print-only { display: none !important; }
         
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }
             body > *:not(#print-section) {
                 display: none !important;
             }
             #print-section {
                 display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
             }
             html, body {
                 background: #ffffff !important;
                 color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
-        
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y03F1WB8J"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9Y03F1WB8J');
-  </script>
+    
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
+    
     <!-- Header -->
     <header class="sticky top-0 w-full z-50 bg-white border-b border-slate-200 shadow-sm transition-all duration-300">
         <div class="max-w-[1200px] mx-auto px-6">
@@ -279,10 +328,12 @@
                             Calculadoras
                             <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
                         </button>
-                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1">
                                 <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
-                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
                             </div>
                         </div>
                     </div>
@@ -306,7 +357,7 @@
                                 <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Despido Injustificado</a>
                                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Renuncia Voluntaria</a>
                                 <a href="carta-de-despido-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Carta de Despido Ejemplo</a>
-</div>
+                            </div>
                         </div>
                     </div>
 
@@ -320,11 +371,13 @@
                         <span class="material-icons">menu</span>
                     </summary>
                     <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
-                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2 font-medium">
-                            <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
-                            <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
-                            <div class="border-t border-slate-100 my-2"></div>
-                                            <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
+                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
@@ -337,15 +390,14 @@
                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Finiquito Renuncia Voluntaria</a>
                 <a href="carta-de-despido-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Carta de Despido Ejemplo</a>
                 <div class="border-t border-slate-100 my-2"></div>
-                            <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
-                            <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
+                <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
+                <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
                         </div>
                     </div>
                 </details>
-            </div>
-        </div>
     </header>
 
+    
     <!-- Indicators Grid (5 Cards) -->
     <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8 no-print">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -385,11 +437,24 @@
         </div>
     </div>
 
+
     <!-- Main Content -->
     <main class="flex-grow pt-4 pb-16">
-        <div class="max-w-4xl mx-auto px-6">
-            <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
-                <div class="prose-content max-w-none">
+        
+    <div class="max-w-4xl mx-auto px-6 pt-6">
+        
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
+        <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <a href="blog" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <span class="text-slate-600 font-semibold">Carta de Despido Chile</span>
+    </nav>
+    
+        
+        <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+            <div class="prose-content max-w-none">
+                
                     <!-- Article Header -->
                     <header class="mb-12">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-600 text-xs font-semibold tracking-wider uppercase mb-4">
@@ -422,7 +487,7 @@
                     <figure class="mb-10 max-w-[900px] mx-auto">
                         <div class="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50/20">
                             <!-- Temporary placeholder image for rich aesthetics -->
-                            <div class="w-full bg-gradient-to-br from-indigo-500 to-purple-600 h-60 sm:h-80 flex flex-col items-center justify-center text-white px-6 text-center">
+                            <div class="w-full bg-gradient-to-br from-indigo-500 to-purple-600 h-60 sm:h-80 flex flex-col items-center justify-center text-slate-800 px-6 text-center">
                                 <span class="material-icons text-6xl mb-4">mail_outline</span>
                                 <h3 class="text-2xl font-bold">Carta de Despido en Chile</h3>
                                 <p class="text-sm opacity-90 max-w-md mt-1">Aprende qué requisitos exige la ley chilena para que un despido sea válido y evita vicios o demandas de despido injustificado.</p>
@@ -455,7 +520,7 @@
                                 <p class="text-xs sm:text-sm text-slate-600 m-0 !mb-0 leading-relaxed">La falta de detalles en los hechos, invocar la causal de necesidades de la empresa de forma genérica, o no adjuntar el comprobante de pago de cotizaciones previsionales son vicios graves. Si tu empleador cometió estos errores, podrías demandar un despido injustificado y obtener un <strong>recargo del 30% al 50%</strong>. Permítenos conectar tu caso con un especialista de forma gratuita.</p>
                             </div>
                         </div>
-                        <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/15 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap">
+                        <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-800 text-sm font-bold rounded-xl shadow-lg shadow-amber-500/15 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap">
                             Consultar Caso
                             <span class="material-icons text-sm">arrow_forward</span>
                         </a>
@@ -608,7 +673,7 @@ R.U.T.: [TU RUT]
                         <p class="!text-slate-600 !text-base !mb-6">
                             Si ya cuentas con tu carta de despido y deseas simular el monto final exacto de tu finiquito (incluyendo años de servicio y aviso previo si aplica), utiliza nuestra herramienta interactiva.
                         </p>
-                        <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                             <span class="material-icons">calculate</span>
                             Usar Calculadora de Finiquito
                         </a>
@@ -652,12 +717,14 @@ R.U.T.: [TU RUT]
                             <strong>Aviso legal:</strong> Esta guía abarca los artículos referenciales del Código laboral en materias de comunicaciones de despido de modo informativo. No constituimos un estudio jurídico legal. Ante incertidumbres graves, o querer demandar causales de despido injustificado, aconsejamos dirigirse a la Inspección de Trabajo para orientación.
                         </p>
                     </div>
-                </div>
-            </article>
-        </div>
-
+                
+            </div>
+        </article>
+    </div>
+    
     </main>
 
+    
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 pt-16 pb-12 mt-auto">
         <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -700,6 +767,8 @@ R.U.T.: [TU RUT]
                 <ul class="space-y-2">
                     <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
                     <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
                     <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
                 </ul>
             </div>
@@ -742,6 +811,7 @@ R.U.T.: [TU RUT]
         </div>
     </footer>
 
+    
     <!-- History Modal -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-md shadow-2xl p-6 relative overflow-hidden animate-fade-in">
@@ -784,28 +854,52 @@ R.U.T.: [TU RUT]
         </div>
     </div>
 
+
+    
     <!-- Load shared indicators script -->
-    <script src="/js/constants.js?v=2.0.2"></script>
-    <script src="/js/indicators.js?v=2.0.2"></script>
-    <script src="/js/pdf_generator.js?v=2.0.2"></script>
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
-        function copiarTexto(btn) {
-            var el = btn.parentElement;
-            // Get text excluding the copy button text
-            var text = el.innerText.replace("Copiar", "").trim();
-            
-            navigator.clipboard.writeText(text).then(function() {
-                var oldText = btn.innerText;
-                btn.innerText = "Copiado! ✓";
-                setTimeout(function() {
-                    btn.innerText = oldText;
-                }, 2000);
-            }).catch(function(err) {
-                alert('No se pudo copiar de forma automática. Por favor selecciona el texto manualmente.');
+        function enviarLead() {
+            var nombre = document.getElementById('lead-nombre').value.trim();
+            var correo = document.getElementById('lead-correo').value.trim();
+            var telefono = document.getElementById('lead-telefono').value.trim();
+            var monto = window.resultadoActualMonto || '0';
+
+            if (!nombre || !correo) {
+                alert('Por favor completa nombre y correo.');
+                return;
+            }
+
+            var btn = document.querySelector('#lead-form button');
+            if (btn) btn.disabled = true;
+
+            fetch('/api/send-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    monto_calculado: monto,
+                    tipo: 'Finiquito'
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    document.getElementById('lead-form').classList.add('hidden');
+                    document.getElementById('lead-confirmacion').classList.remove('hidden');
+                } else {
+                    throw new Error('Error al enviar');
+                }
+            }).catch(function() {
+                alert('Error al enviar. Intenta de nuevo.');
+                if (btn) btn.disabled = false;
             });
         }
-
-
     </script>
+    
 </body>
 </html>

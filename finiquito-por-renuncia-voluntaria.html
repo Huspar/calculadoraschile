@@ -29,54 +29,14 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Finiquito por Renuncia Voluntaria Chile: Guía completa Art. 159 Nº2",
+    "headline": "Finiquito por Renuncia Voluntaria Chile",
     "description": "¿Vas a renunciar voluntariamente? Calcula qué te corresponde por finiquito (Art. 159 Nº2): vacaciones proporcionales, remuneraciones y plazos legales en Chile.",
     "author": {
         "@type": "Organization",
         "name": "Cálculo Laboral"
     },
-    "datePublished": "2026-06-05",
-    "dateModified": "2026-06-05"
-}
-</script>
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "¿Me corresponde indemnización si renuncio voluntariamente?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. Por ley, la renuncia voluntaria (Art. 159 Nº2) no da derecho a la indemnización por años de servicio ni sustitutiva del aviso previo, salvo que se haya pactado contractualmente a todo evento."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Con cuánto tiempo de anticipación debo presentar mi renuncia?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "El Código del Trabajo estipula que debes dar un aviso de al menos 30 días de anticipación. No obstante, puedes negociar con tu empleador para acordar una salida inmediata."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Qué me tienen que pagar en el finiquito si renuncio?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Te corresponden los días trabajados del mes que aún no hayan sido pagados, las vacaciones proporcionales (feriado proporcional) pendientes, y la gratificación legal proporcional si aplica en tu empresa."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Qué plazo tiene el empleador para pagar el finiquito por renuncia?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "El empleador tiene un plazo de 10 días hábiles (contados desde la fecha de término del contrato) para poner a disposición del trabajador el finiquito y el pago correspondiente."
-            }
-        }
-    ]
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-07-08"
 }
 </script>
     
@@ -189,6 +149,42 @@
             margin: 1.5rem 0;
             text-align: center;
         }
+        .rubro-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+        }
+        .rubro-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .rubro-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .rubro-imponible {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border: 1px solid #e0f2fe;
+        }
+        .rubro-no-imponible {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #dcfce7;
+        }
+        .rubro-descuento {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fee2e2;
+        }
         .timeline-item {
             position: relative;
             padding-left: 1.75rem;
@@ -222,35 +218,77 @@
             padding-bottom: 0;
             border-left-color: transparent;
         }
+        .step-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+        }
+        .step-number {
+            width: 2.25rem;
+            height: 2.25rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .field-error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
         .print-only { display: none !important; }
         
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }
             body > *:not(#print-section) {
                 display: none !important;
             }
             #print-section {
                 display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
             }
             html, body {
                 background: #ffffff !important;
                 color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
-        
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y03F1WB8J"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9Y03F1WB8J');
-  </script>
+    
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
+    
     <!-- Header -->
     <header class="sticky top-0 w-full z-50 bg-white border-b border-slate-200 shadow-sm transition-all duration-300">
         <div class="max-w-[1200px] mx-auto px-6">
@@ -290,10 +328,12 @@
                             Calculadoras
                             <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
                         </button>
-                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1">
                                 <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
-                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
                             </div>
                         </div>
                     </div>
@@ -317,7 +357,7 @@
                                 <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Despido Injustificado</a>
                                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Renuncia Voluntaria</a>
                                 <a href="carta-de-despido-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Carta de Despido Ejemplo</a>
-</div>
+                            </div>
                         </div>
                     </div>
 
@@ -331,11 +371,13 @@
                         <span class="material-icons">menu</span>
                     </summary>
                     <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
-                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2 font-medium">
-                            <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
-                            <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
-                            <div class="border-t border-slate-100 my-2"></div>
-                                            <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                        <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
+                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
+                <div class="border-t border-slate-100 my-2"></div>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
@@ -348,15 +390,14 @@
                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Finiquito Renuncia Voluntaria</a>
                 <a href="carta-de-despido-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Carta de Despido Ejemplo</a>
                 <div class="border-t border-slate-100 my-2"></div>
-                            <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
-                            <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
+                <a href="blog" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Blog</a>
+                <a href="contacto" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Contacto</a>
                         </div>
                     </div>
                 </details>
-            </div>
-        </div>
     </header>
 
+    
     <!-- Indicators Grid (5 Cards) -->
     <div class="max-w-[1200px] mx-auto px-6 mt-4 mb-8 no-print">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -396,11 +437,24 @@
         </div>
     </div>
 
+
     <!-- Main Content -->
     <main class="flex-grow pt-4 pb-16">
-        <div class="max-w-4xl mx-auto px-6">
-            <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
-                <div class="prose-content max-w-none">
+        
+    <div class="max-w-4xl mx-auto px-6 pt-6">
+        
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
+        <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <a href="blog" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <span class="text-slate-600 font-semibold">Finiquito por Renuncia Voluntaria Chile</span>
+    </nav>
+    
+        
+        <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+            <div class="prose-content max-w-none">
+                
                     <!-- Article Header -->
                     <header class="mb-12">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-600 text-xs font-semibold tracking-wider uppercase mb-4">
@@ -433,7 +487,7 @@
                     <figure class="mb-10 max-w-[900px] mx-auto">
                         <div class="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50/20">
                             <!-- Temporary placeholder image for rich aesthetics -->
-                            <div class="w-full bg-gradient-to-br from-sky-400 to-indigo-600 h-60 sm:h-80 flex flex-col items-center justify-center text-white px-6 text-center">
+                            <div class="w-full bg-gradient-to-br from-sky-400 to-indigo-600 h-60 sm:h-80 flex flex-col items-center justify-center text-slate-800 px-6 text-center">
                                 <span class="material-icons text-6xl mb-4">description</span>
                                 <h3 class="text-2xl font-bold">Renuncia Voluntaria en Chile</h3>
                                 <p class="text-sm opacity-90 max-w-md mt-1">Conoce tus derechos laborales y los conceptos imponibles y de feriado que te corresponden al renunciar.</p>
@@ -466,7 +520,7 @@
                                 <p class="text-xs sm:text-sm text-slate-600 m-0 !mb-0 leading-relaxed">Si tu empleador te obligó o presionó de forma indebida para que firmaras tu renuncia (por ejemplo, mediante acoso u hostigamiento), estás frente a una renuncia viciada. En este caso podrías tener derecho a interponer un <strong>despido indirecto (autodespido)</strong> para reclamar tus indemnizaciones por años de servicio con recargo legal. Deja tus datos en nuestro formulario al final de esta página para que un abogado revise tu caso.</p>
                             </div>
                         </div>
-                        <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-amber-500/15 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap">
+                        <a href="#lead-form" class="cta-lead-btn w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-800 text-sm font-bold rounded-xl shadow-lg shadow-amber-500/15 transition-all hover:scale-[1.01] active:scale-95 whitespace-nowrap">
                             Consultar Abogado
                             <span class="material-icons text-sm">arrow_forward</span>
                         </a>
@@ -578,7 +632,7 @@
                             </div>
                             <p class="text-slate-600 text-xs sm:text-sm m-0">Selecciona la causal "Art. 159 N°2 - Renuncia Voluntaria" para simular tus días trabajados y vacaciones proporcionales exactas.</p>
                         </div>
-                        <a href="finiquito_calculator" class="shrink-0 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap">
+                        <a href="finiquito_calculator" class="shrink-0 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-slate-900 font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-center whitespace-nowrap">
                             Calcular mi Renuncia →
                         </a>
                     </div>
@@ -706,7 +760,7 @@
                         <p class="!text-slate-600 !text-base !mb-6">
                             Utiliza nuestro simulador integrado para calcular de forma rápida y sencilla tus días acumulados de feriado y tu sueldo proporcional de manera exacta.
                         </p>
-                        <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        <a href="finiquito_calculator" title="Ir a la Calculadora de Finiquito en Chile" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                             <span class="material-icons">calculate</span>
                             Usar Calculadora de Finiquito
                         </a>
@@ -750,12 +804,14 @@
                             <strong>Aviso legal:</strong> Esta guía abarca los artículos referenciales del Código laboral en materias de renuncia del trabajador de modo informativo. No constituimos un estudio jurídico legal. Ante incertidumbres graves, o querer demandar causales de despido injustificado, aconsejamos dirigirse a la Inspección de Trabajo para orientación.
                         </p>
                     </div>
-                </div>
-            </article>
-        </div>
-
+                
+            </div>
+        </article>
+    </div>
+    
     </main>
 
+    
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 pt-16 pb-12 mt-auto">
         <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -798,6 +854,8 @@
                 <ul class="space-y-2">
                     <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
                     <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
                     <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
                 </ul>
             </div>
@@ -840,6 +898,7 @@
         </div>
     </footer>
 
+    
     <!-- History Modal -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl border border-slate-200 w-full max-w-md shadow-2xl p-6 relative overflow-hidden animate-fade-in">
@@ -882,10 +941,52 @@
         </div>
     </div>
 
-    <!-- Load shared indicators script -->
-    <script src="/js/constants.js?v=2.0.2"></script>
-    <script src="/js/indicators.js?v=2.0.2"></script>
-    <script src="/js/pdf_generator.js?v=2.0.2"></script>
 
+    
+    <!-- Load shared indicators script -->
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
+    <script>
+        function enviarLead() {
+            var nombre = document.getElementById('lead-nombre').value.trim();
+            var correo = document.getElementById('lead-correo').value.trim();
+            var telefono = document.getElementById('lead-telefono').value.trim();
+            var monto = window.resultadoActualMonto || '0';
+
+            if (!nombre || !correo) {
+                alert('Por favor completa nombre y correo.');
+                return;
+            }
+
+            var btn = document.querySelector('#lead-form button');
+            if (btn) btn.disabled = true;
+
+            fetch('/api/send-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    monto_calculado: monto,
+                    tipo: 'Finiquito'
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    document.getElementById('lead-form').classList.add('hidden');
+                    document.getElementById('lead-confirmacion').classList.remove('hidden');
+                } else {
+                    throw new Error('Error al enviar');
+                }
+            }).catch(function() {
+                alert('Error al enviar. Intenta de nuevo.');
+                if (btn) btn.disabled = false;
+            });
+        }
+    </script>
+    
 </body>
 </html>

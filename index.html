@@ -28,15 +28,56 @@
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Cálculo Laboral Chile",
-    "url": "https://calculolaboral.cl/",
-    "description": "Calcula gratis tu sueldo líquido y finiquito en Chile.",
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://calculolaboral.cl/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "name": "Cálculo Laboral Chile",
+            "url": "https://calculolaboral.cl/",
+            "description": "Calcula gratis tu sueldo líquido y finiquito en Chile con las leyes oficiales de la Dirección del Trabajo.",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://calculolaboral.cl/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "¿Cómo se calcula el sueldo líquido en Chile?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "El sueldo líquido se obtiene restando del Sueldo Bruto Imponible los descuentos obligatorios: AFP (10,58% a 11,45%), Salud (7% Fonasa o pactado en Isapre), Seguro de Cesantía (0,6% en contrato indefinido) y el Impuesto Único de Segunda Categoría si la renta imponible supera las 13,5 UTM."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Cuáles son las comisiones de las AFP vigentes en 2026?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Las tasas totales obligatorias de AFP en 2026 son: AFP Modelo 10,58%, AFP Uno 10,69%, Planvital 11,16%, Habitat 11,27%, Capital 11,44%, Cuprum 11,44% y Provida 11,45%."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Qué conceptos integra un finiquito laboral en Chile?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Un finiquito legal contempla: remuneraciones pendientes de los días trabajados en el mes, indemnización por vacaciones proporcionales y pendientes, indemnización por años de servicio (1 mes por año en despidos por Art. 161) e indemnización sustitutiva de aviso previo (1 mes si no se avisó con 30 días de anticipación)."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "¿Cómo se calcula la indemnización por años de servicio?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Conforme al artículo 163 del Código del Trabajo, si el despido es por Necesidades de la Empresa (Art. 161), corresponde 1 mes de la última remuneración mensual por cada año trabajado (y fracción superior a 6 meses), con un tope legal máximo de 11 años y 90 UF por mes."
+                    }
+                }
+            ]
+        }
+    ]
 }
 </script>
     
@@ -115,6 +156,15 @@
             font-weight: 600 !important;
         }
         .prose-content a.cta-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .prose-content a.cta-lead-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        .prose-content a.cta-lead-btn:hover {
             color: #ffffff !important;
             text-decoration: none !important;
         }
@@ -235,7 +285,7 @@
             font-size: 0.75rem;
             margin-top: 0.25rem;
         }
-                .print-only { display: none !important; }
+        .print-only { display: none !important; }
         
         @media print {
             @page {
@@ -269,59 +319,13 @@
                 height: auto !important;
                 overflow: visible !important;
             }
-            /* Print header */
-            .print-header, #print-section > div:first-child {
-                background-color: #0f172a !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                color: #ffffff !important;
-                padding: 12px 16px !important;
-                border-radius: 6px !important;
-                margin-bottom: 10px !important;
-            }
-            /* Tables */
-            .print-table, #print-section table {
-                width: 100% !important;
-                border-collapse: collapse !important;
-                margin-bottom: 8px !important;
-            }
-            .print-table th, #print-section th {
-                text-align: left !important;
-                padding: 4px 8px !important;
-                font-size: 7.5pt !important;
-                font-weight: 600 !important;
-                text-transform: uppercase !important;
-                border-bottom: 2px solid #10b981 !important;
-                color: #475569 !important;
-                background: #f8fafc !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-            .print-table td, #print-section td {
-                padding: 4px 8px !important;
-                font-size: 8pt !important;
-                border-bottom: 1px solid #e2e8f0 !important;
-            }
-            tr, td, th, table, div, p {
-                page-break-inside: avoid !important;
-            }
-            /* Green colors preserved */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
         }
-</style>
-        
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y03F1WB8J"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9Y03F1WB8J');
-  </script>
-
+    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
@@ -365,10 +369,12 @@
                             Calculadoras
                             <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
                         </button>
-                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1">
                                 <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
-                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
                             </div>
                         </div>
                     </div>
@@ -392,7 +398,7 @@
                                 <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Despido Injustificado</a>
                                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Renuncia Voluntaria</a>
                                 <a href="carta-de-despido-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Carta de Despido Ejemplo</a>
-</div>
+                            </div>
                         </div>
                     </div>
 
@@ -400,17 +406,19 @@
                     <a href="contacto" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
                 </nav>
 
-                                <!-- Mobile Menu -->
+                <!-- Mobile Menu -->
                 <details class="md:hidden">
                     <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
                         <span class="material-icons">menu</span>
                     </summary>
                     <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
                         <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
-<a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
                 <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
                 <div class="border-t border-slate-100 my-2"></div>
-                                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
@@ -428,7 +436,6 @@
                         </div>
                     </div>
                 </details>
-
     </header>
 
     
@@ -542,13 +549,6 @@
                         <span class="text-xs font-semibold text-slate-500 group-hover:text-slate-800 transition-colors">¿Se avisó con 30 días de anticipación?</span>
                     </label>
                 </div>
-
-                <div class="flex justify-end pt-2">
-                    <button type="button" onclick="document.getElementById('tabBtn-ingresos').click()" class="inline-flex items-center gap-1.5 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-all active:scale-95 duration-100">
-                        Siguiente
-                        <span class="material-icons text-sm">arrow_forward</span>
-                    </button>
-                </div>
             </div>
 
             <!-- Finiquito Tab: Ingresos -->
@@ -625,13 +625,6 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="flex justify-end pt-2">
-                    <button type="button" onclick="document.getElementById('tabBtn-avanzado').click()" class="inline-flex items-center gap-1.5 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-all active:scale-95 duration-100">
-                        Siguiente
-                        <span class="material-icons text-sm">arrow_forward</span>
-                    </button>
-                </div>
             </div>
 
             <!-- Finiquito Tab: Opciones -->
@@ -697,7 +690,7 @@
         </div>
 
         <!-- Results Column (Right, Sticky) -->
-        <div id="resultados-finiquito" class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+        <div class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
             <div class="text-center sm:text-left border-b border-slate-100 pb-5">
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Monto Total del Finiquito</h3>
                 <div class="flex items-baseline gap-2 justify-center sm:justify-start">
@@ -794,6 +787,34 @@
                 📥 Descargar Desglose PDF
               </button>
               <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
+            </div>
+
+            <!-- Lead Capture Section (SOLO EN FINIQUITO) -->
+            <div id="lead-section" class="mt-3 p-4 bg-amber-50 border border-amber-200 rounded-xl no-print hidden">
+              <p class="text-sm font-semibold text-amber-900 mb-2">
+                ⚖️ ¿Crees que tu despido fue injustificado?
+              </p>
+              <p class="text-xs text-amber-700 mb-3">
+                Déjanos tu caso y te contactamos.
+              </p>
+              <form id="lead-form" class="space-y-2">
+                <input type="text" id="lead-nombre" placeholder="Tu nombre" required
+                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
+                <input type="email" id="lead-correo" placeholder="tu@correo.com" required
+                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
+                <input type="tel" id="lead-telefono" placeholder="+56 9 XXXX XXXX"
+                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
+                <button type="button" onclick="enviarLead()"
+                  class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg transition-colors">
+                  Quiero que revisen mi caso →
+                </button>
+              </form>
+              <div id="lead-confirmacion" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 text-center">
+                ✅ Recibimos tu caso. Te contactaremos pronto.
+              </div>
+              <p class="text-xs text-amber-600 mt-2 text-center">
+                Sin costo. Solo para determinar si tu despido califica.
+              </p>
             </div>
         </div>
     </div>
@@ -992,7 +1013,7 @@
         </div>
 
         <!-- Results Column (Right, Sticky) -->
-        <div id="resultados-sueldo" class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
+        <div class="flex-grow bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
             <div class="text-center sm:text-left border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Tu Sueldo Líquido Estimado</h3>
@@ -1115,7 +1136,7 @@
             </div>
 
             <!-- PDF section -->
-            <div id="pdf-section-modal" class="mt-4 hidden no-print">
+            <div id="pdf-section" class="mt-4 hidden no-print">
               <button id="download-pdf-btn-sueldo" 
                 class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
                 📥 Descargar Desglose PDF
@@ -1591,6 +1612,8 @@
                 <ul class="space-y-2">
                     <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
                     <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
                     <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
                 </ul>
             </div>
@@ -1677,13 +1700,51 @@
     </div>
 
 
-
     
     <!-- Load shared indicators script -->
     <script src="/js/constants.js?v=2.0.3"></script>
     <script src="/js/indicators.js?v=2.0.3"></script>
     <script src="/js/pdf_generator.js?v=2.0.3"></script>
+    <script>
+        function enviarLead() {
+            var nombre = document.getElementById('lead-nombre').value.trim();
+            var correo = document.getElementById('lead-correo').value.trim();
+            var telefono = document.getElementById('lead-telefono').value.trim();
+            var monto = window.resultadoActualMonto || '0';
 
+            if (!nombre || !correo) {
+                alert('Por favor completa nombre y correo.');
+                return;
+            }
+
+            var btn = document.querySelector('#lead-form button');
+            if (btn) btn.disabled = true;
+
+            fetch('/api/send-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    monto_calculado: monto,
+                    tipo: 'Finiquito'
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    document.getElementById('lead-form').classList.add('hidden');
+                    document.getElementById('lead-confirmacion').classList.remove('hidden');
+                } else {
+                    throw new Error('Error al enviar');
+                }
+            }).catch(function() {
+                alert('Error al enviar. Intenta de nuevo.');
+                if (btn) btn.disabled = false;
+            });
+        }
+    </script>
     
     <!-- Calculator Scripts -->
     <script src="/js/salary_logic.js?v=2.0.3"></script>
@@ -1700,33 +1761,22 @@
             const containerSueldo = document.getElementById('sueldo-calc-container');
 
             if (tab === 'finiquito') {
-                containerFiniquito.classList.remove('hidden');
-                containerSueldo.classList.add('hidden');
-                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                if (containerFiniquito) containerFiniquito.classList.remove('hidden');
+                if (containerSueldo) containerSueldo.classList.add('hidden');
+                if (btnFiniquito) btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
+                if (btnSueldo) btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
                 
                 // Hide sueldo mobile bar and trigger calculations for finiquito
-                document.getElementById('mobile-result-bar').classList.add('translate-y-full');
-                var label = document.getElementById('mobile-result-label');
-                if (label) label.textContent = 'Total Finiquito';
-                var val = document.getElementById('mobile-result-value');
-                if (val) val.textContent = '$0';
-                var pct = document.getElementById('mobile-result-percentage');
-                if (pct) pct.textContent = '—';
+                var mobileBar = document.getElementById('mobile-result-bar');
+                if (mobileBar) mobileBar.classList.add('translate-y-full');
                 if (typeof updateCalculations === 'function') updateCalculations();
             } else {
-                containerFiniquito.classList.add('hidden');
-                containerSueldo.classList.remove('hidden');
-                btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                if (containerFiniquito) containerFiniquito.classList.add('hidden');
+                if (containerSueldo) containerSueldo.classList.remove('hidden');
+                if (btnSueldo) btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
+                if (btnFiniquito) btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
                 
                 // Trigger sueldo calculations
-                var label = document.getElementById('mobile-result-label');
-                if (label) label.textContent = 'Líquido a pago';
-                var val = document.getElementById('mobile-result-value');
-                if (val) val.textContent = '$0';
-                var pct = document.getElementById('mobile-result-percentage');
-                if (pct) pct.textContent = '—';
                 const salaryInput = document.getElementById('salary');
                 if (salaryInput) salaryInput.dispatchEvent(new Event('input', { bubbles: true }));
             }

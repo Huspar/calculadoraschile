@@ -29,14 +29,14 @@
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "¿Cuánto te corresponde de finiquito en 2026? Cómo calcularlo paso a paso en Chile",
-    "description": "Aprende paso a paso cómo calcular tu finiquito en Chile: indemnización por años de servicio, vacaciones proporcionales y más. Ejemplo real con cifras 2026.",
+    "headline": "Finiquito Chile 2026: Cuánto te Toca por Año + Ejemplo con $800.000",
+    "description": "Con 3 años y sueldo de $800.000 te corresponden $2.880.000 de finiquito. Indemnización Art. 163, aviso previo y vacaciones proporcionales con ejemplo real.",
     "author": {
         "@type": "Organization",
         "name": "Cálculo Laboral"
     },
     "datePublished": "2026-01-01",
-    "dateModified": "2026-06-01"
+    "dateModified": "2026-07-08"
 }
 </script>
     
@@ -115,6 +115,15 @@
             font-weight: 600 !important;
         }
         .prose-content a.cta-btn:hover {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+        .prose-content a.cta-lead-btn {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+        .prose-content a.cta-lead-btn:hover {
             color: #ffffff !important;
             text-decoration: none !important;
         }
@@ -238,30 +247,44 @@
         .print-only { display: none !important; }
         
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm;
+            }
             body > *:not(#print-section) {
                 display: none !important;
             }
             #print-section {
                 display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
             }
             html, body {
                 background: #ffffff !important;
                 color: #1e293b !important;
+                font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
-        
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y03F1WB8J"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9Y03F1WB8J');
-  </script>
-
+    
 </head>
 <body class="bg-slate-50 text-slate-700 min-h-screen flex flex-col font-sans selection:bg-sky-500/20 selection:text-slate-900">
 
@@ -305,10 +328,12 @@
                             Calculadoras
                             <span class="material-icons text-xs group-hover:rotate-180 transition-transform">expand_more</span>
                         </button>
-                        <div class="absolute left-0 mt-0 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div class="absolute left-0 mt-0 w-56 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1">
                                 <a href="sueldo_liquido" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Líquido</a>
-                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito</a>
+                                <a href="finiquito_calculator" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Oficial DT</a>
+                                <a href="calculadora-horas-extras" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Horas Extras 42h</a>
+                                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Sueldo Part-Time (30h)</a>
                             </div>
                         </div>
                     </div>
@@ -332,7 +357,7 @@
                                 <a href="reclamar-despido-injustificado-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Despido Injustificado</a>
                                 <a href="finiquito-por-renuncia-voluntaria" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Finiquito Renuncia Voluntaria</a>
                                 <a href="carta-de-despido-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Carta de Despido Ejemplo</a>
-</div>
+                            </div>
                         </div>
                     </div>
 
@@ -340,17 +365,19 @@
                     <a href="contacto" class="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">Contacto</a>
                 </nav>
 
-                                <!-- Mobile Menu -->
+                <!-- Mobile Menu -->
                 <details class="md:hidden">
                     <summary class="list-none p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors active:scale-95 duration-100 cursor-pointer flex items-center" aria-label="Abrir menú de navegación">
                         <span class="material-icons">menu</span>
                     </summary>
                     <div class="fixed left-0 right-0 top-16 bg-white border-t border-slate-200 shadow-xl z-50">
                         <div class="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
-<a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
+                <a href="sueldo_liquido" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Líquido</a>
                 <a href="finiquito_calculator" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Finiquito</a>
+                <a href="calculadora-horas-extras" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora de Horas Extras</a>
+                <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Calculadora Sueldo Part-Time</a>
                 <div class="border-t border-slate-100 my-2"></div>
-                                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
@@ -368,7 +395,6 @@
                         </div>
                     </div>
                 </details>
-
     </header>
 
     
@@ -395,6 +421,11 @@
                 <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Imponible AFP</span>
                 <span class="text-lg font-extrabold text-slate-900 font-mono">89.9 UF</span>
             </div>
+            <!-- Tope Finiquito Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow transition-shadow">
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tope Finiquito</span>
+                <span class="text-lg font-extrabold text-slate-900 font-mono">90 UF</span>
+            </div>
         </div>
         <div class="flex justify-between items-center mt-2.5 px-1 text-[10px] text-slate-500 font-medium">
             <div id="indicators-status" class="flex items-center gap-1">
@@ -406,10 +437,24 @@
         </div>
     </div>
 
+
     <!-- Main Content -->
     <main class="flex-grow pt-4 pb-16">
-        <div class="max-w-4xl mx-auto px-6">
-            <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+        
+    <div class="max-w-4xl mx-auto px-6 pt-6">
+        
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
+        <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <a href="blog" class="hover:text-sky-500 transition-colors font-medium">Blog</a>
+        <span class="material-icons text-xs">chevron_right</span>
+        <span class="text-slate-600 font-semibold">Finiquito Chile 2026: Cuánto te Toca por Año + Ejemplo con $800.000</span>
+    </nav>
+    
+        
+        <article class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 sm:p-12 mb-8 relative overflow-hidden">
+            <div class="prose-content max-w-none">
+                
                 <div class="prose-content max-w-none"><!-- Article Header -->
             <header class="mb-12">
                 <div
@@ -440,11 +485,11 @@
             <!-- Hero Image -->
             <figure class="mb-10 max-w-[900px] mx-auto">
                 <div class="rounded-2xl overflow-hidden border border-slate-100">
-                    <img src="assets/guia-calculo-finiquito-chile-2026.png"
+                    <div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm"><img src="assets/guia-calculo-finiquito-chile-2026.png"
                         alt="Ejemplo visual de cálculo de finiquito en Chile 2026 con indemnización y vacaciones proporcionales"
                         title="Simulación de finiquito en Chile: desglose de indemnización, vacaciones y aviso previo"
                         class="w-full h-auto max-h-[35vh] object-contain bg-slate-50/20" loading="lazy" width="1024"
-                        height="640" />
+                        height="640" /></div>
                 </div>
                 <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
                     Ejemplo de simulación de finiquito con indemnización por años de servicio y vacaciones
@@ -478,7 +523,7 @@
                     En esta guía te explicamos paso a paso cómo calcular cada componente, con un
                     <strong>ejemplo numérico real</strong> y las fórmulas que necesitas. Si prefieres una estimación
                     rápida, puedes usar nuestra
-                    <a href="/finiquito_calculator">calculadora para calcular tu finiquito en Chile</a> gratuita.
+                    <a href="finiquito_calculator">calculadora para calcular tu finiquito en Chile</a> gratuita.
                 </p>
 
                 <h2>¿Cuánto me corresponde de finiquito según mis años trabajados?</h2>
@@ -486,7 +531,7 @@
                     El monto exacto que recibirás dependerá directamente de tu antigüedad, de tu remuneración mensual y
                     de la causal de término de contrato. La ley establece que se debe pagar un mes de sueldo por cada
                     año trabajado, considerando ciertos topes. Para no confundirte con las matemáticas y los factores,
-                    puedes ingresar tus datos exactos en el <a href="/finiquito_calculator">simulador de finiquito en
+                    puedes ingresar tus datos exactos en el <a href="finiquito_calculator">simulador de finiquito en
                         Chile</a> para conocer de inmediato el monto estimado antes de firmar cualquier documento.
                 </p>
 
@@ -522,7 +567,7 @@
                 </div>
 
                 <!-- Callout con enlace a finiquito no pagado -->
-                <div class="my-6 p-5 rounded-xl bg-slate-50/60 border border-red-500/20 shadow-lg">
+                <div class="my-6 p-5 rounded-xl bg-slate-50/60 border border-red-200 bg-red-50/40 rounded-2xl p-5 shadow-sm my-6 shadow-lg">
                     <h4 class="text-red-600 font-bold text-sm mb-2 flex items-center gap-2 m-0">
                         <span class="material-icons text-base">warning</span> ¿Tu empleador se está retrasando en el pago?
                     </h4>
@@ -530,7 +575,7 @@
                         Por ley, existe un plazo máximo estricto para el pago de tu liquidación final. Te recomendamos leer nuestra guía crítica:
                     </p>
                     <p class="text-xs text-slate-500 m-0">
-                        👉 <a href="/que-hacer-si-no-te-pagan-el-finiquito" class="text-slate-800 hover:text-red-600 font-semibold underline transition-colors">
+                        👉 <a href="que-hacer-si-no-te-pagan-el-finiquito" class="text-slate-800 hover:text-red-600 font-semibold underline transition-colors">
                             Qué hacer si no te pagan el finiquito a tiempo en Chile
                         </a>: Conoce las multas, el reajuste por IPC y cómo iniciar un reclamo formal ante la Inspección del Trabajo.
                     </p>
@@ -586,7 +631,7 @@
                 <!-- CTA intermedio -->
                 <div class="callout">
                     <p class="!mb-0">💡 <strong>¿Prefieres calcularlo automáticamente?</strong>
-                        Usa nuestra <a href="/finiquito_calculator">calculadora para calcular tu finiquito en
+                        Usa nuestra <a href="finiquito_calculator">calculadora para calcular tu finiquito en
                             Chile</a> y obtén un estimado en segundos.
                     </p>
                 </div>
@@ -623,7 +668,7 @@
                         justo en tu aniversario laboral (por ejemplo, cumples exactamente 5 años), no hay fracción de
                         año que compensar. Los días de ese nuevo período aún no se han generado. Para más detalles,
                         consulta nuestra
-                        <a href="/guia-vacaciones-proporcionales">guía sobre vacaciones proporcionales</a>.
+                        <a href="guia-vacaciones-proporcionales">guía sobre vacaciones proporcionales</a>.
                     </p>
                 </div>
 
@@ -693,7 +738,7 @@
                 <p>
                     Este es un <strong>estimado referencial</strong>. Los montos exactos pueden variar según
                     descuentos legales, bonos pactados y otros factores. Puedes obtener un cálculo más preciso usando
-                    nuestra <a href="/finiquito_calculator">calculadora de finiquito</a>.
+                    nuestra <a href="finiquito_calculator">calculadora de finiquito</a>.
                 </p>
 
                 <!-- =============== 6. ERRORES COMUNES =============== -->
@@ -739,7 +784,7 @@
                     <div class="p-4 rounded-xl bg-slate-50/20 border border-slate-100 border-dashed">
                         <p class="!mb-0 !text-sm text-slate-600">
                             💡 <strong>Tip Útil:</strong> Puedes verificar tu remuneración imponible usando nuestra
-                            <a href="/sueldo_liquido" class="text-sky-600 hover:underline">calculadora de sueldo
+                            <a href="sueldo_liquido" class="text-sky-600 hover:underline">calculadora de sueldo
                                 líquido</a>.
                         </p>
                     </div>
@@ -839,7 +884,7 @@
                         Si quieres evitar el cálculo manual, utiliza nuestra herramienta automatizada. Nuestra <strong>calculadora de finiquito</strong> está actualizada a 2026 e incluye todos los topes legales de la Dirección del Trabajo.
                     </p>
                     <a href="finiquito_calculator" title="Calculadora de Finiquito en Chile"
-                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
+                        class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 text-slate-800 hover:bg-sky-600 rounded-xl shadow-md shadow-sky-500/10 transition-all hover:scale-[1.01]">
                         <span class="material-icons">calculate</span>
                         Ir a la Calculadora de Finiquito
                     </a>
@@ -850,11 +895,11 @@
 
                 <!-- Cross-links -->
                 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <a href="/sueldo_liquido"
-                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-green-500/30 transition-colors group block">
+                    <a href="sueldo_liquido"
+                        class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-green-400 hover:bg-green-50/30 transition-colors group block">
                         <div class="flex items-center gap-3">
                             <span
-                                class="material-icons text-green-400 group-hover:text-green-300 transition-colors">payments</span>
+                                class="material-icons text-emerald-600 group-hover:text-green-300 transition-colors">payments</span>
                             <div>
                                 <p class="!text-slate-800 !text-sm !font-semibold !mb-0">Calculadora de Sueldo Líquido</p>
                                 <p class="!text-slate-500 !text-xs !mb-0">Calcula cuánto te queda después de
@@ -862,7 +907,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="/guia-vacaciones-proporcionales"
+                    <a href="guia-vacaciones-proporcionales"
                         class="!no-underline p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-sky-200 transition-colors group block">
                         <div class="flex items-center gap-3">
                             <span
@@ -901,9 +946,14 @@
                     </p>
                 </div>
             </div>
+        
+            </div>
         </article>
+    </div>
+    
     </main>
 
+    
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 pt-16 pb-12 mt-auto">
         <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -946,6 +996,8 @@
                 <ul class="space-y-2">
                     <li><a href="sueldo_liquido" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Líquido</a></li>
                     <li><a href="finiquito_calculator" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Calculadora de Finiquito</a></li>
+                    <li><a href="calculadora-horas-extras" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Horas Extras 42h</a></li>
+                    <li><a href="calculadora-sueldo-part-time" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Sueldo Part-Time (30h)</a></li>
                     <li><a href="./" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium font-semibold">Simulador Integrado</a></li>
                 </ul>
             </div>
@@ -1032,12 +1084,11 @@
     </div>
 
 
-
     
     <!-- Load shared indicators script -->
-    <script src="/js/constants.js?v=2.0.2"></script>
-    <script src="/js/indicators.js?v=2.0.2"></script>
-    <script src="/js/pdf_generator.js?v=2.0.2"></script>
+    <script src="/js/constants.js?v=2.0.3"></script>
+    <script src="/js/indicators.js?v=2.0.3"></script>
+    <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
         function enviarLead() {
             var nombre = document.getElementById('lead-nombre').value.trim();
