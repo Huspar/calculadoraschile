@@ -484,6 +484,7 @@
                 
                 
                 
+                
             <div class="prose-content max-w-none">
                 
             
@@ -769,6 +770,7 @@
             
             
             
+            
             </div>
         </article>
     </div>
@@ -949,6 +951,50 @@
                 alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
+        }
+
+        function shareFiniquitoWhatsApp() {
+            var totalEl = document.getElementById('totalFiniquitoOutput');
+            var total = totalEl ? totalEl.innerText.trim() : '';
+            var texto = 'Hola! Hice mi cálculo de finiquito en Cálculo Laboral Chile' + (total && total !== '$0' && total !== '—' ? ' y me dio ' + total : '') + '. Puedes calcular el tuyo gratis según la Dirección del Trabajo aquí: https://calculolaboral.cl/finiquito_calculator';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'finiquito' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }
+
+        function shareSueldoWhatsApp() {
+            var liquidoEl = document.getElementById('netSalaryOutput');
+            var liquido = liquidoEl ? liquidoEl.innerText.trim() : '';
+            var texto = 'Hola! Calculé mi sueldo líquido en Cálculo Laboral Chile' + (liquido && liquido !== '$0' && liquido !== '—' ? ' (Líquido: ' + liquido + ')' : '') + '. Revisa tu liquidación con todos los descuentos legales aquí: https://calculolaboral.cl/sueldo_liquido';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'sueldo_liquido' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }
+
+        function shareHEWhatsApp() {
+            var totalBrutoEl = document.getElementById('he-total-bruto');
+            var horasEl = document.getElementById('he-total-horas');
+            var totalBruto = totalBrutoEl ? totalBrutoEl.innerText.trim() : '$46.130';
+            var horas = horasEl ? horasEl.innerText.trim() : '10.0 hrs';
+            var texto = 'Hola! Calculé mis horas extras en Cálculo Laboral Chile con la Ley 40 Horas (42h en 2026): ' + horas + ' extras = ' + totalBruto + ' adicionales. Simula las tuyas gratis aquí: https://calculolaboral.cl/calculadora-horas-extras';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'horas_extras' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }
+
+        function sharePTWhatsApp() {
+            var liquidoEl = document.getElementById('pt-sueldo-liquido');
+            var jornadaEl = document.getElementById('pt-jornada-badge');
+            var liquido = liquidoEl ? liquidoEl.innerText.trim() : '$323.512';
+            var jornada = jornadaEl ? jornadaEl.innerText.trim() : '30 Horas/Sem';
+            var texto = 'Hola! Calculé mi sueldo part-time (' + jornada + ') en Cálculo Laboral Chile: Sueldo Líquido estimado ' + liquido + '. Revisa el tuyo gratis con protección para estudiantes aquí: https://calculolaboral.cl/calculadora-sueldo-part-time';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'part_time' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
         }
     </script>
     

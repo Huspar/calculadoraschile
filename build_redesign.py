@@ -122,7 +122,7 @@ def generate_seo_tags(filename, title, description, page_type="website"):
             "name": "¿Cuánto vale la hora ordinaria de trabajo en Chile en 2026?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Con la jornada de 42 horas y el sueldo mínimo de $553.553, el valor de la hora ordinaria mínima es de aproximadamente $2.636 CLP y la hora extraordinaria al 50% es de $3.954 CLP."
+                "text": "Con la jornada legal de 42 horas y el sueldo mínimo de $553.553, el valor oficial de la hora ordinaria es de $3.075 CLP (divisor mensual de 180 horas) y la hora extraordinaria al 50% es de $4.613 CLP."
             }
         },
         {
@@ -960,6 +960,50 @@ HTML_LAYOUT = """<!DOCTYPE html>
                 if (btn) btn.disabled = false;
             }});
         }}
+
+        function shareFiniquitoWhatsApp() {{
+            var totalEl = document.getElementById('totalFiniquitoOutput');
+            var total = totalEl ? totalEl.innerText.trim() : '';
+            var texto = 'Hola! Hice mi cálculo de finiquito en Cálculo Laboral Chile' + (total && total !== '$0' && total !== '—' ? ' y me dio ' + total : '') + '. Puedes calcular el tuyo gratis según la Dirección del Trabajo aquí: https://calculolaboral.cl/finiquito_calculator';
+            if (typeof gtag !== 'undefined') {{
+                gtag('event', 'share', {{ method: 'WhatsApp', content_type: 'finiquito' }});
+            }}
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }}
+
+        function shareSueldoWhatsApp() {{
+            var liquidoEl = document.getElementById('netSalaryOutput');
+            var liquido = liquidoEl ? liquidoEl.innerText.trim() : '';
+            var texto = 'Hola! Calculé mi sueldo líquido en Cálculo Laboral Chile' + (liquido && liquido !== '$0' && liquido !== '—' ? ' (Líquido: ' + liquido + ')' : '') + '. Revisa tu liquidación con todos los descuentos legales aquí: https://calculolaboral.cl/sueldo_liquido';
+            if (typeof gtag !== 'undefined') {{
+                gtag('event', 'share', {{ method: 'WhatsApp', content_type: 'sueldo_liquido' }});
+            }}
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }}
+
+        function shareHEWhatsApp() {{
+            var totalBrutoEl = document.getElementById('he-total-bruto');
+            var horasEl = document.getElementById('he-total-horas');
+            var totalBruto = totalBrutoEl ? totalBrutoEl.innerText.trim() : '$46.130';
+            var horas = horasEl ? horasEl.innerText.trim() : '10.0 hrs';
+            var texto = 'Hola! Calculé mis horas extras en Cálculo Laboral Chile con la Ley 40 Horas (42h en 2026): ' + horas + ' extras = ' + totalBruto + ' adicionales. Simula las tuyas gratis aquí: https://calculolaboral.cl/calculadora-horas-extras';
+            if (typeof gtag !== 'undefined') {{
+                gtag('event', 'share', {{ method: 'WhatsApp', content_type: 'horas_extras' }});
+            }}
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }}
+
+        function sharePTWhatsApp() {{
+            var liquidoEl = document.getElementById('pt-sueldo-liquido');
+            var jornadaEl = document.getElementById('pt-jornada-badge');
+            var liquido = liquidoEl ? liquidoEl.innerText.trim() : '$323.512';
+            var jornada = jornadaEl ? jornadaEl.innerText.trim() : '30 Horas/Sem';
+            var texto = 'Hola! Calculé mi sueldo part-time (' + jornada + ') en Cálculo Laboral Chile: Sueldo Líquido estimado ' + liquido + '. Revisa el tuyo gratis con protección para estudiantes aquí: https://calculolaboral.cl/calculadora-sueldo-part-time';
+            if (typeof gtag !== 'undefined') {{
+                gtag('event', 'share', {{ method: 'WhatsApp', content_type: 'part_time' }});
+            }}
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }}
     </script>
     {custom_scripts}
 </body>
@@ -1084,6 +1128,14 @@ def extract_article_info(file_path):
     if not desc_match:
         desc_match = re.search(r'<meta[^>]*content="(.*?)"[^>]*name="description"', html, re.IGNORECASE | re.DOTALL)
     description = desc_match.group(1).strip() if desc_match else "Guía sobre legislación y cálculos laborales chilenos."
+    
+    filename = os.path.basename(file_path)
+    if filename == "ley-40-horas-chile-2026.html":
+        title = "Ley 40 Horas Chile 2026: Tabla de Horarios, Sueldo y Horas Extras (42h)"
+        description = "Con la Ley 40 Horas (42h en 2026) el valor hora ordinaria con sueldo mínimo sube a $3.075 y la hora extra 50% a $4.613. Revisa la tabla oficial y calcula aquí."
+    elif filename == "guia-vacaciones-proporcionales.html":
+        title = "Vacaciones Proporcionales Chile 2026: Tabla de Días y Calculadora de Pago"
+        description = "¿Renunciaste o te despidieron? Calcula cuántos días de vacaciones proporcionales te corresponden por mes trabajado y su valor en dinero según el Art. 73 DT."
     
     ld_scripts = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.DOTALL)
     custom_head = ""
@@ -1586,6 +1638,69 @@ def clean_article_body(body, filename):
 
         # Minimum wage update
         body = body.replace("el sueldo mínimo es de <strong>$539.000</strong>", "el sueldo mínimo es de <strong>$553.553</strong>")
+        
+        # Replace quick table with updated 42h DT formula and CTA button
+        old_quick_table = """<!-- Tabla rápida: Valor hora Chile 2026 -->
+                <div class="my-8 p-6 rounded-2xl bg-gradient-to-b from-sky-50 to-blue-50 border-2 border-sky-200 shadow-md">
+                    <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Tabla rápida · Valor hora Chile 2026</p>
+                    <p class="text-center !text-slate-600 !text-sm !mb-5 !mt-0">Con el sueldo mínimo vigente de <strong class="text-slate-900">$553.553</strong> mensuales, tu hora, día y semana valen:</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Hora</p>
+                            <p class="!text-2xl !font-extrabold !text-sky-600 !font-mono !mb-1 !mt-0">$2.636</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">por hora ordinaria</p>
+                        </div>
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Día</p>
+                            <p class="!text-2xl !font-extrabold !text-sky-600 !font-mono !mb-1 !mt-0">$18.452</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">jornada de 7h</p>
+                        </div>
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Semana</p>
+                            <p class="!text-2xl !font-extrabold !text-sky-600 !font-mono !mb-1 !mt-0">$110.712</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">42h semanales</p>
+                        </div>
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Mes</p>
+                            <p class="!text-2xl !font-extrabold !text-sky-600 !font-mono !mb-1 !mt-0">$553.553</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">sueldo mínimo</p>
+                        </div>
+                    </div>
+                    <p class="!text-xs !text-slate-500 !mt-4 !mb-0 text-center">Cálculo: $553.553 ÷ 210 horas al mes = $2.636/hora. Fuente: Dirección del Trabajo, julio 2026.</p>
+                </div>"""
+        new_quick_table = """<!-- Tabla rápida: Valor hora Chile 2026 -->
+                <div class="my-8 p-6 rounded-2xl bg-gradient-to-b from-sky-50 to-blue-50 border-2 border-sky-200 shadow-md">
+                    <p class="text-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Tabla rápida · Valor hora Chile 2026 (Jornada 42 Horas)</p>
+                    <p class="text-center !text-slate-600 !text-sm !mb-5 !mt-0">Con el sueldo mínimo vigente de <strong class="text-slate-900">$553.553</strong> mensuales (Fórmula Oficial DT):</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Hora Ordinaria</p>
+                            <p class="!text-2xl !font-extrabold !text-sky-600 !font-mono !mb-1 !mt-0">$3.075</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">divisor DT: 180 hrs</p>
+                        </div>
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Hora Extra 50%</p>
+                            <p class="!text-2xl !font-extrabold !text-emerald-600 !font-mono !mb-1 !mt-0">$4.613</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">días hábiles (×1.5)</p>
+                        </div>
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Hora Extra 100%</p>
+                            <p class="!text-2xl !font-extrabold !text-emerald-600 !font-mono !mb-1 !mt-0">$6.151</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">festivos/domingos</p>
+                        </div>
+                        <div class="bg-white rounded-xl border border-sky-100 p-4 shadow-sm">
+                            <p class="!text-[10px] !text-slate-500 !uppercase !tracking-wider !font-bold !mb-1 !mt-0">Día Hábil</p>
+                            <p class="!text-2xl !font-extrabold !text-sky-600 !font-mono !mb-1 !mt-0">$18.452</p>
+                            <p class="!text-[10px] !text-slate-500 !mb-0 !mt-0">sueldo ÷ 30</p>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <a href="calculadora-horas-extras" class="cta-btn inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/20 transition-all hover:scale-105 active:scale-95 !no-underline cursor-pointer">
+                            <span class="material-icons text-sm">calculate</span> Simular Mis Horas Extras con Sueldo Real →
+                        </a>
+                    </div>
+                </div>"""
+        body = flexible_replace(body, old_quick_table, new_quick_table)
 
     elif filename == "que-hacer-si-no-te-pagan-el-finiquito.html":
         # EEAT badge
@@ -1970,10 +2085,19 @@ def clean_article_body(body, filename):
                     <p class="!text-blue-300 !mb-2">Monto = (Sueldo diario) × Días proporcionales</p>
                     <p class="!text-slate-500 !mb-0 text-xs">Donde sueldo diario = Remuneración íntegra ÷ 30</p>
                 </div>"""
-        new_formula = """<div class="bg-slate-50 border border-slate-200 rounded-xl p-5 font-mono text-sm text-sky-700 my-6 shadow-sm">
-                    <p class="text-sky-700 mb-2">Días proporcionales = 15 × (meses trabajados en el período / 12)</p>
-                    <p class="text-sky-700 mb-2">Monto = (Sueldo diario) × Días proporcionales</p>
-                    <p class="text-slate-500 mb-0 text-xs">Donde sueldo diario = Remuneración íntegra ÷ 30</p>
+        new_formula = """<div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 my-6 shadow-sm">
+                    <div class="font-mono text-xs sm:text-sm text-sky-800 space-y-1.5 mb-4">
+                        <p class="font-bold text-slate-800 mb-2">📐 Fórmula Oficial (Art. 73 Código del Trabajo):</p>
+                        <p class="text-sky-700">Días proporcionales = 1,25 días × meses trabajados en el año</p>
+                        <p class="text-sky-700">Monto a Pago = Días proporcionales × (Sueldo Base ÷ 30)</p>
+                        <p class="text-slate-500 text-xs mt-1 font-sans">Donde 1,25 días = 15 días anuales ÷ 12 meses.</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-200 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <span class="text-xs text-slate-600 font-medium">¿Quieres calcular el monto exacto en pesos con tus fechas?</span>
+                        <a href="finiquito_calculator" class="cta-btn inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 !no-underline cursor-pointer">
+                            <span class="material-icons text-sm">calculate</span> Calcular en Simulador DT →
+                        </a>
+                    </div>
                 </div>"""
         body = flexible_replace(body, old_formula, new_formula)
 
@@ -3050,13 +3174,20 @@ INDEX_CONTENT = """
                 </span>
             </div>
 
-            <!-- PDF and Lead Capture section -->
-            <div id="pdf-section" class="mt-4 hidden no-print">
-              <button id="download-pdf-btn" 
-                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
-                📥 Descargar Desglose PDF
-              </button>
-              <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
+            <!-- PDF and WhatsApp Share section -->
+            <div id="pdf-section" class="mt-4 hidden no-print space-y-2">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button id="download-pdf-btn" 
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer">
+                  <span class="material-icons text-sm">picture_as_pdf</span> Descargar PDF
+                </button>
+                <button type="button" onclick="shareFiniquitoWhatsApp()" id="share-fini-wsp"
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer">
+                  <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.883 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.77-5.768-5.77zm3.394 8.204c-.146.415-.85.766-1.177.812-.328.047-.751.066-2.197-.533-1.848-.767-3.04-2.646-3.133-2.769-.092-.122-.743-.99-.743-1.89 0-.899.469-1.343.636-1.527.167-.184.364-.23.486-.23.121 0 .243.002.348.007.111.005.259-.042.404.307.149.358.508 1.238.552 1.329.045.091.076.197.015.318-.061.122-.091.198-.182.304-.091.106-.192.237-.274.318-.091.091-.186.19-.08.373.106.182.471.777 1.01 1.258.694.619 1.28.81 1.462.901.182.091.289.076.395-.046.106-.122.456-.532.577-.714.122-.182.243-.152.408-.091.167.061 1.062.5 1.244.591.182.091.304.137.348.213.045.076.045.441-.101.856zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.662 1.442 5.176L2 22l4.98-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                  WhatsApp
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-400">Descarga instantánea o comparte con tu empleador/abogado.</p>
             </div>
 
             <!-- Lead Capture Section (SOLO EN FINIQUITO) -->
@@ -3405,13 +3536,20 @@ INDEX_CONTENT = """
                 <!-- Alerts are injected dynamically by salary_ui.js -->
             </div>
 
-            <!-- PDF section -->
-            <div id="pdf-section" class="mt-4 hidden no-print">
-              <button id="download-pdf-btn-sueldo" 
-                class="flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
-                📥 Descargar Desglose PDF
-              </button>
-              <p class="text-xs text-slate-400 mt-1">Descarga instantánea. Sin registro.</p>
+            <!-- PDF and WhatsApp Share section -->
+            <div id="pdf-section" class="mt-4 hidden no-print space-y-2">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button id="download-pdf-btn-sueldo" 
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer">
+                  <span class="material-icons text-sm">picture_as_pdf</span> Descargar PDF
+                </button>
+                <button type="button" onclick="shareSueldoWhatsApp()" id="share-sueldo-wsp"
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer">
+                  <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.883 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.77-5.768-5.77zm3.394 8.204c-.146.415-.85.766-1.177.812-.328.047-.751.066-2.197-.533-1.848-.767-3.04-2.646-3.133-2.769-.092-.122-.743-.99-.743-1.89 0-.899.469-1.343.636-1.527.167-.184.364-.23.486-.23.121 0 .243.002.348.007.111.005.259-.042.404.307.149.358.508 1.238.552 1.329.045.091.076.197.015.318-.061.122-.091.198-.182.304-.091.106-.192.237-.274.318-.091.091-.186.19-.08.373.106.182.471.777 1.01 1.258.694.619 1.28.81 1.462.901.182.091.289.076.395-.046.106-.122.456-.532.577-.714.122-.182.243-.152.408-.091.167.061 1.062.5 1.244.591.182.091.304.137.348.213.045.076.045.441-.101.856zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.662 1.442 5.176L2 22l4.98-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                  WhatsApp
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-400">Descarga instantánea o comparte tu desglose.</p>
             </div>
         </div>
     </div>
@@ -4154,8 +4292,12 @@ HORAS_EXTRAS_CONTENT = """
                     <button type="button" onclick="copyHEResults()" id="he-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
                         <span class="material-icons text-sm">content_copy</span> <span id="he-copy-text">Copiar Resumen</span>
                     </button>
+                    <button type="button" onclick="shareHEWhatsApp()" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/10 active:scale-95 cursor-pointer">
+                        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.883 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.77-5.768-5.77zm3.394 8.204c-.146.415-.85.766-1.177.812-.328.047-.751.066-2.197-.533-1.848-.767-3.04-2.646-3.133-2.769-.092-.122-.743-.99-.743-1.89 0-.899.469-1.343.636-1.527.167-.184.364-.23.486-.23.121 0 .243.002.348.007.111.005.259-.042.404.307.149.358.508 1.238.552 1.329.045.091.076.197.015.318-.061.122-.091.198-.182.304-.091.106-.192.237-.274.318-.091.091-.186.19-.08.373.106.182.471.777 1.01 1.258.694.619 1.28.81 1.462.901.182.091.289.076.395-.046.106-.122.456-.532.577-.714.122-.182.243-.152.408-.091.167.061 1.062.5 1.244.591.182.091.304.137.348.213.045.076.045.441-.101.856zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.662 1.442 5.176L2 22l4.98-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                        Compartir en WhatsApp
+                    </button>
                     <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
-                        <span class="material-icons text-sm">payments</span> Ver en Calculadora de Sueldo
+                        <span class="material-icons text-sm">payments</span> Ver en Sueldo
                     </a>
                 </div>
             </div>
@@ -4186,17 +4328,75 @@ HORAS_EXTRAS_CONTENT = """
                 </div>
             </div>
 
-            <!-- Comparison Table -->
+            <!-- Table 1: Quick Reference by Number of Extra Hours -->
             <div>
-                <h3 class="text-xl font-bold text-slate-900 mb-4">Tabla oficial de horas extras 2026 (Jornada Legal 42 Horas)</h3>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Tabla de Pago de Horas Extras con Sueldo Mínimo ($553.553 CLP - 42h)</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mb-4">Valores oficiales con hora ordinaria a <strong>$3.075</strong>, hora 50% a <strong>$4.613</strong> y hora 100% a <strong>$6.151</strong>:</p>
+                <div class="overflow-x-auto border border-slate-200 rounded-2xl mb-6">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3.5">Cantidad de Horas</th>
+                                <th class="p-3.5 text-sky-600">Total al 50% (Días Hábiles)</th>
+                                <th class="p-3.5 text-emerald-600">Total al 100% (Festivos / Domingos)</th>
+                                <th class="p-3.5 text-slate-700">Líquido Aprox. en Bolsillo (~80%)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-mono">
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">1 Hora Extra</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$4.613</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$6.151</td>
+                                <td class="p-3.5 text-slate-700">~$3.690</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">2 Horas Extras</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$9.226</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$12.301</td>
+                                <td class="p-3.5 text-slate-700">~$7.381</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">5 Horas Extras</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$23.065</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$30.753</td>
+                                <td class="p-3.5 text-slate-700">~$18.452</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">10 Horas Extras</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$46.130</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$61.506</td>
+                                <td class="p-3.5 text-slate-700">~$36.904</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">15 Horas Extras</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$69.195</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$92.259</td>
+                                <td class="p-3.5 text-slate-700">~$55.356</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">20 Horas Extras</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$92.260</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$123.012</td>
+                                <td class="p-3.5 text-slate-700">~$73.808</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Table 2: Comparison by Salary Level -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Tabla Oficial según Nivel de Sueldo Base (Jornada 42 Horas)</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mb-4">Valores unitarios y ejemplo de 10 horas extras mensuales:</p>
                 <div class="overflow-x-auto border border-slate-200 rounded-2xl">
                     <table class="w-full text-left border-collapse text-xs sm:text-sm">
                         <thead>
                             <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
                                 <th class="p-3.5">Sueldo Base</th>
                                 <th class="p-3.5">Hora Ordinaria (÷180)</th>
-                                <th class="p-3.5 text-sky-600">Hora Extra 50% (×1.5)</th>
-                                <th class="p-3.5 text-emerald-600">Hora Extra 100% (×2.0)</th>
+                                <th class="p-3.5 text-sky-600">Hora 50%</th>
+                                <th class="p-3.5 text-emerald-600">Hora 100%</th>
+                                <th class="p-3.5 text-slate-800">Total 10 Horas (50%)</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 font-mono">
@@ -4205,24 +4405,49 @@ HORAS_EXTRAS_CONTENT = """
                                 <td class="p-3.5 text-slate-600">$3.075</td>
                                 <td class="p-3.5 text-sky-600 font-bold">$4.613</td>
                                 <td class="p-3.5 text-emerald-600 font-bold">$6.151</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$46.130</td>
                             </tr>
                             <tr>
-                                <td class="p-3.5 font-bold text-slate-800">$750.000</td>
-                                <td class="p-3.5 text-slate-600">$4.167</td>
-                                <td class="p-3.5 text-sky-600 font-bold">$6.250</td>
-                                <td class="p-3.5 text-emerald-600 font-bold">$8.333</td>
+                                <td class="p-3.5 font-bold text-slate-800">$700.000</td>
+                                <td class="p-3.5 text-slate-600">$3.889</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$5.833</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$7.778</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$58.333</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$850.000</td>
+                                <td class="p-3.5 text-slate-600">$4.722</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$7.083</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$9.444</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$70.833</td>
                             </tr>
                             <tr>
                                 <td class="p-3.5 font-bold text-slate-800">$1.000.000</td>
                                 <td class="p-3.5 text-slate-600">$5.556</td>
                                 <td class="p-3.5 text-sky-600 font-bold">$8.333</td>
                                 <td class="p-3.5 text-emerald-600 font-bold">$11.111</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$83.333</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$1.200.000</td>
+                                <td class="p-3.5 text-slate-600">$6.667</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$10.000</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$13.333</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$100.000</td>
                             </tr>
                             <tr>
                                 <td class="p-3.5 font-bold text-slate-800">$1.500.000</td>
                                 <td class="p-3.5 text-slate-600">$8.333</td>
                                 <td class="p-3.5 text-sky-600 font-bold">$12.500</td>
                                 <td class="p-3.5 text-emerald-600 font-bold">$16.667</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$125.000</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-bold text-slate-800">$2.000.000</td>
+                                <td class="p-3.5 text-slate-600">$11.111</td>
+                                <td class="p-3.5 text-sky-600 font-bold">$16.667</td>
+                                <td class="p-3.5 text-emerald-600 font-bold">$22.222</td>
+                                <td class="p-3.5 text-slate-900 font-bold">$166.667</td>
                             </tr>
                         </tbody>
                     </table>
@@ -4591,6 +4816,10 @@ PART_TIME_CONTENT = """
                 <div class="pt-4 flex flex-col sm:flex-row gap-3 border-t border-slate-100">
                     <button type="button" onclick="copyPTResults()" id="pt-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
                         <span class="material-icons text-sm">content_copy</span> <span id="pt-copy-text">Copiar Resumen</span>
+                    </button>
+                    <button type="button" onclick="sharePTWhatsApp()" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/10 active:scale-95 cursor-pointer">
+                        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.883 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.77-5.768-5.77zm3.394 8.204c-.146.415-.85.766-1.177.812-.328.047-.751.066-2.197-.533-1.848-.767-3.04-2.646-3.133-2.769-.092-.122-.743-.99-.743-1.89 0-.899.469-1.343.636-1.527.167-.184.364-.23.486-.23.121 0 .243.002.348.007.111.005.259-.042.404.307.149.358.508 1.238.552 1.329.045.091.076.197.015.318-.061.122-.091.198-.182.304-.091.106-.192.237-.274.318-.091.091-.186.19-.08.373.106.182.471.777 1.01 1.258.694.619 1.28.81 1.462.901.182.091.289.076.395-.046.106-.122.456-.532.577-.714.122-.182.243-.152.408-.091.167.061 1.062.5 1.244.591.182.091.304.137.348.213.045.076.045.441-.101.856zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.662 1.442 5.176L2 22l4.98-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                        Compartir en WhatsApp
                     </button>
                     <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
                         <span class="material-icons text-sm">receipt_long</span> Sueldo Completo

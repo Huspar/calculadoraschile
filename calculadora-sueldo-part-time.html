@@ -710,6 +710,10 @@
                     <button type="button" onclick="copyPTResults()" id="pt-copy-btn" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
                         <span class="material-icons text-sm">content_copy</span> <span id="pt-copy-text">Copiar Resumen</span>
                     </button>
+                    <button type="button" onclick="sharePTWhatsApp()" class="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/10 active:scale-95 cursor-pointer">
+                        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.883 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.77-5.768-5.77zm3.394 8.204c-.146.415-.85.766-1.177.812-.328.047-.751.066-2.197-.533-1.848-.767-3.04-2.646-3.133-2.769-.092-.122-.743-.99-.743-1.89 0-.899.469-1.343.636-1.527.167-.184.364-.23.486-.23.121 0 .243.002.348.007.111.005.259-.042.404.307.149.358.508 1.238.552 1.329.045.091.076.197.015.318-.061.122-.091.198-.182.304-.091.106-.192.237-.274.318-.091.091-.186.19-.08.373.106.182.471.777 1.01 1.258.694.619 1.28.81 1.462.901.182.091.289.076.395-.046.106-.122.456-.532.577-.714.122-.182.243-.152.408-.091.167.061 1.062.5 1.244.591.182.091.304.137.348.213.045.076.045.441-.101.856zM12 2C6.477 2 2 6.477 2 12c0 1.891.526 3.662 1.442 5.176L2 22l4.98-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                        Compartir en WhatsApp
+                    </button>
                     <a href="sueldo_liquido" class="flex-1 py-3 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 text-center shadow-md shadow-sky-500/10 active:scale-95">
                         <span class="material-icons text-sm">receipt_long</span> Sueldo Completo
                     </a>
@@ -995,6 +999,50 @@
                 alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
                 if (btn) btn.disabled = false;
             });
+        }
+
+        function shareFiniquitoWhatsApp() {
+            var totalEl = document.getElementById('totalFiniquitoOutput');
+            var total = totalEl ? totalEl.innerText.trim() : '';
+            var texto = 'Hola! Hice mi cálculo de finiquito en Cálculo Laboral Chile' + (total && total !== '$0' && total !== '—' ? ' y me dio ' + total : '') + '. Puedes calcular el tuyo gratis según la Dirección del Trabajo aquí: https://calculolaboral.cl/finiquito_calculator';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'finiquito' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }
+
+        function shareSueldoWhatsApp() {
+            var liquidoEl = document.getElementById('netSalaryOutput');
+            var liquido = liquidoEl ? liquidoEl.innerText.trim() : '';
+            var texto = 'Hola! Calculé mi sueldo líquido en Cálculo Laboral Chile' + (liquido && liquido !== '$0' && liquido !== '—' ? ' (Líquido: ' + liquido + ')' : '') + '. Revisa tu liquidación con todos los descuentos legales aquí: https://calculolaboral.cl/sueldo_liquido';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'sueldo_liquido' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }
+
+        function shareHEWhatsApp() {
+            var totalBrutoEl = document.getElementById('he-total-bruto');
+            var horasEl = document.getElementById('he-total-horas');
+            var totalBruto = totalBrutoEl ? totalBrutoEl.innerText.trim() : '$46.130';
+            var horas = horasEl ? horasEl.innerText.trim() : '10.0 hrs';
+            var texto = 'Hola! Calculé mis horas extras en Cálculo Laboral Chile con la Ley 40 Horas (42h en 2026): ' + horas + ' extras = ' + totalBruto + ' adicionales. Simula las tuyas gratis aquí: https://calculolaboral.cl/calculadora-horas-extras';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'horas_extras' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
+        }
+
+        function sharePTWhatsApp() {
+            var liquidoEl = document.getElementById('pt-sueldo-liquido');
+            var jornadaEl = document.getElementById('pt-jornada-badge');
+            var liquido = liquidoEl ? liquidoEl.innerText.trim() : '$323.512';
+            var jornada = jornadaEl ? jornadaEl.innerText.trim() : '30 Horas/Sem';
+            var texto = 'Hola! Calculé mi sueldo part-time (' + jornada + ') en Cálculo Laboral Chile: Sueldo Líquido estimado ' + liquido + '. Revisa el tuyo gratis con protección para estudiantes aquí: https://calculolaboral.cl/calculadora-sueldo-part-time';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', { method: 'WhatsApp', content_type: 'part_time' });
+            }
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(texto), '_blank');
         }
     </script>
     
