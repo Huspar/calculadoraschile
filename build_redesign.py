@@ -18,12 +18,13 @@ def generate_seo_tags(filename, title, description, page_type="website"):
         canonical_url = f"https://calculolaboral.cl/{filename.replace(".html", "")}"
         
     # 2. Open Graph Tags
+    og_img = "https://calculolaboral.cl/assets/guia-fondos-generacionales-afp-cover.png" if filename == "fondos-generacionales-afp-chile.html" else "https://calculolaboral.cl/assets/og-image.png"
     og_tags_list = [
         f'<meta property="og:title" content="{title}">',
         f'<meta property="og:description" content="{description}">',
         f'<meta property="og:type" content="{page_type}">',
         f'<meta property="og:url" content="{canonical_url}">',
-        '<meta property="og:image" content="https://calculolaboral.cl/assets/og-image.png">',
+        f'<meta property="og:image" content="{og_img}">',
         '<meta property="og:locale" content="es_CL">',
         '<meta property="og:site_name" content="Cálculo Laboral">'
     ]
@@ -197,6 +198,49 @@ def generate_seo_tags(filename, title, description, page_type="website"):
         }
     ]
 
+    faqs_fondos_generacionales = [
+        {
+            "@type": "Question",
+            "name": "¿Qué son los Fondos Generacionales de las AFP?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Son fondos de inversión por ciclo de vida (Target Date Funds) donde los ahorros previsionales de los trabajadores se asignan según su año de nacimiento. A medida que el trabajador envejece, el fondo reduce automáticamente el riesgo pasando de renta variable a renta fija sin necesidad de hacer trámites manuales."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Tendré que hacer algún trámite en mi AFP para el cambio de fondo?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. La asignación inicial a tu fondo generacional por año de nacimiento se realiza de forma 100% automática por parte de tu AFP, sin costo ni comisiones de traspaso para el afiliado."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Desaparecen los multifondos A, B, C, D y E en Chile?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Para las cotizaciones obligatorias de los trabajadores dependientes e independientes, el esquema tradicional de 5 multifondos (A al E) se reemplaza por el sistema de fondos generacionales."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Podré elegir un fondo diferente al que me asignaron por edad?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El modelo está diseñado para mantener a cada persona en su cohorte generacional para maximizar la pensión y evitar pérdidas por especulación. Sin embargo, la normativa contempla opciones acotadas para optar por fondos adyacentes de perfil más conservador o dinámico dentro de márgenes legales."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Este cambio modifica el 10% de cotización mensual de mi sueldo?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. El porcentaje de cotización previsional de tu sueldo no cambia por esta medida; lo que cambia es la estrategia de inversión y diversificación de tus ahorros en la administradora."
+            }
+        }
+    ]
+
     if filename == "index.html":
         json_ld_data = {
             "@context": "https://schema.org",
@@ -333,6 +377,47 @@ def generate_seo_tags(filename, title, description, page_type="website"):
                 }
             ]
         }
+    elif filename == "fondos-generacionales-afp-chile.html":
+        json_ld_data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "headline": title.split("|")[0].strip(),
+                    "description": description,
+                    "author": { "@type": "Organization", "name": "Cálculo Laboral" },
+                    "datePublished": "2026-09-05",
+                    "dateModified": "2026-09-05"
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Inicio",
+                            "item": "https://calculolaboral.cl/"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Blog",
+                            "item": "https://calculolaboral.cl/blog"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Fondos Generacionales AFP Chile",
+                            "item": "https://calculolaboral.cl/fondos-generacionales-afp-chile"
+                        }
+                    ]
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": faqs_fondos_generacionales
+                }
+            ]
+        }
     elif page_type == "article":
         json_ld_data = {
             "@context": "https://schema.org",
@@ -416,6 +501,7 @@ HEADER_HTML = """
                         </button>
                         <div class="absolute left-0 mt-0 w-64 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
                             <div class="p-2 space-y-1 max-h-[300px] overflow-y-auto">
+                                <a href="fondos-generacionales-afp-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Fondos Generacionales AFP</a>
                                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Finiquito</a>
                                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Calcular Sueldo Líquido</a>
                                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50 rounded-lg transition-colors">Cómo Leer Liquidación</a>
@@ -448,6 +534,7 @@ HEADER_HTML = """
                 <a href="calculadora-sueldo-part-time" class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Sueldo Part-Time</a>
                 <div class="border-t border-slate-100 my-2"></div>
                 <p class="px-3 text-xs font-bold text-slate-500 uppercase tracking-widest">Guías</p>
+                <a href="fondos-generacionales-afp-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Fondos Generacionales AFP</a>
                 <a href="como-calcular-finiquito-chile" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Finiquito</a>
                 <a href="como-calcular-sueldo-liquido-paso-a-paso" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Calcular Sueldo Líquido</a>
                 <a href="como-leer-liquidacion-de-sueldo" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-sky-500 hover:bg-slate-50">Cómo Leer Liquidación</a>
@@ -521,6 +608,7 @@ FOOTER_HTML = """
             <div class="space-y-4">
                 <h4 class="text-sm font-bold text-slate-900 uppercase tracking-widest">Guías Populares</h4>
                 <ul class="space-y-2">
+                    <li><a href="fondos-generacionales-afp-chile" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Fondos Generacionales AFP</a></li>
                     <li><a href="como-calcular-finiquito-chile" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Finiquito</a></li>
                     <li><a href="como-calcular-sueldo-liquido-paso-a-paso" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Cómo Calcular Sueldo Líquido</a></li>
                     <li><a href="guia-vacaciones-proporcionales" class="text-sm text-slate-600 hover:text-sky-500 transition-colors font-medium">Vacaciones Proporcionales</a></li>
@@ -1169,6 +1257,9 @@ def extract_article_info(file_path):
     elif filename == "guia-vacaciones-proporcionales.html":
         title = "Vacaciones Proporcionales Chile 2026: Tabla de Días y Calculadora de Pago"
         description = "¿Renunciaste o te despidieron? Calcula cuántos días de vacaciones proporcionales te corresponden por mes trabajado y su valor en dinero según el Art. 73 DT."
+    elif filename == "fondos-generacionales-afp-chile.html":
+        title = "Fondos Generacionales AFP Chile: Qué son, Tabla por Edad y Fin de Multifondos"
+        description = "Guía completa sobre los Fondos Generacionales de las AFP en Chile: qué son, tabla por año de nacimiento, qué pasará con los multifondos A, B, C, D, E y fechas clave."
     
     ld_scripts = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.DOTALL)
     custom_head = ""
@@ -2431,7 +2522,8 @@ articles = [
     "que-hacer-si-no-te-pagan-el-finiquito.html",
     "reclamar-despido-injustificado-chile.html",
     "finiquito-por-renuncia-voluntaria.html",
-    "carta-de-despido-chile.html"
+    "carta-de-despido-chile.html",
+    "fondos-generacionales-afp-chile.html"
 ]
 
 print("Starting page migration to light theme...")
@@ -2568,6 +2660,22 @@ blog_content = """
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 0. Fondos Generacionales AFP -->
+        <a href="fondos-generacionales-afp-chile" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="aspect-video bg-slate-100 overflow-hidden relative border-b border-slate-100">
+                <img src="assets/guia-fondos-generacionales-afp-cover.png" alt="Fondos Generacionales AFP Chile" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <span class="absolute top-4 left-4 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">Reforma Previsional</span>
+            </div>
+            <div class="p-6">
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2">Fondos Generacionales AFP Chile: Qué son y tabla por edad</h3>
+                <p class="text-slate-500 text-xs leading-relaxed mb-4">El fin de los multifondos A, B, C, D, E. Conoce cómo funcionan los fondos por ciclo de vida y en cuál quedarás según tu año de nacimiento.</p>
+                <div class="flex justify-between items-center text-[10px] text-slate-400 font-medium">
+                    <span>Septiembre 2026</span>
+                    <span>7 min lectura</span>
+                </div>
+            </div>
+        </a>
+
         <!-- 1. Sueldo Líquido -->
         <a href="como-calcular-sueldo-liquido-paso-a-paso" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
             <div class="aspect-video bg-slate-100 overflow-hidden relative border-b border-slate-100">
