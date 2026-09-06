@@ -520,24 +520,68 @@
     <main class="flex-grow pt-4 pb-16">
         
 <div class="max-w-[1200px] mx-auto px-6">
+    <!-- Trending Notice Banner -->
+    <div class="max-w-3xl mx-auto mt-6 mb-4 no-print">
+        <a href="fondos-generacionales-afp-chile" class="group flex items-center justify-between gap-3 p-3 px-4 rounded-2xl bg-amber-50/90 hover:bg-amber-100/80 border border-amber-200/90 text-amber-950 transition-all shadow-sm">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-200/80 text-amber-900 text-[10px] font-extrabold uppercase tracking-wider shrink-0">
+                    <span class="material-icons text-xs">campaign</span> Novedad 2026
+                </span>
+                <span class="text-xs font-semibold truncate text-slate-800 group-hover:text-amber-950 transition-colors">
+                    Reforma Previsional: Conoce los nuevos Fondos Generacionales AFP y en cuál quedarás según tu edad
+                </span>
+            </div>
+            <span class="inline-flex items-center text-xs font-bold text-amber-800 group-hover:translate-x-0.5 transition-transform shrink-0">
+                Ver Guía <span class="material-icons text-xs ml-0.5">arrow_forward</span>
+            </span>
+        </a>
+    </div>
+
     <!-- H1 Header Section for SEO -->
-    <div class="text-center sm:text-left my-8 max-w-xl mx-auto no-print">
-        <h1 class="text-2xl font-bold text-slate-900">
+    <div class="text-center my-6 max-w-2xl mx-auto no-print">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200/70 text-[11px] font-bold uppercase tracking-wider mb-3 shadow-xs">
+            <span class="material-icons text-xs text-sky-500">verified</span> Suite Gratuita • Normativa DT 2026
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Calculadora de Finiquito Chile 2026
         </h1>
-        <p class="text-slate-500 text-sm mt-1">
+        <p class="text-slate-500 text-sm mt-2 leading-relaxed">
             Simula tu finiquito con formato oficial de la Dirección del Trabajo (DT). Indemnización por años de servicio, vacaciones y aviso previo.
         </p>
     </div>
 
-    <!-- Tab Controls for Calculator Selection -->
-    <div class="flex max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-1 mb-8 shadow-sm no-print">
-        <button id="tab-btn-finiquito" onclick="switchCalculatorTab('finiquito')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100">
-            Calculadora de Finiquito
-        </button>
-        <button id="tab-btn-sueldo" onclick="switchCalculatorTab('sueldo')" class="flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 active:scale-[0.98] duration-100">
-            Sueldo Líquido
-        </button>
+    <!-- Suite of 4 Tools Selector -->
+    <div class="max-w-3xl mx-auto mb-8 no-print">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200 shadow-sm">
+            <!-- 1. Finiquito -->
+            <button id="tab-btn-finiquito" onclick="switchCalculatorTab('finiquito')" class="py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5">
+                <span class="flex items-center gap-1"><span class="material-icons text-sm">gavel</span> Finiquito</span>
+                <span class="text-[9px] font-normal opacity-90 lowercase">simulador en vivo</span>
+            </button>
+            
+            <!-- 2. Sueldo Líquido -->
+            <button id="tab-btn-sueldo" onclick="switchCalculatorTab('sueldo')" class="py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-600 hover:text-slate-900 hover:bg-white active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5">
+                <span class="flex items-center gap-1"><span class="material-icons text-sm">payments</span> Sueldo Líquido</span>
+                <span class="text-[9px] font-normal opacity-75 lowercase">simulador en vivo</span>
+            </button>
+            
+            <!-- 3. Horas Extras -->
+            <a href="calculadora-horas-extras" class="py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-white text-slate-700 hover:text-sky-600 hover:bg-sky-50/60 border border-slate-200/80 active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5 group shadow-xs">
+                <span class="flex items-center gap-1">
+                    <span class="material-icons text-sm text-amber-500">schedule</span> Horas Extras
+                    <span class="text-[8px] bg-amber-500 text-white font-extrabold px-1.5 py-0.2 rounded-full uppercase">Top</span>
+                </span>
+                <span class="text-[9px] font-normal text-slate-400 group-hover:text-sky-500 transition-colors lowercase">ley 40 horas</span>
+            </a>
+            
+            <!-- 4. Sueldo Part-Time -->
+            <a href="calculadora-sueldo-part-time" class="py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-white text-slate-700 hover:text-sky-600 hover:bg-sky-50/60 border border-slate-200/80 active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5 group shadow-xs">
+                <span class="flex items-center gap-1">
+                    <span class="material-icons text-sm text-indigo-500">hourglass_bottom</span> Part-Time
+                </span>
+                <span class="text-[9px] font-normal text-slate-400 group-hover:text-sky-500 transition-colors lowercase">30h y 20h</span>
+            </a>
+        </div>
     </div>
 
     <!-- ---------------------------------------------------- -->
@@ -1210,33 +1254,77 @@
             <button id="mobile-pdf-btn" onclick="var fini=document.getElementById('finiquito-calc-container');if(fini&&!fini.classList.contains('hidden')){var b=document.getElementById('download-pdf-btn');if(b)b.click();}else{var s=document.getElementById('download-pdf-btn-sueldo');if(s)s.click();}" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm flex items-center gap-1 cursor-pointer active:scale-95 transition-all">
                 <span class="material-icons text-sm">picture_as_pdf</span> PDF
             </button>
-            <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10 cursor-pointer active:scale-95 transition-all">Ver desglose</button>
+                            <button onclick="var fini=document.getElementById('finiquito-calc-container');var target=fini&&!fini.classList.contains('hidden')?document.getElementById('resultados-finiquito'):document.getElementById('resultados-sueldo');if(target)target.scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md shadow-sky-500/10 cursor-pointer active:scale-95 transition-all">Ver desglose</button>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- TRUST & E-E-A-T PILLARS (3 Cards)                    -->
+    <!-- ---------------------------------------------------- -->
+    <div class="max-w-[1200px] mx-auto my-16 no-print">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 shadow-xs">
+                    <span class="material-icons text-2xl">verified_user</span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 mb-1">Normativa DT & SII 2026</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Fórmulas calibradas con el Código del Trabajo de Chile, divisores de 42h (Ley 40 Horas), y topes legales de 89.9 UF y 90 UF.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 shadow-xs">
+                    <span class="material-icons text-2xl">lock</span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 mb-1">Privacidad y Sin Registro</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Tus datos se calculan de manera 100% privada y local en tu navegador. Jamás solicitamos RUT ni guardamos remuneraciones personales.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 shadow-xs">
+                    <span class="material-icons text-2xl">picture_as_pdf</span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 mb-1">Exportación Oficial en PDF</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Descarga e imprime reportes desglosados en formato legal estándar con un solo clic, sin marcas de agua y de libre uso.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- ---------------------------------------------------- -->
     <!-- EDUCATIONAL ACCORDIONS (Below the fold)              -->
     <!-- ---------------------------------------------------- -->
-    <div class="max-w-3xl mx-auto mt-20 no-print">
+    <div class="max-w-4xl mx-auto my-12 no-print">
         <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">Preguntas Frecuentes sobre el Finiquito Laboral e Indemnizaciones</h2>
+        
         <div class="space-y-4">
             <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
                 <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
-                    ¿Cómo se calcula el sueldo líquido en Chile?
+                    ¿Cómo funciona el cálculo de Sueldo Líquido en Chile?
                     <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
                 </summary>
                 <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
-                    El sueldo líquido (o sueldo a pago) se obtiene restando del Sueldo Bruto los descuentos obligatorios fijados por ley: la cotización para tu fondo de pensiones en la AFP (que oscila entre 10.58% y 11.45% según la entidad), la cotización de salud legal (7% para Fonasa o el monto pactado en tu Isapre), y tu parte del seguro de cesantía en AFC (0.6% si tu contrato es de tipo indefinido). De exceder las 13.5 UTM imponibles, se aplica de forma progresiva el impuesto de segunda categoría.
+                    El sueldo líquido corresponde al total de tus haberes menos las deducciones legales obligatorias: AFP (10% + comisión de tu administradora), Salud (7% obligatorio para Fonasa o el monto pactado en UF para Isapre), Seguro de Cesantía (0.6% de la base imponible para contratos indefinidos) y el Impuesto Único de Segunda Categoría (aplicable según la tabla progresiva mensual del SII). Los haberes no imponibles como colación y movilización se suman íntegros al líquido final.
                 </div>
             </details>
 
             <details class="bg-white border border-slate-200 rounded-2xl group transition-all duration-200 overflow-hidden">
                 <summary class="cursor-pointer p-5 font-bold text-sm text-slate-800 flex justify-between items-center outline-none list-none [&::-webkit-details-marker]:hidden">
-                    ¿Qué conceptos integra un finiquito laboral?
+                    ¿Qué conceptos integran el Finiquito Legal?
                     <span class="material-icons transition-transform group-open:rotate-180 text-sky-500">expand_more</span>
                 </summary>
                 <div class="px-5 pb-5 pt-1 text-sm text-slate-500 leading-relaxed border-t border-slate-100">
-                    Un finiquito de trabajo contempla fundamentalmente cuatro haberes a liquidar: las remuneraciones pendientes por los días laborados durante el último mes, la indemnización por vacaciones proporcionales y pendientes no gozadas, la indemnización por años de servicio (un mes de remuneración computable por cada año completo, si la causal es necesidades de la empresa u otra idónea), y la indemnización sustitutiva de aviso previo (un mes adicional, si el despido fue de forma inmediata).
+                    Un finiquito conforme al Código del Trabajo debe incluir: remuneraciones adeudadas por días trabajados en el mes, feriado proporcional y pendiente (vacaciones legales compensadas en dinero), indemnización por años de servicio (si el despido es por Necesidades de la Empresa, Art. 161, equivalente a un sueldo por año con tope de 11) e indemnización sustitutiva del aviso previo si no se comunicó la desvinculación con 30 días de antelación.
                 </div>
             </details>
 
@@ -1275,10 +1363,40 @@
     <!-- ---------------------------------------------------- -->
     <!-- RELATED GUIDES SECTION (6 Cards)                     -->
     <!-- ---------------------------------------------------- -->
-    <div class="max-w-[1200px] mx-auto mt-24 no-print">
-        <h2 class="text-2xl font-bold text-slate-900 text-center mb-10">Guías Prácticas de Utilidad</h2>
+    <div class="max-w-[1200px] mx-auto mt-20 mb-12 no-print">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Guías y Actualidad Laboral 2026</h2>
+                <p class="text-slate-500 text-xs mt-1">Artículos prácticos y actualizados conforme al Código del Trabajo de Chile.</p>
+            </div>
+            <a href="blog" class="inline-flex items-center gap-1 text-xs font-bold text-sky-600 hover:text-sky-700 bg-sky-50 hover:bg-sky-100 px-3.5 py-2 rounded-xl transition-colors">
+                Ver todo el Blog <span class="material-icons text-xs">arrow_forward</span>
+            </a>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Card 1 -->
+            <!-- Card 1: Fondos Generacionales AFP -->
+            <a href="fondos-generacionales-afp-chile" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-fondos-generacionales-afp-cover.png" alt="Fondos Generacionales AFP Chile" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-amber-500 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md shadow-xs">Reforma Previsional</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Fondos Generacionales AFP Chile: Qué son y tabla por edad</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">El fin de los multifondos A, B, C, D, E. Conoce cómo funcionan los fondos por ciclo de vida y en cuál quedarás según tu año de nacimiento.</p>
+                </div>
+            </a>
+            <!-- Card 2: Ley 40 Horas -->
+            <a href="ley-40-horas-chile-2026" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-ley-40-horas-chile-cover.png" alt="Ley 40 Horas" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-sky-500 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md shadow-xs">Laboral 2026</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Implementación de la Ley de 40 Horas (42h)</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Infografía detallada y cronograma legal sobre la reducción paulatina de la jornada ordinaria en Chile y su valor hora extra.</p>
+                </div>
+            </a>
+            <!-- Card 3: Sueldo Líquido -->
             <a href="como-calcular-sueldo-liquido-paso-a-paso" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
                 <div class="aspect-video bg-slate-100 overflow-hidden relative">
                     <img src="assets/guia-sueldo-liquido-cover.png" alt="Calcular sueldo líquido" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -1288,17 +1406,7 @@
                     <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Entiende al detalle cómo pasar tu renta bruta mensual a líquida restando las retenciones obligatorias de AFP, Fonasa o Isapre.</p>
                 </div>
             </a>
-            <!-- Card 2 -->
-            <a href="guia-vacaciones-proporcionales" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-                <div class="aspect-video bg-slate-100 overflow-hidden relative">
-                    <img src="assets/guia-vacaciones-proporcionales-cover.png" alt="Vacaciones Proporcionales" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Cálculo de Vacaciones Proporcionales</h3>
-                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Aprende la fórmula del feriado proporcional y comprende por qué a veces aparece valorizado en $0 en tu liquidación de término.</p>
-                </div>
-            </a>
-            <!-- Card 3 -->
+            <!-- Card 4: Finiquito -->
             <a href="como-calcular-finiquito-chile" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
                 <div class="aspect-video bg-slate-100 overflow-hidden relative">
                     <img src="assets/guia-calculo-finiquito-chile-2026.png" alt="Cálculo de Finiquito" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -1308,7 +1416,17 @@
                     <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Guía didáctica completa con fórmulas, indemnización por años de servicio, aviso previo y un ejemplo práctico resuelto.</p>
                 </div>
             </a>
-            <!-- Card 4 -->
+            <!-- Card 5: Vacaciones Proporcionales -->
+            <a href="guia-vacaciones-proporcionales" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
+                <div class="aspect-video bg-slate-100 overflow-hidden relative">
+                    <img src="assets/guia-vacaciones-proporcionales-cover.png" alt="Vacaciones Proporcionales" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Cálculo de Vacaciones Proporcionales</h3>
+                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Aprende la fórmula del feriado proporcional y comprende por qué a veces aparece valorizado en $0 en tu liquidación de término.</p>
+                </div>
+            </a>
+            <!-- Card 6: Despido Art 161 -->
             <a href="despido-necesidades-empresa-articulo-161" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
                 <div class="aspect-video bg-slate-100 overflow-hidden relative">
                     <img src="assets/guia-despido-necesidades-empresa-161.png" alt="Artículo 161" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -1316,26 +1434,6 @@
                 <div class="p-5">
                     <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Despido por Necesidades de la Empresa</h3>
                     <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Conoce qué causales se consideran válidas en el Artículo 161 y qué hacer si consideras que tu despido es injustificado.</p>
-                </div>
-            </a>
-            <!-- Card 5 -->
-            <a href="ley-40-horas-chile-2026" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-                <div class="aspect-video bg-slate-100 overflow-hidden relative">
-                    <img src="assets/guia-ley-40-horas-chile-cover.png" alt="Ley 40 Horas" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">Implementación de la Ley de 40 Horas</h3>
-                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Infografía detallada y cronograma legal sobre la reducción paulatina de la jornada ordinaria en Chile en 2026.</p>
-                </div>
-            </a>
-            <!-- Card 6 -->
-            <a href="que-hacer-si-no-te-pagan-el-finiquito" class="group block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-300">
-                <div class="aspect-video bg-slate-100 overflow-hidden relative">
-                    <img src="assets/guia-finiquito-no-pago-cover.png" alt="No pago de finiquito" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-slate-900 group-hover:text-sky-500 transition-colors mb-2 text-sm">¿Qué hacer si no te pagan a tiempo?</h3>
-                    <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2">Conoce las multas aplicables a los empleadores que exceden el plazo reglamentario de 10 días para liquidar tu contrato.</p>
                 </div>
             </a>
         </div>
@@ -1859,8 +1957,8 @@
             if (tab === 'finiquito') {
                 if (containerFiniquito) containerFiniquito.classList.remove('hidden');
                 if (containerSueldo) containerSueldo.classList.add('hidden');
-                if (btnFiniquito) btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                if (btnSueldo) btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                if (btnFiniquito) btnFiniquito.className = "py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5";
+                if (btnSueldo) btnSueldo.className = "py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-600 hover:text-slate-900 hover:bg-white active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5";
                 
                 // Hide sueldo mobile bar and trigger calculations for finiquito
                 var mobileBar = document.getElementById('mobile-result-bar');
@@ -1869,8 +1967,8 @@
             } else {
                 if (containerFiniquito) containerFiniquito.classList.add('hidden');
                 if (containerSueldo) containerSueldo.classList.remove('hidden');
-                if (btnSueldo) btnSueldo.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 outline-none";
-                if (btnFiniquito) btnFiniquito.className = "flex-1 py-3.5 px-6 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-800 hover:bg-slate-100 outline-none";
+                if (btnSueldo) btnSueldo.className = "py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-white bg-sky-500 shadow-md shadow-sky-500/20 active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5";
+                if (btnFiniquito) btnFiniquito.className = "py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-slate-600 hover:text-slate-900 hover:bg-white active:scale-[0.98] duration-100 flex flex-col items-center justify-center text-center gap-0.5";
                 
                 // Trigger sueldo calculations
                 const salaryInput = document.getElementById('salary');
