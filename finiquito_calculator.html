@@ -169,14 +169,26 @@
         .prose-content a:hover {
             color: #0284c7;
         }
-        .prose-content a.cta-btn {
+        .prose-content a.cta-btn,
+        .prose-content a.bg-sky-500,
+        .prose-content a[class*="bg-sky-"],
+        .prose-content a[class*="bg-blue-"] {
             color: #ffffff !important;
             text-decoration: none !important;
             font-weight: 600 !important;
         }
-        .prose-content a.cta-btn:hover {
+        .prose-content a.cta-btn:hover,
+        .prose-content a.bg-sky-500:hover,
+        .prose-content a[class*="bg-sky-"]:hover,
+        .prose-content a[class*="bg-blue-"]:hover {
             color: #ffffff !important;
             text-decoration: none !important;
+        }
+        .prose-content a.cta-btn span,
+        .prose-content a.bg-sky-500 span,
+        .prose-content a[class*="bg-sky-"] span,
+        .prose-content a[class*="bg-blue-"] span {
+            color: #ffffff !important;
         }
         .prose-content a.cta-lead-btn {
             color: #ffffff !important;

@@ -120,14 +120,26 @@
         .prose-content a:hover {
             color: #0284c7;
         }
-        .prose-content a.cta-btn {
+        .prose-content a.cta-btn,
+        .prose-content a.bg-sky-500,
+        .prose-content a[class*="bg-sky-"],
+        .prose-content a[class*="bg-blue-"] {
             color: #ffffff !important;
             text-decoration: none !important;
             font-weight: 600 !important;
         }
-        .prose-content a.cta-btn:hover {
+        .prose-content a.cta-btn:hover,
+        .prose-content a.bg-sky-500:hover,
+        .prose-content a[class*="bg-sky-"]:hover,
+        .prose-content a[class*="bg-blue-"]:hover {
             color: #ffffff !important;
             text-decoration: none !important;
+        }
+        .prose-content a.cta-btn span,
+        .prose-content a.bg-sky-500 span,
+        .prose-content a[class*="bg-sky-"] span,
+        .prose-content a[class*="bg-blue-"] span {
+            color: #ffffff !important;
         }
         .prose-content a.cta-lead-btn {
             color: #ffffff !important;
@@ -570,8 +582,8 @@
                     <h3 class="font-bold text-slate-900 text-sm sm:text-base">¿Tienes sugerencias, consultas o feedback?</h3>
                     <p class="text-xs sm:text-sm text-slate-600 mt-1">Escríbenos directamente y responderemos a la brevedad.</p>
                 </div>
-                <a href="mailto:contacto@calculolaboral.cl" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-xs transition-colors shadow-sm shrink-0">
-                    <span class="material-icons text-sm">mail</span> contacto@calculolaboral.cl
+                <a href="mailto:contacto@calculolaboral.cl" class="cta-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 !text-white !no-underline font-semibold text-xs transition-colors shadow-sm shrink-0" style="color: #ffffff !important; text-decoration: none !important;">
+                    <span class="material-icons text-sm" style="color: #ffffff !important;">mail</span> <span style="color: #ffffff !important;">contacto@calculolaboral.cl</span>
                 </a>
             </div>
         </section>
