@@ -284,7 +284,7 @@ module.exports = async (req, res) => {
         if (!userResp.ok) {
             const errText = await userResp.text();
             console.error('Resend error (user email):', errText);
-            return res.status(502).json({ error: 'No se pudo procesar la solicitud.' });
+            return res.status(422).json({ error: 'Resend error (user email)', details: errText });
         }
 
         // Send to jhon with user details (Reply-To set to user email for easy reply)
