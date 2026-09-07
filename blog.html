@@ -771,11 +771,12 @@
     <script src="/js/indicators.js?v=2.0.3"></script>
     <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
-        function enviarLead() {
+        function enviarLead(fuenteCustom) {
             var nombre = document.getElementById('lead-nombre').value.trim();
             var correo = document.getElementById('lead-correo').value.trim();
             var telefono = document.getElementById('lead-telefono').value.trim();
             var monto = window.resultadoActualMonto || '0';
+            var detalle = window.resultadoDesgloseLead || '';
 
             if (!nombre || !correo) {
                 alert('Por favor completa nombre y correo.');
@@ -783,7 +784,11 @@
             }
 
             var btn = document.querySelector('#lead-form button');
-            if (btn) btn.disabled = true;
+            var btnTextOriginal = btn ? btn.innerHTML : 'Enviar';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = 'Enviando solicitud...';
+            }
 
             fetch('/api/send-lead', {
                 method: 'POST',
@@ -795,7 +800,9 @@
                     correo: correo,
                     telefono: telefono,
                     monto_calculado: monto,
-                    tipo: 'Finiquito'
+                    tipo: 'Finiquito',
+                    fuente: fuenteCustom || 'Calculadora de Finiquito',
+                    detalle: detalle
                 })
             }).then(function(response) {
                 if (response.ok) {
@@ -806,7 +813,67 @@
                 }
             }).catch(function(err) {
                 alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
-                if (btn) btn.disabled = false;
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = btnTextOriginal;
+                }
+            });
+        }
+
+        function enviarLeadArticulo(event, formId, fuente) {
+            if (event) event.preventDefault();
+            var form = document.getElementById(formId);
+            if (!form) return;
+
+            var nombre = form.querySelector('[name="nombre"]').value.trim();
+            var correo = form.querySelector('[name="correo"]').value.trim();
+            var telefono = form.querySelector('[name="telefono"]').value.trim();
+            var detalleInput = form.querySelector('[name="consulta"]');
+            var detalle = detalleInput ? detalleInput.value.trim() : '';
+
+            if (!nombre || !correo) {
+                alert('Por favor ingresa tu nombre y correo electrónico.');
+                return;
+            }
+
+            var btn = form.querySelector('button[type="submit"]');
+            var btnOriginal = btn ? btn.innerHTML : 'Solicitar Revisión';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = 'Enviando...';
+            }
+
+            fetch('/api/send-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    tipo: 'Despido',
+                    fuente: fuente || 'Guía Informativa',
+                    detalle: detalle
+                })
+            }).then(function(response) {
+                if (response.ok) {
+                    var successDiv = document.getElementById(formId + '-confirmacion');
+                    if (successDiv) {
+                        form.classList.add('hidden');
+                        successDiv.classList.remove('hidden');
+                    } else {
+                        form.innerHTML = '<div class="p-6 bg-emerald-50 rounded-2xl text-center border border-emerald-200"><h4 class="text-base font-bold text-emerald-950 mb-1">¡Solicitud recibida con éxito!</h4><p class="text-xs text-emerald-800">Un abogado laboralista revisará tus antecedentes y te contactará a la brevedad.</p></div>';
+                    }
+                } else {
+                    throw new Error('Error en el servidor');
+                }
+            }).catch(function(err) {
+                alert('Ocurrió un error al enviar tu consulta. Por favor inténtalo de nuevo.');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = btnOriginal;
+                }
             });
         }
 

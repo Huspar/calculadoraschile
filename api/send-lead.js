@@ -22,7 +22,7 @@ const ALLOWED_ORIGINS = new Set([
     'http://localhost:5500'
 ]);
 
-const TIPO_ALLOWED = new Set(['Finiquito', 'Sueldo Liquido', 'Sueldo Líquido', 'Contacto', 'LeadMagnet', 'Otro']);
+const TIPO_ALLOWED = new Set(['Finiquito', 'Sueldo Liquido', 'Sueldo Líquido', 'Contacto', 'LeadMagnet', 'Despido', 'Consulta Legal', 'Otro']);
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const RATE_LIMIT_MAX = 10; // max requests per IP per window
@@ -232,21 +232,25 @@ module.exports = async (req, res) => {
             userText = buildEmailText({ intro: userIntro, body: userBody });
         }
 
-        // Notification email to JHON (with all the lead details)
-        const jhonSubject = `[${cleanTipo}] Nuevo lead: ${cleanName}`;
-        const jhonIntro = `Nuevo lead capturado en calculolaboral.cl.`;
+        const cleanFuente = escapeHtml(typeof body === 'object' && body && body.fuente ? body.fuente.trim() : 'Calculadora de Finiquito');
+        const cleanDetalle = typeof body === 'object' && body && body.detalle ? escapeHtml(body.detalle.trim().slice(0, 300)) : '';
+
+        // Notification email to JHON (with all lead details and origin source)
+        const jhonSubject = `[Lead - ${cleanFuente}] ${cleanName}`;
+        const jhonIntro = `Nuevo lead capturado desde <strong>${cleanFuente}</strong> en calculolaboral.cl.`;
         const jhonBody = `
             <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
-                <tr><td style="padding: 4px 0; color: #64748b;">Nombre:</td><td style="padding: 4px 0; font-weight: bold;">${cleanName}</td></tr>
-                <tr><td style="padding: 4px 0; color: #64748b;">Correo:</td><td style="padding: 4px 0;"><a href="mailto:${cleanEmail}">${cleanEmail}</a></td></tr>
-                <tr><td style="padding: 4px 0; color: #64748b;">Teléfono:</td><td style="padding: 4px 0;">${cleanPhone || '—'}</td></tr>
-                <tr><td style="padding: 4px 0; color: #64748b;">Tipo:</td><td style="padding: 4px 0;">${cleanTipo}</td></tr>
-                <tr><td style="padding: 4px 0; color: #64748b;">Monto:</td><td style="padding: 4px 0;">$${cleanMonto} CLP</td></tr>
-                <tr><td style="padding: 4px 0; color: #64748b;">Fuente:</td><td style="padding: 4px 0;">${escapeHtml(typeof body === 'object' && body && body.fuente ? body.fuente : 'web')}</td></tr>
-                <tr><td style="padding: 4px 0; color: #64748b;">Fecha:</td><td style="padding: 4px 0;">${fechaLocal}</td></tr>
+                <tr><td style="padding: 6px 0; color: #64748b; width: 140px;">Origen / Formulario:</td><td style="padding: 6px 0; font-weight: bold; color: #0284c7;">${cleanFuente}</td></tr>
+                <tr><td style="padding: 6px 0; color: #64748b;">Nombre:</td><td style="padding: 6px 0; font-weight: bold; color: #0f172a;">${cleanName}</td></tr>
+                <tr><td style="padding: 6px 0; color: #64748b;">Correo:</td><td style="padding: 6px 0;"><a href="mailto:${cleanEmail}" style="color: #0ea5e9; font-weight: 600;">${cleanEmail}</a></td></tr>
+                <tr><td style="padding: 6px 0; color: #64748b;">Teléfono:</td><td style="padding: 6px 0; font-weight: bold; color: #0f172a;"><a href="tel:${cleanPhone}" style="color: #0f172a; text-decoration: none;">${cleanPhone || '—'}</a></td></tr>
+                <tr><td style="padding: 6px 0; color: #64748b;">Monto / Estimación:</td><td style="padding: 6px 0; font-weight: bold; color: #16a34a;">${cleanMonto && cleanMonto !== '0' ? '$' + cleanMonto + ' CLP' : 'Consulta directa desde guía'}</td></tr>
+                ${cleanDetalle ? `<tr><td style="padding: 6px 0; color: #64748b;">Detalle / Caso:</td><td style="padding: 6px 0; color: #334155; font-style: italic;">${cleanDetalle}</td></tr>` : ''}
+                <tr><td style="padding: 6px 0; color: #64748b;">Tipo:</td><td style="padding: 6px 0; color: #64748b;">${cleanTipo}</td></tr>
+                <tr><td style="padding: 6px 0; color: #64748b;">Fecha:</td><td style="padding: 6px 0; color: #64748b;">${fechaLocal}</td></tr>
             </table>
         `;
-        const jhonHtml = buildEmailHtml({ title: `Nuevo lead: ${cleanName}`, intro: jhonIntro, body: jhonBody });
+        const jhonHtml = buildEmailHtml({ title: `Nuevo Lead: ${cleanName}`, intro: jhonIntro, body: jhonBody });
         const jhonText = buildEmailText({ intro: jhonIntro, body: jhonBody });
 
         // Send BOTH emails via Resend (user first, then jhon)
@@ -273,33 +277,35 @@ module.exports = async (req, res) => {
             return resp;
         }
 
-        // Send to user (CC jhon for context, so he sees the user email too)
-        const userResp = await sendResendEmail(
-            cleanEmail,
-            userSubject,
-            userHtml,
-            userText,
-            NOTIFY_JHON
-        );
-        if (!userResp.ok) {
-            const errText = await userResp.text();
-            console.error('Resend error (user email):', errText);
-            return res.status(422).json({ error: 'Resend error (user email)', details: errText });
-        }
-
-        // Send to jhon with user details (Reply-To set to user email for easy reply)
+        // 1. Send to JHON first (Essential: The lead is captured and must NEVER be lost)
         const jhonResp = await sendResendEmail(
             NOTIFY_JHON,
             jhonSubject,
             jhonHtml,
             jhonText,
-            cleanEmail
+            cleanEmail // Reply-To set to user's email so Jhon can click "Reply" directly!
         );
         if (!jhonResp.ok) {
             const errText = await jhonResp.text();
             console.error('Resend error (jhon email):', errText);
-            // Don't fail the user request if jhon notification fails — the lead is still captured
-            console.warn('User email was sent but jhon notification failed. Lead:', cleanEmail);
+            return res.status(500).json({ error: 'No se pudo registrar la solicitud en el servidor.' });
+        }
+
+        // 2. Try sending confirmation/welcome to the user (non-blocking)
+        try {
+            const userResp = await sendResendEmail(
+                cleanEmail,
+                userSubject,
+                userHtml,
+                userText,
+                NOTIFY_JHON
+            );
+            if (!userResp.ok) {
+                const errUser = await userResp.text();
+                console.warn('Resend notice: user auto-responder email failed (lead was securely delivered to admin):', errUser);
+            }
+        } catch (eUser) {
+            console.warn('Exception during user email (ignored to preserve lead):', eUser);
         }
 
         return res.status(200).json({ success: true });

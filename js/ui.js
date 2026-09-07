@@ -628,6 +628,10 @@ function updateCalculations() {
 
         // PDF and Lead capture activation
         window.resultadoActualMonto = format(results.total);
+        var causeSelect = document.getElementById('cause');
+        var causeText = causeSelect && causeSelect.selectedIndex >= 0 ? causeSelect.options[causeSelect.selectedIndex].text : 'No especificada';
+        var antiqText = document.getElementById('antiquityOutput') ? document.getElementById('antiquityOutput').textContent.trim() : '';
+        window.resultadoDesgloseLead = 'Causal: ' + causeText + (antiqText ? ' | Antiguedad: ' + antiqText : '') + ' | Estimacion: ' + format(results.total);
         document.querySelector('#finiquito-calc-container #pdf-section')?.classList.remove('hidden');
         document.getElementById('lead-section')?.classList.remove('hidden');
 

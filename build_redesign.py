@@ -1069,11 +1069,12 @@ HTML_LAYOUT = """<!DOCTYPE html>
     <script src="/js/indicators.js?v=2.0.3"></script>
     <script src="/js/pdf_generator.js?v=2.0.3"></script>
     <script>
-        function enviarLead() {{
+        function enviarLead(fuenteCustom) {{
             var nombre = document.getElementById('lead-nombre').value.trim();
             var correo = document.getElementById('lead-correo').value.trim();
             var telefono = document.getElementById('lead-telefono').value.trim();
             var monto = window.resultadoActualMonto || '0';
+            var detalle = window.resultadoDesgloseLead || '';
 
             if (!nombre || !correo) {{
                 alert('Por favor completa nombre y correo.');
@@ -1081,7 +1082,11 @@ HTML_LAYOUT = """<!DOCTYPE html>
             }}
 
             var btn = document.querySelector('#lead-form button');
-            if (btn) btn.disabled = true;
+            var btnTextOriginal = btn ? btn.innerHTML : 'Enviar';
+            if (btn) {{
+                btn.disabled = true;
+                btn.innerText = 'Enviando solicitud...';
+            }}
 
             fetch('/api/send-lead', {{
                 method: 'POST',
@@ -1093,7 +1098,9 @@ HTML_LAYOUT = """<!DOCTYPE html>
                     correo: correo,
                     telefono: telefono,
                     monto_calculado: monto,
-                    tipo: 'Finiquito'
+                    tipo: 'Finiquito',
+                    fuente: fuenteCustom || 'Calculadora de Finiquito',
+                    detalle: detalle
                 }})
             }}).then(function(response) {{
                 if (response.ok) {{
@@ -1104,7 +1111,67 @@ HTML_LAYOUT = """<!DOCTYPE html>
                 }}
             }}).catch(function(err) {{
                 alert('Hubo un problema al enviar tus datos. Por favor inténtalo nuevamente.');
-                if (btn) btn.disabled = false;
+                if (btn) {{
+                    btn.disabled = false;
+                    btn.innerHTML = btnTextOriginal;
+                }}
+            }});
+        }}
+
+        function enviarLeadArticulo(event, formId, fuente) {{
+            if (event) event.preventDefault();
+            var form = document.getElementById(formId);
+            if (!form) return;
+
+            var nombre = form.querySelector('[name="nombre"]').value.trim();
+            var correo = form.querySelector('[name="correo"]').value.trim();
+            var telefono = form.querySelector('[name="telefono"]').value.trim();
+            var detalleInput = form.querySelector('[name="consulta"]');
+            var detalle = detalleInput ? detalleInput.value.trim() : '';
+
+            if (!nombre || !correo) {{
+                alert('Por favor ingresa tu nombre y correo electrónico.');
+                return;
+            }}
+
+            var btn = form.querySelector('button[type="submit"]');
+            var btnOriginal = btn ? btn.innerHTML : 'Solicitar Revisión';
+            if (btn) {{
+                btn.disabled = true;
+                btn.innerHTML = 'Enviando...';
+            }}
+
+            fetch('/api/send-lead', {{
+                method: 'POST',
+                headers: {{
+                    'Content-Type': 'application/json'
+                }},
+                body: JSON.stringify({{
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    tipo: 'Despido',
+                    fuente: fuente || 'Guía Informativa',
+                    detalle: detalle
+                }})
+            }}).then(function(response) {{
+                if (response.ok) {{
+                    var successDiv = document.getElementById(formId + '-confirmacion');
+                    if (successDiv) {{
+                        form.classList.add('hidden');
+                        successDiv.classList.remove('hidden');
+                    }} else {{
+                        form.innerHTML = '<div class="p-6 bg-emerald-50 rounded-2xl text-center border border-emerald-200"><h4 class="text-base font-bold text-emerald-950 mb-1">¡Solicitud recibida con éxito!</h4><p class="text-xs text-emerald-800">Un abogado laboralista revisará tus antecedentes y te contactará a la brevedad.</p></div>';
+                    }}
+                }} else {{
+                    throw new Error('Error en el servidor');
+                }}
+            }}).catch(function(err) {{
+                alert('Ocurrió un error al enviar tu consulta. Por favor inténtalo de nuevo.');
+                if (btn) {{
+                    btn.disabled = false;
+                    btn.innerHTML = btnOriginal;
+                }}
             }});
         }}
 
@@ -2551,6 +2618,213 @@ articles = [
     "fondos-generacionales-afp-chile.html"
 ]
 
+def get_lead_card_for_article(filename):
+    if filename == "despido-necesidades-empresa-articulo-161.html":
+        return """
+        <!-- Formulario Lead: Necesidades de la Empresa -->
+        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
+                        <span class="material-icons text-amber-700 text-sm">gavel</span>
+                        Evaluación Legal Sin Costo
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
+                        ¿Te despidieron por Necesidades de la Empresa?
+                    </h3>
+                    <p class="text-sm text-slate-600 !mb-0">
+                        Revisa si tienes derecho al <strong>recargo legal del 30%</strong> en tu indemnización y a la <strong>devolución del descuento de AFC</strong> con un abogado laboralista aliado.
+                    </p>
+                </div>
+            </div>
+
+            <form id="lead-form-art161" onsubmit="enviarLeadArticulo(event, 'lead-form-art161', 'Guía: Art. 161 Necesidades de la Empresa')" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
+                        <input type="text" name="nombre" placeholder="Ej: Marcela Soto" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electrónico *</label>
+                        <input type="email" name="correo" placeholder="tu@correo.com" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Teléfono / WhatsApp (Opcional)</label>
+                        <input type="tel" name="telefono" placeholder="+56 9 1234 5678"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">¿Cuándo te despidieron o fecha finiquito?</label>
+                        <input type="text" name="consulta" placeholder="Ej: Hace 3 días, aún no firmo finiquito"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+                    <button type="submit"
+                        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
+                        <span class="material-icons text-base">outgoing_mail</span>
+                        Solicitar Revisión Gratuita de mi Caso
+                    </button>
+                    <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
+                        <span class="material-icons text-emerald-600 text-xs">lock</span>
+                        100% Confidencial · Sin cobros ocultos
+                    </span>
+                </div>
+            </form>
+
+            <div id="lead-form-art161-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
+                <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Solicitud recibida correctamente!</h4>
+                <p class="text-sm text-emerald-800 max-w-md mx-auto">
+                    Hemos recibido tus antecedentes. Un abogado especialista en despidos por Art. 161 revisará tu caso y te contactará a la brevedad.
+                </p>
+            </div>
+        </div>
+        """
+    elif filename == "reclamar-despido-injustificado-chile.html":
+        return """
+        <!-- Formulario Lead: Despido Injustificado -->
+        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
+                        <span class="material-icons text-amber-700 text-sm">gavel</span>
+                        Evaluación Legal Sin Costo
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
+                        ¿Dudas sobre demandar despido injustificado?
+                    </h3>
+                    <p class="text-sm text-slate-600 !mb-0">
+                        El plazo legal es de <strong>solo 60 días hábiles</strong>. Envía tus antecedentes para que un abogado laboralista aliado evalúe la viabilidad de tu reclamo y el cálculo del recargo legal.
+                    </p>
+                </div>
+            </div>
+
+            <form id="lead-form-injustificado" onsubmit="enviarLeadArticulo(event, 'lead-form-injustificado', 'Guía: Despido Injustificado')" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
+                        <input type="text" name="nombre" placeholder="Ej: Juan Silva" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electrónico *</label>
+                        <input type="email" name="correo" placeholder="tu@correo.com" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Teléfono / WhatsApp (Opcional)</label>
+                        <input type="tel" name="telefono" placeholder="+56 9 1234 5678"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">¿Cuál fue el motivo alegado por tu empleador?</label>
+                        <input type="text" name="consulta" placeholder="Ej: Art. 161 sin justificación real / Art. 160"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+                    <button type="submit"
+                        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
+                        <span class="material-icons text-base">outgoing_mail</span>
+                        Evaluar Demanda / Reclamo Gratis
+                    </button>
+                    <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
+                        <span class="material-icons text-emerald-600 text-xs">lock</span>
+                        100% Confidencial · Respuesta en 24h hábiles
+                    </span>
+                </div>
+            </form>
+
+            <div id="lead-form-injustificado-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
+                <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Antecedentes recibidos!</h4>
+                <p class="text-sm text-emerald-800 max-w-md mx-auto">
+                    Un abogado laboralista aliado examinará los antecedentes de tu despido y los plazos aplicables para orientarte sin costo.
+                </p>
+            </div>
+        </div>
+        """
+    elif filename == "carta-de-despido-chile.html":
+        return """
+        <!-- Formulario Lead: Carta de Despido -->
+        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
+                        <span class="material-icons text-amber-700 text-sm">gavel</span>
+                        Evaluación Legal Sin Costo
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
+                        ¿Tu carta de despido tiene errores o hechos vagos?
+                    </h3>
+                    <p class="text-sm text-slate-600 !mb-0">
+                        Si la carta no detalla claramente los hechos o no adjunta comprobante de cotizaciones previsionales al día (<strong>Ley Bustos</strong>), el despido puede ser nulo o improcedente.
+                    </p>
+                </div>
+            </div>
+
+            <form id="lead-form-carta" onsubmit="enviarLeadArticulo(event, 'lead-form-carta', 'Guía: Carta de Despido')" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
+                        <input type="text" name="nombre" placeholder="Ej: Carlos Gómez" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electrónico *</label>
+                        <input type="email" name="correo" placeholder="tu@correo.com" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Teléfono / WhatsApp (Opcional)</label>
+                        <input type="tel" name="telefono" placeholder="+56 9 1234 5678"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">¿Qué causal invocaron en tu carta?</label>
+                        <input type="text" name="consulta" placeholder="Ej: Art. 161 Necesidades / Art. 160 Incumplimiento"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+                    <button type="submit"
+                        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
+                        <span class="material-icons text-base">outgoing_mail</span>
+                        Revisar Validez de mi Carta Gratis
+                    </button>
+                    <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
+                        <span class="material-icons text-emerald-600 text-xs">lock</span>
+                        Confidencial · Orientación laboral sin costo
+                    </span>
+                </div>
+            </form>
+
+            <div id="lead-form-carta-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
+                <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Consulta enviada!</h4>
+                <p class="text-sm text-emerald-800 max-w-md mx-auto">
+                    Revisaremos la información sobre tu carta de despido y te responderemos con las alternativas legales disponibles.
+                </p>
+            </div>
+        </div>
+        """
+    return ""
+
 print("Starting page migration to light theme...")
 
 for filename in articles:
@@ -2564,6 +2838,18 @@ for filename in articles:
     print(f"Processing: {filename}...")
     title, description, body, custom_head = extract_article_info(source_path)
     
+    # Inject lead card if applicable
+    lead_card_html = get_lead_card_for_article(filename)
+    if lead_card_html and "lead-form-" not in body:
+        placed = False
+        for marker in ['<!-- Cross-links -->', '<!-- E-E-A-T Disclaimer -->', '<!-- E-E-A-T Reinforcement -->', '<!-- Disclaimer -->']:
+            if marker in body:
+                body = body.replace(marker, lead_card_html + "\n" + marker, 1)
+                placed = True
+                break
+        if not placed:
+            body = body + "\n" + lead_card_html
+
     breadcrumbs = f"""
     <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
         <a href="./" class="hover:text-sky-500 transition-colors font-medium">Inicio</a>
@@ -3396,30 +3682,44 @@ INDEX_CONTENT = """
             </div>
 
             <!-- Lead Capture Section (SOLO EN FINIQUITO) -->
-            <div id="lead-section" class="mt-3 p-4 bg-amber-50 border border-amber-200 rounded-xl no-print hidden">
-              <p class="text-sm font-semibold text-amber-900 mb-2">
-                ⚖️ ¿Crees que tu despido fue injustificado?
-              </p>
-              <p class="text-xs text-amber-700 mb-3">
-                Déjanos tu caso y te contactamos.
-              </p>
-              <form id="lead-form" class="space-y-2">
-                <input type="text" id="lead-nombre" placeholder="Tu nombre" required
-                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
-                <input type="email" id="lead-correo" placeholder="tu@correo.com" required
-                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
-                <input type="tel" id="lead-telefono" placeholder="+56 9 XXXX XXXX"
-                  class="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white outline-none focus:border-amber-500">
-                <button type="button" onclick="enviarLead()"
-                  class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg transition-colors">
-                  Quiero que revisen mi caso →
+            <div id="lead-section" class="mt-4 p-5 bg-gradient-to-br from-amber-50 to-amber-100/40 border-2 border-amber-300 rounded-2xl no-print hidden shadow-sm space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-200/80 text-amber-900 border border-amber-300">
+                  <span class="material-icons text-xs">gavel</span> Evaluación Sin Costo
+                </span>
+                <span class="text-[11px] text-amber-700 font-medium">Abogados Laborales Aliados</span>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900 leading-snug">
+                  ¿Dudas sobre el cálculo o causal de tu despido?
+                </h4>
+                <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Revisa con un especialista si tu causal califica para <strong>recargo legal del 30% al 100%</strong> y devolución de descuento AFC.
+                </p>
+              </div>
+              <form id="lead-form" class="space-y-2 pt-1" onsubmit="event.preventDefault(); enviarLead('Calculadora de Finiquito');">
+                <div class="space-y-1.5">
+                  <input type="text" id="lead-nombre" placeholder="Tu nombre y apellido" required
+                    class="w-full px-3 py-2 text-xs border border-amber-300 rounded-xl bg-white outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-400 text-slate-800 placeholder-slate-400 font-medium">
+                  <input type="email" id="lead-correo" placeholder="Correo electrónico (tu@email.com)" required
+                    class="w-full px-3 py-2 text-xs border border-amber-300 rounded-xl bg-white outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-400 text-slate-800 placeholder-slate-400 font-medium">
+                  <input type="tel" id="lead-telefono" placeholder="Teléfono / WhatsApp (ej: +56 9...)"
+                    class="w-full px-3 py-2 text-xs border border-amber-300 rounded-xl bg-white outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-400 text-slate-800 placeholder-slate-400 font-medium">
+                </div>
+                <button type="submit"
+                  class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-98 cursor-pointer flex items-center justify-center gap-1.5">
+                  <span class="material-icons text-sm">outgoing_mail</span>
+                  Solicitar Revisión Gratuita
                 </button>
               </form>
-              <div id="lead-confirmacion" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 text-center">
-                ✅ Recibimos tu caso. Te contactaremos pronto.
+              <div id="lead-confirmacion" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
+                <span class="material-icons text-emerald-600 text-xl block mb-1">check_circle</span>
+                <p class="text-xs font-bold text-emerald-950">¡Solicitud recibida!</p>
+                <p class="text-[11px] text-emerald-800 mt-0.5">Te contactaremos para evaluar tu finiquito sin ningún costo.</p>
               </div>
-              <p class="text-xs text-amber-600 mt-2 text-center">
-                Sin costo. Solo para determinar si tu despido califica.
+              <p class="text-[10px] text-amber-800 text-center flex items-center justify-center gap-1">
+                <span class="material-icons text-[12px] text-emerald-600">lock</span>
+                Confidencial · 100% Gratuito y sin compromiso
               </p>
             </div>
         </div>
