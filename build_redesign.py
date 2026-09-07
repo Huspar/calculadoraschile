@@ -566,6 +566,8 @@ HEADER_HTML = """
                         </div>
                     </div>
                 </details>
+            </div>
+        </div>
     </header>
 """
 
@@ -1242,12 +1244,18 @@ def flexible_replace(text, old_block, new_block):
         return text.replace(old_block, new_block)
 
 def wrap_images(content):
-    def img_replacer(match):
-        img_tag = match.group(0)
-        if 'bg-slate-100' in img_tag or 'border-slate-200' in img_tag:
-            return img_tag
-        return f'<div class="bg-slate-100 p-4 border border-slate-200 rounded-xl flex items-center justify-center my-6 max-w-full overflow-hidden shadow-sm">{img_tag}</div>'
-    return re.sub(r'<img[^>]+>', img_replacer, content)
+    # Strip recursive wrappers around known guide images that already have a container
+    content = re.sub(
+        r'(?:<div class="bg-slate-100 p-4 border border-slate-200[^"]*">\s*)+(<img[^>]+assets/guia-despido-necesidades-empresa-161\.png[^>]*>)(?:\s*</div>)+',
+        r'\1',
+        content
+    )
+    content = re.sub(
+        r'(?:<div class="bg-slate-100 p-4 border border-slate-200[^"]*">\s*)+(<img[^>]+assets/guia-calculo-finiquito-chile-2026\.png[^>]*>)(?:\s*</div>)+',
+        r'\1',
+        content
+    )
+    return content
 
 def strip_outer_divs(body):
     while True:
@@ -1361,10 +1369,59 @@ def extract_article_info(file_path):
         
     article_match = re.search(r'<article[^>]*>(.*?)</article>', html, re.DOTALL)
     if article_match:
-        body = article_match.group(1)
+        body = article_match.group(1).strip()
         body = re.sub(r'<nav[^>]*id="breadcrumb"[^>]*>.*?</nav>', '', body, flags=re.DOTALL | re.IGNORECASE)
         body = re.sub(r'<nav[^>]*class="[^"]*breadcrumb[^"]*"[^>]*>.*?</nav>', '', body, flags=re.DOTALL | re.IGNORECASE)
         
+        # 1. Unnest any accumulated outer <div class="prose-content..."> wrappers and matching closing </div>
+        while True:
+            m = re.match(r'^\s*<div\s+class="[^"]*prose-content[^"]*"[^>]*>', body, re.IGNORECASE)
+            if not m:
+                break
+            body = body[m.end():].strip()
+            body = re.sub(r'</div>\s*$', '', body).strip()
+
+        # 2. Fix the Hero figure markup if corrupted by repeated wrapper builds
+        if "despido-necesidades-empresa-articulo-161" in filename:
+            fig_clean = '''<figure class="mb-10 max-w-[900px] mx-auto">
+                <div class="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50/20 flex items-center justify-center p-2 sm:p-4">
+                    <img src="assets/guia-despido-necesidades-empresa-161.png"
+                        alt="Documento gráfico sobre el Artículo 161 del Código del Trabajo, mostrando causales de despido e indemnizaciones."
+                        title="Despido por necesidades de la empresa (Artículo 161)"
+                        class="w-full h-auto max-h-[45vh] object-contain" loading="lazy" width="1280" height="720" />
+                </div>
+                <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
+                    Principales conceptos asociados al despido por necesidades de la empresa según el Código del Trabajo.
+                </figcaption>
+            </figure>'''
+            body = re.sub(r'<figure class="mb-10 max-w-\[900px\] mx-auto">.*?</figure>', fig_clean, body, flags=re.DOTALL)
+
+        if "como-calcular-finiquito-chile" in filename:
+            fig_clean = '''<figure class="mb-10 max-w-[900px] mx-auto">
+                <div class="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50/20 flex items-center justify-center p-2 sm:p-4">
+                    <img src="assets/guia-calculo-finiquito-chile-2026.png"
+                        alt="Ejemplo visual de cálculo de finiquito en Chile 2026 con indemnización y vacaciones proporcionales"
+                        title="Simulación de finiquito en Chile: desglose de indemnización, vacaciones y aviso previo"
+                        class="w-full h-auto max-h-[35vh] object-contain bg-slate-50/20" loading="lazy" width="1024" height="640" />
+                </div>
+                <figcaption class="text-xs text-slate-500 text-center mt-3 leading-relaxed">
+                    Ejemplo didáctico de liquidación y finiquito laboral según los topes legales de 2026.
+                </figcaption>
+            </figure>'''
+            body = re.sub(r'<figure class="mb-10 max-w-\[900px\] mx-auto">.*?</figure>', fig_clean, body, flags=re.DOTALL)
+
+        # 3. Balance trailing </div> tags inside body
+        div_tags = re.findall(r'(</?div\b[^>]*>)', body, re.IGNORECASE)
+        depth = 0
+        for tag in div_tags:
+            depth += (-1 if tag.startswith('</') else 1)
+        while depth < 0 and body.rstrip().endswith('</div>'):
+            body = re.sub(r'</div>\s*$', '', body.rstrip())
+            depth += 1
+        while depth > 0:
+            body = body + "\n            </div>"
+            depth -= 1
+
         body = strip_outer_divs(body)
         body = clean_article_body(body, os.path.basename(file_path))
         
