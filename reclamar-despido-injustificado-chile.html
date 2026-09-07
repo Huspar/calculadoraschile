@@ -284,6 +284,51 @@
             font-weight: 700 !important;
         }
         
+        .copy-box {
+            position: relative;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #1e293b;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 1.25rem 0;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: #0ea5e9;
+            color: #ffffff;
+            border-color: #0ea5e9;
+            box-shadow: 0 2px 4px rgba(14,165,233,0.2);
+        }
+        .copy-btn.copied {
+            background: #10b981 !important;
+            color: #ffffff !important;
+            border-color: #10b981 !important;
+        }
+
         @media print {
             @page {
                 size: A4 portrait;
@@ -742,13 +787,17 @@
                 </div>
 
                 
+        
+        
+
+        <!-- FORMULARIO_LEAD_START -->
         <!-- Formulario Lead: Despido Injustificado -->
-        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+        <div id="lead-form-injustificado" class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
                 <div>
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
                         <span class="material-icons text-amber-700 text-sm">gavel</span>
-                        Evaluación Legal Sin Costo
+                        Orientación Legal Inicial
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
                         ¿Dudas sobre demandar despido injustificado?
@@ -759,7 +808,7 @@
                 </div>
             </div>
 
-            <form id="lead-form-injustificado" onsubmit="enviarLeadArticulo(event, 'lead-form-injustificado', 'Guía: Despido Injustificado')" class="space-y-4">
+            <form id="lead-form-injustificado-form" onsubmit="enviarLeadArticulo(event, 'lead-form-injustificado-form', 'Guía: Despido Injustificado')" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
@@ -790,7 +839,7 @@
                     <button type="submit"
                         class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
                         <span class="material-icons text-base">outgoing_mail</span>
-                        Evaluar Demanda / Reclamo Gratis
+                        Evaluar Demanda / Reclamo
                     </button>
                     <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
                         <span class="material-icons text-emerald-600 text-xs">lock</span>
@@ -799,15 +848,17 @@
                 </div>
             </form>
 
-            <div id="lead-form-injustificado-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+            <div id="lead-form-injustificado-form-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
                 <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
                 <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Antecedentes recibidos!</h4>
                 <p class="text-sm text-emerald-800 max-w-md mx-auto">
-                    Un abogado laboralista aliado examinará los antecedentes de tu despido y los plazos aplicables para orientarte sin costo.
+                    Un abogado laboralista aliado examinará los antecedentes de tu despido y los plazos aplicables para orientarte oportunamente.
                 </p>
             </div>
         </div>
+        <!-- FORMULARIO_LEAD_END -->
         
+
 <!-- Cross-links -->
                 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <a href="despido-necesidades-empresa-articulo-161"
@@ -1089,6 +1140,50 @@
                     btn.innerHTML = btnOriginal;
                 }
             });
+        }
+
+        function copiarTexto(btn) {
+            var box = btn.closest('.copy-box');
+            if (!box) return;
+            var clone = box.cloneNode(true);
+            var btnInClone = clone.querySelector('.copy-btn');
+            if (btnInClone) btnInClone.remove();
+            var text = (clone.innerText || clone.textContent || '').trim();
+
+            function onSuccess() {
+                var originalHTML = btn.innerHTML;
+                btn.innerHTML = '<span class="material-icons text-xs" style="vertical-align:middle;font-size:14px;">check</span> ¡Copiado!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('copied');
+                }, 2500);
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(onSuccess).catch(function() {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+
+            function fallbackCopy(str) {
+                var ta = document.createElement('textarea');
+                ta.value = str;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                try {
+                    document.execCommand('copy');
+                    onSuccess();
+                } catch (e) {
+                    console.error('Fallback copy failed', e);
+                }
+                document.body.removeChild(ta);
+            }
         }
 
         function shareFiniquitoWhatsApp() {

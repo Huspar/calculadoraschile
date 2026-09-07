@@ -1012,6 +1012,51 @@ HTML_LAYOUT = """<!DOCTYPE html>
             font-weight: 700 !important;
         }}
         
+        .copy-box {{
+            position: relative;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #1e293b;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 1.25rem 0;
+        }}
+        .copy-btn {{
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            z-index: 10;
+        }}
+        .copy-btn:hover {{
+            background: #0ea5e9;
+            color: #ffffff;
+            border-color: #0ea5e9;
+            box-shadow: 0 2px 4px rgba(14,165,233,0.2);
+        }}
+        .copy-btn.copied {{
+            background: #10b981 !important;
+            color: #ffffff !important;
+            border-color: #10b981 !important;
+        }}
+
         @media print {{
             @page {{
                 size: A4 portrait;
@@ -1177,6 +1222,50 @@ HTML_LAYOUT = """<!DOCTYPE html>
             }});
         }}
 
+        function copiarTexto(btn) {{
+            var box = btn.closest('.copy-box');
+            if (!box) return;
+            var clone = box.cloneNode(true);
+            var btnInClone = clone.querySelector('.copy-btn');
+            if (btnInClone) btnInClone.remove();
+            var text = (clone.innerText || clone.textContent || '').trim();
+
+            function onSuccess() {{
+                var originalHTML = btn.innerHTML;
+                btn.innerHTML = '<span class="material-icons text-xs" style="vertical-align:middle;font-size:14px;">check</span> ¡Copiado!';
+                btn.classList.add('copied');
+                setTimeout(function() {{
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('copied');
+                }}, 2500);
+            }}
+
+            if (navigator.clipboard && window.isSecureContext) {{
+                navigator.clipboard.writeText(text).then(onSuccess).catch(function() {{
+                    fallbackCopy(text);
+                }});
+            }} else {{
+                fallbackCopy(text);
+            }}
+
+            function fallbackCopy(str) {{
+                var ta = document.createElement('textarea');
+                ta.value = str;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                try {{
+                    document.execCommand('copy');
+                    onSuccess();
+                }} catch (e) {{
+                    console.error('Fallback copy failed', e);
+                }}
+                document.body.removeChild(ta);
+            }}
+        }}
+
         function shareFiniquitoWhatsApp() {{
             var totalEl = document.getElementById('totalFiniquitoOutput');
             var total = totalEl ? totalEl.innerText.trim() : '';
@@ -1339,6 +1428,33 @@ def fix_all_article_buttons(body):
     
     return body
 
+def remove_lead_cards(content):
+    content = re.sub(r'<!-- FORMULARIO_LEAD_START -->[\s\S]*?<!-- FORMULARIO_LEAD_END -->', '', content)
+    while True:
+        idx = content.find('<!-- Formulario Lead:')
+        if idx == -1:
+            break
+        div_start = content.find('<div', idx)
+        if div_start == -1:
+            break
+        depth = 0
+        div_pattern = re.compile(r'</?div\b[^>]*>', re.IGNORECASE)
+        end_pos = -1
+        for match in div_pattern.finditer(content, div_start):
+            tag = match.group(0)
+            if tag.startswith('</'):
+                depth -= 1
+            else:
+                depth += 1
+            if depth == 0:
+                end_pos = match.end()
+                break
+        if end_pos != -1:
+            content = content[:idx] + content[end_pos:]
+        else:
+            break
+    return content
+
 def extract_article_info(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         html = f.read()
@@ -1372,6 +1488,7 @@ def extract_article_info(file_path):
         body = article_match.group(1).strip()
         body = re.sub(r'<nav[^>]*id="breadcrumb"[^>]*>.*?</nav>', '', body, flags=re.DOTALL | re.IGNORECASE)
         body = re.sub(r'<nav[^>]*class="[^"]*breadcrumb[^"]*"[^>]*>.*?</nav>', '', body, flags=re.DOTALL | re.IGNORECASE)
+        body = remove_lead_cards(body)
         
         # 1. Unnest any accumulated outer <div class="prose-content..."> wrappers and matching closing </div>
         while True:
@@ -2653,8 +2770,18 @@ def clean_article_body(body, filename):
     body = body.replace('bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all border border-slate-100', 'bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6')
     body = body.replace('bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all border border-slate-200', 'bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6')
     body = body.replace('bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all border border-white/5', 'bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6')
-    body = body.replace('bg-slate-50 border border-slate-200/80 rounded-2xl p-5 shadow-sm my-6 transition-all border-white/5', 'bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm my-6')
-    
+    # Guide-specific CTA anchor and text fixes
+    if "despido-necesidades-empresa-articulo-161" in filename:
+        body = body.replace('href="#lead-form"', 'href="#lead-form-art161"')
+        body = body.replace('Revisar mi caso gratis', 'Revisar mi caso')
+        body = body.replace('Un abogado laboral puede revisarlo sin costo.', 'Un abogado laboral aliado puede orientarte.')
+        body = body.replace('Un abogado laboral puede revisar tu caso sin costo.', 'Un abogado laboral aliado puede orientarte en tu caso.')
+    elif "carta-de-despido-chile" in filename:
+        body = body.replace('href="#lead-form"', 'href="#lead-form-carta"')
+        body = body.replace('Permítenos conectar tu caso con un especialista de forma gratuita.', 'Permítenos conectar tu caso con un especialista para evaluar tus antecedentes.')
+    elif "finiquito-por-renuncia-voluntaria" in filename:
+        body = body.replace('href="#lead-form"', 'href="#lead-form-renuncia"')
+
     # Return cleaned body
     return body
 
@@ -2678,13 +2805,14 @@ articles = [
 def get_lead_card_for_article(filename):
     if filename == "despido-necesidades-empresa-articulo-161.html":
         return """
+        <!-- FORMULARIO_LEAD_START -->
         <!-- Formulario Lead: Necesidades de la Empresa -->
-        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+        <div id="lead-form-art161" class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
                 <div>
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
                         <span class="material-icons text-amber-700 text-sm">gavel</span>
-                        Evaluación Legal Sin Costo
+                        Evaluación Legal Inicial
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
                         ¿Te despidieron por Necesidades de la Empresa?
@@ -2695,7 +2823,7 @@ def get_lead_card_for_article(filename):
                 </div>
             </div>
 
-            <form id="lead-form-art161" onsubmit="enviarLeadArticulo(event, 'lead-form-art161', 'Guía: Art. 161 Necesidades de la Empresa')" class="space-y-4">
+            <form id="lead-form-art161-form" onsubmit="enviarLeadArticulo(event, 'lead-form-art161-form', 'Guía: Art. 161 Necesidades de la Empresa')" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
@@ -2726,7 +2854,7 @@ def get_lead_card_for_article(filename):
                     <button type="submit"
                         class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
                         <span class="material-icons text-base">outgoing_mail</span>
-                        Solicitar Revisión Gratuita de mi Caso
+                        Solicitar Revisión de mi Caso
                     </button>
                     <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
                         <span class="material-icons text-emerald-600 text-xs">lock</span>
@@ -2735,7 +2863,7 @@ def get_lead_card_for_article(filename):
                 </div>
             </form>
 
-            <div id="lead-form-art161-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+            <div id="lead-form-art161-form-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
                 <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
                 <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Solicitud recibida correctamente!</h4>
                 <p class="text-sm text-emerald-800 max-w-md mx-auto">
@@ -2743,16 +2871,18 @@ def get_lead_card_for_article(filename):
                 </p>
             </div>
         </div>
+        <!-- FORMULARIO_LEAD_END -->
         """
     elif filename == "reclamar-despido-injustificado-chile.html":
         return """
+        <!-- FORMULARIO_LEAD_START -->
         <!-- Formulario Lead: Despido Injustificado -->
-        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+        <div id="lead-form-injustificado" class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
                 <div>
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
                         <span class="material-icons text-amber-700 text-sm">gavel</span>
-                        Evaluación Legal Sin Costo
+                        Orientación Legal Inicial
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
                         ¿Dudas sobre demandar despido injustificado?
@@ -2763,7 +2893,7 @@ def get_lead_card_for_article(filename):
                 </div>
             </div>
 
-            <form id="lead-form-injustificado" onsubmit="enviarLeadArticulo(event, 'lead-form-injustificado', 'Guía: Despido Injustificado')" class="space-y-4">
+            <form id="lead-form-injustificado-form" onsubmit="enviarLeadArticulo(event, 'lead-form-injustificado-form', 'Guía: Despido Injustificado')" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
@@ -2794,7 +2924,7 @@ def get_lead_card_for_article(filename):
                     <button type="submit"
                         class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
                         <span class="material-icons text-base">outgoing_mail</span>
-                        Evaluar Demanda / Reclamo Gratis
+                        Evaluar Demanda / Reclamo
                     </button>
                     <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
                         <span class="material-icons text-emerald-600 text-xs">lock</span>
@@ -2803,24 +2933,26 @@ def get_lead_card_for_article(filename):
                 </div>
             </form>
 
-            <div id="lead-form-injustificado-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+            <div id="lead-form-injustificado-form-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
                 <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
                 <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Antecedentes recibidos!</h4>
                 <p class="text-sm text-emerald-800 max-w-md mx-auto">
-                    Un abogado laboralista aliado examinará los antecedentes de tu despido y los plazos aplicables para orientarte sin costo.
+                    Un abogado laboralista aliado examinará los antecedentes de tu despido y los plazos aplicables para orientarte oportunamente.
                 </p>
             </div>
         </div>
+        <!-- FORMULARIO_LEAD_END -->
         """
     elif filename == "carta-de-despido-chile.html":
         return """
+        <!-- FORMULARIO_LEAD_START -->
         <!-- Formulario Lead: Carta de Despido -->
-        <div class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+        <div id="lead-form-carta" class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
                 <div>
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
                         <span class="material-icons text-amber-700 text-sm">gavel</span>
-                        Evaluación Legal Sin Costo
+                        Revisión Legal de Carta
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
                         ¿Tu carta de despido tiene errores o hechos vagos?
@@ -2831,7 +2963,7 @@ def get_lead_card_for_article(filename):
                 </div>
             </div>
 
-            <form id="lead-form-carta" onsubmit="enviarLeadArticulo(event, 'lead-form-carta', 'Guía: Carta de Despido')" class="space-y-4">
+            <form id="lead-form-carta-form" onsubmit="enviarLeadArticulo(event, 'lead-form-carta-form', 'Guía: Carta de Despido')" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
@@ -2862,16 +2994,16 @@ def get_lead_card_for_article(filename):
                     <button type="submit"
                         class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
                         <span class="material-icons text-base">outgoing_mail</span>
-                        Revisar Validez de mi Carta Gratis
+                        Revisar Validez de mi Carta
                     </button>
                     <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
                         <span class="material-icons text-emerald-600 text-xs">lock</span>
-                        Confidencial · Orientación laboral sin costo
+                        Confidencial · Orientación personalizada
                     </span>
                 </div>
             </form>
 
-            <div id="lead-form-carta-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+            <div id="lead-form-carta-form-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
                 <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
                 <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Consulta enviada!</h4>
                 <p class="text-sm text-emerald-800 max-w-md mx-auto">
@@ -2879,6 +3011,77 @@ def get_lead_card_for_article(filename):
                 </p>
             </div>
         </div>
+        <!-- FORMULARIO_LEAD_END -->
+        """
+    elif filename == "finiquito-por-renuncia-voluntaria.html":
+        return """
+        <!-- FORMULARIO_LEAD_START -->
+        <!-- Formulario Lead: Renuncia Forzada / Autodespido -->
+        <div id="lead-form-renuncia" class="my-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/50 shadow-sm relative overflow-hidden not-prose">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
+                        <span class="material-icons text-amber-700 text-sm">gavel</span>
+                        Orientación Legal Autodespido
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 !mt-0 !mb-1">
+                        ¿Te presionaron o forzaron a renunciar?
+                    </h3>
+                    <p class="text-sm text-slate-600 !mb-0">
+                        Si tu empleador incurrió en faltas graves o te obligó indebidamente a dimitir, podrías interponer un <strong>despido indirecto (autodespido)</strong> para demandar indemnizaciones por años de servicio con recargo legal. Un abogado laboralista aliado puede evaluar tu caso.
+                    </p>
+                </div>
+            </div>
+
+            <form id="lead-form-renuncia-form" onsubmit="enviarLeadArticulo(event, 'lead-form-renuncia-form', 'Guía: Renuncia Forzada / Autodespido')" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tu Nombre y Apellido *</label>
+                        <input type="text" name="nombre" placeholder="Ej: Ana Morales" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electrónico *</label>
+                        <input type="email" name="correo" placeholder="tu@correo.com" required
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Teléfono / WhatsApp (Opcional)</label>
+                        <input type="tel" name="telefono" placeholder="+56 9 1234 5678"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">¿Qué situación estás viviendo?</label>
+                        <input type="text" name="consulta" placeholder="Ej: No pagan cotizaciones / Hostigamiento / Presión"
+                            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+                    <button type="submit"
+                        class="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer">
+                        <span class="material-icons text-base">outgoing_mail</span>
+                        Solicitar Evaluación de mi Caso
+                    </button>
+                    <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
+                        <span class="material-icons text-emerald-600 text-xs">lock</span>
+                        100% Confidencial · Respuesta en 24h hábiles
+                    </span>
+                </div>
+            </form>
+
+            <div id="lead-form-renuncia-form-confirmacion" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">✓</div>
+                <h4 class="text-lg font-bold text-emerald-950 mb-1">¡Solicitud recibida correctamente!</h4>
+                <p class="text-sm text-emerald-800 max-w-md mx-auto">
+                    Hemos recibido tus antecedentes. Un abogado laboralista aliado examinará la viabilidad de un autodespido o reclamo y te contactará a la brevedad.
+                </p>
+            </div>
+        </div>
+        <!-- FORMULARIO_LEAD_END -->
         """
     return ""
 
@@ -2897,15 +3100,15 @@ for filename in articles:
     
     # Inject lead card if applicable
     lead_card_html = get_lead_card_for_article(filename)
-    if lead_card_html and "lead-form-" not in body:
+    if lead_card_html:
         placed = False
         for marker in ['<!-- Cross-links -->', '<!-- E-E-A-T Disclaimer -->', '<!-- E-E-A-T Reinforcement -->', '<!-- Disclaimer -->']:
             if marker in body:
-                body = body.replace(marker, lead_card_html + "\n" + marker, 1)
+                body = body.replace(marker, lead_card_html + "\n\n" + marker, 1)
                 placed = True
                 break
         if not placed:
-            body = body + "\n" + lead_card_html
+            body = body + "\n\n" + lead_card_html
 
     breadcrumbs = f"""
     <nav class="flex items-center gap-2 text-xs text-slate-400 mb-6 max-w-3xl mx-auto">
@@ -3742,7 +3945,7 @@ INDEX_CONTENT = """
             <div id="lead-section" class="mt-4 p-5 bg-gradient-to-br from-amber-50 to-amber-100/40 border-2 border-amber-300 rounded-2xl no-print hidden shadow-sm space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-200/80 text-amber-900 border border-amber-300">
-                  <span class="material-icons text-xs">gavel</span> Evaluación Sin Costo
+                  <span class="material-icons text-xs">gavel</span> Evaluación Legal Inicial
                 </span>
                 <span class="text-[11px] text-amber-700 font-medium">Abogados Laborales Aliados</span>
               </div>
@@ -3766,17 +3969,17 @@ INDEX_CONTENT = """
                 <button type="submit"
                   class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-98 cursor-pointer flex items-center justify-center gap-1.5">
                   <span class="material-icons text-sm">outgoing_mail</span>
-                  Solicitar Revisión Gratuita
+                  Solicitar Revisión Legal
                 </button>
               </form>
               <div id="lead-confirmacion" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
                 <span class="material-icons text-emerald-600 text-xl block mb-1">check_circle</span>
                 <p class="text-xs font-bold text-emerald-950">¡Solicitud recibida!</p>
-                <p class="text-[11px] text-emerald-800 mt-0.5">Te contactaremos para evaluar tu finiquito sin ningún costo.</p>
+                <p class="text-[11px] text-emerald-800 mt-0.5">Te contactaremos a la brevedad para evaluar tus antecedentes.</p>
               </div>
               <p class="text-[10px] text-amber-800 text-center flex items-center justify-center gap-1">
                 <span class="material-icons text-[12px] text-emerald-600">lock</span>
-                Confidencial · 100% Gratuito y sin compromiso
+                Confidencial · Sin cobros ocultos ni sorpresas
               </p>
             </div>
         </div>
